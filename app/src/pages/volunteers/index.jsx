@@ -1,10 +1,14 @@
 import React from 'react';
+import NavBar from '../../components/navbar/NavBar';
 
 // import { Container } from './styles';
 
 function Volunteers() {
   return (
-    <h1>Voluntários</h1>
+    <div>
+      <NavBar />
+      <h1>Voluntários</h1>
+    </div>
   );
 }
 

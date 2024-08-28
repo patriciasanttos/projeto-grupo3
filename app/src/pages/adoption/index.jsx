@@ -1,10 +1,14 @@
 import React from 'react';
+import NavBar from '../../components/navbar/NavBar';
 
 // import { Container } from './styles';
 
 function adoption() {
   return (
-    <h1>Adoção</h1>
+    <div>
+      <NavBar />
+      <h1>Adoção</h1>
+    </div>
   );
 }
 
