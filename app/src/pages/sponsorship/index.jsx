@@ -1,13 +1,20 @@
 import React from 'react';
+
 import NavBar from '../../components/navbar/NavBar';
+import Footer from '../../components/footer/Footer';
 
 // import { Container } from './styles';
 
 function Sponsorship() {
   return (
-    <div>
+    <div className='page_container'>
       <NavBar />
-      <h1>Apadrinhamento</h1>
+
+      <div>
+        <h1>Apadrinhamento</h1>
+      </div>
+
+      <Footer />
     </div>
   );
 }

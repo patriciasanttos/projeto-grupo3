@@ -1,13 +1,20 @@
 import React from 'react';
-import NavBar from '../../components/navbar/NavBar';
 
-// import { Container } from './styles';
+import NavBar from '../../components/navbar/NavBar';
+import Footer from '../../components/footer/Footer';
+
+// import styles from './styles.css';
 
 function LandingPage() {
   return (
-    <div>
+    <div className='page_container'>
       <NavBar />
-      <h1>Página inicial</h1>
+
+      <div>
+        <h1>Página inicial</h1>
+      </div>
+
+      <Footer />
     </div>
   );
 }
