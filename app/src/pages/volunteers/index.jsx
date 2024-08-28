@@ -1,13 +1,20 @@
 import React from 'react';
+
 import NavBar from '../../components/navbar/NavBar';
+import Footer from '../../components/footer/Footer';
 
 // import { Container } from './styles';
 
 function Volunteers() {
   return (
-    <div>
+    <div className='page_container'>
       <NavBar />
-      <h1>Voluntários</h1>
+
+      <div>
+        <h1>Voluntários</h1>
+      </div>
+
+      <Footer />
     </div>
   );
 }
