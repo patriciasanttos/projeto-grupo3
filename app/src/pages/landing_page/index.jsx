@@ -1,10 +1,14 @@
 import React from 'react';
+import NavBar from '../../components/navbar/NavBar';
 
 // import { Container } from './styles';
 
 function LandingPage() {
   return (
-    <h1>Página inicial</h1>
+    <div>
+      <NavBar />
+      <h1>Página inicial</h1>
+    </div>
   );
 }
 
