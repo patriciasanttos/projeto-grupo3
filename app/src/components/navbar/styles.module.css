@@ -1,5 +1,5 @@
 .navbar {
-    background-color: #5BB656;
+    background-color: var(--background-primary-color);
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -29,15 +29,15 @@
         }
 
         .link:hover {
-            border-bottom: #ffffffcf solid 1px;
-            color: #ffffffcf;
+            border-bottom: var(--text-hover-color) solid 1px;
+            color: var(--text-hover-color);
         }
     }
 }
 
 .donate_btn {
     border-style: none;
-    background-color: #26A59E;
+    background-color: var(--button-primary-color);
     color: #fff;
     font-size: 1.3rem;
     font-weight: 600;
@@ -51,5 +51,5 @@
 }
 
 .donate_btn:hover {
-    background-color: #1b9993;
+    background-color: var(--button-hover-color);
 }
