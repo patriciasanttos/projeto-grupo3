@@ -87,7 +87,7 @@
         text-decoration: none;
         color: #fff;
 
-        transition: color 0.3s ease, color 0.3s ease;
+        transition: color 0.3s ease;
     }
 
     .footer_contact_link a:hover {
