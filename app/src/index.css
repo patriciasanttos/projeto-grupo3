@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 :root {
+    --title-primary-color: #26A59E;
+    --title-secondary-color: #5BB656;
     --background-primary-color: #5BB656;
     --backroung-secondary-color: #404044;
     --text-hover-color: #ffffffcf;

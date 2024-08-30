@@ -1,0 +1,21 @@
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 5px #000;
+    width: 85%;
+
+    h2 {
+        font-size: 2rem;
+        margin: 5% 0 5% 0;
+    }
+
+    p {
+        margin: 0;
+        margin-bottom: 15%;
+    }
+
+    img {
+        width: 100.8%;
+        height: auto;
+    }
+}
