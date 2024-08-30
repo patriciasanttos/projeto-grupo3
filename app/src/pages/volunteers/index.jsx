@@ -1,6 +1,7 @@
-import React from "react";
+import { useState } from "react";
 
 import NavBar from "../../components/navbar/NavBar";
+import Menu from "../../components/menu/Menu";
 import Footer from "../../components/footer/Footer";
 
 import "./volunteers.css";
@@ -24,10 +25,13 @@ import whatsApp from "../../assets/icons/whatsapp.svg";
 // import { Container } from './styles';
 
 function Volunteers() {
+  const [selectedOption, setSelectedOption] = useState(null);
+  console.log("selectedOption: ", selectedOption);
   return (
     <div className="page_container">
       <NavBar />
 
+      {/* SEÇÃO DO TÍTULO E TEXTO SOBRE SER VOLUNTÁRIO */}
       <section className="volunteer-phrase">
         <h3 className="section-title">FAÇA A DIFERENÇA NA VIDA DE UM ANIMAL</h3>
         <h1 className="section-subtitle">Seja um voluntário</h1>
@@ -46,10 +50,12 @@ function Volunteers() {
         </p>
       </section>
 
+      {/* CONTEÚDO PRINCIPAL DA PÁGINA - TAREFAS DO VOLUNTÁRIO */}
       <main>
         <h3 className="main-title">FAÇA A DIFERENÇA NA VIDA DE UM ANIMAL</h3>
         <h1 className="main-subtitle">Seja um voluntário</h1>
 
+        {/* O QUE O VOLUNTÁRIO FAZ */}
         <section className="volunteer-info">
           <h4 className="volunteer-title">O que o voluntário faz</h4>
           <ul className="align-volunteers-info">
@@ -83,6 +89,7 @@ function Volunteers() {
             </div>
           </ul>
 
+          {/* INSTRUÇÕES PARA O VOLUNTÁRIO  */}
           <h4 className="volunteer-title">Instruções</h4>
           <ul className="align-volunteers-info">
             <div className="icon-text">
@@ -119,6 +126,7 @@ function Volunteers() {
             </div>
           </ul>
 
+          {/* INFORMAÇÕES PARA O VOLUNTÁRIO  */}
           <h4 className="volunteer-title">Informações</h4>
           <ul className="align-volunteers-info">
             <div className="icon-text">
@@ -144,9 +152,99 @@ function Volunteers() {
               </li>
             </div>
           </ul>
+
+          {/* FORMULÁRIO PARA SER VOLUNTÁRIO */}
+          <h4 className="form-title">Preencha o formulário</h4>
+          <div className="align-checkbox">
+            <div
+              id="over-18"
+              className="checkbox-form"
+              onClick={() => setSelectedOption("over-18")}
+              style={{
+                backgroundColor:
+                  selectedOption === "over-18" ? "#5BB656" : "white",
+              }}
+            ></div>
+            <p>Sou maior de 18 anos</p>
+            <div
+              id="under-18"
+              className="checkbox-form"
+              onClick={() => setSelectedOption("under-18")}
+              style={{
+                backgroundColor:
+                  selectedOption === "under-18" ? "#5BB656" : "white",
+              }}
+            ></div>
+            <p>Sou menor de 18 anos</p>
+          </div>
+          <section className="text-form">
+            {selectedOption === "over-18" && (
+              <div>
+                <p>
+                Pelo presente Termo de Adesão e ciente da Lei n. 9.608/1998 que
+                rege o trabalho voluntário,decido espontaneamente realizar
+                atividade voluntária nesta organização. <br />Declaro, ainda, que
+                estou ciente de que o trabalho não será remunerado e que não
+                configurará vínculo empregatício ou gerará qualquer obrigação de
+                natureza trabalhista, previdenciária ou afim. <br />Declaro, por fim,
+                que estou ciente de que eventuais danos pessoais ou materiais
+                causados no exercício do trabalho voluntário serão de total e
+                integral responsabilidade minha e não serão imputados à esta
+                organização.
+              </p>
+            
+              <form className="volunteers-form" action="">
+                <div className="align-form">
+                  <input type="text" name="Nome" id="" placeholder="Nome completo" />
+                  <input type="text" name="E-mail" id="" placeholder="E-mail" />
+                  <input type="text" name="Endereço" id="" placeholder="Endereço completo" />
+                </div>
+                <div className="align-form">
+                  <input type="number" name="Celular" id="" placeholder="Celular" />
+                  <input type="text" name="Profissão" id="" placeholder="Profissão" />
+                  <input type="text" name="Disponibilidade" id="" placeholder="Disponibilidade de horas na semana" />
+                </div>
+              </form>
+                <button>Enviar</button>
+                </div>
+            )}
+
+            {selectedOption === "under-18" && (
+              <div>
+                <p>
+                Pela presente Autorização e ciente da Lei n. 9.608/1998 que rege
+                o trabalho voluntário, da Constituição Federal e do Estatuto da
+                Criança e do Adolescente que proíbem o trabalho noturno,
+                perigoso ou insalubre a menores de dezoito anos, autorizo meu
+                filho(a) a realizar atividade voluntária nesta organização.
+                <br />Declaro, ainda, que tenho conhecimento e estou de acordo com os
+                objetivos e a metodologia usada nas atividades e estou ciente de
+                que o projeto tem cunho educacional e social. <br />Declaro, por fim,
+                que estou ciente de que o trabalho não será remunerado e que não
+                configurará vínculo empregatício ou gerará qualquer obrigação de
+                natureza trabalhista, previdenciária ou afim.
+                </p>
+                <form className="volunteers-form" action="">
+                <div className="align-form">
+                  <input type="text" name="Nome Responsável" id="" placeholder="Nome do responsável" />
+                  <input type="text" name="Nome do menor" id="" placeholder="Nome do menor" />
+                  <input type="text" name="E-mail" id="" placeholder="E-mail" />
+                  <input type="text" name="Endereço" id="" placeholder="Endereço completo" />
+                </div>
+                <div className="align-form">
+                  <input type="number" name="Celular" id="" placeholder="Celular" />
+                  <input type="text" name="Período aula" id="" placeholder="Período que estuda" />
+                  <input type="text" name="Disponibilidade" id="" placeholder="Disponibilidade de horas na semana" />
+                </div>
+              </form>
+              <button>Enviar</button>
+              </div>
+            )}
+          </section>
         </section>
       </main>
 
+      <Menu />
       <Footer />
     </div>
   );
