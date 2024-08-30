@@ -1,42 +1,112 @@
-section {
-    background-image: url('../../assets/images/bg-gray-paw.svg');
-    background-size: cover;
-    background-repeat: no-repeat;
-
-    text-align: center;
-    padding-top: 110px;
-
-
-    .call-title {
-        color: #26A59E;
-        font-weight: 900;
-        font-size: 1.2rem;
+    h1,
+    h3 {
+        text-align: center;
         margin: 0;
-        padding: 0 20px 0 20px;
     }
 
-    .call-subtitle {
-        color: #5BB656;
-        font-weight: 900;
-        font-size: 3rem;
-        margin: 0;
-        padding: 0 10px 0 10px;
+
+    .volunteer-phrase {
+        background-image: url('../../assets/images/bg-gray-paw.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+
+        text-align: center;
+        padding: 5% 0 5% 0;
+
+        .section-title {
+            color: var(--button-primary-color);
+            font-weight: 900;
+            font-size: 1.2rem;
+        }
+
+        .section-subtitle {
+            color: var(--background-primary-color);
+            font-weight: 900;
+            font-size: 3rem;
+
+        }
+
+        .section-text {
+            color: black;
+            font-size: 1.5rem;
+        }
+
+        .section-text-1 {
+            padding-top: 5%;
+            text-align: center;
+
+        }
+
     }
 
-    .call-text {
-        color: black;
-        font-size: 1.5rem;
+    main {
+        background-image: url('../../assets/images/bg-white-paw.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+
+        text-align: center;
+        padding-top: 5%;
+
+        .main-title {
+            color: var(--button-primary-color);
+            font-weight: 900;
+            font-size: 1rem;
+        }
+
+        .main-subtitle {
+            color: var(--background-primary-color);
+            font-weight: 700;
+            font-size: 2.5rem;
+        }
+
+        .volunteer-info {
+            width: 80vw;
+
+            margin: auto;
+
+            .volunteer-title {
+                color: var(--background-primary-color);
+
+                padding: 5% 0 3% 13%;
+                margin: 0;
+
+                font-size: 1.8rem;
+                text-align: left;
+
             }
 
-    .call-text-1 {
-        padding: 50px 40px 0 40px;
+            .align-volunteers-info {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
 
+                width: 80vw;
+                margin: 0;
+            }
+
+            .icon-text {
+                display: flex;
+                flex-direction: column;
+                flex-wrap: wrap;
+
+                padding-left: 20%;
+                font-size: 1.4rem;
+            }
+
+            li {
+                list-style-type: none;
+                color: black;
+
+                display: flex;
+                flex-direction: row;
+
+                align-items: center;
+                text-align: left;
+                padding-bottom: 4%;
+
+                img {
+                    margin-right: 3%;
+                }
+            }
+
+        }
     }
-
-    .call-text-2 {
-        padding: 20px 40px 110px 40px;
-
-    }
-
-
-}
