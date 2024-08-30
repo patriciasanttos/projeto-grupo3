@@ -5,6 +5,7 @@ import Menu from '../../components/menu/Menu';
 import Footer from '../../components/footer/Footer';
 
 import './donation.css';
+import DonationCard from '../../components/card_donation/DonationCard';
 
 // import { Container } from './styles';
 
@@ -29,6 +30,8 @@ function Donation() {
 
       <section className="section-information">
           <div className='cards-donation'>
+
+            <DonationCard/>
              
              
 
