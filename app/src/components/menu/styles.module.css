@@ -3,6 +3,7 @@
     grid-auto-flow: column;
     grid-template-columns: 1fr 1fr 1fr;
 
+    padding: 0;
     height: 50vh;
 
     div {
