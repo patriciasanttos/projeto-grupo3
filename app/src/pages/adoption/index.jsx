@@ -5,9 +5,10 @@ import styles from './styles.module.css';
 import NavBar from '../../components/navbar/NavBar';
 import Footer from '../../components/footer/Footer';
 import ContentHero from '../../components/contentHero/ContentHero';
-import Card from '../../components/card/Card';
+import CardAnimal from '../../components/cardAnimal/CardAnimal';
 import imageDog1 from '../../assets/images/dog1.svg';
 import FilterSidebar from '../../components/filterSideBar/FilterSideBar';
+import Menu from '../../components/menu/Menu';
 
 function Adoption() {
   const animals = [
@@ -39,7 +40,7 @@ function Adoption() {
         
           <div className={styles.cardContainer}>
             {animals.map(animal => (
-              <Card
+              <CardAnimal
                 key={animal.id}
                 image={animal.image}
                 name={animal.name}
@@ -51,6 +52,7 @@ function Adoption() {
           </div>
         </div>
       </div>
+      <Menu/>
       <Footer />
     </div>
   );
