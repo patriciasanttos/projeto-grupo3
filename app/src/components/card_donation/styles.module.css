@@ -4,7 +4,9 @@
     display: flex;
     justify-content:center;
     gap: 2rem;
-    margin-bottom: 3rem;
+    margin-bottom: 5rem;
+    margin-top: 1px;
+    padding: 0rem;
 
     .icon_donation{
         background-color: var(--background-primary-color);
