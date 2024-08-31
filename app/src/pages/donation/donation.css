@@ -4,8 +4,7 @@
     background-repeat: no-repeat;
 
     text-align: center;
-    padding-top: 110px;
-
+    padding-top: 3rem;
 
     .call-title {
         color: #26A59E;
@@ -34,7 +33,7 @@
     }
 
     .call-text-2 {
-        padding: 20px 40px 40px 40px;
+        padding: 20px 40px 10px 40px;
 
     }
 
@@ -42,4 +41,74 @@
 
 .section-information{
     background-image: url('../../assets/images/bg-white-paw.svg');
+    
+}
+
+.ways-to-donate{
+
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 3rem;
+        
+}
+
+.left {
+    flex: 5;
+    text-align: left;
+    margin-left: 12.3rem;
+
+
+}
+
+.right {
+    flex: 5;
+    text-align: left;
+}
+
+.right h4 {
+     color: var(--background-primary-color);
+     padding: 0rem;
+     margin: 0rem;
+
+}
+
+.ways-to-donate h3 {
+    color: var(--background-primary-color);
+    
+
+}
+
+.ways-to-donate p, li{
+    color: black;
+}
+
+
+.right p{
+    margin-top: 0rem;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover{
+    color: gray;
+}
+
+.text-call-platform h3{
+    color: var(--background-primary-color);
+}
+
+
+.digital-platform{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 5rem;
+    margin-top: 2rem;
+}
+
+.digital-platform img{
+    width: 15rem;
+  
 }
