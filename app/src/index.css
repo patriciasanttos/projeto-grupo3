@@ -1,5 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
+:root {
+    --title-primary-color: #26A59E;
+    --title-secondary-color: #5BB656;
+    --background-primary-color: #5BB656;
+    --backroung-secondary-color: #404044;
+    --text-hover-color: #ffffffcf;
+    --button-primary-color: #26A59E;
+    --button-hover-color: #1b9993;
+}
+
 html, body {
     color: #fff;
     font-family: 'Inter';
@@ -12,8 +22,4 @@ html, body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-}
-
-.container {
-    flex: 1;
 }
