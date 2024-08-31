@@ -4,7 +4,7 @@ import styles from './styles.module.css';
 
 const menuItems = [
   { title: 'Faça uma doação', description: 'Ajude a manter nosso trabalho', buttonText: 'Doar' },
-  { title: 'Seja uma madrinha ou padrinho', description: 'Canditate-se para adoção responsável', buttonText: 'Apadrinhar' },
+  { title: 'Apadrinhe', description: 'Canditate-se para adoção responsável', buttonText: 'Apadrinhar' },
   { title: 'Adote', description: 'Ajude a manter nosso trabalho', buttonText: 'Adotar' },
   { title: 'Seja um voluntário', description: 'Saiba como você pode nos ajudar', buttonText: 'Quero ajudar' }
 ]
