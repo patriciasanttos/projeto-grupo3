@@ -21,7 +21,6 @@ function Donation() {
     <div className='page_container'>
       <NavBar />
 
-
       <section className="section-call">
       <h3 className="call-title">FAÇA A DIFERENÇA NA VIDA DE UM ANIMAL</h3>
         <h1 className="call-subtitle"> Faça uma doação </h1>
@@ -116,19 +115,9 @@ function Donation() {
               </a>
 
           </div>
-
-
-
-
-
-
       </section>
 
-
-      
-    
-
-      <Menu />
+      <Menu currentPage='donation' />
       <Footer />
     </div>
   );

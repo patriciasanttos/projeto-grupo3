@@ -1,0 +1,31 @@
+.filterSidebar {
+  color: black;
+  width: 400px;
+  padding: 20px;
+
+    .filterGroup {
+      display: flex;
+      flex-direction: column;
+      margin: 10px;
+    }
+    
+    .filterGroup label {
+      display: flex;
+      margin-bottom: 10px;
+      gap: 10px;
+    }
+
+    .title{
+      color: #26A59E;
+      font-weight: bold;
+    }
+
+    .filterGroup select,
+    .filterGroup input {
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }  
+}
+  
+  
