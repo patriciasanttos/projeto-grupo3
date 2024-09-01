@@ -5,13 +5,14 @@
 
     text-align: center;
     padding-top: 3rem;
-
+}
     .call-title {
         color: #26A59E;
         font-weight: 900;
         font-size: 1.2rem;
         margin: 0;
         padding: 0 20px 0 20px;
+        margin-top: 4rem;
     }
 
     .call-subtitle {
@@ -37,7 +38,7 @@
 
     }
 
-}
+
 
 .section-information{
     background-image: url('../../assets/images/bg-white-paw.svg');
@@ -69,11 +70,14 @@
      color: var(--background-primary-color);
      padding: 0rem;
      margin: 0rem;
+     font-size: 18px;
+     text-align: left;
 
 }
 
 .ways-to-donate h3 {
     color: var(--background-primary-color);
+    text-align: left;
     
 
 }
