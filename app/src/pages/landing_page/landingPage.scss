@@ -1,3 +1,7 @@
+h1, h3 {
+    margin: 0;
+}
+
 .hero {
     background-color: var(--background-primary-color);
     border-top: 1px solid white;
@@ -43,6 +47,10 @@
         transition: background-color 0.3s ease;
     }
 
+    .btn-donation:hover {
+        background-color: var(--button-hover-color);
+    }
+
     .hero-dog {
         width: 45vw;
 
@@ -53,4 +61,42 @@
         position: relative;
         bottom: 150px;
     }
+}
+
+.section-adoption {
+    background-image: url('../../assets/images/background.svg');
+    background-repeat: no-repeat;
+
+    .adoption-subtitle {
+        color: var(--title-primary-color);
+        font-size: 1rem;
+        font-weight: 800;
+    }
+
+    .adoption-title {
+        color: var(--background-primary-color);
+        font-size: 2rem;
+        padding-bottom: 2%;
+    }
+
+    .btn-adoption {
+        border-style: none;
+        background-color: var(--button-primary-color);
+        color: #fff;
+        font-size: 1.1rem;
+        font-weight: 600;
+
+        margin: 0 0 3% 43%;
+        width: 13%;
+        height: 3rem;
+        border-radius: 5px;
+
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-adoption:hover {
+            background-color: var(--button-hover-color);
+        }
+
 }

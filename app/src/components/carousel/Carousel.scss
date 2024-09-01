@@ -1,0 +1,23 @@
+    .flex-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .carousel {
+        @extend .flex-row;
+        color: black;
+
+        .container-cards {
+            @extend .flex-row;
+            gap: 5%;
+
+            width: 60%;
+            margin-bottom: 5%;
+        }
+
+        .arrow {
+            cursor: pointer;
+        }
+    }
