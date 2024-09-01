@@ -52,7 +52,7 @@ function Adoption() {
           </div>
         </div>
       </div>
-      <Menu/>
+      <Menu currentPage='adoption' />
       <Footer />
     </div>
   );

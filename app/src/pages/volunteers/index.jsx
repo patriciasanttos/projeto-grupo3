@@ -244,7 +244,7 @@ function Volunteers() {
         </section>
       </main>
 
-      <Menu />
+      <Menu currentPage='volunteers' />
       <Footer />
     </div>
   );
