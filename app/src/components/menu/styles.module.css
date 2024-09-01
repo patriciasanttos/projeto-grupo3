@@ -10,6 +10,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        text-align: center;
+        padding-top: 10%;
 
         h1 {
             font-size: 2.4rem;
@@ -38,18 +40,27 @@
     .menu_btn {
         border-style: none;
         background-color: var(--button-primary-color);
-        color: #fff;
-        font-size: 1.3rem;
-        font-weight: 600;
-    
+
         width: 50%;
         height: 2.8rem;
         border-radius: 5px;
-
         box-shadow: 0 1px 5px #000;
+
+        display: flex;
+        justify-content: center;
     
         cursor: pointer;
         transition: background-color 0.3s ease;
+
+        button {
+            border-style: none;
+            background: none;
+            cursor: pointer;
+
+            color: #fff;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
     }
     
     .menu_btn:hover {

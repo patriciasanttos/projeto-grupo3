@@ -15,7 +15,7 @@ function AboutUs() {
     <div className='page-container'>
       <NavBar />
 
-      <div className='main-container'>
+      <div className='aboutus-container'>
         <main className='aboutus-main'>
           <p className='title'>CONHEÇA A NOSSA HISTÓRIA</p>
           <h1 className='subtitle'>ONG SJPA</h1>
