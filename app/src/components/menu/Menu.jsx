@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
 import styles from './styles.module.css';
+import { Link } from 'react-router-dom';
 
 const menuItems = [
-  { title: 'Faça uma doação', description: 'Ajude a manter nosso trabalho', buttonText: 'Doar' },
-  { title: 'Apadrinhe', description: 'Canditate-se para adoção responsável', buttonText: 'Apadrinhar' },
-  { title: 'Adote', description: 'Ajude a manter nosso trabalho', buttonText: 'Adotar' },
-  { title: 'Seja um voluntário', description: 'Saiba como você pode nos ajudar', buttonText: 'Quero ajudar' }
+  { title: 'Faça uma doação', description: 'Ajude a manter nosso trabalho', buttonText: 'Doar', url: '/donation' },
+  { title: 'Apadrinhe', description: 'Nos ajude a manter os cuidados de um animal', buttonText: 'Apadrinhar', url: '/sponsorship' },
+  { title: 'Adote', description: 'Canditate-se para adoção responsável', buttonText: 'Adotar', url: '/adoption' },
+  { title: 'Seja um voluntário', description: 'Saiba como você pode nos ajudar', buttonText: 'Quero ajudar', url: '/volunteers' }
 ]
 
 function Menu({ currentPage }) {
@@ -35,7 +36,9 @@ function Menu({ currentPage }) {
 
         <p>{menu[0].description}</p>
 
-        <button className={styles.menu_btn}>{menu[0].buttonText}</button>
+        <Link className={styles.menu_btn} to={menu[0].url} onClick={() => window.scrollTo(0, 0)}>
+          <button>{menu[0].buttonText}</button>
+        </Link>
       </div>
 
       <div className={styles.menu_center}>
@@ -43,7 +46,9 @@ function Menu({ currentPage }) {
 
         <p>{menu[1].description}</p>
 
-        <button className={styles.menu_btn}>{menu[1].buttonText}</button>
+        <Link className={styles.menu_btn} to={menu[1].url} onClick={() => window.scrollTo(0, 0)}>
+          <button>{menu[1].buttonText}</button>
+        </Link>
       </div>
 
       <div className={styles.menu_right}>
@@ -51,7 +56,9 @@ function Menu({ currentPage }) {
 
         <p>{menu[2].description}</p>
 
-        <button className={styles.menu_btn}>{menu[2].buttonText}</button>
+        <Link className={styles.menu_btn} to={menu[2].url} onClick={() => window.scrollTo(0, 0)}>
+          <button>{menu[2].buttonText}</button>
+        </Link>
       </div>
     </section>
   );
