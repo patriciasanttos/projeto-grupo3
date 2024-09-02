@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import NavBar from "../../components/navbar/NavBar";
 import Footer from "../../components/footer/Footer";
 import Carousel from "../../components/carousel/Carousel";
-
+import DonationCard from "../../components/card_donation/DonationCard";
 // import styles from './styles.css';
 import "./landingPage.scss";
 
@@ -152,10 +152,19 @@ function LandingPage() {
               </div>
             </div>
             <Link to="/volunteers">
-              <button className="btn-volunteer btn">Quero ser voluntário</button>
+              <button className="btn-volunteer btn">
+                Quero ser voluntário
+              </button>
             </Link>
           </div>
         </section>
+      </section>
+      
+      <section className="donation-section">
+        <h3 className="donation-subtitle">APOIE A NOSSA CAUSA</h3>
+        <h1 className="donation-title">Faça uma doação</h1>
+        <DonationCard />
+        <button className="btn-donation-lp btn">Outras formas de doar</button>
       </section>
       <Footer />
     </div>
