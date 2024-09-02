@@ -1,10 +1,21 @@
-h1, h3 {
+h1,
+h3 {
     margin: 0;
+}
+
+.subtitle {
+    color: var(--title-primary-color);
+    font-size: 1rem;
+}
+
+.title {
+    color: var(--background-primary-color);
+    font-size: 2rem;
 }
 
 .hero {
     background-color: var(--background-primary-color);
-    border-top: 1px solid white;
+    border-top: 1px solid rgb(191, 189, 189);
 
     height: 100vh;
     // height: calc(100% - 20vw);
@@ -68,14 +79,10 @@ h1, h3 {
     background-repeat: no-repeat;
 
     .adoption-subtitle {
-        color: var(--title-primary-color);
-        font-size: 1rem;
         font-weight: 800;
     }
 
     .adoption-title {
-        color: var(--background-primary-color);
-        font-size: 2rem;
         padding-bottom: 2%;
     }
 
@@ -95,8 +102,51 @@ h1, h3 {
         transition: background-color 0.3s ease;
     }
 
-        .btn-adoption:hover {
-            background-color: var(--button-hover-color);
-        }
+    .btn-adoption:hover {
+        background-color: var(--button-hover-color);
+    }
+
+}
+
+.partner {
+    background-image: url('../../assets/images/background_2.svg');
+    padding-bottom: 5%;
+
+    .partner-subtitle {
+        padding-top: 3%;
+    }
+
+    .partner-title {
+        padding-bottom: 3%;
+    }
+
+    .align-partner-cards {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+
+        width: 80vw;
+        padding-left: 9%;
+    }
+
+         .btn-partner {
+             border-style: none;
+             background-color: var(--button-primary-color);
+             color: #fff;
+             font-size: 1.1rem;
+             font-weight: 600;
+    
+             margin: 3% 0 0 43%;
+             width: 13%;
+             height: 3rem;
+             border-radius: 5px;
+    
+             cursor: pointer;
+             transition: background-color 0.3s ease;
+         }
+    
+         .btn-partner:hover {
+             background-color: var(--button-hover-color);
+         }
 
 }

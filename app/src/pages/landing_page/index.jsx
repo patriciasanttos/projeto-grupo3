@@ -12,6 +12,7 @@ import "./landingPage.scss";
 import heroDog from "../../assets/images/hero-dog.png";
 import Waves from '../../assets/images/hero-waves.svg'
 import imageDog1 from "../../assets/images/dog1.svg";
+import partnerImg from "../../assets/images/partner-img.svg";
 
 
 function LandingPage() {
@@ -52,10 +53,28 @@ function LandingPage() {
       </section>
 
       <section className="section-adoption">
-        <h3 className="adoption-subtitle">CONHEÇA ALGUNS DE NOSSOS ANIMAIS</h3>
-        <h1 className="adoption-title">Adote seu novo companheiro!</h1>
+        <h3 className="subtitle adoption-subtitle">
+          CONHEÇA ALGUNS DE NOSSOS ANIMAIS
+        </h3>
+        <h1 className="title adoption-title">Adote seu novo companheiro!</h1>
         <Carousel animals={animals} />
-        <button className="btn-adoption">Conheça mais animais</button>
+        <Link to="/adoption">
+          <button className="btn-adoption">Conheça mais animais</button>
+        </Link>
+
+        <section className="partner">
+          <h3 className="subtitle partner-subtitle">JUNTE-SE A NÓS</h3>
+          <h1 className=" title partner-title">Seja um parceiro</h1>
+          <div className="align-partner-cards">
+            <img src={partnerImg} alt="" />
+            <img src={partnerImg} alt="" />
+            <img src={partnerImg} alt="" />
+            <img src={partnerImg} alt="" />
+          </div>
+          <a href="https://api.whatsapp.com/send?phone=553299655493" target="blank">
+            <button className="btn-partner">Quero ser parceiro</button>
+          </a>
+        </section>
       </section>
       <Footer />
     </div>
