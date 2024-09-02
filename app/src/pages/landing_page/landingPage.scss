@@ -13,6 +13,31 @@ h3 {
     font-size: 2rem;
 }
 
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    justify-content: space-evenly;
+}
+
+.btn {
+    border-style: none;
+    background-color: var(--button-primary-color);
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 600;
+    border-radius: 5px;
+
+    height: 3rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: var(--button-hover-color);
+}
+
 .hero {
     background-color: var(--background-primary-color);
     border-top: 1px solid rgb(191, 189, 189);
@@ -43,23 +68,9 @@ h3 {
     }
 
     .btn-donation {
-        border-style: none;
-        background-color: var(--button-primary-color);
-        color: #fff;
-        font-size: 1.3rem;
-        font-weight: 600;
-
         margin-left: 30%;
         width: 30%;
         height: 2.8rem;
-        border-radius: 5px;
-
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-    .btn-donation:hover {
-        background-color: var(--button-hover-color);
     }
 
     .hero-dog {
@@ -87,23 +98,10 @@ h3 {
     }
 
     .btn-adoption {
-        border-style: none;
-        background-color: var(--button-primary-color);
-        color: #fff;
         font-size: 1.1rem;
-        font-weight: 600;
 
         margin: 0 0 3% 43%;
         width: 13%;
-        height: 3rem;
-        border-radius: 5px;
-
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-    .btn-adoption:hover {
-        background-color: var(--button-hover-color);
     }
 
 }
@@ -129,24 +127,68 @@ h3 {
         padding-left: 9%;
     }
 
-         .btn-partner {
-             border-style: none;
-             background-color: var(--button-primary-color);
-             color: #fff;
-             font-size: 1.1rem;
-             font-weight: 600;
-    
-             margin: 3% 0 0 43%;
-             width: 13%;
-             height: 3rem;
-             border-radius: 5px;
-    
-             cursor: pointer;
-             transition: background-color 0.3s ease;
-         }
-    
-         .btn-partner:hover {
-             background-color: var(--button-hover-color);
-         }
+    .btn-partner {
+        font-size: 1.1rem;
 
+        margin: 3% 0 0 43%;
+        width: 13%;
+    }
+}
+
+.sponsor-volunteer {
+    background-image: url('../../assets/images/background.svg');
+
+    .sponsor-section {
+        @extend .flex-row;
+
+        .sponsor-text {
+            color: black;
+            text-align: center;
+        }
+    }
+
+    .btn-sponsor {
+        font-size: 1rem;
+        width: 45%;
+    }
+}
+
+.volunteer-section {
+    @extend .flex-row;
+
+    .icon-container {
+        width: 100%;
+        padding: 10px;
+        display: flex;
+        flex-direction: row;
+        overflow: hidden;
+
+        color: black;
+
+        .icon-column {
+            width: 100%;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+
+            .icon-text {
+                width: 180px;
+                display: flex;
+                flex-direction: row;
+                justify-content: start;
+                align-items: center;
+                text-align: left;
+
+                img {
+                    margin-right: 10px;
+                }
+
+            }
+        }
+    }
+
+    .btn-volunteer {
+        margin-top: 5%;
+        font-size: 1rem;
+    }
 }
