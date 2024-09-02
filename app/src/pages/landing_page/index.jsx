@@ -159,12 +159,14 @@ function LandingPage() {
           </div>
         </section>
       </section>
-      
+
       <section className="donation-section">
         <h3 className="donation-subtitle">APOIE A NOSSA CAUSA</h3>
         <h1 className="donation-title">Faça uma doação</h1>
         <DonationCard />
-        <button className="btn-donation-lp btn">Outras formas de doar</button>
+        <Link to="/donation">
+          <button className="btn-donation-lp btn">Outras formas de doar</button>
+        </Link>
       </section>
       <Footer />
     </div>
