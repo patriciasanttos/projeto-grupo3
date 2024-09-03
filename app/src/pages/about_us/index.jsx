@@ -1,6 +1,7 @@
 import React from 'react';
 
 import NavBar from '../../components/navbar/NavBar';
+//import ContentTitles from '../../components/contentTitles/ContentTitles';
 import Menu from '../../components/menu/Menu';
 import Footer from '../../components/footer/Footer';
 
@@ -16,7 +17,11 @@ function AboutUs() {
       <NavBar />
 
       <div className='aboutus-container'>
-        <main className='aboutus-main'>
+          <main className='aboutus-main'>
+          {/*<ContentTitles
+            title = "ONG SJPA"
+            subtitle = "Conheça a nossa história"
+          />*/}
           <p className='title'>CONHEÇA A NOSSA HISTÓRIA</p>
           <h1 className='subtitle'>ONG SJPA</h1>
 

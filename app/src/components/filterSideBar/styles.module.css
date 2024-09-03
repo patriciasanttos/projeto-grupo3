@@ -2,6 +2,7 @@
   color: black;
   width: 400px;
   padding: 20px;
+  padding-left: 20px;
 
     .filterGroup {
       display: flex;

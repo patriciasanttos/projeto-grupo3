@@ -1,6 +1,7 @@
 import React from 'react';
 
 import NavBar from '../../components/navbar/NavBar';
+import ContentHero from '../../components/contentHero/ContentHero';
 import Menu from '../../components/menu/Menu';
 import Footer from '../../components/footer/Footer';
 
@@ -18,13 +19,12 @@ function Contact() {
       <NavBar />
 
       <div className='contact-page-container'>
-        <header className='contact-page-header'>
-          <h2 className='title'>JUNTOS PODEMOS FAZER A DIFERENÇA!</h2>
-          <h1 className='subtitle'>Entre em contato e faça parte dessa causa</h1>
-
-          <p>Você ama os animais e quer ajudar a proporcionar uma vida melhor para eles? <br />
-          Nossa ONG está comprometida em cuidar e encontrar lares amorosos para animais abandonados. Precisamos do seu apoio!</p>
-        </header>
+        <ContentHero
+           title ="Entre em contato e faça parte dessa causa" 
+           subtitle="Juntos podemos fazer a diferença!" 
+           text="Você ama os animais e quer ajudar a proporcionar uma vida melhor para eles?"
+           text2="Nossa ONG está comprometida em cuidar e encontrar lares amorosos para animais abandonados. Precisamos do seu apoio!"    
+        />
         
         <main className="contact-page-main">
           <h2 className="title">COMO NOS ENCONTRAR</h2>
