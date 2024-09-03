@@ -99,7 +99,7 @@ function Sponsorship() {
           >
             &raquo; 
           </button>
-        </div>
+      </div>
     </div>
     
     <Menu currentPage='adoption' />

@@ -1,0 +1,18 @@
+.subtitle {
+    margin: 0px;
+    font-size: 1rem;
+    font-weight: 700;
+    
+    color: var(--title-primary-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+  
+.title {
+    margin-top: 10px;
+    margin-bottom: 40px;
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--title-secondary-color);
+}
+  

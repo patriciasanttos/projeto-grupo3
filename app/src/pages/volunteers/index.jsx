@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import NavBar from "../../components/navbar/NavBar";
+import ContentHero from '../../components/contentHero/ContentHero';
 import Menu from "../../components/menu/Menu";
 import Footer from "../../components/footer/Footer";
 
@@ -32,23 +33,13 @@ function Volunteers() {
       <NavBar />
 
       {/* SEÇÃO DO TÍTULO E TEXTO SOBRE SER VOLUNTÁRIO */}
-      <section className="volunteer-phrase">
-        <h3 className="section-title">FAÇA A DIFERENÇA NA VIDA DE UM ANIMAL</h3>
-        <h1 className="section-subtitle">Seja um voluntário</h1>
-        <p className="section-text section-text-1">
-          Voluntariar-se é uma forma incrível de conectar-se com seres que
-          possuem um amor puro <br />e incondicional para oferecer. Além disso,
-          você estará cercado por uma comunidade de <br />
-          pessoas que compartilham o mesmo amor e respeito pelos animais. <br />
-        </p>
-        <p className="section-text section-text-2">
-          Não é necessário ter experiência anterior, tudo o que pedimos é um
-          coração aberto e
-          <br />
-          vontade de fazer a diferença. Os animais precisam de você, e cada
-          gesto de amor conta!
-        </p>
-      </section>
+      <ContentHero
+           title ="Seja um voluntário" 
+           subtitle="Faça a diferença na vida de um animal" 
+           text="Voluntariar-se é uma forma incrível de conectar-se com seres que possuem um amor puro e incondicional para oferecer. Além disso,
+           você estará cercado por uma comunidade de pessoas que compartilham o mesmo amor e respeito pelos animais."
+           text2="Não é necessário ter experiência anterior, tudo o que pedimos é um coração aberto e vontade de fazer a diferença. Os animais precisam de você, e cada gesto de amor conta!"    
+      />
 
       {/* CONTEÚDO PRINCIPAL DA PÁGINA - TAREFAS DO VOLUNTÁRIO */}
       <main>
