@@ -34,6 +34,21 @@ h3 {
     transition: background-color 0.3s ease;
 }
 
+.align-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.margin-btn {
+    margin-bottom: 50px;
+}
+
+.margin-top-btn {
+    margin-top: 40px;
+}
+
 .btn:hover {
     background-color: var(--button-hover-color);
 }
@@ -69,8 +84,11 @@ h3 {
 
     .btn-donation {
         margin-left: 30%;
-        width: 30%;
         height: 2.8rem;
+
+        button {
+            width: 140px;
+        }
     }
 
     .hero-dog {
@@ -99,16 +117,13 @@ h3 {
 
     .btn-adoption {
         font-size: 1.1rem;
-
-        margin: 0 0 3% 43%;
-        width: 13%;
     }
 
 }
 
 .partner {
     background-image: url('../../assets/images/background_2.svg');
-    padding-bottom: 5%;
+    padding-bottom: 3%;
 
     .partner-subtitle {
         padding-top: 3%;
@@ -129,9 +144,6 @@ h3 {
 
     .btn-partner {
         font-size: 1.1rem;
-
-        margin: 3% 0 0 43%;
-        width: 13%;
     }
 }
 
@@ -197,19 +209,15 @@ h3 {
     background-image: url('../../assets/images/bg-donation.svg');
 
     .donation-subtitle {
-            font-size: 1, 1rem;
-            font-weight: 900;
-            color: black;
-    
-            margin-top: 5%;
-        }
-    
-        .donation-title {
-            font-size: 2.5rem;
-        }
-    
-        .btn-donation-lp {
-            margin: 0 0 5% 43%;
-        }
+        font-size: 1, 1rem;
+        font-weight: 900;
+        color: black;
+
+        margin-top: 5%;
+    }
+
+    .donation-title {
+        font-size: 2.5rem;
+    }
 
 }

@@ -5,13 +5,13 @@ import NavBar from "../../components/navbar/NavBar";
 import Footer from "../../components/footer/Footer";
 import Carousel from "../../components/carousel/Carousel";
 import DonationCard from "../../components/card_donation/DonationCard";
+import {animals} from './animals'
 // import styles from './styles.css';
 import "./landingPage.scss";
 
 // import images
 import heroDog from "../../assets/images/hero-dog.png";
-import Waves from '../../assets/images/hero-waves.svg'
-import imageDog1 from "../../assets/images/dog1.svg";
+import Waves from "../../assets/images/hero-waves.svg";
 import partnerImg from "../../assets/images/partner-img.svg";
 import sponsorImg from "../../assets/images/sponsor-img.svg";
 import volunteerImg from "../../assets/images/volunteer-img.svg";
@@ -24,20 +24,7 @@ import cat from "../../assets/icons/cat.svg";
 import socialMedia from "../../assets/icons/social-media.svg";
 import bath from "../../assets/icons/bath.svg";
 
-
 function LandingPage() {
-
-    const animals = [
-    { id: 1, image: imageDog1, name: 'Julia', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '3 anos' },
-    { id: 2, image: imageDog1, name: 'Max', gender: 'Macho', breed: 'Sem Raça Definida', age: '2 anos' },
-    { id: 3, image: imageDog1, name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos' },
-    { id: 4, image: imageDog1, name: 'Billy', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '3 anos' },
-    { id: 5, image: imageDog1, name: 'Pipoca', gender: 'Macho', breed: 'Sem Raça Definida', age: '2 anos' },
-    { id: 6, image: imageDog1, name: 'Costelinha', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos' },
-    { id: 7, image: imageDog1, name: 'Coragem', gender: 'Macho', breed: 'Sem Raça Definida', age: '2 anos' },
-    { id: 8, image: imageDog1, name: 'Snoop', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos' },
-    { id: 9, image: imageDog1, name: 'Scooby Doo', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos' },
-  ];
   return (
     <div className="page_container landing-page">
       <NavBar />
@@ -51,9 +38,11 @@ function LandingPage() {
             <p className="hero-text hero-all-text">
               Faça parte dessa missão de amor e esperança!
             </p>
-            <Link to="/donation">
-              <button className="btn-donation btn">Doe Agora</button>
-            </Link>
+            <div className="btn-donation">
+              <Link to="/donation">
+                <button className="btn">Doe Agora</button>
+              </Link>
+            </div>
           </div>
           <div>
             <img className="hero-dog" src={heroDog} alt="" />
@@ -68,9 +57,11 @@ function LandingPage() {
         </h3>
         <h1 className="title adoption-title">Adote seu novo companheiro!</h1>
         <Carousel animals={animals} />
-        <Link to="/adoption">
-          <button className="btn-adoption btn">Conheça mais animais</button>
-        </Link>
+        <div className="align-btn margin-btn">
+          <Link to="/adoption">
+            <button className="btn-adoption btn">Conheça mais animais</button>
+          </Link>
+        </div>
       </section>
 
       <section className="partner">
@@ -82,12 +73,14 @@ function LandingPage() {
           <img src={partnerImg} alt="" />
           <img src={partnerImg} alt="" />
         </div>
-        <a
-          href="https://api.whatsapp.com/send?phone=553299655493"
-          target="blank"
-        >
-          <button className="btn-partner btn">Quero ser parceiro</button>
-        </a>
+        <div className="align-btn margin-top-btn">
+          <a
+            href="https://api.whatsapp.com/send?phone=553299655493"
+            target="blank"
+          >
+            <button className="btn-partner btn">Quero ser parceiro</button>
+          </a>
+        </div>
       </section>
 
       <section className="sponsor-volunteer">
@@ -164,9 +157,13 @@ function LandingPage() {
         <h3 className="donation-subtitle">APOIE A NOSSA CAUSA</h3>
         <h1 className="donation-title">Faça uma doação</h1>
         <DonationCard />
-        <Link to="/donation">
-          <button className="btn-donation-lp btn">Outras formas de doar</button>
-        </Link>
+        <div className="align-btn margin-btn">
+          <Link to="/donation">
+            <button className="btn-donation-lp btn">
+              Outras formas de doar
+            </button>
+          </Link>
+        </div>
       </section>
       <Footer />
     </div>
