@@ -1,5 +1,4 @@
 .admin-aside {
-    width: 10%;
     border: 1px solid var(--background-primary-color);
     
     display: flex;
@@ -7,7 +6,7 @@
     text-align: center;
     align-items: center;
 
-    padding-bottom: 10%;
+    padding: 0% 1% 10% 1%;
 
     .logo {
         width: 100%;
@@ -32,7 +31,7 @@
             transition: border-bottom 0.3s ease;
 
             img {
-                width: 60%;
+                width: 50%;
                 height: 50%;
             }
         }

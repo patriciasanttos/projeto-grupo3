@@ -1,7 +1,8 @@
 import React from 'react';
 
-import './styles.css';
 import AdminNavBar from '../../../components/admin_navbar/AdminNavBar';
+
+import './styles.scss';
 
 function ControlPanel() {
   return (
@@ -9,7 +10,13 @@ function ControlPanel() {
       <AdminNavBar />
 
       <div>
-        <h1>Painel de controle</h1>
+        <header className='admin-header'>
+          <h1>Painel de controle</h1>
+        </header>
+
+        <main className='admin-main-container'>
+          <h1>Conteúdo</h1>
+        </main>
       </div>
     </div>
   );

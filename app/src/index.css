@@ -30,4 +30,9 @@ html, body {
     display: flex;
     flex-direction: row;
     min-height: 100vh;
+
+    div {
+        color: #000;
+        min-width: 100vw;
+    }
 }
