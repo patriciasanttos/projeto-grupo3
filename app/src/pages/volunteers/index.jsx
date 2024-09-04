@@ -5,7 +5,7 @@ import ContentHero from '../../components/contentHero/ContentHero';
 import Menu from "../../components/menu/Menu";
 import Footer from "../../components/footer/Footer";
 
-import "./volunteers.css";
+import "./volunteers.scss";
 
 //Icons
 import dog from "../../assets/icons/dog.svg";
