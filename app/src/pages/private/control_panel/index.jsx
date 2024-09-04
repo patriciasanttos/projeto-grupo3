@@ -15,7 +15,7 @@ function ControlPanel() {
         </header>
 
         <main className='admin-main-container'>
-          <h1>Conteúdo</h1>
+          <h1>Adicione o conteúdo nesta main</h1>
         </main>
       </div>
     </div>

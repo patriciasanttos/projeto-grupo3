@@ -11,11 +11,11 @@ function Sponsorships() {
 
       <div>
         <header className='admin-header'>
-          <h1>Painel de controle</h1>
+          <h1>Apadrinhamentos</h1>
         </header>
 
         <main className='admin-main-container'>
-          <h1>Conteúdo</h1>
+          <h1>Adicione o conteúdo nesta main</h1>
         </main>
       </div>
     </div>

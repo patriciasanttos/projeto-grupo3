@@ -11,7 +11,7 @@ import ControlPanel from './private/control_panel/index';
 import Animals from './private/animals/index';
 import Sponsorships from './private/sponsorships/index';
 import Adoptions from './private/adoptions/index';
-import * as AdminVolunteers from './private/volunteers/index';
+import { Volunteers as AdminVolunteers }  from './private/volunteers/index';
 
 const publicPages = {
     LandingPage,
