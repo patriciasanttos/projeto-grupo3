@@ -7,6 +7,7 @@ import Sponsorship from './pages/sponsorship/index';
 import Contact from './pages/contact/index';
 import Donation from './pages/donation/index';
 import Volunteers from './pages/volunteers/index';
+import Admin from './pages/admin/Admin';
 
 export default function MainRoutes() {
     return (
@@ -18,6 +19,7 @@ export default function MainRoutes() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/donation" element={<Donation />} />
             <Route path="/volunteers" element={<Volunteers />} />
+            <Route path="/admin" element={<Admin />} />
         </Routes>
     )
 }
