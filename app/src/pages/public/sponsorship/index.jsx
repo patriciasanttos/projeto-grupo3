@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 
 import styles from './styles.module.css';
 
-import NavBar from '../../components/navbar/NavBar';
-import Footer from '../../components/footer/Footer';
-import Menu from '../../components/menu/Menu';
-import CardAnimal from '../../components/cardAnimal/CardAnimal';
-import imageDog1 from '../../assets/images/dog1.svg';
-import ContentHero from '../../components/contentHero/ContentHero';
+import NavBar from '../../../components/navbar/NavBar';
+import Footer from '../../../components/footer/Footer';
+import Menu from '../../../components/menu/Menu';
+import CardAnimal from '../../../components/cardAnimal/CardAnimal';
+import imageDog1 from '../../../assets/images/dog1.svg';
+import ContentHero from '../../../components/contentHero/ContentHero';
 
 function Sponsorship() {
   const [currentPage, setCurrentPage] = useState(1);

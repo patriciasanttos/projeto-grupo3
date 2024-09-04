@@ -1,4 +1,4 @@
-import imageDog1 from "../../assets/images/dog1.svg";
+import imageDog1 from "../../../assets/images/dog1.svg";
 
 export const animals = [
   {
