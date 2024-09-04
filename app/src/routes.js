@@ -1,23 +1,28 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom';
 
-import LandingPage from './pages/landing_page/index';
-import AboutUs from './pages/about_us/index';
-import Adoption from './pages/adoption/index';
-import Sponsorship from './pages/sponsorship/index';
-import Contact from './pages/contact/index';
-import Donation from './pages/donation/index';
-import Volunteers from './pages/volunteers/index';
+import { publicPages, privatePages } from './pages/pages.js';
 
 export default function MainRoutes() {
     return (
-        <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/aboutus" element={<AboutUs />} />
-            <Route path="/adoption" element={<Adoption />} />
-            <Route path="/sponsorship" element={<Sponsorship />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/donation" element={<Donation />} />
-            <Route path="/volunteers" element={<Volunteers />} />
-        </Routes>
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<publicPages.LandingPage />} />
+                <Route path="aboutus" element={<publicPages.AboutUs />} />
+                <Route path="adoption" element={<publicPages.Adoption />} />
+                <Route path="sponsorship" element={<publicPages.Sponsorship />} />
+                <Route path="contact" element={<publicPages.Contact />} />
+                <Route path="donation" element={<publicPages.Donation />} />
+                <Route path="volunteers" element={<publicPages.Volunteers />} />
+                <Route path='admin'>
+                    <Route index element={<Navigate to='/admin/login' />} />
+                    <Route path='login' element={<privatePages.Login />} />
+                    <Route path='control_panel' element={<privatePages.ControlPanel />} />
+                    <Route path='animals' element={<privatePages.Animals />} />
+                    <Route path='sponsorships' element={<privatePages.Sponsorships />} />
+                    <Route path='adoptions' element={<privatePages.Adoptions />} />
+                    <Route path='volunteers' element={<privatePages.Volunteers />} />
+                </Route>
+            </Routes>
+        </BrowserRouter>
     )
 }

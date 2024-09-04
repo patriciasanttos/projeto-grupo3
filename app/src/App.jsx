@@ -1,12 +1,7 @@
-import { BrowserRouter as Router } from 'react-router-dom';
 import MainRoutes from './routes.js';
 
 function App() {
-  return (
-    <Router>
-      <MainRoutes />
-    </Router>
-  );
+  return <MainRoutes />;
 }
 
 export default App;
