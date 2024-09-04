@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styles from './styles.module.css';
 
@@ -11,7 +11,7 @@ import ContentHero from '../../components/contentHero/ContentHero';
 
 function Sponsorship() {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 9;
+  const [itemsPerPage, setItemsPerPage] = useState(9);
 
   const animals = [
     { id: 1, image: imageDog1, name: 'Julia', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '3 anos' },
@@ -27,6 +27,25 @@ function Sponsorship() {
     { id: 11, image: imageDog1, name: 'Max', gender: 'Macho', breed: 'Sem Raça Definida', age: '2 anos' },
     { id: 12, image: imageDog1, name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos' },
   ];
+
+  useEffect(() => {
+    const updateItemsPerPage = () => {
+      if (window.innerWidth <= 768) {
+        setItemsPerPage(6); 
+      } else if (window.innerWidth <= 1024) {
+        setItemsPerPage(8); 
+      } else {
+        setItemsPerPage(9); 
+      }
+    };
+
+    updateItemsPerPage();
+    window.addEventListener('resize', updateItemsPerPage);
+    
+    return () => {
+      window.removeEventListener('resize', updateItemsPerPage);
+    };
+  }, []);
 
   const paginate = (items, currentPage, itemsPerPage) => {
     const start = (currentPage - 1) * itemsPerPage;
