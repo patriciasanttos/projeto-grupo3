@@ -18,7 +18,7 @@
     }
 
     .aboutus-main {
-        background-image: url('../../assets/images/background.svg');
+        background-image: url('../../../assets/images/background.svg');
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center center; 
@@ -50,7 +50,7 @@
     }
 
     .aboutus-section-team {
-        background-image: url('../../assets/images/background_2.svg');
+        background-image: url('../../../assets/images/background_2.svg');
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center center;

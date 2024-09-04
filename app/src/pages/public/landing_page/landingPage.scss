@@ -86,7 +86,7 @@ h3 {
 }
 
 .section-adoption {
-    background-image: url('../../assets/images/background.svg');
+    background-image: url('../../../assets/images/background.svg');
     background-repeat: no-repeat;
 
     .adoption-subtitle {
@@ -107,7 +107,7 @@ h3 {
 }
 
 .partner {
-    background-image: url('../../assets/images/background_2.svg');
+    background-image: url('../../../assets/images/background_2.svg');
     padding-bottom: 5%;
 
     .partner-subtitle {
@@ -136,7 +136,7 @@ h3 {
 }
 
 .sponsor-volunteer {
-    background-image: url('../../assets/images/background.svg');
+    background-image: url('../../../assets/images/background.svg');
 
     .sponsor-section {
         @extend .flex-row;
@@ -194,7 +194,7 @@ h3 {
 }
 
 .donation-section {
-    background-image: url('../../assets/images/bg-donation.svg');
+    background-image: url('../../../assets/images/bg-donation.svg');
 
     .donation-subtitle {
             font-size: 1, 1rem;

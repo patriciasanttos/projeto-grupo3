@@ -24,7 +24,7 @@
     }   
 
     .contact-page-header {
-        background-image: url('../../assets/images/background.svg');
+        background-image: url('../../../assets/images/background.svg');
         background-position: center center;
         background-size: 75%;
         background-repeat: repeat;
@@ -35,7 +35,7 @@
     }
 
     .contact-page-main {
-        background-image: url('../../assets/images/background_2.svg');
+        background-image: url('../../../assets/images/background_2.svg');
         background-position: center center;
         background-size: 75%;
         background-repeat: repeat;

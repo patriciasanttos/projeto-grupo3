@@ -1,26 +1,26 @@
 import { useState } from "react";
 
-import NavBar from "../../components/navbar/NavBar";
-import Menu from "../../components/menu/Menu";
-import Footer from "../../components/footer/Footer";
+import NavBar from "../../../components/navbar/NavBar";
+import Menu from "../../../components/menu/Menu";
+import Footer from "../../../components/footer/Footer";
 
 import "./volunteers.css";
 
 //Icons
-import dog from "../../assets/icons/dog.svg";
-import walkDog from "../../assets/icons/walk-dog.svg";
-import heart from "../../assets/icons/heart.svg";
-import cat from "../../assets/icons/cat.svg";
-import socialMedia from "../../assets/icons/social-media.svg";
-import bath from "../../assets/icons/bath.svg";
-import clothing from "../../assets/icons/clothing.svg";
-import gloves from "../../assets/icons/gloves.svg";
-import food from "../../assets/icons/food.svg";
-import dogHouse from "../../assets/icons/dog-house.svg";
-import attention from "../../assets/icons/attention.svg";
-import volunteers from "../../assets/icons/volunteers.svg";
-import clock from "../../assets/icons/clock.svg";
-import whatsApp from "../../assets/icons/whatsapp.svg";
+import dog from "../../../assets/icons/dog.svg";
+import walkDog from "../../../assets/icons/walk-dog.svg";
+import heart from "../../../assets/icons/heart.svg";
+import cat from "../../../assets/icons/cat.svg";
+import socialMedia from "../../../assets/icons/social-media.svg";
+import bath from "../../../assets/icons/bath.svg";
+import clothing from "../../../assets/icons/clothing.svg";
+import gloves from "../../../assets/icons/gloves.svg";
+import food from "../../../assets/icons/food.svg";
+import dogHouse from "../../../assets/icons/dog-house.svg";
+import attention from "../../../assets/icons/attention.svg";
+import volunteers from "../../../assets/icons/volunteers.svg";
+import clock from "../../../assets/icons/clock.svg";
+import whatsApp from "../../../assets/icons/whatsapp.svg";
 
 // import { Container } from './styles';
 

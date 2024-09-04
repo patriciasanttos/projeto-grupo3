@@ -15,7 +15,7 @@
     }
 
     .volunteer-phrase {
-        background-image: url('../../assets/images/bg-gray-paw.svg');
+        background-image: url('../../../assets/images/bg-gray-paw.svg');
         background-size: cover;
         background-repeat: no-repeat;
 
@@ -49,7 +49,7 @@
     }
 
     main {
-        background-image: url('../../assets/images/bg-white-paw.svg');
+        background-image: url('../../../assets/images/bg-white-paw.svg');
         background-size: cover;
         background-repeat: no-repeat;
 

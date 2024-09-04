@@ -1,14 +1,14 @@
 import React from 'react';
 
-import NavBar from '../../components/navbar/NavBar';
-import Menu from '../../components/menu/Menu';
-import Footer from '../../components/footer/Footer';
+import NavBar from '../../../components/navbar/NavBar';
+import Menu from '../../../components/menu/Menu';
+import Footer from '../../../components/footer/Footer';
 
-import video_image from '../../assets/images/video_image.svg'
-import joao_image from '../../assets/images/joao.svg'
+import video_image from '../../../assets/images/video_image.svg'
+import joao_image from '../../../assets/images/joao.svg'
 
 import './styles.css';
-import Card from '../../components/card/Card';
+import Card from '../../../components/card/Card';
 
 function AboutUs() {
   return (

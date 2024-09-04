@@ -2,13 +2,13 @@ import React from 'react';
 
 import styles from './styles.module.css';
 
-import NavBar from '../../components/navbar/NavBar';
-import Footer from '../../components/footer/Footer';
-import ContentHero from '../../components/contentHero/ContentHero';
-import CardAnimal from '../../components/cardAnimal/CardAnimal';
-import imageDog1 from '../../assets/images/dog1.svg';
-import FilterSidebar from '../../components/filterSideBar/FilterSideBar';
-import Menu from '../../components/menu/Menu';
+import NavBar from '../../../components/navbar/NavBar';
+import Footer from '../../../components/footer/Footer';
+import ContentHero from '../../../components/contentHero/ContentHero';
+import CardAnimal from '../../../components/cardAnimal/CardAnimal';
+import imageDog1 from '../../../assets/images/dog1.svg';
+import FilterSidebar from '../../../components/filterSideBar/FilterSideBar';
+import Menu from '../../../components/menu/Menu';
 
 function Adoption() {
   const animals = [
