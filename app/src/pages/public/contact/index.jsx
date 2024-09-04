@@ -1,15 +1,15 @@
 import React from 'react';
 
-import NavBar from '../../components/navbar/NavBar';
-import ContentHero from '../../components/contentHero/ContentHero';
-import Menu from '../../components/menu/Menu';
-import Footer from '../../components/footer/Footer';
+import NavBar from '../../../components/navbar/NavBar';
+import ContentHero from '../../../components/contentHero/ContentHero';
+import Menu from '../../../components/menu/Menu';
+import Footer from '../../../components/footer/Footer';
 
-import maps_icon from '../../assets/icons/maps.svg';
-import whatsapp_icon from '../../assets/icons/whatsapp.svg';
-import email_icon from '../../assets/icons/green_email.svg';
-import instagram_icon from '../../assets/icons/green_instagram.svg';
-import video_image from '../../assets/images/video_image.svg';
+import maps_icon from '../../../assets/icons/maps.svg';
+import whatsapp_icon from '../../../assets/icons/whatsapp.svg';
+import email_icon from '../../../assets/icons/green_email.svg';
+import instagram_icon from '../../../assets/icons/green_instagram.svg';
+import video_image from '../../../assets/images/video_image.svg';
 
 import './styles.css';
 

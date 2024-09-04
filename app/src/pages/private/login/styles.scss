@@ -1,4 +1,4 @@
-@import '../../index.css';
+@import '../../../index.css';
 
 .admin{
     display: flex;
@@ -16,7 +16,7 @@
     }
 }
 
-.adminContainer{
+.admin-container{
     display: flex;
     flex-direction: column;
     max-width: 550px;
@@ -32,7 +32,7 @@
         margin-bottom: 10px;
     }
 
-    .adminEntrie{
+    .admin-entrie{
         padding: 20px;
         font-size: 1rem;
         margin-bottom: 20px;
@@ -40,12 +40,12 @@
         border: 1px solid #C8C8C8;
     }
 
-    .adminEntrie:focus{
+    .admin-entrie:focus{
         border: 1px solid #64bdac;
         outline: none;
     }
 
-    .adminBtn{
+    .admin-btn{
         background-color: #64bdac;
         font-size: 1rem;
         font-weight: 600;
@@ -60,7 +60,7 @@
         cursor: pointer;
     }
 
-    .adminBtn:hover{
+    .admin-btn:hover{
         background-color: #4dad9c;
         box-shadow: 0 5px 10px 0 #4dad9b44;
         transform: translateY(-5px);

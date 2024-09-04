@@ -1,17 +1,17 @@
 import React from 'react';
 
-import NavBar from '../../components/navbar/NavBar';
-import Menu from '../../components/menu/Menu';
-import Footer from '../../components/footer/Footer';
+import NavBar from '../../../components/navbar/NavBar';
+import Menu from '../../../components/menu/Menu';
+import Footer from '../../../components/footer/Footer';
 
 
 import './donation.css';
-import DonationCard from '../../components/card_donation/DonationCard';
+import DonationCard from '../../../components/card_donation/DonationCard';
 
-import qrcode from '../../assets/images/qrcode.svg'
-import pagseguro from '../../assets/images/pagseguro.svg'
-import paypal from '../../assets/images/paypal.svg'
-import picpay from '../../assets/images/picpay.svg'
+import qrcode from '../../../assets/images/qrcode.svg'
+import pagseguro from '../../../assets/images/pagseguro.svg'
+import paypal from '../../../assets/images/paypal.svg'
+import picpay from '../../../assets/images/picpay.svg'
 
 
 // import { Container } from './styles';

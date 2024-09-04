@@ -1,28 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import NavBar from "../../components/navbar/NavBar";
-import Footer from "../../components/footer/Footer";
-import Carousel from "../../components/carousel/Carousel";
-import DonationCard from "../../components/card_donation/DonationCard";
+import NavBar from "../../../components/navbar/NavBar";
+import Footer from "../../../components/footer/Footer";
+import Carousel from "../../../components/carousel/Carousel";
+import DonationCard from "../../../components/card_donation/DonationCard";
 import {animals} from './animals'
 // import styles from './styles.css';
 import "./landingPage.scss";
 
 // import images
-import heroDog from "../../assets/images/hero-dog.png";
-import Waves from "../../assets/images/hero-waves.svg";
-import partnerImg from "../../assets/images/partner-img.svg";
-import sponsorImg from "../../assets/images/sponsor-img.svg";
-import volunteerImg from "../../assets/images/volunteer-img.svg";
+import heroDog from "../../../assets/images/hero-dog.png";
+import Waves from "../../../assets/images/hero-waves.svg";
+import partnerImg from "../../../assets/images/partner-img.svg";
+import sponsorImg from "../../../assets/images/sponsor-img.svg";
+import volunteerImg from "../../../assets/images/volunteer-img.svg";
 
 // import icons
-import dog from "../../assets/icons/dog.svg";
-import walkDog from "../../assets/icons/walk-dog.svg";
-import heart from "../../assets/icons/heart.svg";
-import cat from "../../assets/icons/cat.svg";
-import socialMedia from "../../assets/icons/social-media.svg";
-import bath from "../../assets/icons/bath.svg";
+import dog from "../../../assets/icons/dog.svg";
+import walkDog from "../../../assets/icons/walk-dog.svg";
+import heart from "../../../assets/icons/heart.svg";
+import cat from "../../../assets/icons/cat.svg";
+import socialMedia from "../../../assets/icons/social-media.svg";
+import bath from "../../../assets/icons/bath.svg";
 
 function LandingPage() {
   return (
