@@ -1,0 +1,46 @@
+.admin-aside {
+    width: 10%;
+    border: 1px solid var(--background-primary-color);
+    
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+
+    padding-bottom: 10%;
+
+    .logo {
+        width: 100%;
+        height: 15%;
+
+        margin-top: 18%;
+        margin-bottom: 10%;
+    }
+
+    .admin-nav {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        height: 100%;
+    
+        .admin-navbar-btn {
+            border: none;
+            background: none;
+            cursor: pointer;
+
+            border-bottom: 3px solid transparent;
+            transition: border-bottom 0.3s ease;
+
+            img {
+                width: 60%;
+                height: 50%;
+            }
+        }
+
+        .admin-navbar-btn:hover {
+            border-bottom: 1px solid var(--background-primary-color);
+        }
+        
+    }
+}
+
