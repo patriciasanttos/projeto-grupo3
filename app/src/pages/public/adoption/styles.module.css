@@ -8,6 +8,7 @@
 }
 
 .contentContainer {
+    background-image: url('../../../assets/images/background_2.svg');
     display: flex;
     justify-content: space-between;
     background-color: #F4F4F4;

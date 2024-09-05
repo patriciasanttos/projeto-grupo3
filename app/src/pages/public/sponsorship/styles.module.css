@@ -8,6 +8,7 @@
 }
 
 .contentContainer {
+    background-image: url('../../../assets/images/background_2.svg');
     display: flex;
     padding: 40px;
     background-color: #F4F4F4;
