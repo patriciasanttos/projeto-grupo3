@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styles from './styles.module.css';
 
@@ -11,6 +11,9 @@ import FilterSidebar from '../../../components/filterSideBar/FilterSideBar';
 import Menu from '../../../components/menu/Menu';
 
 function Adoption() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(9);
+
   const animals = [
     { id: 1, image: imageDog1, name: 'Julia', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '3 anos' },
     { id: 2, image: imageDog1, name: 'Max', gender: 'Macho', breed: 'Sem Raça Definida', age: '2 anos' },
@@ -21,7 +24,50 @@ function Adoption() {
     { id: 7, image: imageDog1, name: 'Max', gender: 'Macho', breed: 'Sem Raça Definida', age: '2 anos' },
     { id: 8, image: imageDog1, name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos' },
     { id: 9, image: imageDog1, name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos' },
+    { id: 10, image: imageDog1, name: 'Max', gender: 'Macho', breed: 'Sem Raça Definida', age: '2 anos' },
+    { id: 11, image: imageDog1, name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos' },
+    { id: 12, image: imageDog1, name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos' },
   ];
+
+  useEffect(() => {
+    const updateItemsPerPage = () => {
+      if (window.innerWidth <= 768) {
+        setItemsPerPage(6); 
+      } else if (window.innerWidth <= 1024) {
+        setItemsPerPage(8); 
+      } else {
+        setItemsPerPage(9); 
+      }
+    };
+
+    updateItemsPerPage();
+    window.addEventListener('resize', updateItemsPerPage);
+    
+    return () => {
+      window.removeEventListener('resize', updateItemsPerPage);
+    };
+  }, []);
+
+  const paginate = (items, currentPage, itemsPerPage) => {
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    return items.slice(start, end);
+  };
+
+  const paginatedAnimals = paginate(animals, currentPage, itemsPerPage);
+  const totalPages = Math.ceil(animals.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const handlePreviousPage = () => {
+    setCurrentPage(prevPage => Math.max(prevPage - 1, 1));
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage(prevPage => Math.min(prevPage + 1, totalPages));
+  };
 
   return (
     <div className='page_container'>
@@ -39,7 +85,7 @@ function Adoption() {
           <FilterSidebar/>
         
           <div className={styles.cardContainer}>
-            {animals.map(animal => (
+            {paginatedAnimals.map(animal => (
               <CardAnimal
                 key={animal.id}
                 image={animal.image}
@@ -50,6 +96,31 @@ function Adoption() {
               />
             ))}
           </div>
+        </div>
+        <div className={styles.pagination}>
+          <button
+            onClick={handlePreviousPage}
+            disabled={currentPage === 1}
+            className={styles.arrowButton}
+          >
+            &laquo; 
+          </button>
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index + 1}
+              onClick={() => handlePageChange(index + 1)}
+              className={index + 1 === currentPage ? styles.active : ''}
+            >
+              {index + 1}
+            </button>
+          ))}
+          <button
+            onClick={handleNextPage}
+            disabled={currentPage === totalPages}
+            className={styles.arrowButton}
+          >
+            &raquo; 
+          </button>
         </div>
       </div>
       <Menu currentPage='adoption' />
