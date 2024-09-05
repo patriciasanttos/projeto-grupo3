@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+  db:
+    image: bitnami/postgresql:latest
+    ports:
+      - "5432:5432"
+    volumes:
+      - polls_pg_data:/bitnami/postgresql
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DATABASE=postgres
+
+  api:
+    build: ./
+    ports:
+      - "4444:4444"
+    depends_on:
+      - db
+    volumes:
+      - polls_api_data:/app
+
+volumes:
+  polls_pg_data:
+  polls_api_data:
