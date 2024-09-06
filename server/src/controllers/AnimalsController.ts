@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+
 import animalsRepository from '../repositories/animals.repository';
 
 class AnimalController {
