@@ -100,7 +100,7 @@ Animal.init({
       allowNull: false,
     },
   }, {
-    tableName: "Animal",
+    tableName: "animals",
     sequelize,
   }
 );
