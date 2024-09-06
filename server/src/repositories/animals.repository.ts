@@ -3,9 +3,9 @@ import { AnimalType } from "../utils/types";
 import serverErrorHandler from "../utils/serverErrorHandler";
 
 export default {
-    async getAnimal (id: number) {
+    async getAnimalById (id: number) {
         try {
-            //-----Buscar CNPJ da animal na tabela
+            //-----Buscar animal na tabela
             const animal = await Animal.findOne({ where: { id } });
 
             if (animal === null)
@@ -25,9 +25,31 @@ export default {
         }
     },
 
+    async getAllAnimal () {
+        try {
+            //-----Buscar animais na tabela
+            const animals = await Animal.findAll();
+
+            if (animals === null)
+                return {
+                    code: 404,
+                    data: {
+                        error: 'No animals found'
+                    }
+                };
+
+            return {
+                code: 200,
+                data: animals
+            };
+        } catch (error: any) {
+            return serverErrorHandler(error);
+        }
+    },
+
     async createAnimal (data: AnimalType) {
         try {
-            // -----Salvar os dados da empresa na tabela
+            // -----Salvar os dados do animal na tabela
             const animal = await Animal.create({ ...data });
 
             console.log(animal);
