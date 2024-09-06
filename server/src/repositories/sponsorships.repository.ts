@@ -4,7 +4,7 @@ import serverErrorHandler from "../utils/serverErrorHandler";
 import animalsRepository from "./animals.repository";
 
 export default {
-    async getSponsorshipById (id: number): Promise<{ code: number, data: {} }> {
+    async getSponsorshipById(id: number): Promise<{ code: number, data: {} }> {
         try {
             //-----Buscar apadrinhamento na tabela
             const sponsorship = await Sponsorship.findOne({ where: { id } });
@@ -36,7 +36,7 @@ export default {
         }
     },
 
-    async getAllSponsorships (): Promise<{ code: number, data: {} }> {
+    async getAllSponsorships(): Promise<{ code: number, data: {} }> {
         try {
             //-----Buscar apadrinhamentos na tabela
             const sponsorship = await Sponsorship.findAll();
@@ -58,7 +58,7 @@ export default {
         }
     },
 
-    async createSponsorship (data: SponsorshipType): Promise<{ code: number, data?: {} }> {
+    async createSponsorship(data: SponsorshipType): Promise<{ code: number, data?: {} }> {
         try {
             //-----Buscar animal na tabela
             const gettedAnimal = await animalsRepository.getAnimalById(data.animal_id);
@@ -77,7 +77,7 @@ export default {
         }
     },
 
-    async updateSponsorship ({ id, data }: { id: number, data: SponsorshipType }): Promise<{ code: number, data?: {} }> {
+    async updateSponsorship({ id, data }: { id: number, data: SponsorshipType }): Promise<{ code: number, data?: {} }> {
         try {
             //-----Buscar apadrinhamento na tabela
             const sponsorship = await Sponsorship.findOne({ where: { id } })
@@ -100,7 +100,7 @@ export default {
         }
     },
     
-    async deleteSponsorship (id: number): Promise<{ code: number, data?: {} }> {
+    async deleteSponsorship(id: number): Promise<{ code: number, data?: {} }> {
         try {
             //-----Buscar apadrinhamento na tabela
             const sponsorship = await Sponsorship.findOne({ where: { id } });

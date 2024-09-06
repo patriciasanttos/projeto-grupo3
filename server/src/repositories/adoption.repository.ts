@@ -4,7 +4,7 @@ import serverErrorHandler from "../utils/serverErrorHandler";
 import animalsRepository from "./animals.repository";
 
 export default {
-    async getAdoptionById (id: number): Promise<{ code: number, data: {} }> {
+    async getAdoptionById(id: number): Promise<{ code: number, data: {} }> {
         try {
             //-----Buscar adoção na tabela
             const adoption = await Adoption.findOne({ where: { id } });
@@ -36,7 +36,7 @@ export default {
         }
     },
 
-    async getAllAdoptions (): Promise<{ code: number, data: {} }> {
+    async getAllAdoptions(): Promise<{ code: number, data: {} }> {
         try {
             //-----Buscar adoções na tabela
             const adoption = await Adoption.findAll();
@@ -58,7 +58,7 @@ export default {
         }
     },
 
-    async createAdoption (data: AdoptionType): Promise<{ code: number, data?: {} }> {
+    async createAdoption(data: AdoptionType): Promise<{ code: number, data?: {} }> {
         try {
             //-----Buscar animal na tabela
             const gettedAnimal = await animalsRepository.getAnimalById(data.animal_id);
@@ -77,7 +77,7 @@ export default {
         }
     },
 
-    async updateAdoption ({ id, data }: { id: number, data: AdoptionType }): Promise<{ code: number, data?: {} }> {
+    async updateAdoption({ id, data }: { id: number, data: AdoptionType }): Promise<{ code: number, data?: {} }> {
         try {
             //-----Buscar adoção na tabela
             const adoption = await Adoption.findOne({ where: { id } })
@@ -100,7 +100,7 @@ export default {
         }
     },
     
-    async deleteAdoption (id: number): Promise<{ code: number, data?: {} }> {
+    async deleteAdoption(id: number): Promise<{ code: number, data?: {} }> {
         try {
             //-----Buscar adoção na tabela
             const adoption = await Adoption.findOne({ where: { id } });
