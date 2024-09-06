@@ -1,26 +1,25 @@
 import { Request, Response } from 'express';
 import animalsRepository from '../repositories/animals.repository';
-import { AnimalType } from "../utils/types";
 
 class AnimalController {
     async getAll(req: Request, res: Response) {
-        const gettedAnimals = await animalsRepository.getAllAnimals();
+        const response = await animalsRepository.getAllAnimals();
 
-        res.status(gettedAnimals.code).json(gettedAnimals.data);
+        res.status(response.code).json(response.data);
     }
 
     async getById(req: Request, res: Response) {
         const { id } = req.params;
 
-        const gettedAnimal = await animalsRepository.getAnimalById(Number(id));
+        const response = await animalsRepository.getAnimalById(Number(id));
 
-        res.status(gettedAnimal.code).json(gettedAnimal.data);
+        res.status(response.code).json(response.data);
     }
 
     async create(req: Request, res: Response) {
         const data = req.body;
 
-        if (data.name !== undefined || data.species !== undefined || data.status !== undefined)
+        if (data.name === undefined || data.species === undefined || data.status === undefined)
             return res.status(400).json({ error: 'Invalid body request' });
 
         const response = await animalsRepository.createAnimal(data);

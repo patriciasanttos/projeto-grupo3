@@ -4,7 +4,7 @@ import serverErrorHandler from "../utils/serverErrorHandler";
 import checkReplicatedData from "../utils/checkReplicatedData";
 
 export default {
-    async getVolunteerById (id: number): Promise<{ code: number, data: {} }> {
+    async getVolunteerById(id: number): Promise<{ code: number, data: {} }> {
         try {
             //-----Buscar voluntário na tabela
             const volunteer = await Volunteer.findOne({ where: { id } });
@@ -26,7 +26,7 @@ export default {
         }
     },
 
-    async getAllVolunteers (): Promise<{ code: number, data: {} }> {
+    async getAllVolunteers(): Promise<{ code: number, data: {} }> {
         try {
             //-----Buscar voluntários na tabela
             const volunteers = await Volunteer.findAll();
@@ -48,7 +48,7 @@ export default {
         }
     },
 
-    async createVolunteer (data: VolunteerType): Promise<{ code: number, data?: {} }> {
+    async createVolunteer(data: VolunteerType): Promise<{ code: number, data?: {} }> {
         try {
             if (await checkReplicatedData({ email: data.email, phone: data.phone }))
                 return {
@@ -69,7 +69,7 @@ export default {
         }
     },
 
-    async updateVolunteer ({ id, data }: { id: number, data: VolunteerType }): Promise<{ code: number, data?: {} }> {
+    async updateVolunteer({ id, data }: { id: number, data: VolunteerType }): Promise<{ code: number, data?: {} }> {
         try {
             //-----Buscar voluntário na tabela
             const volunteer = await Volunteer.findOne({ where: { id } })
@@ -100,7 +100,7 @@ export default {
         }
     },
     
-    async deleteVolunteer (id: number): Promise<{ code: number, data?: {} }> {
+    async deleteVolunteer(id: number): Promise<{ code: number, data?: {} }> {
         try {
             //-----Buscar voluntário na tabela
             const volunteer = await Volunteer.findOne({ where: { id } });
