@@ -49,10 +49,8 @@ export default {
 
     async createAnimal (data: AnimalType) {
         try {
-            // -----Salvar os dados do animal na tabela
-            const animal = await Animal.create({ ...data });
-
-            console.log(animal);
+            // -----Salvar animal na tabela
+            await Animal.create({ ...data });
 
             return {
                 code: 201

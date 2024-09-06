@@ -1,24 +1,24 @@
-import Sponsorship from "../database/models/Sponsorship";
-import { SponsorshipType } from "../utils/types";
+import Adoption from "../database/models/Adoption";
+import { AdoptionType } from "../utils/types";
 import serverErrorHandler from "../utils/serverErrorHandler";
 import animalsRepository from "./animals.repository";
 
 export default {
-    async getSponsorshipById (id: number): Promise<{ code: number, data: {} }> {
+    async getAdoptionById (id: number): Promise<{ code: number, data: {} }> {
         try {
-            //-----Buscar apadrinhamento na tabela
-            const sponsorship = await Sponsorship.findOne({ where: { id } });
+            //-----Buscar adoção na tabela
+            const adoption = await Adoption.findOne({ where: { id } });
 
-            if (sponsorship === null)
+            if (adoption === null)
                 return {
                     code: 404,
                     data: {
-                        error: 'Sponsorship not found'
+                        error: 'Adoption not found'
                     }
                 };
 
             //-----Buscar animal na tabela
-            const gettedAnimal = await animalsRepository.getAnimalById(sponsorship.dataValues.animal_id);
+            const gettedAnimal = await animalsRepository.getAnimalById(adoption.dataValues.animal_id);
 
             if (gettedAnimal.code === 404)
                 return gettedAnimal;
@@ -27,7 +27,7 @@ export default {
             return {
                 code: 200,
                 data: {
-                    ...sponsorship.dataValues,
+                    ...adoption.dataValues,
                     animal: gettedAnimal.data
                 }
             };
@@ -36,29 +36,29 @@ export default {
         }
     },
 
-    async getAllSponsorships (): Promise<{ code: number, data: {} }> {
+    async getAllAdoptions (): Promise<{ code: number, data: {} }> {
         try {
-            //-----Buscar apadrinhamentos na tabela
-            const sponsorship = await Sponsorship.findAll();
+            //-----Buscar adoções na tabela
+            const adoption = await Adoption.findAll();
 
-            if (sponsorship === null)
+            if (adoption === null)
                 return {
                     code: 404,
                     data: {
-                        error: 'No sponsorships found'
+                        error: 'No adoptions found'
                     }
                 };
 
             return {
                 code: 200,
-                data: sponsorship
+                data: adoption
             };
         } catch (error: any) {
             return serverErrorHandler(error);
         }
     },
 
-    async createSponsorship (data: SponsorshipType): Promise<{ code: number, data?: {} }> {
+    async createAdoption (data: AdoptionType): Promise<{ code: number, data?: {} }> {
         try {
             //-----Buscar animal na tabela
             const gettedAnimal = await animalsRepository.getAnimalById(data.animal_id);
@@ -66,8 +66,9 @@ export default {
             if (gettedAnimal.code === 404)
                 return gettedAnimal;
 
-            // -----Salvar apadrinhamento na tabela
-            await Sponsorship.create({ ...data });
+            // -----Salvar adoção na tabela
+            await Adoption.create({ ...data });
+
 
             return {
                 code: 201
@@ -77,20 +78,20 @@ export default {
         }
     },
 
-    async updateSponsorship ({ id, data }: { id: number, data: SponsorshipType }): Promise<{ code: number, data?: {} }> {
+    async updateAdoption ({ id, data }: { id: number, data: AdoptionType }): Promise<{ code: number, data?: {} }> {
         try {
-            //-----Buscar apadrinhamento na tabela
-            const sponsorship = await Sponsorship.findOne({ where: { id } })
+            //-----Buscar adoção na tabela
+            const adoption = await Adoption.findOne({ where: { id } })
             
-            if (sponsorship === null)
+            if (adoption === null)
                 return {
                     code: 404,
                     data: {
-                        error: 'Sponsorship not found'
+                        error: 'Adoption not found'
                     }
                 };
 
-            await sponsorship.update({ ...data });
+            await adoption.update({ ...data });
 
             return {
                 code: 200
@@ -100,20 +101,20 @@ export default {
         }
     },
     
-    async deleteSponsorship (id: number): Promise<{ code: number, data?: {} }> {
+    async deleteAdoption (id: number): Promise<{ code: number, data?: {} }> {
         try {
-            //-----Buscar apadrinhamento na tabela
-            const sponsorship = await Sponsorship.findOne({ where: { id } });
+            //-----Buscar adoção na tabela
+            const adoption = await Adoption.findOne({ where: { id } });
             
-            if (sponsorship === null)
+            if (adoption === null)
                 return {
                     code: 404,
                     data: {
-                        error: 'Sponsorship not found'
+                        error: 'Adoption not found'
                     }
                 };
                 
-            await sponsorship.destroy();
+            await adoption.destroy();
             
             return {
                 code: 200
