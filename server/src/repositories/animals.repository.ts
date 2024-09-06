@@ -3,7 +3,7 @@ import { AnimalType } from "../utils/types";
 import serverErrorHandler from "../utils/serverErrorHandler";
 
 export default {
-    async getAnimalById (id: number) {
+    async getAnimalById(id: number): Promise<{ code: number, data: {} }> {
         try {
             //-----Buscar animal na tabela
             const animal = await Animal.findOne({ where: { id } });
@@ -25,7 +25,7 @@ export default {
         }
     },
 
-    async getAllAnimal () {
+    async getAllAnimals(): Promise<{ code: number, data: {} }> {
         try {
             //-----Buscar animais na tabela
             const animals = await Animal.findAll();
@@ -47,7 +47,7 @@ export default {
         }
     },
 
-    async createAnimal (data: AnimalType) {
+    async createAnimal(data: AnimalType): Promise<{ code: number, data?: {} }> {
         try {
             // -----Salvar animal na tabela
             await Animal.create({ ...data });
@@ -60,7 +60,7 @@ export default {
         }
     },
 
-    async updateAnimal ({ id, data }: { id: number, data: AnimalType }) {
+    async updateAnimal({ id, data }: { id: number, data: AnimalType }): Promise<{ code: number, data?: {} }> {
         try {
             //-----Buscar animal na tabela
             const animal = await Animal.findOne({ where: { id } })
@@ -79,11 +79,11 @@ export default {
                 code: 200
             };
         } catch (error: any) {
-            serverErrorHandler(error);
+            return serverErrorHandler(error);
         }
     },
     
-    async deleteAnimal (id: number) {
+    async deleteAnimal(id: number): Promise<{ code: number, data?: {} }> {
         try {
             //-----Buscar animal na tabela
             const animal = await Animal.findOne({ where: { id } });
@@ -103,7 +103,7 @@ export default {
             };
             
         } catch (error: any) {
-            serverErrorHandler(error);
+            return serverErrorHandler(error);
         }
     }
 };

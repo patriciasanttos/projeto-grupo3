@@ -1,23 +1,25 @@
+import { Request, Response } from 'express';
+
 import { VolunteerType } from "../utils/types";
 
 class VolunteersController {
-    async getAll() {
+    async getAll(req: Request, res: Response) {
 
     }
 
-    async getById(id: number) {
+    async getById(req: Request, res: Response) {
 
     }
 
-    async create(data: VolunteerType) {
+    async create(req: Request, res: Response) {
 
     }
 
-    async update(data: VolunteerType) {
+    async update(req: Request, res: Response) {
 
     }
 
-    async delete(id: number) {
+    async delete(req: Request, res: Response) {
 
     }
 }

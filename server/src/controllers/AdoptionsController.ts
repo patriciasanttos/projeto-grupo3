@@ -1,23 +1,25 @@
+import { Request, Response } from 'express';
+
 import { AdoptionType } from "../utils/types";
 
 class AdoptionsController {
-    async getAll() {
+    async getAll(req: Request, res: Response) {
 
     }
 
-    async getById(id: number) {
+    async getById(req: Request, res: Response) {
 
     }
 
-    async create(data: AdoptionType) {
+    async create(req: Request, res: Response) {
 
     }
 
-    async update(data: AdoptionType) {
+    async update(req: Request, res: Response) {
 
     }
 
-    async delete(id: number) {
+    async delete(req: Request, res: Response) {
 
     }
 }

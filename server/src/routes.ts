@@ -1,4 +1,4 @@
-import { Router, Request, Response } from "express";
+import { Router } from "express";
 import AnimalsController from "./controllers/AnimalsController";
 import AdoptionsController from "./controllers/AdoptionsController";
 import SponsorshipsController from "./controllers/SponsorshipsController";
