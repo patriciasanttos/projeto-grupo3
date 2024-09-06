@@ -69,7 +69,6 @@ export default {
             // -----Salvar adoção na tabela
             await Adoption.create({ ...data });
 
-
             return {
                 code: 201
             };
