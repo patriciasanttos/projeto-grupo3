@@ -2,7 +2,7 @@ import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "..";
 
 interface AnimalInfo {
-    id: string,
+    id: number,
     name: string,
     species: string,
     race?: string

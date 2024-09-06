@@ -19,11 +19,13 @@ module.exports = {
       },
       email: {
         type: DataTypes.TEXT,
-        allowNull: false
+        allowNull: false,
+        unique: true
       },
       phone: {
         type: DataTypes.INTEGER,
-        allowNull: true
+        allowNull: true,
+        unique: true
       },
       address: {
         type: DataTypes.TEXT,
