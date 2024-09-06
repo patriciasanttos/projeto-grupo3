@@ -31,10 +31,12 @@ Volunteer.init({
     email: {
       type: DataTypes.TEXT,
       allowNull: false,
+      unique: true
     },
     phone: {
       type: DataTypes.INTEGER,
       allowNull: true,
+      unique: true
     },
     address: {
       type: DataTypes.TEXT,
