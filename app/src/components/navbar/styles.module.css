@@ -3,8 +3,8 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-
     height: 4.5rem;
+    padding: 0 20px;
 }
 
 .logo {
@@ -12,44 +12,74 @@
     height: 4rem;
 }
 
-.navbar_links {
+ul {
     list-style-type: none;
-    
-    li {
-        display: inline;
-        padding: 0.5rem;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
 
-        .link {
-            text-decoration: none;
-            font-size: 1.1rem;
-            color: #fff;
-            border-bottom: 2px solid transparent;
+li {
+    margin: 0 0.6rem;
+}
 
-            transition: border-bottom 0.3s ease, color 0.3s ease;
-        }
+.link {
+    text-decoration: none;
+    font-size: 1.1rem;
+    color: #fff;
+    border-bottom: 2px solid transparent;
+    transition: border-bottom 0.3s ease, color 0.3s ease;
+}
 
-        .link:hover {
-            border-bottom: var(--text-hover-color) solid 1px;
-            color: var(--text-hover-color);
-        }
-    }
+.link:hover {
+    border-bottom: var(--text-hover-color) solid 1px;
+    color: var(--text-hover-color);
 }
 
 .donate_btn {
     border-style: none;
     background-color: var(--button-primary-color);
     color: #fff;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     font-weight: 600;
-
-    width: 150%;
-    height: 2.8rem;
+    padding: 10px 14px;
     border-radius: 5px;
-
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 .donate_btn:hover {
     background-color: var(--button-hover-color);
+}
+
+.hamburger {
+    display: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #fff;
+}
+
+@media (max-width: 960px) {
+    .hamburger {
+        display: block;
+    }
+
+    .navbar_links {
+        display: none;
+        transition: all 0.3s ease;
+        width: 100%;
+    }
+
+    .navbar_links.active {
+        top: 73px;
+        display: block; 
+        position: absolute;
+        background-color: var(--background-primary-color);
+        text-align: center;
+        padding: 20px;
+    }
+
+    li{
+        margin: 10px;
+    }
 }

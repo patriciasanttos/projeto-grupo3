@@ -35,9 +35,7 @@ function Footer() {
                     </li>
                     <li className={styles.footer_contact_link}>
                         <a target='_blank' rel="noreferrer" href="https://maps.app.goo.gl/yuyLm9Tk9cHC593Q6">
-                            BR 040 km 787 - São Pedro <br />
-                            CEP 36039-080 <br />
-                            Juiz de Fora - MG
+                            BR 040 km 787 - São Pedro CEP 36039-080, Juiz de Fora - MG
                         </a>
                     </li>
                 </ul>

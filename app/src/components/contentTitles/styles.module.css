@@ -1,7 +1,7 @@
 .subtitle {
     margin: 0px;
     font-size: 1rem;
-    font-weight: 700;
+    font-weight: 900;
     
     color: var(--title-primary-color);
     text-transform: uppercase;
@@ -12,7 +12,7 @@
     margin-top: 10px;
     margin-bottom: 40px;
     font-size: 3rem;
-    font-weight: bold;
+    font-weight: 800;
     color: var(--title-secondary-color);
 }
   

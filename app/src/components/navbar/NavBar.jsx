@@ -1,14 +1,21 @@
-import React from 'react';
-
+import React, { useState } from 'react';
 import logo from '../../assets/images/logo.svg';
 import styles from './styles.module.css';
 import { Link } from 'react-router-dom';
+import { FiMenu, FiX } from "react-icons/fi";  
 
 function NavBar() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+  
   return (
     <nav className={styles.navbar}>
         <img src={logo} alt="Logo" className={styles.logo} />
-        <ul className={styles.navbar_links}>
+
+        <ul className={`${styles.navbar_links} ${isOpen ? styles.active : ''}`}>
             <li><Link className={styles.link} to='/'>Início</Link></li>
             <li><Link className={styles.link} to='/aboutus'>Sobre nós</Link></li>
             <li><Link className={styles.link} to='/adoption'>Adoção</Link></li>
@@ -22,6 +29,10 @@ function NavBar() {
                 Doe agora
             </button>
         </Link>
+
+        <div className={styles.hamburger} onClick={toggleMenu}>
+          {isOpen ? <FiX /> : <FiMenu />} 
+        </div>
     </nav>
   );
 }
