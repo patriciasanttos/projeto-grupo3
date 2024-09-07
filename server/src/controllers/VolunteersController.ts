@@ -20,7 +20,7 @@ class VolunteersController {
     async create(req: Request, res: Response) {
         const data = req.body;
 
-        if (data.name === undefined || data.email === undefined || data.phone === undefined || data.availability === undefined)
+        if (Object.keys(data).length === 0 || data.name === undefined || data.email === undefined || data.phone === undefined || data.availability === undefined)
             return res.status(400).json({ error: 'Invalid body request' });
 
         const response = await volunteerRepository.createVolunteer(data);
@@ -30,6 +30,9 @@ class VolunteersController {
 
     async update(req: Request, res: Response) {
         const data = req.body;
+
+        if (Object.keys(data).length === 0)
+            return res.status(400).json({ error: 'Invalid body request' });
 
         const response = await volunteerRepository.updateVolunteer(data);
 

@@ -20,7 +20,7 @@ class AnimalController {
     async create(req: Request, res: Response) {
         const data = req.body;
 
-        if (data.name === undefined || data.species === undefined || data.status === undefined)
+        if (Object.keys(data).length === 0 || data.name === null || data.species === null || data.status === null)
             return res.status(400).json({ error: 'Invalid body request' });
 
         const response = await animalsRepository.createAnimal(data);
@@ -30,6 +30,9 @@ class AnimalController {
 
     async update(req: Request, res: Response) {
         const data = req.body;
+
+        if (Object.keys(data).length === 0)
+            return res.status(400).json({ error: 'Invalid body request' });
 
         const response = await animalsRepository.updateAnimal(data);
 
