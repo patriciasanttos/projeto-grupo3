@@ -9,34 +9,34 @@ const router = Router();
 //-----Animals routes
 router
     .get('/animals', AnimalsController.getAll)
-    .get('/animals:id', AnimalsController.getById)
+    .get('/animals/:id', AnimalsController.getById)
     .post('/animals', AnimalsController.create)
     .put('/animals', AnimalsController.update)
-    .delete('/animals', AnimalsController.delete)
+    .delete('/animals/:id', AnimalsController.delete)
 
 //-----Adoptions routes
 router
     .get('/adoptions', AdoptionsController.getAll)
-    .get('/adoptions:id', AdoptionsController.getById)
+    .get('/adoptions/:id', AdoptionsController.getById)
     .post('/adoptions', AdoptionsController.create)
     .put('/adoptions', AdoptionsController.update)
-    .delete('/adoptions', AdoptionsController.delete)
+    .delete('/adoptions/:id', AdoptionsController.delete)
     
 //-----Sponsorships routes
 router
     .get('/sponsorships', SponsorshipsController.getAll)
-    .get('/sponsorships:id', SponsorshipsController.getById)
+    .get('/sponsorships/:id', SponsorshipsController.getById)
     .post('/sponsorships', SponsorshipsController.create)
     .put('/sponsorships', SponsorshipsController.update)
-    .delete('/sponsorships', SponsorshipsController.delete)
+    .delete('/sponsorships/:id', SponsorshipsController.delete)
 
 //-----Volunteers routes
 router
     .get('/volunteers', VolunteersController.getAll)
-    .get('/volunteers:id', VolunteersController.getById)
+    .get('/volunteers/:id', VolunteersController.getById)
     .post('/volunteers', VolunteersController.create)
     .put('/volunteers', VolunteersController.update)
-    .delete('/volunteers', VolunteersController.delete)
+    .delete('/volunteers/:id', VolunteersController.delete)
 
 
 export default router;
