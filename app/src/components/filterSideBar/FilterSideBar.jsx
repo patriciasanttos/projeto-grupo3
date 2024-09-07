@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './styles.module.css';
-import { FaFilter } from 'react-icons/fa';
+import { FiSliders } from "react-icons/fi";
 
 const FilterSidebar = () => {
   const [isFilterVisible, setIsFilterVisible] = useState(false);
@@ -32,7 +32,7 @@ const FilterSidebar = () => {
     <div className={styles.filterWrapper}>
       {/* Botão para mostrar/ocultar filtros em telas menores */}
       <button className={styles.filterToggle} onClick={toggleFilters}>
-        <FaFilter className={styles.icon} /> Filtros
+        <FiSliders className={styles.icon} /> Filtros
       </button>
       <div
         ref={sidebarRef}
