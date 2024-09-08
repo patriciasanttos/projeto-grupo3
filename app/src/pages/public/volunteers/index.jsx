@@ -42,7 +42,7 @@ function Volunteers() {
       />
 
       {/* CONTEÚDO PRINCIPAL DA PÁGINA - TAREFAS DO VOLUNTÁRIO */}
-      <main>
+      <main className="main-volunteers">
         <h3 className="main-title">FAÇA A DIFERENÇA NA VIDA DE UM ANIMAL</h3>
         <h1 className="main-subtitle">Seja um voluntário</h1>
 

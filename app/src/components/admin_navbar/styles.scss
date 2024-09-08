@@ -1,46 +1,55 @@
-.admin-aside {
-    border: 1px solid var(--background-primary-color);
-    
-    display: flex;
-    flex-direction: column;
+.admin-page-container {
+    .admin-aside {
+        border: 1px solid var(--background-primary-color);
 
-    padding: 0% 1% 10% 1%;
-
-    .logo {
-        width: 80%;
-        height: 80%;
-
-        margin-top: 18%;
-        margin-bottom: 10%;
-    }
-
-    .admin-nav {
         display: flex;
         flex-direction: column;
-        justify-content: space-evenly;
-        height: 100%;
-    
-        .admin-navbar-btn {
-            width: 100%;
+
+        padding: 0% 1% 10% 1%;
+
+        .logo {
+            width: 80%;
+            height: 80%;
+
+            margin-top: 18%;
+            margin-bottom: 10%;
+        }
+
+        .admin-nav {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
             height: 100%;
 
-            border: none;
-            background: none;
-            cursor: pointer;
+            .admin-navbar-btn {
+                width: 100%;
+                height: 100%;
 
-            border-bottom: 3px solid transparent;
-            transition: border-bottom 0.3s ease;
+                border: none;
+                background: none;
+                cursor: pointer;
 
-            img {
-                width: 50%;
-                height: 50%;
+                border-bottom: 3px solid transparent;
+                transition: border-bottom 0.3s ease;
+
+                img {
+                    width: 50%;
+                    height: 50%;
+                }
             }
-        }
 
-        .admin-navbar-btn:hover {
-            border-bottom: 1px solid var(--background-primary-color);
+            .admin-navbar-btn:hover {
+                border-bottom: 1px solid var(--background-primary-color);
+            }
+
         }
-        
+    }
+
+    .admin-page-content {
+        width: calc(100% - 155px);
+
+        .admin-main-container {
+            padding: 20px;
+        }
     }
 }
-
