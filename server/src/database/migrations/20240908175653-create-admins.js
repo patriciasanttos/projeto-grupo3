@@ -13,7 +13,7 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
-      user: {
+      name: {
         type: DataTypes.STRING,
         allowNull: false
       },

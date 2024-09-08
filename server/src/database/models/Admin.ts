@@ -3,9 +3,9 @@ import sequelize from "..";
 
 interface AdminInfo {
     id: number,
-    user: string,
+    name: string,
     email: string,
-    phone: string
+    phone: number
     password: string,
     role: string,
     created_at?: string,
@@ -24,7 +24,7 @@ Admin.init({
       primaryKey: true,
       autoIncrement: true,
     },
-    user: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false
     },
