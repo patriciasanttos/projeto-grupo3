@@ -1,7 +1,7 @@
 import React from 'react';
 
 import NavBar from '../../../components/navbar/NavBar';
-//import ContentTitles from '../../components/contentTitles/ContentTitles';
+import ContentTitles from '../../../components/contentTitles/ContentTitles';
 import Menu from '../../../components/menu/Menu';
 import Footer from '../../../components/footer/Footer';
 
@@ -17,18 +17,16 @@ function AboutUs() {
       <NavBar />
 
       <div className='aboutus-container'>
-          <main className='aboutus-main'>
-          {/*<ContentTitles
+        <main className='aboutus-main'>
+          <ContentTitles
             title = "ONG SJPA"
             subtitle = "Conheça a nossa história"
-          />*/}
-          <p className='title'>CONHEÇA A NOSSA HISTÓRIA</p>
-          <h1 className='subtitle'>ONG SJPA</h1>
+          />
 
-          <div>
+          <div className='aboutus-main-text'>
             <img className='presentation-video' src={video_image} alt="Vídeo" />
 
-            <p>Há mais de 36 anos, a SJPA surgiu para salvar animais que seriam sacrificados, oferecendo a eles segurança, cuidado e amor. Nosso abrigo se tornou um lar para centenas de cães e gatos abandonados, onde podem se recuperar e encontrar dignidade.
+            <p className='text'>Há mais de 36 anos, a SJPA surgiu para salvar animais que seriam sacrificados, oferecendo a eles segurança, cuidado e amor. Nosso abrigo se tornou um lar para centenas de cães e gatos abandonados, onde podem se recuperar e encontrar dignidade.
             Hoje, cuidamos de cerca de 450 animais, todos com histórias marcadas por dor, mas também por esperança. Sem apoio governamental, contamos com a generosidade de pessoas como você para continuar nossa missão.</p>
           </div>
         </main>
