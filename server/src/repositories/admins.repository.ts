@@ -1,8 +1,10 @@
 import { Op } from "sequelize";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import Admin from "../database/models/Admin";
 import { AdminType } from "../utils/types";
 import serverErrorHandler from "../utils/serverErrorHandler";
+require('dotenv').config();
 
 export default {
     async getAdminById(id: number): Promise<{ code: number, data: {} }> {
@@ -64,14 +66,14 @@ export default {
         }
     },
 
-    async login({ user, password }: { user: string, password: string }): Promise<{ code: number, data?: {} }> {
+    async login({ user, password }: { user: string, password: string }): Promise<{ code: number, data: {} }> {
         try {
             //-----Buscar administrador na tabela
             const gettedAdmin = await Admin.findOne({
                 where: {
                   [Op.or]: [
-                    { email: user },
-                    { phone: user }
+                    { name: user },
+                    { email: user }
                   ]
                 }
             });
@@ -83,9 +85,32 @@ export default {
                         error: 'Administrator not found'
                     }
                 };
+            
+            // -----Comparar senha
+            const comparePassword = await bcrypt.compare(password, gettedAdmin.dataValues.password);
+
+            if (!comparePassword)
+                return {
+                    code: 401,
+                    data: {
+                        error: 'Invalid password'
+                    }
+                };
+
+            const secret: string = process.env.JWT_SECRET || '';
+            const token = jwt.sign(
+                { 
+                    userId: gettedAdmin.dataValues.id
+                },
+                secret,
+                { 
+                    expiresIn: "1d"
+                }
+            );
 
             return {
                 code: 200,
+                data: token
             };
         } catch (error: any) {
             return serverErrorHandler(error);
@@ -116,9 +141,8 @@ export default {
             const salt = await bcrypt.genSalt(12);
             userData.password = await bcrypt.hash(userData.password, salt);
 
-            console.log(userData)
             // -----Salvar administrador na tabela
-            // await Admin.create({ ...data });
+            await Admin.create({ ...data });
 
             return {
                 code: 201
