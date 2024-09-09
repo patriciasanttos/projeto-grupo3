@@ -6,6 +6,15 @@ import { AdminType } from "../utils/types";
 import serverErrorHandler from "../utils/serverErrorHandler";
 require('dotenv').config();
 
+type UpdateDataType = {
+    id: number,
+    name?: string,
+    email?: string,
+    phone?: number,
+    password?: string,
+    role?: string,
+}
+
 export default {
     async getAdminById(id: number): Promise<{ code: number, data: {} }> {
         try {
@@ -152,27 +161,10 @@ export default {
         }
     },
 
-    async updateAdmin({ id, data }: { id: number, data: AdminType }): Promise<{ code: number, data?: {} }> {
+    async updateAdmin(data: UpdateDataType): Promise<{ code: number, data?: {} }> {
         try {
-            const adminExistis = await Admin.findOne({
-                where: {
-                  [Op.or]: [
-                    { email: data.email },
-                    { phone: data.phone }
-                  ]
-                }
-            });
-
-            if (adminExistis !== null)
-                return {
-                    code: 409,
-                    data: {
-                        error: 'Email or phone already registered'
-                    }
-                };
-
             //-----Buscar administrador na tabela
-            const gettedAdmin = await Admin.findOne({ where: { id } })
+            const gettedAdmin = await Admin.findOne({ where: { id: data.id } })
             
             if (gettedAdmin === null)
                 return {
@@ -182,6 +174,46 @@ export default {
                     }
                 };
 
+            if (data.email || data.phone) {
+                if (data.email === gettedAdmin.dataValues.email)
+                    return {
+                        code: 409,
+                        data: {
+                            error: 'Email already registered'
+                        }
+                    };
+
+                if (data.phone === gettedAdmin.dataValues.phone)
+                    return {
+                        code: 409,
+                        data: {
+                            error: 'Phone already registered'
+                        }
+                    };
+            }
+            
+            if (data.password) {
+                const userData = { ...data };
+                const salt = await bcrypt.genSalt(12);
+                userData.password = await bcrypt.hash(data.password, salt);
+
+                const comparePassword = await bcrypt.compare(data.password, gettedAdmin.dataValues.password);
+
+                if (comparePassword)
+                    return {
+                        code: 400,
+                        data: {
+                            error: 'Use a different password'
+                        }
+                    };
+    
+                await gettedAdmin.update({ ...userData });
+
+                return {
+                    code: 200
+                };
+            };
+            
             await gettedAdmin.update({ ...data });
 
             return {
