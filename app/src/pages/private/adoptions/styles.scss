@@ -1,0 +1,17 @@
+.admin-header {
+    background-color: var(--background-primary-color);
+    height: 104px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+        color: #fff;
+        font-weight: 400;
+    }
+}
+
+.admin-main-container {
+    height: 80%;
+}

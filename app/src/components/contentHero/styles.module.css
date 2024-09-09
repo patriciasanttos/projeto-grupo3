@@ -1,31 +1,17 @@
 .container {
     padding: 80px 20px;
     text-align: center;
+    background-image: url('../../assets/images/bg-gray-paw.svg');
     background-size: cover;
+    background-repeat: no-repeat;
   }
   
-  .subtitle {
-    margin: 0px;
-    font-size: 14px;
-    font-weight: bold;
-    color: #26A59E;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  
-  .title {
-    margin-top: 0px;
-    margin-bottom: 40px;
-    font-size: 36px;
-    font-weight: bold;
-    color: #5BB656;
-  }
-  
-  .text {
-    font-size: 18px;
-    color: #000000;
-    max-width: 1000px;
+.text {
+    max-width: 900px;
     margin: 0 auto;
     line-height: 1.6;
-  }
+    color: #000;
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
   

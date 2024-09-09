@@ -1,0 +1,84 @@
+.text{
+    text-align: center;
+    padding-bottom: 20px;
+    color: #26A59E;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+.contentContainer {
+    background-image: url('../../../assets/images/background_2.svg');
+    display: flex;
+    justify-content: space-between;
+    background-color: #F4F4F4;
+    flex-direction: column;
+    padding: 20px 0px;
+}
+
+.photoGallery{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 50px;
+}
+  
+.cardContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px; 
+    justify-items: center; 
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+  
+.pagination button {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px 16px;
+    margin: 0 4px;
+    cursor: pointer;
+}
+  
+.pagination button.active {
+    background-color: #26A59E;
+    color: #fff;
+}
+  
+.pagination button:hover:not(:disabled) {
+    background-color: #ddd;
+}
+  
+.arrowButton {
+    font-size: 18px;
+}
+  
+.arrowButton:disabled {
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+}
+
+@media (max-width: 1024px) {
+    .cardContainer {
+        grid-template-columns: repeat(2, 1fr); /* Duas colunas em telas médias */
+    }
+}
+
+@media (max-width: 768px) {
+    .cardContainer {
+        grid-template-columns: repeat(1, 1fr); /* Uma coluna em telas pequenas */
+    }
+
+    .photoGallery{
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+ 

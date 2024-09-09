@@ -1,0 +1,64 @@
+.text{
+    text-align: center;
+    padding-bottom: 20px;
+    color: #26A59E;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+.contentContainer {
+    background-image: url('../../../assets/images/background_2.svg');
+    display: flex;
+    padding: 40px;
+    background-color: #F4F4F4;
+    flex-direction: column;
+    align-items: center;
+}
+
+.photoGallery{
+    display: flex;
+    flex-direction: row;
+    max-width: 900px;
+}
+  
+.cardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+  
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+  
+.pagination button {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px 16px;
+    margin: 0 4px;
+    cursor: pointer;
+}
+  
+.pagination button.active {
+    background-color: #26A59E;
+    color: #fff;
+}
+  
+.pagination button:hover:not(:disabled) {
+    background-color: #ddd;
+}
+  
+.arrowButton {
+    font-size: 18px;
+}
+  
+.arrowButton:disabled {
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+}

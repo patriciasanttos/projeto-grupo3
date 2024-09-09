@@ -1,0 +1,33 @@
+.admin-header {
+    background-color: var(--background-primary-color);
+    height: 10%;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+        color: #fff;
+        font-weight: 400;
+    }
+}
+
+.admin-main-container {
+    height: 80%;
+    text-align: left;
+    padding: 80px;
+}
+.admin-main-container h2{
+    font-size: 30px;
+    margin-bottom: 40px;
+}
+.admin-main-container h3{
+    color: #46A441;
+    text-align: left;
+    font-size: 35px;
+    font-weight: normal;
+}
+.admin-main-container p{
+    font-size: 25px;
+    margin-bottom: 65px;
+}
