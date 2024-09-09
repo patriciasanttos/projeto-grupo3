@@ -33,14 +33,19 @@
     padding: 1.5% 2% 2% 2%;
     background-image: url(../../assets/images/bg-green.svg);
     background-size: cover;
+
+    .modalHeader {
+        text-align: center;
+        color: var(--background-primary-color);
+    }
 }
 
 
 /* BUTTON MODAL */
 .closeModal {
-    display: flex;
-    flex-direction: row-reverse;
-    padding-bottom: 4%;
+    position: relative;
+    left: 350px;
+    bottom: 35px;
 
     button {
         border: none;

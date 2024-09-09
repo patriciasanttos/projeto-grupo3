@@ -1,17 +1,17 @@
-import LandingPage from './public/landing_page/index';
-import AboutUs from './public/about_us/index';
-import Adoption from './public/adoption/index';
-import Sponsorship from './public/sponsorship/index';
-import Contact from './public/contact/index';
-import Donation from './public/donation/index';
-import Volunteers from './public/volunteers/index';
+import LandingPage from './public/landing_page';
+import AboutUs from './public/about_us';
+import Adoption from './public/adoption';
+import Sponsorship from './public/sponsorship';
+import Contact from './public/contact';
+import Donation from './public/donation';
+import Volunteers from './public/volunteers';
 
-import Login from './private/login/index';
-import ControlPanel from './private/control_panel/index';
-import Animals from './private/animals/index';
-import Sponsorships from './private/sponsorships/index';
-import Adoptions from './private/adoptions/index';
-import { Volunteers as AdminVolunteers }  from './private/volunteers/index';
+import Login from './private/login';
+import ControlPanel from './private/control_panel';
+import Animals from './private/animals';
+import Sponsorships from './private/sponsorships';
+import Adoptions from './private/adoptions';
+import { Volunteers as AdminVolunteers }  from './private/volunteers';
 
 const publicPages = {
     LandingPage,

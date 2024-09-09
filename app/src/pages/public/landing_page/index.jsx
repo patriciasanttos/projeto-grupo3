@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import NavBar from "../../../components/navbar/NavBar";
 import Footer from "../../../components/footer/Footer";
 import Carousel from "../../../components/carousel/Carousel";
 import DonationCard from "../../../components/card_donation/DonationCard";
+import Modal from '../../../components/modal'
 import {animals} from './animals'
 // import styles from './styles.css';
 import "./landingPage.scss";
@@ -25,6 +26,13 @@ import socialMedia from "../../../assets/icons/social-media.svg";
 import bath from "../../../assets/icons/bath.svg";
 
 function LandingPage() {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const onClickCardAnimal = (animal) => {
+    setIsModalOpen(true)
+
+  }
+
   return (
     <div className="page_container landing-page">
       <NavBar />
@@ -56,7 +64,7 @@ function LandingPage() {
           CONHEÇA ALGUNS DE NOSSOS ANIMAIS
         </h3>
         <h1 className="title adoption-title">Adote seu novo companheiro!</h1>
-        <Carousel animals={animals} />
+        <Carousel animals={animals} onClickCardAnimal={onClickCardAnimal}/>
         <div className="align-btn margin-btn">
           <Link to="/adoption">
             <button className="btn-adoption btn">Conheça mais animais</button>
@@ -166,6 +174,9 @@ function LandingPage() {
         </div>
       </section>
       <Footer />
+      <Modal isOpen={isModalOpen} onModalClose={() => setIsModalOpen(false)}>
+        teste
+      </Modal>
     </div>
   );
 }

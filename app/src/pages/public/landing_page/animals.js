@@ -1,4 +1,5 @@
 import imageDog1 from "../../../assets/images/dog1.svg";
+import imageDog2 from "../../../assets/images/hector.svg";
 
 export const animals = [
   {
@@ -11,7 +12,7 @@ export const animals = [
   },
   {
     id: 2,
-    image: imageDog1,
+    image: imageDog2,
     name: "Max",
     gender: "Macho",
     breed: "Sem Raça Definida",
@@ -27,7 +28,7 @@ export const animals = [
   },
   {
     id: 4,
-    image: imageDog1,
+    image: imageDog2,
     name: "Billy",
     gender: "Fêmea",
     breed: "Sem Raça Definida",
@@ -43,7 +44,7 @@ export const animals = [
   },
   {
     id: 6,
-    image: imageDog1,
+    image: imageDog2,
     name: "Costelinha",
     gender: "Fêmea",
     breed: "Sem Raça Definida",
@@ -59,7 +60,7 @@ export const animals = [
   },
   {
     id: 8,
-    image: imageDog1,
+    image: imageDog2,
     name: "Snoop",
     gender: "Fêmea",
     breed: "Sem Raça Definida",
