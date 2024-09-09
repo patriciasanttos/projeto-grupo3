@@ -86,50 +86,53 @@
 
             margin-bottom: 5%;
             padding-left: 6%;
+            padding-right: 8%;
 
-            .whatsapp div, .email div {
+            p {
+                margin: 0;
+            }
+
+            .contacts-title {
                 display: flex;
                 flex-direction: row;
                 align-items: center;
+                text-align: center;
 
                 margin-bottom: 1.2rem;
+            }
+
+            .whatsapp {
+                .whatsapp-link {
+                    display: flex;
+                    flex-direction: column;
+
+                    div {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        
+                        p {
+                            margin-left: 2%;
+                        }
+                    }
+                }
             }
 
             .email {
                 margin-left: 2rem;
-                margin-right: 18.5%;
-            }
-        }
-
-        .instagram {
-            margin: 0 6% 3% 6%;
-
-            .intagram-div-title {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-
-                margin-bottom: 2.5rem;
-
-                h3 {
-                    margin: 0;
-                    margin-right: 1%;
-                }
             }
 
-            .instagram-images {
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
+            .instagram {
+                margin-left: 2rem;
 
-                margin-bottom: 1.2rem;
+                a {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
 
-                img {
-                    width: 30%;
-                    height: 30%;
-                    object-fit: cover;
-                    border-radius: 3%;
-                    margin-right: 1rem;
+                    p {
+                        margin-left: 5%;
+                    }
                 }
             }
         }
