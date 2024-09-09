@@ -1,7 +1,8 @@
+import { Op } from "sequelize";
+import bcrypt from "bcrypt";
 import Admin from "../database/models/Admin";
 import { AdminType } from "../utils/types";
 import serverErrorHandler from "../utils/serverErrorHandler";
-import { Op } from "sequelize";
 
 export default {
     async getAdminById(id: number): Promise<{ code: number, data: {} }> {
@@ -63,10 +64,38 @@ export default {
         }
     },
 
-    async createAdmin(data: AdminType): Promise<{ code: number, data?: {} }> {
+    async login({ user, password }: { user: string, password: string }): Promise<{ code: number, data?: {} }> {
         try {
             //-----Buscar administrador na tabela
             const gettedAdmin = await Admin.findOne({
+                where: {
+                  [Op.or]: [
+                    { email: user },
+                    { phone: user }
+                  ]
+                }
+            });
+
+            if (gettedAdmin === null)
+                return {
+                    code: 404,
+                    data: {
+                        error: 'Administrator not found'
+                    }
+                };
+
+            return {
+                code: 200,
+            };
+        } catch (error: any) {
+            return serverErrorHandler(error);
+        }
+    },
+
+    async createAdmin(data: AdminType): Promise<{ code: number, data?: {} }> {
+        try {
+            //-----Buscar administrador na tabela
+            const adminExistis = await Admin.findOne({
                 where: {
                   [Op.or]: [
                     { email: data.email },
@@ -75,7 +104,7 @@ export default {
                 }
             });
 
-            if (gettedAdmin !== null)
+            if (adminExistis !== null)
                 return {
                     code: 409,
                     data: {
@@ -83,8 +112,13 @@ export default {
                     }
                 };
 
+            const userData = data;
+            const salt = await bcrypt.genSalt(12);
+            userData.password = await bcrypt.hash(userData.password, salt);
+
+            console.log(userData)
             // -----Salvar administrador na tabela
-            await Admin.create({ ...data });
+            // await Admin.create({ ...data });
 
             return {
                 code: 201
@@ -96,6 +130,23 @@ export default {
 
     async updateAdmin({ id, data }: { id: number, data: AdminType }): Promise<{ code: number, data?: {} }> {
         try {
+            const adminExistis = await Admin.findOne({
+                where: {
+                  [Op.or]: [
+                    { email: data.email },
+                    { phone: data.phone }
+                  ]
+                }
+            });
+
+            if (adminExistis !== null)
+                return {
+                    code: 409,
+                    data: {
+                        error: 'Email or phone already registered'
+                    }
+                };
+
             //-----Buscar administrador na tabela
             const gettedAdmin = await Admin.findOne({ where: { id } })
             
