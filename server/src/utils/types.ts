@@ -41,3 +41,12 @@ export type VolunteerType = {
     address: string,
     availability: string,
 }
+
+export type AdminType = {
+    id: number,
+    name: string,
+    email: string,
+    phone: number,
+    password: string,
+    role: string,
+}
