@@ -3,6 +3,7 @@ import sequelize from "..";
 
 interface AnimalInfo {
     id: number,
+    image: string,
     name: string,
     species: string,
     race?: string
@@ -32,6 +33,10 @@ Animal.init({
       unique: true,
       primaryKey: true,
       autoIncrement: true,
+    },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     name: {
       type: DataTypes.STRING,
