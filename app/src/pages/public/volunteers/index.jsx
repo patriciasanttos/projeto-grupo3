@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { IMaskInput } from "react-imask";
 
 import NavBar from "../../../components/navbar/NavBar";
 import ContentHero from '../../../components/contentHero/ContentHero';
@@ -27,7 +28,34 @@ import whatsApp from "../../../assets/icons/whatsapp.svg";
 
 function Volunteers() {
   const [selectedOption, setSelectedOption] = useState(null);
-  console.log("selectedOption: ", selectedOption);
+
+  const [formOver18, setFormOver18] = useState({
+    name: "",
+    phoneNumber: "",
+    email: "",
+    occupation: "",
+    address: "",
+    availability: "",
+  })
+
+  const [formUnder18, setFormUnder18] = useState({
+    responsibleName: "",
+    phoneNumber: "",
+    minorsName: "",
+    periodStudy: "",
+    email: "",
+    availability: "",
+    address: "",
+  });
+
+  const onClickSubmitOver18 = () => {
+    alert(JSON.stringify(formOver18));
+  };
+
+  const onClickSubmitUnder18 = () => {
+    alert(JSON.stringify(formUnder18))
+  }
+
   return (
     <div className="page_container">
       <NavBar />
@@ -186,17 +214,17 @@ function Volunteers() {
             
               <form className="volunteers-form" action="">
                 <div className="align-form">
-                  <input type="text" name="Nome" id="" placeholder="Nome completo" />
-                  <input type="text" name="E-mail" id="" placeholder="E-mail" />
-                  <input type="text" name="Endereço" id="" placeholder="Endereço completo" />
+                  <input type="text" name="Nome" id="" placeholder="Nome completo" value={formOver18.name} onChange={(e) => setFormOver18({...formOver18, name: e.target.value})}/>
+                  <input type="text" name="E-mail" id="" placeholder="E-mail" value={formOver18.email} onChange={(e) => setFormOver18({...formOver18, email: e.target.value})}/>
+                  <input type="text" name="Endereço" id="" placeholder="Endereço completo" value={formOver18.address} onChange={(e) => setFormOver18({...formOver18, address: e.target.value})}/>
                 </div>
                 <div className="align-form">
-                  <input type="number" name="Celular" id="" placeholder="Celular" />
-                  <input type="text" name="Profissão" id="" placeholder="Profissão" />
-                  <input type="text" name="Disponibilidade" id="" placeholder="Disponibilidade de horas na semana" />
+                  <IMaskInput type="text" name="Celular" id="" placeholder="Celular" value={formOver18.phoneNumber} onAccept={(value, maskRef, e) => setFormOver18({...formOver18, phoneNumber: e.target.value})} mask={"(00) 00000-0000"}/>
+                  <input type="text" name="Profissão" id="" placeholder="Profissão" value={formOver18.occupation} onChange={(e) => setFormOver18({...formOver18, occupation: e.target.value})}/>
+                  <input type="number" name="Disponibilidade" id="" placeholder="Disponibilidade de horas na semana" value={formOver18.availability} onChange={(e) => setFormOver18({...formOver18, availability: e.target.value})}/>
                 </div>
               </form>
-                <button>Enviar</button>
+                <button onClick={onClickSubmitOver18}>Enviar</button>
                 </div>
             )}
 
@@ -217,18 +245,18 @@ function Volunteers() {
                 </p>
                 <form className="volunteers-form" action="">
                 <div className="align-form">
-                  <input type="text" name="Nome Responsável" id="" placeholder="Nome do responsável" />
-                  <input type="text" name="Nome do menor" id="" placeholder="Nome do menor" />
-                  <input type="text" name="E-mail" id="" placeholder="E-mail" />
-                  <input type="text" name="Endereço" id="" placeholder="Endereço completo" />
+                  <input type="text" name="Nome Responsável" id="" placeholder="Nome do responsável" value={formUnder18.responsibleName} onChange={(e) => setFormUnder18({...formUnder18, responsibleName: e.target.value})}/>
+                  <input type="text" name="Nome do menor" id="" placeholder="Nome do menor" value={formUnder18.minorsName} onChange={(e) => setFormUnder18({...formUnder18, minorsName: e.target.value})}/>
+                  <input type="text" name="E-mail" id="" placeholder="E-mail" value={formUnder18.email} onChange={(e) => setFormUnder18({...formUnder18, email: e.target.value})}/>
+                  <input type="text" name="Endereço" id="" placeholder="Endereço completo" value={formUnder18.address} onChange={(e) => setFormUnder18({...formUnder18, address: e.target.value})}/>
                 </div>
                 <div className="align-form">
-                  <input type="number" name="Celular" id="" placeholder="Celular" />
-                  <input type="text" name="Período aula" id="" placeholder="Período que estuda" />
-                  <input type="text" name="Disponibilidade" id="" placeholder="Disponibilidade de horas na semana" />
+                  <IMaskInput type="text" name="Celular" id="" placeholder="Celular" value={formUnder18.phoneNumber} onAccept={(value, maskRef, e) => setFormUnder18({...formUnder18, phoneNumber: e.target.value})} mask={"(00) 00000-0000"}/>
+                  <input type="text" name="Período aula" id="" placeholder="Período que estuda" value={formUnder18.periodStudy} onChange={(e) => setFormUnder18({...formUnder18, periodStudy: e.target.value})}/>
+                  <input type="number" name="Disponibilidade" id="" placeholder="Disponibilidade de horas na semana" value={formUnder18.availability} onChange={(e) => setFormUnder18({...formUnder18, availability: e.target.value})}/>
                 </div>
               </form>
-              <button>Enviar</button>
+              <button onClick={onClickSubmitUnder18}>Enviar</button>
               </div>
             )}
           </section>
