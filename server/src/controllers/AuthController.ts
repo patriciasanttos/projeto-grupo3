@@ -1,20 +1,49 @@
 import { Request, Response } from 'express';
 import adminsRepository from '../repositories/admins.repository';
-import Admin from '../database/models/Admin';
+
+import multer from 'multer';
+import fs from 'fs';
+import path from 'path';
+import genFileName from '../utils/genFileName';
 
 class AutoController {
     async getAll(req: Request, res: Response) {
         const response = await adminsRepository.getAllAdmins();
 
-        res.status(response.code).json(response.data);
+        const admins = Object.entries(response.data).map((admin: any[]) => {
+            const image = fs.readFileSync(path.join(__dirname, '..', 'assets', 'images', 'administrators', admin[1].image));
+            
+            let base64Image = '';
+            if (image)
+                base64Image = Buffer.from(image).toString('base64');
+
+            return {
+                ...admin[1],
+                image: base64Image || response.data
+            };
+        })
+
+        res.status(response.code).json(admins);
     }
     
     async getById(req: Request, res: Response) {
         const { id } = req.params;
 
-        const response = await adminsRepository.getAdminById(Number(id));
+        const response: any = await adminsRepository.getAdminById(Number(id));
+        console.log(response.data)
 
-        res.status(response.code).json(response.data);
+        const image = fs.readFileSync(path.join(__dirname, '..', 'assets', 'images', 'administrators', response.data.image));
+            
+        let base64Image = '';
+        if (image)
+            base64Image = Buffer.from(image).toString('base64');
+
+        const administrator = {
+            ...response.data,
+            image: base64Image || response.data
+        };
+
+        res.status(response.code).json(administrator);
     }
 
     async login(req: Request, res: Response){
@@ -33,12 +62,33 @@ class AutoController {
     }
 
     async register(req: Request, res: Response) {
-        const data = req.body;
+        const data = {
+            ...req.body,
+            image: req.file?.originalname
+        };
+        if (data.image) {
+            data.image = genFileName(req.file!.originalname);
+        }
 
-        if (Object.keys(data).length === 0 || data.name === undefined || data.email === undefined || data.phone === undefined || data.password === undefined || data.role === undefined)
+        if (Object.keys(data).length === 0 || data.name === undefined || data.email === undefined || data.phone === undefined || data.password === undefined || data.permissions === undefined)
             return res.status(400).json({ error: 'Invalid body request' });
 
         const response = await adminsRepository.createAdmin(data);
+
+        if (response.code === 201) {
+            //-----Salvar imagem na API
+            if (data.image) {
+                const imageBuffer = req.file!.buffer
+                fs.writeFile(path.join(__dirname, '..', 'assets', 'images', 'administrators', data.image), imageBuffer, (err) => {
+                    if (err) {
+                        console.log(err)
+                        return res.status(response.code).json({ message: 'Registred, but image was not saved' });
+                    }
+                });
+            }
+
+            return res.status(response.code).json(response.data);
+        };
 
         return res.status(response.code).json(response.data);
     }
