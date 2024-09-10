@@ -4,10 +4,10 @@ import arrowRight from "../../assets/icons/arrow-right.svg";
 import "./Carousel.scss";
 import { useState } from "react";
 
-const Carousel = ({ animals }) => {
+const Carousel = ({ animals, onClickCardAnimal }) => {
   const [initialIndex, setInitialIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(2);
-  const isLeftArrowDisabled = initialIndex === 0
+  const isLeftArrowDisabled = initialIndex === 0;
   const isRightArrowDisabled = endIndex === animals.length - 1;
 
   const showAnimals = [
@@ -50,6 +50,7 @@ const Carousel = ({ animals }) => {
             gender={animal.gender}
             breed={animal.breed}
             age={animal.age}
+            onClickButton={() => onClickCardAnimal(animal)}
           />
         ))}
       </div>
