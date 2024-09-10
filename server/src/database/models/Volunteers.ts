@@ -3,7 +3,7 @@ import sequelize from "..";
 
 interface VolunteerInfo {
     id: number,
-    image: string,
+    image?: string,
     name: string,
     email: string,
     phone: number,

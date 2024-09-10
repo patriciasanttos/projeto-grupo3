@@ -18,7 +18,7 @@ export default {
 
             return {
                 code: 200,
-                data: animal
+                data: animal.dataValues
             };
         } catch (error: any) {
             return serverErrorHandler(error);
@@ -29,14 +29,6 @@ export default {
         try {
             //-----Buscar animais na tabela
             const animals = await Animal.findAll();
-
-            if (animals === null)
-                return {
-                    code: 404,
-                    data: {
-                        error: 'No animals found'
-                    }
-                };
 
             return {
                 code: 200,
