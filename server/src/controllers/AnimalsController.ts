@@ -4,7 +4,6 @@ import path from 'path';
 
 import animalsRepository from '../repositories/animals.repository';
 import genFileName from '../utils/genFileName';
-import { AnimalType } from '../utils/types';
 
 class AnimalController {
     async getAll(req: Request, res: Response) {
@@ -41,7 +40,6 @@ class AnimalController {
             ...response.data,
             image: base64Image
         };
-
 
         res.status(response.code).json(animal);
     }

@@ -32,13 +32,11 @@ export default {
             return {
                 code: 200,
                 data: {
-                    user: {
-                        name: gettedAdmin.dataValues.name,
-                        email: gettedAdmin.dataValues.email,
-                        phone: gettedAdmin.dataValues.phone,
-                        permissions: gettedAdmin.dataValues.permissions,
-                        image: gettedAdmin.dataValues.image
-                    }
+                    name: gettedAdmin.dataValues.name,
+                    email: gettedAdmin.dataValues.email,
+                    phone: gettedAdmin.dataValues.phone,
+                    permissions: gettedAdmin.dataValues.permissions,
+                    image: gettedAdmin.dataValues.image
                 }
             };
         } catch (error: any) {

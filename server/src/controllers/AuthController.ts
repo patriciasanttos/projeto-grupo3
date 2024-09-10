@@ -10,15 +10,40 @@ class AutoController {
     async getAll(req: Request, res: Response) {
         const response = await adminsRepository.getAllAdmins();
 
-        res.status(response.code).json(response.data);
+        const admins = Object.entries(response.data).map((admin: any[]) => {
+            const image = fs.readFileSync(path.join(__dirname, '..', 'assets', 'images', 'administrators', admin[1].image));
+            
+            let base64Image = '';
+            if (image)
+                base64Image = Buffer.from(image).toString('base64');
+
+            return {
+                ...admin[1],
+                image: base64Image || response.data
+            };
+        })
+
+        res.status(response.code).json(admins);
     }
     
     async getById(req: Request, res: Response) {
         const { id } = req.params;
 
-        const response = await adminsRepository.getAdminById(Number(id));
+        const response: any = await adminsRepository.getAdminById(Number(id));
+        console.log(response.data)
 
-        res.status(response.code).json(response.data);
+        const image = fs.readFileSync(path.join(__dirname, '..', 'assets', 'images', 'administrators', response.data.image));
+            
+        let base64Image = '';
+        if (image)
+            base64Image = Buffer.from(image).toString('base64');
+
+        const administrator = {
+            ...response.data,
+            image: base64Image || response.data
+        };
+
+        res.status(response.code).json(administrator);
     }
 
     async login(req: Request, res: Response){
