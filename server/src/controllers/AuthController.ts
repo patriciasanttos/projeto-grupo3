@@ -1,6 +1,10 @@
 import { Request, Response } from 'express';
 import adminsRepository from '../repositories/admins.repository';
-import Admin from '../database/models/Admin';
+
+import multer from 'multer';
+import fs from 'fs';
+import path from 'path';
+import genFileName from '../utils/genFileName';
 
 class AutoController {
     async getAll(req: Request, res: Response) {
@@ -33,12 +37,33 @@ class AutoController {
     }
 
     async register(req: Request, res: Response) {
-        const data = req.body;
+        const data = {
+            ...req.body,
+            image: req.file?.originalname
+        };
+        if (data.image) {
+            data.image = genFileName(req.file!.originalname);
+        }
 
-        if (Object.keys(data).length === 0 || data.name === undefined || data.email === undefined || data.phone === undefined || data.password === undefined || data.role === undefined)
+        if (Object.keys(data).length === 0 || data.name === undefined || data.email === undefined || data.phone === undefined || data.password === undefined || data.permissions === undefined)
             return res.status(400).json({ error: 'Invalid body request' });
 
         const response = await adminsRepository.createAdmin(data);
+
+        if (response.code === 201) {
+            //-----Salvar imagem na API
+            if (data.image) {
+                const imageBuffer = req.file!.buffer
+                fs.writeFile(path.join(__dirname, '..', 'assets', 'images', 'administrators', data.image), imageBuffer, (err) => {
+                    if (err) {
+                        console.log(err)
+                        return res.status(response.code).json({ message: 'Registred, but image was not saved' });
+                    }
+                });
+            }
+
+            return res.status(response.code).json(response.data);
+        };
 
         return res.status(response.code).json(response.data);
     }

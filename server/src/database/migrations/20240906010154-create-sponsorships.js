@@ -22,7 +22,7 @@ module.exports = {
         allowNull: false
       },
       phone: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         allowNull: true
       },
       animal_id: {

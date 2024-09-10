@@ -1,5 +1,6 @@
 export type AnimalType = {
     id: number,
+    image: string,
     name: string,
     species: string,
     race?: string
@@ -35,6 +36,7 @@ export type AdoptionType = {
 
 export type VolunteerType = {
     id: number,
+    image?: string,
     name: string,
     email: string,
     phone: number,
@@ -44,9 +46,10 @@ export type VolunteerType = {
 
 export type AdminType = {
     id: number,
+    image?: string,
     name: string,
     email: string,
     phone: number,
     password: string,
-    role: string,
+    permissions: string,
 }

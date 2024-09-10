@@ -3,11 +3,12 @@ import sequelize from "..";
 
 interface AdminInfo {
     id: number,
+    image?: string,
     name: string,
     email: string,
     phone: number
     password: string,
-    role: string,
+    permissions: string,
     created_at?: string,
     updated_at?: string,
 }
@@ -24,6 +25,10 @@ Admin.init({
       primaryKey: true,
       autoIncrement: true,
     },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false
@@ -34,7 +39,7 @@ Admin.init({
       unique: true,
     },
     phone: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       allowNull: false,
       unique: true,
     },
@@ -42,7 +47,7 @@ Admin.init({
       type: DataTypes.STRING,
       allowNull: false
     },
-    role: {
+    permissions: {
       type: DataTypes.STRING,
       allowNull: false
     },

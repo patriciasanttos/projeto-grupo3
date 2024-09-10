@@ -13,6 +13,10 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
+      image: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
       name: {
         type: DataTypes.STRING,
         allowNull: false
@@ -23,7 +27,7 @@ module.exports = {
         unique: true
       },
       phone: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         allowNull: true,
         unique: true
       },

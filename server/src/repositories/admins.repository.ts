@@ -12,7 +12,7 @@ type UpdateDataType = {
     email?: string,
     phone?: number,
     password?: string,
-    role?: string,
+    permissions?: string,
 }
 
 export default {
@@ -36,7 +36,8 @@ export default {
                         name: gettedAdmin.dataValues.name,
                         email: gettedAdmin.dataValues.email,
                         phone: gettedAdmin.dataValues.phone,
-                        role: gettedAdmin.dataValues.role
+                        permissions: gettedAdmin.dataValues.permissions,
+                        image: gettedAdmin.dataValues.image
                     }
                 }
             };
@@ -66,7 +67,8 @@ export default {
                         user: user.dataValues.name,
                         email: user.dataValues.email,
                         phone: user.dataValues.phone,
-                        role: user.dataValues.role
+                        permissions: user.dataValues.permissions,
+                        image: user.dataValues.image
                     };
                 })
             };

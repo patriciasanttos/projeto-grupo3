@@ -3,6 +3,7 @@ import sequelize from "..";
 
 interface VolunteerInfo {
     id: number,
+    image: string,
     name: string,
     email: string,
     phone: number,
@@ -24,6 +25,10 @@ Volunteer.init({
       primaryKey: true,
       autoIncrement: true,
     },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -34,7 +39,7 @@ Volunteer.init({
       unique: true
     },
     phone: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       allowNull: true,
       unique: true
     },
