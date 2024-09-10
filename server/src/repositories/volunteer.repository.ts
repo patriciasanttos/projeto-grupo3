@@ -19,7 +19,7 @@ export default {
 
             return {
                 code: 200,
-                data: volunteer
+                data: volunteer.dataValues
             };
         } catch (error: any) {
             return serverErrorHandler(error);

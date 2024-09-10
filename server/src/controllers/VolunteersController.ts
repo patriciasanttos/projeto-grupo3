@@ -7,17 +7,41 @@ import genFileName from '../utils/genFileName';
 
 class VolunteersController {
     async getAll(req: Request, res: Response) {
-        const response = await volunteerRepository.getAllVolunteers();
+        const response: any = await volunteerRepository.getAllVolunteers();
 
-        res.status(response.code).json(response.data);
+        const volunteers = Object.entries(response.data).map((volunteer: any[]) => {
+            const image = fs.readFileSync(path.join(__dirname, '..', 'assets', 'images', 'animals', volunteer[1].dataValues.image));
+            
+            let base64Image = '';
+            if (image)
+                base64Image = Buffer.from(image).toString('base64');
+
+            return {
+                ...volunteer[1].dataValues,
+                image: base64Image
+            };
+        })
+
+        res.status(response.code).json(volunteers);
     }
 
     async getById(req: Request, res: Response) {
         const { id } = req.params;
 
-        const response = await volunteerRepository.getVolunteerById(Number(id));
+        const response: any = await volunteerRepository.getVolunteerById(Number(id));
 
-        res.status(response.code).json(response.data);
+        const image = fs.readFileSync(path.join(__dirname, '..', 'assets', 'images', 'volunteers', response.data.image));
+            
+        let base64Image = '';
+        if (image)
+            base64Image = Buffer.from(image).toString('base64');
+
+        const volunteer = {
+            ...response.data,
+            image: base64Image
+        };
+
+        res.status(response.code).json(volunteer);
     }
 
     async create(req: Request, res: Response) {
