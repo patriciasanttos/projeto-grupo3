@@ -32,8 +32,8 @@ function AboutUs() {
         </main>
 
         <section className='aboutus-section-team'>
-          <p className='title'>CONHEÇA QUEM FAZ ACONTECER</p>
-          <h1 className='subtitle'>Nossa equipe</h1>
+          <p className='team-title'>CONHEÇA QUEM FAZ ACONTECER</p>
+          <h1 className='team-subtitle'>Nossa equipe</h1>
 
           <div className='aboutus-team-cards'>
             
