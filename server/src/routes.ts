@@ -1,4 +1,9 @@
 import { Router } from "express";
+import multer from 'multer';
+
+const storage = multer.memoryStorage();
+const image = multer({ storage });
+
 import AnimalsController from "./controllers/AnimalsController";
 import AdoptionsController from "./controllers/AdoptionsController";
 import SponsorshipsController from "./controllers/SponsorshipsController";
@@ -11,8 +16,8 @@ const router = Router();
 router
     .get('/animals', AnimalsController.getAll)
     .get('/animals/:id', AnimalsController.getById)
-    .post('/animals', AnimalsController.create)
-    .put('/animals', AnimalsController.update)
+    .post('/animals', image.single('image'), AnimalsController.create)
+    .put('/animals', image.single('image'), AnimalsController.update)
     .delete('/animals/:id', AnimalsController.delete);
 
 //-----Adoptions routes
@@ -35,8 +40,8 @@ router
 router
     .get('/volunteers', VolunteersController.getAll)
     .get('/volunteers/:id', VolunteersController.getById)
-    .post('/volunteers', VolunteersController.create)
-    .put('/volunteers', VolunteersController.update)
+    .post('/volunteers', image.single('image'), VolunteersController.create)
+    .put('/volunteers', image.single('image'), VolunteersController.update)
     .delete('/volunteers/:id', VolunteersController.delete);
 
 
@@ -45,8 +50,8 @@ router
     .get('/admins', AuthController.getAll)
     .get('/admins/get/:id', AuthController.getById)
     .get('/admins/login', AuthController.login)
-    .post('/admins', AuthController.register)
-    .put('/admins', AuthController.update)
+    .post('/admins', image.single('image'), AuthController.register)
+    .put('/admins', image.single('image'), AuthController.update)
     .delete('/admins/:id', AuthController.delete);
 
 export default router;

@@ -1,7 +1,7 @@
 .admin-header {
     background-color: var(--background-primary-color);
     height: 10%;
-    
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,4 +14,15 @@
 
 .admin-main-container {
     height: 80%;
+}
+
+.modal-volunteers-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 5%;
+
+    input {
+        width: 350px;
+    }
 }

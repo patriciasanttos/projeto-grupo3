@@ -12,7 +12,7 @@ type UpdateDataType = {
     email?: string,
     phone?: number,
     password?: string,
-    role?: string,
+    permissions?: string,
 }
 
 export default {
@@ -32,12 +32,11 @@ export default {
             return {
                 code: 200,
                 data: {
-                    user: {
-                        name: gettedAdmin.dataValues.name,
-                        email: gettedAdmin.dataValues.email,
-                        phone: gettedAdmin.dataValues.phone,
-                        role: gettedAdmin.dataValues.role
-                    }
+                    name: gettedAdmin.dataValues.name,
+                    email: gettedAdmin.dataValues.email,
+                    phone: gettedAdmin.dataValues.phone,
+                    permissions: gettedAdmin.dataValues.permissions,
+                    image: gettedAdmin.dataValues.image
                 }
             };
         } catch (error: any) {
@@ -66,7 +65,8 @@ export default {
                         user: user.dataValues.name,
                         email: user.dataValues.email,
                         phone: user.dataValues.phone,
-                        role: user.dataValues.role
+                        permissions: user.dataValues.permissions,
+                        image: user.dataValues.image
                     };
                 })
             };

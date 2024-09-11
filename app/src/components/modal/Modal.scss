@@ -1,0 +1,220 @@
+    .modal-container {
+        * {
+            font-family: 'Inter';
+        }
+
+        h1 {
+            margin-bottom: 40px;
+        }
+
+        :root {
+            --title-primary-color: #26A59E;
+            --title-secondary-color: #5BB656;
+            --background-primary-color: #5BB656;
+            --backroung-secondary-color: #404044;
+            --text-hover-color: #ffffffcf;
+            --button-primary-color: #26A59E;
+            --button-hover-color: #1b9993;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.373);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal {
+            position: relative;
+            max-width: 1000px;
+            max-height: 100%;
+            border-radius: 0.625rem;
+            color: black;
+            padding: 1.5% 2% 2% 2%;
+            background-image: url(../../assets/images/bg-green.svg);
+            background-size: cover;
+
+            .modalHeader {
+                text-align: center;
+                color: var(--background-primary-color);
+
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                h1 {
+                    width: 100%;
+                }
+            }
+        }
+
+
+        /* BUTTON MODAL */
+        .closeModal {
+            position: relative;
+            left: 16px;
+            bottom: 18px;
+
+            button {
+                border: none;
+                background: none;
+                cursor: pointer;
+            }
+
+            img {
+                height: 2.188rem;
+                width: 2.188rem;
+            }
+        }
+
+        /* GENERAL DATA */
+        .generalData {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .animalName {
+            text-align: start;
+            text-transform: uppercase;
+            font-size: 3rem;
+            margin: 0;
+        }
+
+        .status {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 180%;
+
+            p {
+                font-size: 1.2rem;
+            }
+        }
+
+        .icons {
+            width: 1.25rem;
+            height: 1.25rem;
+            padding: 5px 5px 0px 0px;
+        }
+
+        .info {
+            margin-top: 15%;
+
+            p {
+                font-size: 1.4rem;
+                margin: 0;
+            }
+        }
+
+        .animal {
+            margin-left: 20px;
+            align-self: flex-start;
+            max-height: 18.75rem;
+        }
+
+
+        /* HISTORY */
+        .history {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            margin: 5% 0% 8% 0%;
+
+            h3 {
+                font-size: 1.5rem;
+            }
+        }
+
+
+
+        /* FORMS */
+        .containerForm {
+            display: flex;
+            justify-content: space-between;
+            color: var(--background-primary-color);
+
+            h2 {
+                margin-bottom: 1.3rem;
+                font-size: 2rem;
+            }
+        }
+
+        .forms {
+            display: flex;
+            flex-direction: column;
+            max-width: 45%;
+            align-items: start;
+        }
+
+        .modal-form {
+            display: flex;
+            flex-direction: column;
+
+            textarea {
+                    border: 2px solid var(--background-primary-color);
+                    border-radius: 5px;
+                    outline-style: none;
+
+                    padding: 10px;
+                    margin-top: 30px;
+                }
+
+            .al-modal-form {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-evenly;
+                gap: 40px;
+            }
+        }
+
+        input {
+            padding: 0.938rem;
+            margin: 0px 0px 10px 0px;
+            border: 2px solid var(--background-primary-color);
+            border-radius: 5px;
+            font-size: 0.875rem;
+            width: 80%;
+            font-weight: 600;
+        }
+
+        input:focus {
+            outline-color: #32732f;
+        }
+
+        .btnSubmit {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .align-btn-modal {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+
+            .btn-modal {
+
+                border-style: none;
+                background-color: var(--button-primary-color);
+                color: #fff;
+                font-size: 1.3rem;
+                font-weight: 600;
+                border-radius: 5px;
+
+                height: 3rem;
+                width: 15rem;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+                margin: 30px 0px 10px 0px;
+            }
+        }
+
+
+    }
