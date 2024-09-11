@@ -1,10 +1,22 @@
-import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom';
+import { Routes, Route, BrowserRouter, Navigate, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import { publicPages, privatePages } from './pages/pages.js';
+
+const ScrollToTop = () => {
+    const { pathname } = useLocation();
+  
+    useEffect(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [pathname]);
+  
+    return;
+};
 
 export default function MainRoutes() {
     return (
         <BrowserRouter>
+            <ScrollToTop />
             <Routes>
                 <Route path="/" element={<publicPages.LandingPage />} />
                 <Route path="aboutus" element={<publicPages.AboutUs />} />
