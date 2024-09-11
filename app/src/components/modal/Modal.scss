@@ -3,6 +3,10 @@
             font-family: 'Inter';
         }
 
+        h1 {
+            margin-bottom: 40px;
+        }
+
         :root {
             --title-primary-color: #26A59E;
             --title-secondary-color: #5BB656;
@@ -55,6 +59,7 @@
         .closeModal {
             position: relative;
             left: 16px;
+            bottom: 18px;
 
             button {
                 border: none;
@@ -148,9 +153,30 @@
             align-items: start;
         }
 
+        .modal-form {
+            display: flex;
+            flex-direction: column;
+
+            textarea {
+                    border: 2px solid var(--background-primary-color);
+                    border-radius: 5px;
+                    outline-style: none;
+
+                    padding: 10px;
+                    margin-top: 30px;
+                }
+
+            .al-modal-form {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-evenly;
+                gap: 40px;
+            }
+        }
+
         input {
             padding: 0.938rem;
-            margin: 10px 0px 10px 0px;
+            margin: 0px 0px 10px 0px;
             border: 2px solid var(--background-primary-color);
             border-radius: 5px;
             font-size: 0.875rem;
@@ -166,8 +192,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
+        }
 
-            button {
+        .align-btn-modal {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+
+            .btn-modal {
 
                 border-style: none;
                 background-color: var(--button-primary-color);
@@ -180,8 +212,9 @@
                 width: 15rem;
                 cursor: pointer;
                 transition: background-color 0.3s ease;
-                margin-top: 4rem;
-                margin-bottom: 2rem;
+                margin: 30px 0px 10px 0px;
             }
         }
+
+
     }
