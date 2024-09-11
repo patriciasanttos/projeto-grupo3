@@ -121,7 +121,7 @@ function Sponsorship() {
       </div>
     </div>
     
-    <Menu currentPage='adoption' />
+    <Menu currentPage='sponsorship' />
     <Footer />
   </div>
 );
