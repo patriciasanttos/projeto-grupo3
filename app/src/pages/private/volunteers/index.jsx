@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import AdminNavBar from "../../../components/admin_navbar/AdminNavBar";
-import ModalVolunteers from "../../../components/modal/ModalVolunteers";
+import ModalVolunteers from "../../../components/modal/modalVolunteersAdmin/ModalVolunteers";
 
 
 import "./styles.scss";

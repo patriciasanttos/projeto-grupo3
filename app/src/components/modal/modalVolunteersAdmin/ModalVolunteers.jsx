@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Modal from './index'
+import Modal from '../index'
 import { IMaskInput } from "react-imask";
 
 
