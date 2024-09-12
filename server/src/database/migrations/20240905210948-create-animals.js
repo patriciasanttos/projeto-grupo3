@@ -15,7 +15,7 @@ module.exports = {
       },
       image: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
       },
       name: {
         type: DataTypes.STRING,
@@ -46,7 +46,7 @@ module.exports = {
         allowNull: true
       },
       age: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: true
       },
       gender: {
@@ -59,7 +59,7 @@ module.exports = {
       },
       bay: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
       },
       sector: {
         type: DataTypes.STRING,
@@ -75,13 +75,11 @@ module.exports = {
       },
       created_at: {
         type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
-        allowNull: false,
+        defaultValue: DataTypes.NOW
       },
       updated_at: {
         type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
-        allowNull: false
+        defaultValue: DataTypes.NOW
       }
     });
   },

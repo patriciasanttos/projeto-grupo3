@@ -11,7 +11,7 @@ interface AnimalInfo {
     color?: string,
     vacine?: number,
     castrated?: string,
-    age?: number,
+    age?: string,
     gender?: string,
     temperament?: string,
     bay?: number,
@@ -67,7 +67,7 @@ Animal.init({
       allowNull: true,
     },
     age: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: true,
     },
     gender: {
@@ -80,7 +80,7 @@ Animal.init({
     },
     bay: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     sector: {
       type: DataTypes.STRING,
