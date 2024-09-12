@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import adminsRepository from '../repositories/admins.repository';
 
-import multer from 'multer';
 import fs from 'fs';
 import path from 'path';
 import genFileName from '../utils/genFileName';
@@ -11,15 +10,19 @@ class AutoController {
         const response = await adminsRepository.getAllAdmins();
 
         const admins = Object.entries(response.data).map((admin: any[]) => {
-            const image = fs.readFileSync(path.join(__dirname, '..', 'assets', 'images', 'administrators', admin[1].image));
             
-            let base64Image = '';
-            if (image)
-                base64Image = Buffer.from(image).toString('base64');
+            let image: Buffer;
+            let base64Image;
+            if (admin[1].image) {
+                image = fs.readFileSync(path.join(__dirname, '..', 'assets', 'images', 'administrators', admin[1].image));
 
+                if (image)
+                    base64Image = Buffer.from(image).toString('base64');
+            }
+            
             return {
                 ...admin[1],
-                image: base64Image || response.data
+                image: base64Image
             };
         })
 
@@ -30,13 +33,15 @@ class AutoController {
         const { id } = req.params;
 
         const response: any = await adminsRepository.getAdminById(Number(id));
-        console.log(response.data)
 
-        const image = fs.readFileSync(path.join(__dirname, '..', 'assets', 'images', 'administrators', response.data.image));
+        let image: Buffer;
+        let base64Image;
+        if (response.data.image) {
+            image = fs.readFileSync(path.join(__dirname, '..', 'assets', 'images', 'administrators', response.data.image));
             
-        let base64Image = '';
-        if (image)
-            base64Image = Buffer.from(image).toString('base64');
+            if (image)
+                base64Image = Buffer.from(image).toString('base64');
+        }
 
         const administrator = {
             ...response.data,
