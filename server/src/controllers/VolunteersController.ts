@@ -10,11 +10,15 @@ class VolunteersController {
         const response: any = await volunteerRepository.getAllVolunteers();
 
         const volunteers = Object.entries(response.data).map((volunteer: any[]) => {
-            const image = fs.readFileSync(path.join(__dirname, '..', 'assets', 'images', 'animals', volunteer[1].dataValues.image));
+
+            let image: Buffer;
+            let base64Image;
+            if (volunteer[1].dataValues.image) {
+                image = fs.readFileSync(path.join(__dirname, '..', 'assets', 'images', 'animals', volunteer[1].dataValues.image));
             
-            let base64Image = '';
-            if (image)
-                base64Image = Buffer.from(image).toString('base64');
+                if (image)
+                    base64Image = Buffer.from(image).toString('base64');
+            }
 
             return {
                 ...volunteer[1].dataValues,
@@ -30,11 +34,14 @@ class VolunteersController {
 
         const response: any = await volunteerRepository.getVolunteerById(Number(id));
 
-        const image = fs.readFileSync(path.join(__dirname, '..', 'assets', 'images', 'volunteers', response.data.image));
+        let image: Buffer;
+        let base64Image;
+        if (response.data.image) {
+            image = fs.readFileSync(path.join(__dirname, '..', 'assets', 'images', 'volunteers', response.data.image));
             
-        let base64Image = '';
-        if (image)
-            base64Image = Buffer.from(image).toString('base64');
+            if (image)
+                base64Image = Buffer.from(image).toString('base64');
+        }
 
         const volunteer = {
             ...response.data,

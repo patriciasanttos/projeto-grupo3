@@ -30,8 +30,6 @@ export default {
             //-----Buscar animais na tabela
             const animals = await Animal.findAll();
 
-            console.log(animals)
-
             return {
                 code: 200,
                 data: animals
