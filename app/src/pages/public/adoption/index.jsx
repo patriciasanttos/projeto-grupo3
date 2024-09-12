@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import styles from './styles.module.css';
+import './styles.scss';
 
 import NavBar from '../../../components/navbar/NavBar';
 import Footer from '../../../components/footer/Footer';
@@ -13,20 +13,26 @@ import Menu from '../../../components/menu/Menu';
 function Adoption() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(9);
+  const [ filters, setFilters ] = useState({
+    species: '',
+    gender: '',
+    size: '',
+    age: '',
+  });
 
   const animals = [
-    { id: 1, image: imageDog1, name: 'Julia', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '3 anos' },
-    { id: 2, image: imageDog1, name: 'Max', gender: 'Macho', breed: 'Sem Raça Definida', age: '2 anos' },
-    { id: 3, image: imageDog1, name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos' },
-    { id: 4, image: imageDog1, name: 'Julia', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '3 anos' },
-    { id: 5, image: imageDog1, name: 'Max', gender: 'Macho', breed: 'Sem Raça Definida', age: '2 anos' },
-    { id: 6, image: imageDog1, name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos' },
-    { id: 7, image: imageDog1, name: 'Max', gender: 'Macho', breed: 'Sem Raça Definida', age: '2 anos' },
-    { id: 8, image: imageDog1, name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos' },
-    { id: 9, image: imageDog1, name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos' },
-    { id: 10, image: imageDog1, name: 'Max', gender: 'Macho', breed: 'Sem Raça Definida', age: '2 anos' },
-    { id: 11, image: imageDog1, name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos' },
-    { id: 12, image: imageDog1, name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos' },
+    { id: 1, image: imageDog1, name: 'Julia', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '3 anos', size: 'p' },
+    { id: 2, image: imageDog1, name: 'Max', gender: 'Macho', breed: 'Sem Raça Definida', age: '2 anos', size: 'p' },
+    { id: 3, image: imageDog1, name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos', size: 'm' },
+    { id: 4, image: imageDog1, name: 'Julia', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '3 anos', size: 'g' },
+    { id: 5, image: imageDog1, name: 'Max', gender: 'Macho', breed: 'Sem Raça Definida', age: '2 anos', size: 'g' },
+    { id: 6, image: imageDog1, name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos', size: 'm' },
+    { id: 7, image: imageDog1, name: 'Max', gender: 'Macho', breed: 'Sem Raça Definida', age: '2 anos', size: 'p' },
+    { id: 8, image: imageDog1, name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos', size: 'g' },
+    { id: 9, image: imageDog1, name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos', size: 'm' },
+    { id: 10, image: imageDog1, name: 'Max', gender: 'Macho', breed: 'Sem Raça Definida', age: '2 anos', size: 'g' },
+    { id: 11, image: imageDog1, name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos', size: 'p' },
+    { id: 12, image: imageDog1, name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos', size: 'p' },
   ];
 
   useEffect(() => {
@@ -79,12 +85,12 @@ function Adoption() {
        text="Adotar um animal é um gesto de amor que transforma vidas, a sua e a deles. Na nossa ONG, cães e gatos esperam por um lar onde possam dar e receber carinho. Cada um carrega uma história de superação e o desejo de ser amado. Ao adotar, você abre espaço para que mais animais possam ser resgatados e amados. Faça parte desse ciclo de amor e compaixão."
         />
       
-      <div className={styles.contentContainer}>
-        <p className={styles.text}>Conheça alguns de nossos animais</p>
-        <div className={styles.photoGallery}>
-          <FilterSidebar/>
+      <div className='content-container'>
+        <p className='text'>Conheça alguns de nossos animais</p>
+        <div className='photo-gallery'>
+          <FilterSidebar filters={filters} />
         
-          <div className={styles.cardContainer}>
+          <div className='card-container' onClick={() => console.log(filters)} >
             {paginatedAnimals.map(animal => (
               <CardAnimal
                 key={animal.id}
@@ -97,11 +103,11 @@ function Adoption() {
             ))}
           </div>
         </div>
-        <div className={styles.pagination}>
+        <div className='pagination'>
           <button
             onClick={handlePreviousPage}
             disabled={currentPage === 1}
-            className={styles.arrowButton}
+            className='arrow-button'
           >
             &laquo; 
           </button>
@@ -109,7 +115,7 @@ function Adoption() {
             <button
               key={index + 1}
               onClick={() => handlePageChange(index + 1)}
-              className={index + 1 === currentPage ? styles.active : ''}
+              className={index + 1 === currentPage ?'active': ''}
             >
               {index + 1}
             </button>
@@ -117,7 +123,7 @@ function Adoption() {
           <button
             onClick={handleNextPage}
             disabled={currentPage === totalPages}
-            className={styles.arrowButton}
+            className='arrow-button'
           >
             &raquo; 
           </button>
