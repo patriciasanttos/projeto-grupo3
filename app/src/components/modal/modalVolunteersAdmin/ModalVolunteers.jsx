@@ -210,6 +210,9 @@ const ModalVolunteers = ({
         <button onClick={onClickSave} className="btn-modal">
           {selectedVolunteer ? "Editar" : "Adicionar"}
         </button>
+        <button onClick={onModalClose} className="btn-modal grey-btn">
+          Cancelar
+        </button>
       </div>
     </Modal>
   );

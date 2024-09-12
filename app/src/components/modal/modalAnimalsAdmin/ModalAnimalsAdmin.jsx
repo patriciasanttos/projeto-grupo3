@@ -1,16 +1,15 @@
-import { useEffect, useState } from 'react';
-import Modal from '../index'
-import { IMaskInput } from "react-imask";
-
+import { useEffect, useState, useMemo } from "react";
+import Modal from "../index";
 
 const ModalAnimalsAdmin = ({
   isOpen,
   onModalClose,
   selectedAnimal,
   updateAnimalsList,
-  createAnimalsList
+  createAnimalsList,
 }) => {
-    const initialFormAnimals = {
+  const initialFormAnimals = useMemo(() => {
+    return {
       name: "",
       linkImg: "",
       sex: "",
@@ -25,7 +24,40 @@ const ModalAnimalsAdmin = ({
       castrated: "",
       animalsInfo: "",
     };
+  }, []);
   const [formAnimals, setFormAnimals] = useState(initialFormAnimals);
+
+  const listSexOption = [
+    { id: "Macho", name: "Macho" },
+    { id: "Fêmea", name: "Fêmea" },
+  ];
+
+  const listSizeOption = [
+    { id: "Pequeno", name: "Pequeno" },
+    { id: "Médio", name: "Médio" },
+    { id: "Grande", name: "Grande" },
+  ];
+
+  const listStageLifeOption = [
+    { id: "Filhote", name: "Filhote" },
+    { id: "Adulto", name: "Adulto" },
+    { id: "Idoso", name: "Idoso" },
+  ];
+
+  const listCastrateOption = [
+    { id: "Sim", name: "Sim" },
+    { id: "Não", name: "Não" },
+  ];
+
+  const listSponsorshipOption = [
+    { id: "Sim", name: "Sim" },
+    { id: "Não", name: "Não" },
+  ];
+
+  const listStatusOption = [
+    { id: "Disponível", name: "Disponível" },
+    { id: "Indisponível", name: "Indisponível" },
+  ];
 
   useEffect(() => {
     setFormAnimals({
@@ -35,32 +67,36 @@ const ModalAnimalsAdmin = ({
 
   const onClickSave = () => {
     if (selectedAnimal) {
-    updateAnimalsList(formAnimals);
+      updateAnimalsList(formAnimals);
     } else {
-        createAnimalsList(formAnimals);
+      createAnimalsList(formAnimals);
     }
   };
 
   const onClickModalClose = () => {
-    onModalClose()
+    onModalClose();
     setFormAnimals(initialFormAnimals);
-  }
+  };
 
   const getFormState = (field) => {
     return formAnimals && formAnimals[field] ? formAnimals[field] : "";
-  }
+  };
+
+  const getSelectStyle = (field) => {
+    return {
+      color: formAnimals && formAnimals[field] && formAnimals[field] !== "" ? "black" : "grey",
+    };
+  };
 
   return (
     <Modal
       isOpen={isOpen}
       onModalClose={onClickModalClose}
       title={
-        selectedAnimal
-          ? "Edite os dados do animal"
-          : "Adicione um novo animal"
+        selectedAnimal ? "Edite os dados do animal" : "Adicione um novo animal"
       }
     >
-      <form action="" className="modal-animals-form modal-form">
+      <form action="" className="modal-form">
         <div className="al-modal-form">
           <input
             type="text"
@@ -77,133 +113,185 @@ const ModalAnimalsAdmin = ({
             placeholder="Link da imagem"
             value={getFormState("linkImg")}
             onChange={(e) =>
-              setFormAnimals({ ...formAnimals, linkIgm: e.target.value })
+              setFormAnimals({ ...formAnimals, linkImg: e.target.value })
             }
           />
         </div>
         <div className="al-modal-form">
-          <IMaskInput
-            type="text"
-            name="Celular"
-            placeholder="Contato"
-            value={getFormState("phoneNumber")}
-            onAccept={(value, maskRef, e) =>
-              setFormAnimals({ ...formAnimals, phoneNumber: value })
-            }
-            mask={"(00) 00000-0000"}
-          />
+          <select
+            style={getSelectStyle("sex")}
+            value={getFormState("sex")}
+            onChange={(e) => {
+              setFormAnimals({ ...formAnimals, sex: e.target.value });
+            }}
+          >
+            <option value="" disabled>
+              Sexo
+            </option>
+            {listSexOption.map((item, index) => (
+              <option key={item.id} value={item.id}>
+                {item.name}
+              </option>
+            ))}
+          </select>
 
-          <input
-            type="text"
-            name="address"
-            id=""
-            placeholder="Endereço completo"
-            value={getFormState("address")}
+          <select
+            style={getSelectStyle("size")}
+            value={getFormState("size")}
             onChange={(e) =>
-              setFormAnimals({ ...formAnimals, address: e.target.value })
+              setFormAnimals({ ...formAnimals, size: e.target.value })
             }
-          />
-        </div>
-
-        <div className="al-modal-form">
-          <input
-            type="text"
-            name="nameResponsible"
-            id=""
-            placeholder="Nome do responsável - se for menor"
-            value={getFormState("nameResponsible")}
-            onChange={(e) =>
-              setFormAnimals({
-                ...formAnimals,
-                nameResponsible: e.target.value,
-              })
-            }
-          />
-
-          <input
-            type="text"
-            name="occupation"
-            id=""
-            placeholder="Profissão"
-            value={getFormState("occupation")}
-            onChange={(e) =>
-              setFormAnimals({
-                ...formAnimals,
-                occupation: e.target.value,
-              })
-            }
-          />
+          >
+            <option value="" disabled>
+              Porte
+            </option>
+            {listSizeOption.map((item, index) => (
+              <option key={item.id} value={item.id}>
+                {item.name}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="al-modal-form">
           <input
             type="text"
-            name="studyTime"
+            name="race"
             id=""
-            placeholder="Horário que estuda -se menor"
-            value={getFormState("studyTime")}
+            placeholder="Raça"
+            value={getFormState("race")}
             onChange={(e) =>
               setFormAnimals({
                 ...formAnimals,
-                studyTime: e.target.value,
+                race: e.target.value,
               })
             }
           />
 
           <input
             type="text"
-            name="availability"
+            name="local"
             id=""
-            placeholder="Disponibilidade"
-            value={getFormState("availability")}
+            placeholder="Alocação"
+            value={getFormState("local")}
             onChange={(e) =>
               setFormAnimals({
                 ...formAnimals,
-                availability: e.target.value,
+                local: e.target.value,
               })
             }
           />
         </div>
+
+        <div className="al-modal-form">
+          <select
+            style={getSelectStyle("stageLife")}
+            value={getFormState("stageLife")}
+            onChange={(e) =>
+              setFormAnimals({ ...formAnimals, stageLife: e.target.value })
+            }
+          >
+            <option value="" disabled>
+              Fase da vida
+            </option>
+            {listStageLifeOption.map((item, index) => (
+              <option key={item.id} value={item.id}>
+                {item.name}
+              </option>
+            ))}
+          </select>
+
+          <select
+            style={getSelectStyle("castrated")}
+            value={getFormState("castrated")}
+            onChange={(e) =>
+              setFormAnimals({ ...formAnimals, castrated: e.target.value })
+            }
+          >
+            <option value="" disabled>
+              Castrado
+            </option>
+            {listCastrateOption.map((item, index) => (
+              <option key={item.id} value={item.id}>
+                {item.name}
+              </option>
+            ))}
+          </select>
+        </div>
         <div className="al-modal-form">
           <input
             type="text"
-            name="sector"
+            name="temperament"
             id=""
-            placeholder="Setor"
-            value={getFormState("sector")}
+            placeholder="Temperamento"
+            value={getFormState("temperament")}
             onChange={(e) =>
               setFormAnimals({
                 ...formAnimals,
-                sector: e.target.value,
+                temperament: e.target.value,
               })
             }
           />
+          <select
+            style={getSelectStyle("sponsor")}
+            value={getFormState("sponsor")}
+            onChange={(e) =>
+              setFormAnimals({ ...formAnimals, sponsor: e.target.value })
+            }
+          >
+            <option value="" disabled>
+              Padrinho
+            </option>
+            {listSponsorshipOption.map((item, index) => (
+              <option key={item.id} value={item.id}>
+                {item.name}
+              </option>
+            ))}
+          </select>
+        </div>
 
+        <div className="al-modal-form">
           <input
             type="text"
-            name="startDate"
+            name="healthHistory"
             id=""
-            placeholder="Data de início"
-            value={getFormState("startDate")}
+            placeholder="Histórico de saúde"
+            value={getFormState("healthHistory")}
             onChange={(e) =>
               setFormAnimals({
                 ...formAnimals,
-                startDate: e.target.value,
+                healthHistory: e.target.value,
               })
             }
           />
+          <select
+            style={getSelectStyle("status")}
+            value={getFormState("status")}
+            onChange={(e) =>
+              setFormAnimals({ ...formAnimals, status: e.target.value })
+            }
+          >
+            <option value="" disabled>
+              Status de adoção
+            </option>
+            {listStatusOption.map((item, index) => (
+              <option key={item.id} value={item.id}>
+                {item.name}
+              </option>
+            ))}
+          </select>
         </div>
         <textarea
           rows="8"
           cols="10"
-          name="volunteersInfo"
+          name="animalsInfo"
           id=""
-          placeholder="Adicione informações importantes sobre o voluntário"
-          value={getFormState("volunteersInfo")}
+          placeholder="Conte a história do animal"
+          value={getFormState("animalsInfo")}
           onChange={(e) =>
             setFormAnimals({
               ...formAnimals,
-              volunteersInfo: e.target.value,
+              animalsInfo: e.target.value,
             })
           }
         />
@@ -211,6 +299,9 @@ const ModalAnimalsAdmin = ({
       <div className="align-btn-modal">
         <button onClick={onClickSave} className="btn-modal">
           {selectedAnimal ? "Editar" : "Adicionar"}
+        </button>
+        <button onClick={onModalClose} className="btn-modal grey-btn">
+          Cancelar
         </button>
       </div>
     </Modal>
