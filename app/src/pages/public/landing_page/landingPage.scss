@@ -54,54 +54,39 @@ h3 {
 }
 
 .hero {
-    background-color: var(--background-primary-color);
+    background-image: url("../../../assets/images/hero-dog.png");
+    background-repeat: no-repeat;
+    background-size: cover;
     border-top: 1px solid rgb(191, 189, 189);
 
-    height: 100vh;
-    // height: calc(100% - 20vw);
+    height: 120vh;
 
-    .title-img {
-        display: flex;
-        justify-content: space-evenly;
-    }
+    margin-bottom: 40px;
+    padding-left: 15%;
 
-    .hero-all-text {
-        width: 35vw;
-        padding: 0 0 5% 30%;
-    }
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
 
     .hero-title {
         font-size: 3.3rem;
         text-align: left;
-        padding-top: 40%;
-
     }
 
     .hero-text {
         font-size: 1.5rem;
-        margin: 0;
-    }
-
-    .btn-donation {
-        margin-left: 30%;
-        height: 2.8rem;
-
-        button {
-            width: 140px;
-        }
-    }
-
-    .hero-dog {
-        width: 45vw;
-
-    }
-
-    .waves {
-        width: 100vw;
-        position: relative;
-        bottom: 150px;
     }
 }
+
+.btn-donation {
+    height: 2.8rem;
+
+    button {
+        width: 140px;
+    }
+}
+
 
 .section-adoption {
     background-image: url('../../../assets/images/background.svg');

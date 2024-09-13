@@ -11,8 +11,6 @@ import { animals } from "./animals";
 import "./landingPage.scss";
 
 // import images
-import heroDog from "../../../assets/images/hero-dog.png";
-import Waves from "../../../assets/images/hero-waves.svg";
 import partnerImg from "../../../assets/images/partner-img.svg";
 import sponsorImg from "../../../assets/images/sponsor-img.svg";
 import volunteerImg from "../../../assets/images/volunteer-img.svg";
@@ -37,25 +35,23 @@ function LandingPage() {
       <NavBar />
 
       <section className="hero">
-        <div className="title-img">
-          <div>
-            <h1 className="hero-title hero-all-text">
-              Há 36 anos cuidando de animais abandonados em Juiz de Fora/MG.
-            </h1>
-            <p className="hero-text hero-all-text">
-              Faça parte dessa missão de amor e esperança!
-            </p>
-            <div className="btn-donation">
-              <Link to="/donation">
-                <button className="btn">Doe Agora</button>
-              </Link>
-            </div>
-          </div>
-          <div>
-            <img className="hero-dog" src={heroDog} alt="" />
+        <div className="hero-all-text">
+          <h1 className="hero-title">
+            Há 36 anos cuidando de
+            <br />
+            animais abandonados
+            <br />
+            em Juiz de Fora/MG.
+          </h1>
+          <p className="hero-text">
+            Faça parte dessa missão de amor e esperança!
+          </p>
+          <div className="btn-donation">
+            <Link to="/donation">
+              <button className="btn">Doe Agora</button>
+            </Link>
           </div>
         </div>
-        <img className="waves" src={Waves} alt="" />
       </section>
 
       <section className="section-adoption">
