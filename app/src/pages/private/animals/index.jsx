@@ -1,42 +1,66 @@
-import React from 'react';
+import React, { useState } from "react";
 
-import AdminNavBar from '../../../components/admin_navbar/AdminNavBar';
+import AdminNavBar from "../../../components/admin_navbar/AdminNavBar";
+import AdminList from "../../../components/admin_list/AdminList";
+import ModalAnimalsAdmin from "../../../components/modal/modalAnimalsAdmin/ModalAnimalsAdmin";
 
-import './styles.scss';
-import AdminList from '../../../components/admin_list/AdminList';
+import "./styles.scss";
 
 function Animals() {
-
-  // Aqui serão as linhas exibidas na tabela
-  const animalsList = [
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedAnimal, setSelectedAnimal] = useState(null);
+  
+  // To do: Trazer lista do back-end
+  const [animalsList, setAnimalsList] = useState([
     {
+      id: 1,
       name: "Hector",
+      linkImg: "hectorporhector",
       sex: "Macho",
-      size: "médio",
+      size: "Médio",
       race: "SRD",
       local: "Setor A - Baia 01",
-      sponsor: "não",
-      status: "disponível",
+      temperament: "ansioso",
+      sponsor: "Não",
+      status: "Disponível",
+      stageLife: "Filhote",
+      healthHistory: "",
+      castrated: "",
+      animalsInfo: "",
     },
     {
+      id: 2,
       name: "Júlia",
+      linkImg: "juliaporjulia",
       sex: "Fêmea",
-      size: "médio",
+      size: "Médio",
       race: "SRD",
       local: "Setor A - Baia 01",
-      sponsor: "sim",
-      status: "disponível",
+      temperament: "ansiosa",
+      sponsor: "Sim",
+      status: "Disponível",
+      stageLife: "Filhote",
+      healthHistory: "",
+      castrated: "",
+      animalsInfo: "",
     },
     {
+      id: 3,
       name: "Andressa",
+      linkImg: "andressaporandressa",
       sex: "Fêmea",
-      size: "médio",
+      size: "Médio",
       race: "SRD",
       local: "Setor A - Baia 01",
-      sponsor: "não",
-      status: "disponível",
+      temperament: "ansiosa",
+      sponsor: "Não",
+      status: "Disponível",
+      stageLife: "Filhote",
+      healthHistory: "",
+      castrated: "",
+      animalsInfo: "",
     },
-  ];
+  ]);
 
   // Coluna: title o que será exibido e rowKey pega a propriedade que será exibida
   const columns = [
@@ -70,19 +94,55 @@ function Animals() {
     },
   ];
 
-  const onClickAnimal = (animal) => {
-    // Substituir o alert para exibir o modal de edição
-    alert(JSON.stringify(animal));
+  // To do: Enviar para o back-end
+  const updateAnimalsList = (animal) => {
+    let animals = [...animalsList];
+    animals[animal.id - 1] = {
+      ...animal,
+    };
+    setAnimalsList(animals);
+    setIsModalOpen(false);
+  };
+
+  // To do: Enviar para o back-end
+  const createAnimalsList = (animal) => {
+    let animals = [...animalsList];
+    animals.push({
+      ...animal,
+      id: animalsList.length + 1,
+    });
+    setAnimalsList(animals);
+    setIsModalOpen(false);
+  };
+
+  const onClickEditAnimal = (animal) => {
+    setIsModalOpen(true);
+    setSelectedAnimal(animal);
+  };
+
+  const onClickNewAnimal = () => {
+    setIsModalOpen(true);
+    setSelectedAnimal(null);
   };
 
   return (
-    <AdminNavBar headerTitle="Animais">
-      <AdminList
-        columns={columns}
-        rows={animalsList}
-        onClickRow={onClickAnimal}
+    <>
+      <AdminNavBar headerTitle="Animais">
+        <button onClick={onClickNewAnimal}>Adicionar</button>
+        <AdminList
+          columns={columns}
+          rows={animalsList}
+          onClickRow={onClickEditAnimal}
+        />
+      </AdminNavBar>
+      <ModalAnimalsAdmin
+        isOpen={isModalOpen}
+        onModalClose={() => setIsModalOpen(false)}
+        selectedAnimal={selectedAnimal}
+        updateAnimalsList={updateAnimalsList}
+        createAnimalsList={createAnimalsList}
       />
-    </AdminNavBar>
+    </>
   );
 }
 

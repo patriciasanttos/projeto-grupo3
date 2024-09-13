@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Modal from './index'
+import Modal from '../index'
 import { IMaskInput } from "react-imask";
 
 
@@ -209,6 +209,9 @@ const ModalVolunteers = ({
       <div className="align-btn-modal">
         <button onClick={onClickSave} className="btn-modal">
           {selectedVolunteer ? "Editar" : "Adicionar"}
+        </button>
+        <button onClick={onModalClose} className="btn-modal grey-btn">
+          Cancelar
         </button>
       </div>
     </Modal>
