@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from './styles.module.css';
 import { FiSliders } from "react-icons/fi";
 
-const FilterSidebar = () => {
+const FilterSidebar = ({ filtersState, setFiltersState }) => {
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const sidebarRef = useRef(null);
 
@@ -15,6 +15,26 @@ const FilterSidebar = () => {
       setIsFilterVisible(false);
     }
   };
+
+  const setFilters = (element) => {
+    const filterType = element.target.name;
+    const value = element.target.value;
+    
+    if (element.target.checked) {
+      if (!filtersState[filterType]) 
+        return setFiltersState({
+          ...filtersState,
+          [filterType]: value,
+        });
+
+      return setFiltersState({ ...filtersState, [filterType]: `${filtersState[filterType]}/${value}` })
+    } 
+
+    const filtersArray = filtersState[filterType].split('/');
+    const updatedFilters = filtersArray.filter(item => item !== value);
+
+    return setFiltersState({ ...filtersState, [filterType]: updatedFilters.length > 0 ? updatedFilters.join('/') : '' })
+  }
 
   useEffect(() => {
     if (isFilterVisible) {
@@ -41,32 +61,32 @@ const FilterSidebar = () => {
         <div className={styles.filterGroup}>
           <label className={styles.title}>Animais</label>
           <div>
-            <label><input type="checkbox"/>Cão</label>
-            <label><input type="checkbox"/>Gato</label>
+            <label><input type="checkbox" name='species' value='dog' onChange={(e) => setFilters(e)} />Cão</label>
+            <label><input type="checkbox" name='species' value='cat' onChange={(e) => setFilters(e)} />Gato</label>
           </div>
         </div>
         <div className={styles.filterGroup}>
           <label className={styles.title}>Sexo</label>
           <div>
-            <label><input type="checkbox"/>Macho</label>
-            <label><input type="checkbox"/>Fêmea</label>
+            <label><input type="checkbox" name='gender' value='Macho' onChange={(e) => setFilters(e)}/>Macho</label>
+            <label><input type="checkbox" name='gender' value='Fêmea' onChange={(e) => setFilters(e)}/>Fêmea</label>
           </div>
         </div>
         <div className={styles.filterGroup}>
           <label className={styles.title}>Porte</label>
           <div>
-            <label><input type="checkbox" /> G (mais de 25kg)</label>
-            <label><input type="checkbox"/> M (até de 25kg)</label>
-            <label><input type="checkbox"/> P (até de 10kg)</label>
+            <label><input type="checkbox" name='size' value='g' onChange={(e) => setFilters(e)}/> G (mais de 25kg)</label>
+            <label><input type="checkbox" name='size' value='m' onChange={(e) => setFilters(e)}/> M (até de 25kg)</label>
+            <label><input type="checkbox" name='size' value='p' onChange={(e) => setFilters(e)}/> P (até de 10kg)</label>
           </div>
         </div>
         <div className={styles.filterGroup}>
           <label className={styles.title}>Idade</label>
           <div>
-            <label><input type="checkbox"/> Até 10 anos </label>
-            <label><input type="checkbox"/> Até 5 anos </label>
-            <label><input type="checkbox"/> Mais de 10 anos </label>
-            <label><input type="checkbox"/> Menos de 6 meses </label>
+            <label><input type="checkbox" name='age' value='10' onChange={(e) => setFilters(e)}/> Até 10 anos </label>
+            <label><input type="checkbox" name='age' value='5' onChange={(e) => setFilters(e)}/> Até 5 anos </label>
+            <label><input type="checkbox" name='age' value='10+' onChange={(e) => setFilters(e)}/> Mais de 10 anos </label>
+            <label><input type="checkbox" name='age' value='6' onChange={(e) => setFilters(e)}/> Menos de 6 meses </label>
           </div>
         </div>
       </div>
