@@ -5,6 +5,7 @@ import NavBar from "../../../components/navbar/NavBar";
 import ContentHero from '../../../components/contentHero/ContentHero';
 import Menu from "../../../components/menu/Menu";
 import Footer from "../../../components/footer/Footer";
+import StateSelect from "./StateSelectComponent/StateSelect";
 
 import "./volunteers.scss";
 
@@ -36,6 +37,8 @@ function Volunteers() {
     occupation: "",
     address: "",
     availability: "",
+    sector: "",
+    state: ""
   })
 
   const [formUnder18, setFormUnder18] = useState({
@@ -44,8 +47,10 @@ function Volunteers() {
     minorsName: "",
     periodStudy: "",
     email: "",
-    availability: "",
     address: "",
+    availability: "",
+    sector: "",
+    state: ""
   });
 
   const onClickSubmitOver18 = () => {
@@ -217,11 +222,18 @@ function Volunteers() {
                   <input type="text" name="Nome" id="" placeholder="Nome completo" value={formOver18.name} onChange={(e) => setFormOver18({...formOver18, name: e.target.value})}/>
                   <input type="text" name="E-mail" id="" placeholder="E-mail" value={formOver18.email} onChange={(e) => setFormOver18({...formOver18, email: e.target.value})}/>
                   <input type="text" name="Endereço" id="" placeholder="Endereço completo" value={formOver18.address} onChange={(e) => setFormOver18({...formOver18, address: e.target.value})}/>
+                  <select defaultValue="" onChange={(e) => setFormOver18({ ...formOver18, sector: e.target.value })}>
+                    <option value="" disabled>Setor</option>
+                    <option value="Canil">Canil</option>
+                    <option value="Gatil">Gatil</option>
+                    <option value="Limpeza">Limpeza</option>
+                  </select>
                 </div>
                 <div className="align-form">
                   <IMaskInput type="text" name="Celular" id="" placeholder="Celular" value={formOver18.phoneNumber} onAccept={(value, maskRef, e) => setFormOver18({...formOver18, phoneNumber: e.target.value})} mask={"(00) 00000-0000"}/>
                   <input type="text" name="Profissão" id="" placeholder="Profissão" value={formOver18.occupation} onChange={(e) => setFormOver18({...formOver18, occupation: e.target.value})}/>
                   <input type="number" name="Disponibilidade" id="" placeholder="Disponibilidade de horas na semana" value={formOver18.availability} onChange={(e) => setFormOver18({...formOver18, availability: e.target.value})}/>
+                  <StateSelect onChange={(e) => setFormOver18({ ...formOver18, state: e.target.value })}/>
                 </div>
               </form>
                 <button onClick={onClickSubmitOver18}>Enviar</button>
@@ -249,11 +261,18 @@ function Volunteers() {
                   <input type="text" name="Nome do menor" id="" placeholder="Nome do menor" value={formUnder18.minorsName} onChange={(e) => setFormUnder18({...formUnder18, minorsName: e.target.value})}/>
                   <input type="text" name="E-mail" id="" placeholder="E-mail" value={formUnder18.email} onChange={(e) => setFormUnder18({...formUnder18, email: e.target.value})}/>
                   <input type="text" name="Endereço" id="" placeholder="Endereço completo" value={formUnder18.address} onChange={(e) => setFormUnder18({...formUnder18, address: e.target.value})}/>
+                  <select defaultValue="" onChange={(e) => setFormUnder18({ ...formUnder18, sector: e.target.value })}>
+                    <option value="" disabled>Setor</option>
+                    <option value="Canil">Canil</option>
+                    <option value="Gatil">Gatil</option>
+                    <option value="Limpeza">Limpeza</option>
+                  </select>
                 </div>
                 <div className="align-form">
                   <IMaskInput type="text" name="Celular" id="" placeholder="Celular" value={formUnder18.phoneNumber} onAccept={(value, maskRef, e) => setFormUnder18({...formUnder18, phoneNumber: e.target.value})} mask={"(00) 00000-0000"}/>
                   <input type="text" name="Período aula" id="" placeholder="Período que estuda" value={formUnder18.periodStudy} onChange={(e) => setFormUnder18({...formUnder18, periodStudy: e.target.value})}/>
                   <input type="number" name="Disponibilidade" id="" placeholder="Disponibilidade de horas na semana" value={formUnder18.availability} onChange={(e) => setFormUnder18({...formUnder18, availability: e.target.value})}/>
+                  <StateSelect onChange={(e) => setFormUnder18({ ...formUnder18, state: e.target.value })}/>
                 </div>
               </form>
               <button onClick={onClickSubmitUnder18}>Enviar</button>
