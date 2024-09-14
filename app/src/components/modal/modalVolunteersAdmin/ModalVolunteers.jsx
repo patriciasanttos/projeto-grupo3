@@ -1,16 +1,20 @@
-import { useEffect, useState } from 'react';
-import Modal from '../index'
+import { useEffect, useState, useMemo } from "react";
+import Modal from "../index";
 import { IMaskInput } from "react-imask";
-
+import ModalActionsEnum from '../../../utils/ModalActionsEnum'
+import ModalDeleteConfirm from "../modalDeleteConfirm/ModalDeleteConfirm";
 
 const ModalVolunteers = ({
   isOpen,
+  modalAction,
   onModalClose,
   selectedVolunteer,
   updateVolunteersList,
-  createVolunteersList
+  createVolunteersList,
+  deleteVolunteersList,
 }) => {
-    const initialFormVolunteers = {
+  const initialFormVolunteers = useMemo(() => {
+    return {
       name: "",
       email: "",
       phoneNumber: "",
@@ -23,32 +27,46 @@ const ModalVolunteers = ({
       startDate: "",
       volunteersInfo: "",
     };
+  }, []);
   const [formVolunteers, setFormVolunteers] = useState(initialFormVolunteers);
 
   useEffect(() => {
     setFormVolunteers({
-      ...selectedVolunteer
+      ...selectedVolunteer,
     });
   }, [selectedVolunteer, isOpen]);
 
   const onClickSave = () => {
     if (selectedVolunteer) {
-    updateVolunteersList(formVolunteers);
+      updateVolunteersList(formVolunteers);
     } else {
-        createVolunteersList(formVolunteers);
+      createVolunteersList(formVolunteers);
     }
   };
 
   const onClickModalClose = () => {
-    onModalClose()
+    onModalClose();
     setFormVolunteers(initialFormVolunteers);
+  };
+
+  const onClickDelete = () => {
+    if (selectedVolunteer) {
+      deleteVolunteersList(formVolunteers);
+    } 
   }
 
   const getFormState = (field) => {
     return formVolunteers && formVolunteers[field] ? formVolunteers[field] : "";
-  }
+  };
 
-  return (
+  return modalAction === ModalActionsEnum.DELETE ? (
+    <ModalDeleteConfirm
+      isOpen={isOpen}
+      onModalClose={onClickModalClose}
+      onDeleteConfirm={onClickDelete}
+      message={`Deseja apagar o voluntário: ${selectedVolunteer.name}`}
+    />
+  ) : (
     <Modal
       isOpen={isOpen}
       onModalClose={onClickModalClose}
@@ -218,4 +236,4 @@ const ModalVolunteers = ({
   );
 };
 
-export default ModalVolunteers
+export default ModalVolunteers;

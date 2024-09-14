@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import Modal from "../index";
 import { IMaskInput } from "react-imask";
+import ModalActionsEnum from '../../../utils/ModalActionsEnum'
+import ModalDeleteConfirm from "../modalDeleteConfirm/ModalDeleteConfirm";
 
 const ModalAdoptionsAdmin = ({
   isOpen,
+  modalAction,
   onModalClose,
   selectedTutor,
   updateTutorsList,
   createTutorsList,
+  deleteTutorsList,
 }) => {
   const initialFormTutors = {
     name: "",
@@ -43,11 +47,24 @@ const ModalAdoptionsAdmin = ({
     setFormTutors(initialFormTutors);
   };
 
+  const onClickDelete = () => {
+    if (selectedTutor) {
+      deleteTutorsList(formTutors);
+    } 
+  }
+
   const getFormState = (field) => {
     return formTutors && formTutors[field] ? formTutors[field] : "";
   };
 
-  return (
+  return modalAction === ModalActionsEnum.DELETE ? (
+    <ModalDeleteConfirm
+      isOpen={isOpen}
+      onModalClose={onClickModalClose}
+      onDeleteConfirm={onClickDelete}
+      message={`Deseja apagar o tutor: ${selectedTutor.name}`}
+    />
+  ) : (
     <Modal
       isOpen={isOpen}
       onModalClose={onClickModalClose}

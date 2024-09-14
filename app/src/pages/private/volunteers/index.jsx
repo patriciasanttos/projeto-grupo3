@@ -3,12 +3,13 @@ import React, { useState } from "react";
 import AdminNavBar from "../../../components/admin_navbar/AdminNavBar";
 import ModalVolunteers from "../../../components/modal/modalVolunteersAdmin/ModalVolunteers";
 
-
 import "./styles.scss";
 import AdminList from "../../../components/admin_list/AdminList";
+import ModalActionsEnum from '../../../utils/ModalActionsEnum'
 
 function Volunteers() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalAction, setModalAction] = useState(null);
   const [selectedVolunteer, setSelectedVolunteer] = useState(null);
 
   // To do: Trazer lista do back-end
@@ -91,6 +92,12 @@ function Volunteers() {
   };
 
   // To do: Enviar para o back-end
+  const deleteVolunteersList = (volunteer) => {
+    setVolunteersList(volunteersList.filter((volunteers) => volunteers.id !== volunteer.id));
+    setIsModalOpen(false);
+  }
+
+  // To do: Enviar para o back-end
   const createVolunteersList = (volunteer) => {
     let volunteers = [...volunteersList];
     volunteers.push({
@@ -106,6 +113,12 @@ function Volunteers() {
     setSelectedVolunteer(volunteer);
   };
 
+  const onClickDeleteVolunteer = (volunteer) => {
+    setIsModalOpen(true);
+    setSelectedVolunteer(volunteer);
+    setModalAction(ModalActionsEnum.DELETE)
+  };
+
   const onClickNewVolunteer = () => {
     setIsModalOpen(true);
     setSelectedVolunteer(null);
@@ -116,18 +129,23 @@ function Volunteers() {
       <AdminNavBar headerTitle="Voluntários">
         {/* substituir o button pelo ícone de adicionar*/}
         <button onClick={onClickNewVolunteer}>Adicionar</button>
-        <AdminList
-          columns={columns}
-          rows={volunteersList}
-          onClickRow={onClickEditVolunteer}
-        />
+        <div className="volunteers-list-container">
+          <AdminList
+            columns={columns}
+            rows={volunteersList}
+            onClickEditRow={onClickEditVolunteer}
+            onClickDeleteRow={onClickDeleteVolunteer}
+          />
+        </div>
       </AdminNavBar>
       <ModalVolunteers
         isOpen={isModalOpen}
+        modalAction={modalAction}
         onModalClose={() => setIsModalOpen(false)}
         selectedVolunteer={selectedVolunteer}
         updateVolunteersList={updateVolunteersList}
         createVolunteersList={createVolunteersList}
+        deleteVolunteersList={deleteVolunteersList}
       />
     </>
   );

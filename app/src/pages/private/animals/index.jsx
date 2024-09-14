@@ -3,11 +3,13 @@ import React, { useState } from "react";
 import AdminNavBar from "../../../components/admin_navbar/AdminNavBar";
 import AdminList from "../../../components/admin_list/AdminList";
 import ModalAnimalsAdmin from "../../../components/modal/modalAnimalsAdmin/ModalAnimalsAdmin";
+import ModalActionsEnum from '../../../utils/ModalActionsEnum'
 
 import "./styles.scss";
 
 function Animals() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalAction, setModalAction] = useState(null);
   const [selectedAnimal, setSelectedAnimal] = useState(null);
   
   // To do: Trazer lista do back-end
@@ -105,6 +107,12 @@ function Animals() {
   };
 
   // To do: Enviar para o back-end
+  const deleteAnimalsList = (animal) => {
+    setAnimalsList(animalsList.filter((animals) => animals.id !== animal.id));
+    setIsModalOpen(false);
+  }
+
+  // To do: Enviar para o back-end
   const createAnimalsList = (animal) => {
     let animals = [...animalsList];
     animals.push({
@@ -118,29 +126,43 @@ function Animals() {
   const onClickEditAnimal = (animal) => {
     setIsModalOpen(true);
     setSelectedAnimal(animal);
+    setModalAction(ModalActionsEnum.UPDATE)
+  };
+
+  const onClickDeleteAnimal = (animal) => {
+    setIsModalOpen(true);
+    setSelectedAnimal(animal);
+    setModalAction(ModalActionsEnum.DELETE)
   };
 
   const onClickNewAnimal = () => {
     setIsModalOpen(true);
     setSelectedAnimal(null);
+    setModalAction(ModalActionsEnum.CREATE)
   };
 
   return (
     <>
       <AdminNavBar headerTitle="Animais">
         <button onClick={onClickNewAnimal}>Adicionar</button>
-        <AdminList
-          columns={columns}
-          rows={animalsList}
-          onClickRow={onClickEditAnimal}
-        />
+        <div className="animal-list-container">
+          <AdminList
+            columns={columns}
+            rows={animalsList}
+            onClickEditRow={onClickEditAnimal}
+            onClickDeleteRow={onClickDeleteAnimal}
+          />
+        </div>
+        
       </AdminNavBar>
       <ModalAnimalsAdmin
         isOpen={isModalOpen}
+        modalAction={modalAction}
         onModalClose={() => setIsModalOpen(false)}
         selectedAnimal={selectedAnimal}
         updateAnimalsList={updateAnimalsList}
         createAnimalsList={createAnimalsList}
+        deleteAnimalsList={deleteAnimalsList}
       />
     </>
   );

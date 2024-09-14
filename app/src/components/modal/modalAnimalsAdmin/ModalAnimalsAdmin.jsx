@@ -1,12 +1,16 @@
 import { useEffect, useState, useMemo } from "react";
 import Modal from "../index";
+import ModalActionsEnum from '../../../utils/ModalActionsEnum'
+import ModalDeleteConfirm from "../modalDeleteConfirm/ModalDeleteConfirm";
 
 const ModalAnimalsAdmin = ({
   isOpen,
+  modalAction,
   onModalClose,
   selectedAnimal,
   updateAnimalsList,
   createAnimalsList,
+  deleteAnimalsList,
 }) => {
   const initialFormAnimals = useMemo(() => {
     return {
@@ -88,7 +92,20 @@ const ModalAnimalsAdmin = ({
     };
   };
 
-  return (
+  const onClickDelete = () => {
+    if (selectedAnimal) {
+      deleteAnimalsList(formAnimals);
+    } 
+  }
+
+  return modalAction === ModalActionsEnum.DELETE ? (
+    <ModalDeleteConfirm
+      isOpen={isOpen}
+      onModalClose={onClickModalClose}
+      onDeleteConfirm={onClickDelete}
+      message={`Deseja apagar o animal: ${selectedAnimal.name}`}
+    />
+  ) : (
     <Modal
       isOpen={isOpen}
       onModalClose={onClickModalClose}
@@ -107,7 +124,10 @@ const ModalAnimalsAdmin = ({
               setFormAnimals({ ...formAnimals, name: e.target.value })
             }
           />
-          <input
+
+          <input type="file" id="myfile" name="myfile"/>
+
+          {/* <input
             type="text"
             name="linkImg"
             placeholder="Link da imagem"
@@ -115,7 +135,7 @@ const ModalAnimalsAdmin = ({
             onChange={(e) =>
               setFormAnimals({ ...formAnimals, linkImg: e.target.value })
             }
-          />
+          /> */}
         </div>
         <div className="al-modal-form">
           <select
