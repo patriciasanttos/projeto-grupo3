@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from './styles.module.css';
 import { FiSliders } from "react-icons/fi";
 
-const FilterSidebar = ({ filters }) => {
+const FilterSidebar = ({ filtersState, setFiltersState }) => {
   const [isFilterVisible, setIsFilterVisible] = useState(false);
   const sidebarRef = useRef(null);
 
@@ -21,17 +21,19 @@ const FilterSidebar = ({ filters }) => {
     const value = element.target.value;
     
     if (element.target.checked) {
-      if (!filters[filterType]) 
-        return filters[filterType] = value;
+      if (!filtersState[filterType]) 
+        return setFiltersState({
+          ...filtersState,
+          [filterType]: value,
+        });
 
-      return filters[filterType] = `${filters[filterType]}/${value}`;
+      return setFiltersState({ ...filtersState, [filterType]: `${filtersState[filterType]}/${value}` })
     } 
 
-    const filtersArray = filters[filterType].split('/');
-  
+    const filtersArray = filtersState[filterType].split('/');
     const updatedFilters = filtersArray.filter(item => item !== value);
-  
-    return filters[filterType] = updatedFilters.length > 0 ? updatedFilters.join('/') : '';
+
+    return setFiltersState({ ...filtersState, [filterType]: updatedFilters.length > 0 ? updatedFilters.join('/') : '' })
   }
 
   useEffect(() => {
@@ -66,8 +68,8 @@ const FilterSidebar = ({ filters }) => {
         <div className={styles.filterGroup}>
           <label className={styles.title}>Sexo</label>
           <div>
-            <label><input type="checkbox" name='gender' value='m' onChange={(e) => setFilters(e)}/>Macho</label>
-            <label><input type="checkbox" name='gender' value='f' onChange={(e) => setFilters(e)}/>Fêmea</label>
+            <label><input type="checkbox" name='gender' value='Macho' onChange={(e) => setFilters(e)}/>Macho</label>
+            <label><input type="checkbox" name='gender' value='Fêmea' onChange={(e) => setFilters(e)}/>Fêmea</label>
           </div>
         </div>
         <div className={styles.filterGroup}>
