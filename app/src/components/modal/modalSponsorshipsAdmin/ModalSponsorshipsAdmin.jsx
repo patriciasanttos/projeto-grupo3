@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import Modal from "../index";
 import { IMaskInput } from "react-imask";
+import ModalActionsEnum from '../../../utils/ModalActionsEnum'
+import ModalDeleteConfirm from "../modalDeleteConfirm/ModalDeleteConfirm";
 
 const ModalSponsorshipsAdmin = ({
   isOpen,
+  modalAction,
   onModalClose,
   selectedSponsor,
   updateSponsorsList,
   createSponsorsList,
+  deleteSponsorsList,
 }) => {
   const initialFormSponsors = {
     name: "",
@@ -43,11 +47,24 @@ const ModalSponsorshipsAdmin = ({
     setFormSponsors(initialFormSponsors);
   };
 
+  const onClickDelete = () => {
+    if (selectedSponsor) {
+      deleteSponsorsList(formSponsors);
+    } 
+  }
+
   const getFormState = (field) => {
     return formSponsors && formSponsors[field] ? formSponsors[field] : "";
   };
 
-  return (
+  return modalAction === ModalActionsEnum.DELETE ? (
+    <ModalDeleteConfirm
+      isOpen={isOpen}
+      onModalClose={onClickModalClose}
+      onDeleteConfirm={onClickDelete}
+      message={`Deseja apagar o padrinho: ${selectedSponsor.name}`}
+    />
+  ) : (
     <Modal
       isOpen={isOpen}
       onModalClose={onClickModalClose}
