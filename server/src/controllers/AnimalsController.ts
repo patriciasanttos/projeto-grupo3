@@ -7,8 +7,10 @@ import genFileName from '../utils/genFileName';
 
 class AnimalController {
     async getAll(req: Request, res: Response) {
+
         const response = await animalsRepository.getAllAnimals();
 
+        /*
         const animals = Object.entries(response.data).map((animal: any[]) => {
             
             let image: Buffer;
@@ -25,8 +27,9 @@ class AnimalController {
                 image: base64Image
             };
         })
+        */
 
-        res.status(response.code).json(animals);
+        res.status(response.code).send(response.data);
     }
 
     async getById(req: Request, res: Response) {
