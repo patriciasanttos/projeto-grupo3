@@ -61,23 +61,23 @@ const FilterSidebar = ({ filtersState, setFiltersState }) => {
         <div className={styles.filterGroup}>
           <label className={styles.title}>Animais</label>
           <div>
-            <label><input type="checkbox" name='species' value='dog' onChange={(e) => setFilters(e)} />Cão</label>
-            <label><input type="checkbox" name='species' value='cat' onChange={(e) => setFilters(e)} />Gato</label>
+            <label><input type="checkbox" name='species' value='canina' onChange={(e) => setFilters(e)} />Cão</label>
+            <label><input type="checkbox" name='species' value='gato' onChange={(e) => setFilters(e)} />Gato</label>
           </div>
         </div>
         <div className={styles.filterGroup}>
           <label className={styles.title}>Sexo</label>
           <div>
-            <label><input type="checkbox" name='gender' value='Macho' onChange={(e) => setFilters(e)}/>Macho</label>
-            <label><input type="checkbox" name='gender' value='Fêmea' onChange={(e) => setFilters(e)}/>Fêmea</label>
+            <label><input type="checkbox" name='gender' value='M' onChange={(e) => setFilters(e)}/>Macho</label>
+            <label><input type="checkbox" name='gender' value='F' onChange={(e) => setFilters(e)}/>Fêmea</label>
           </div>
         </div>
         <div className={styles.filterGroup}>
           <label className={styles.title}>Porte</label>
           <div>
-            <label><input type="checkbox" name='size' value='g' onChange={(e) => setFilters(e)}/> G (mais de 25kg)</label>
-            <label><input type="checkbox" name='size' value='m' onChange={(e) => setFilters(e)}/> M (até de 25kg)</label>
-            <label><input type="checkbox" name='size' value='p' onChange={(e) => setFilters(e)}/> P (até de 10kg)</label>
+            <label><input type="checkbox" name='size' value='grande' onChange={(e) => setFilters(e)}/> G (mais de 25kg)</label>
+            <label><input type="checkbox" name='size' value='medio' onChange={(e) => setFilters(e)}/> M (até de 25kg)</label>
+            <label><input type="checkbox" name='size' value='pequeno' onChange={(e) => setFilters(e)}/> P (até de 10kg)</label>
           </div>
         </div>
         <div className={styles.filterGroup}>
