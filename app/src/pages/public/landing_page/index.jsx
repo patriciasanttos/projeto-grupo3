@@ -5,7 +5,8 @@ import NavBar from "../../../components/navbar/NavBar";
 import Footer from "../../../components/footer/Footer";
 import Carousel from "../../../components/carousel/Carousel";
 import DonationCard from "../../../components/card_donation/DonationCard";
-import Modal from "../../../components/modal";
+import ModalLPSponsorship from "../../../components/modal/modalLPSponsorship";
+// import styles from './styles.css';
 import "./landingPage.scss";
 // import { animals } from './animals';
 
@@ -185,13 +186,13 @@ function LandingPage() {
         </div>
       </section>
       <Footer />
-      <Modal
+      <ModalLPSponsorship
         title="Titulo da tela principal"
         isOpen={isModalOpen}
         onModalClose={() => setIsModalOpen(false)}
       >
         teste
-      </Modal>
+      </ModalLPSponsorship>
     </div>
   );
 }
