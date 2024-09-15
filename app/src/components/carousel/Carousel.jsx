@@ -46,9 +46,9 @@ const Carousel = ({ animals, onClickCardAnimal }) => {
           <CardAnimal
             key={animal.id}
             image={animal.image}
-            name={animal.name}
-            gender={animal.gender}
-            breed={animal.breed}
+            name={animal.name.charAt(0).toUpperCase() + animal.name.slice(1).toLowerCase()}
+            gender={animal.gender === 'm' ? 'Macho': 'Fêmea'}
+            race={animal.race === 'srd' ? 'Sem raça definída' : `${animal.race.charAt(0).toUpperCase()}${animal.race.slice(1).toLowerCase()}`}
             age={animal.age}
             onClickButton={() => onClickCardAnimal(animal)}
           />

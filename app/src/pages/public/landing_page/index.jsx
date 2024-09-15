@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import NavBar from "../../../components/navbar/NavBar";
@@ -6,14 +6,14 @@ import Footer from "../../../components/footer/Footer";
 import Carousel from "../../../components/carousel/Carousel";
 import DonationCard from "../../../components/card_donation/DonationCard";
 import Modal from "../../../components/modal";
-import { animals } from "./animals";
-// import styles from './styles.css';
 import "./landingPage.scss";
+// import { animals } from './animals';
 
 // import images
 import partnerImg from "../../../assets/images/partner-img.svg";
 import sponsorImg from "../../../assets/images/sponsor-img.svg";
 import volunteerImg from "../../../assets/images/volunteer-img.svg";
+import imageDog1 from "../../../assets/images/dog1.svg";
 
 // import icons
 import dog from "../../../assets/icons/dog.svg";
@@ -22,13 +22,29 @@ import heart from "../../../assets/icons/heart.svg";
 import cat from "../../../assets/icons/cat.svg";
 import socialMedia from "../../../assets/icons/social-media.svg";
 import bath from "../../../assets/icons/bath.svg";
+import { getAllAnimals } from "../../../services/api/animals";
 
 function LandingPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [ animals ] = useState([]);
+  const [ loading, setLoading ] = useState(true);
 
   const onClickCardAnimal = (animal) => {
     setIsModalOpen(true);
   };
+
+  useEffect(() => {
+    getAllAnimals()
+      .then(async data => {
+        await data.forEach(animal => {
+          return animals.push({ ...animal, image: imageDog1 })
+        });
+        setLoading(false);
+    });
+  }, []);
+
+  if (loading)
+    return <div className="loading">Loading...</div>;
 
   return (
     <div className="page_container landing-page">
