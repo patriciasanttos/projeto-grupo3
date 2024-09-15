@@ -9,21 +9,7 @@ import CardAnimal from '../../../components/cardAnimal/CardAnimal';
 import imageDog1 from '../../../assets/images/dog1.svg';
 import FilterSidebar from '../../../components/filterSideBar/FilterSideBar';
 import Menu from '../../../components/menu/Menu';
-
-const animals = [
-  { id: 1, image: imageDog1, species: 'dog', name: 'Julia', gender: 'Fêmea', breed: 'Sem Raça Definida', age: 12, size: 'p' },
-  { id: 2, image: imageDog1, species: 'dog', name: 'Max', gender: 'Macho', breed: 'Sem Raça Definida', age: 9, size: 'p' },
-  { id: 3, image: imageDog1, species: 'dog', name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: 9, size: 'm' },
-  { id: 4, image: imageDog1, species: 'dog', name: 'Julia', gender: 'Fêmea', breed: 'Sem Raça Definida', age: 5, size: 'g' },
-  { id: 5, image: imageDog1, species: 'dog', name: 'Max', gender: 'Macho', breed: 'Sem Raça Definida', age: 2, size: 'g' },
-  { id: 6, image: imageDog1, species: 'dog', name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: 3, size: 'm' },
-  { id: 7, image: imageDog1, species: 'dog', name: 'Max', gender: 'Macho', breed: 'Sem Raça Definida', age: 0.2, size: 'p' },
-  { id: 8, image: imageDog1, species: 'dog', name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: 1, size: 'g' },
-  { id: 9, image: imageDog1, species: 'dog', name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: 0.4, size: 'm' },
-  { id: 10, image: imageDog1, species: 'dog', name: 'Max', gender: 'Macho', breed: 'Sem Raça Definida', age: 14, size: 'g' },
-  { id: 11, image: imageDog1, species: 'dog', name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: 4, size: 'p' },
-  { id: 12, image: imageDog1, species: 'dog', name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: 0.4, size: 'p' },
-];
+import { getAllAnimals } from '../../../services/api/animals';
 
 const Adoption = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -34,7 +20,24 @@ const Adoption = () => {
     age: '',
     size: '',
   });
-  const [ animalsInPage, setAnimalsInPage ] = useState(animals);
+  const [ animals ] = useState([]);
+  const [ animalsInPage, setAnimalsInPage ] = useState([]);
+  const [ loading, setLoading ] = useState(true);
+
+  useEffect(() => {
+    const getAnimals = async () => {
+      const data = await getAllAnimals();
+
+      await data.forEach(animal => {
+        animals.push({ ...animal, image: imageDog1 });
+      });
+
+      setAnimalsInPage(animals);
+      return setLoading(false);
+    }
+    
+    getAnimals();
+  }, []);
 
   useEffect(() => {
     const updateItemsPerPage = () => {
@@ -60,6 +63,9 @@ const Adoption = () => {
       return Object.entries(filters).every(([ key, value ]) => {
         if (value === '')
           return true;
+
+        if (key === 'gender' && animal.gender === animal.gender.toLowerCase())
+          value = value.toLowerCase();
 
         if (key === 'age') {
           switch (value) {
@@ -107,6 +113,9 @@ const Adoption = () => {
     setCurrentPage(prevPage => Math.min(prevPage + 1, totalPages));
   };
 
+  if (loading)
+    return <div className="loading">Loading...</div>;
+
   return (
     <div className='page_container'>
       <NavBar />
@@ -127,15 +136,10 @@ const Adoption = () => {
               <CardAnimal
                 key={paginatedAnimals.indexOf(animal)}
                 image={animal.image}
-                name={animal.name}
-                gender={animal.gender}
-                breed={animal.breed}
-                age={Number.isInteger(animal.age)
-                  ? animal.age === 1
-                    ? `${animal.age} ano`
-                    : `${animal.age} anos`
-                  : `${String(animal.age).split('.')[1]} meses`
-                }
+                name={animal.name.charAt(0).toUpperCase() + animal.name.slice(1).toLowerCase()}
+                gender={animal.gender === 'm' ? 'Macho': 'Fêmea'}
+                race={animal.race === 'srd' ? 'Sem raça definída' : `${animal.race.charAt(0).toUpperCase()}${animal.race.slice(1).toLowerCase()}`}
+                age={animal.age}
               /> 
             ))}
           </div>
