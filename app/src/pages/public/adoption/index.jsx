@@ -137,7 +137,7 @@ const Adoption = () => {
                 key={paginatedAnimals.indexOf(animal)}
                 image={animal.image}
                 name={animal.name.charAt(0).toUpperCase() + animal.name.slice(1).toLowerCase()}
-                gender={animal.gender === 'm' ? 'Macho': 'Fêmea'}
+                gender={['m', 'M'].includes(animal.gender)  ? 'Macho': 'Fêmea'}
                 race={animal.race === 'srd' ? 'Sem raça definída' : `${animal.race.charAt(0).toUpperCase()}${animal.race.slice(1).toLowerCase()}`}
                 age={animal.age}
               /> 

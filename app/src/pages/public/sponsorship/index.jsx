@@ -8,25 +8,42 @@ import Menu from '../../../components/menu/Menu';
 import CardAnimal from '../../../components/cardAnimal/CardAnimal';
 import imageDog1 from '../../../assets/images/dog1.svg';
 import ContentHero from '../../../components/contentHero/ContentHero';
+import { getAllAnimals } from '../../../services/api/animals';
 
 function Sponsorship() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(9);
+  const [ animals ] = useState([]);
+  const [ loading, setLoading ] = useState(true);
 
-  const animals = [
-    { id: 1, image: imageDog1, name: 'Julia', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '3 anos' },
-    { id: 2, image: imageDog1, name: 'Max', gender: 'Macho', breed: 'Sem Raça Definida', age: '2 anos' },
-    { id: 3, image: imageDog1, name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos' },
-    { id: 4, image: imageDog1, name: 'Julia', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '3 anos' },
-    { id: 5, image: imageDog1, name: 'Max', gender: 'Macho', breed: 'Sem Raça Definida', age: '2 anos' },
-    { id: 6, image: imageDog1, name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos' },
-    { id: 7, image: imageDog1, name: 'Max', gender: 'Macho', breed: 'Sem Raça Definida', age: '2 anos' },
-    { id: 8, image: imageDog1, name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos' },
-    { id: 9, image: imageDog1, name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos' },
-    { id: 10, image: imageDog1, name: 'Julia', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '3 anos' },
-    { id: 11, image: imageDog1, name: 'Max', gender: 'Macho', breed: 'Sem Raça Definida', age: '2 anos' },
-    { id: 12, image: imageDog1, name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos' },
-  ];
+  // const animals = [
+  //   { id: 1, image: imageDog1, name: 'Julia', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '3 anos' },
+  //   { id: 2, image: imageDog1, name: 'Max', gender: 'Macho', breed: 'Sem Raça Definida', age: '2 anos' },
+  //   { id: 3, image: imageDog1, name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos' },
+  //   { id: 4, image: imageDog1, name: 'Julia', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '3 anos' },
+  //   { id: 5, image: imageDog1, name: 'Max', gender: 'Macho', breed: 'Sem Raça Definida', age: '2 anos' },
+  //   { id: 6, image: imageDog1, name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos' },
+  //   { id: 7, image: imageDog1, name: 'Max', gender: 'Macho', breed: 'Sem Raça Definida', age: '2 anos' },
+  //   { id: 8, image: imageDog1, name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos' },
+  //   { id: 9, image: imageDog1, name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos' },
+  //   { id: 10, image: imageDog1, name: 'Julia', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '3 anos' },
+  //   { id: 11, image: imageDog1, name: 'Max', gender: 'Macho', breed: 'Sem Raça Definida', age: '2 anos' },
+  //   { id: 12, image: imageDog1, name: 'Bella', gender: 'Fêmea', breed: 'Sem Raça Definida', age: '4 anos' },
+  // ];
+
+  useEffect(() => {
+    const getAnimals = async () => {
+      const data = await getAllAnimals();
+
+      await data.forEach(animal => {
+        animals.push({ ...animal, image: imageDog1 });
+      });
+
+      return setLoading(false);
+    }
+    
+    getAnimals();
+  })
 
   useEffect(() => {
     const updateItemsPerPage = () => {
@@ -68,6 +85,9 @@ function Sponsorship() {
     setCurrentPage(prevPage => Math.min(prevPage + 1, totalPages));
   };
 
+  if (loading)
+    return <div className="loading">Loading...</div>;
+
   return (
     <div className='page_container'>
     <NavBar />
@@ -86,9 +106,9 @@ function Sponsorship() {
             <CardAnimal
               key={animal.id}
               image={animal.image}
-              name={animal.name}
-              gender={animal.gender}
-              breed={animal.breed}
+              name={animal.name.charAt(0).toUpperCase() + animal.name.slice(1).toLowerCase()}
+              gender={['m', 'M'].includes(animal.gender)  ? 'Macho': 'Fêmea'}
+              race={animal.race === 'srd' ? 'Sem raça definída' : `${animal.race.charAt(0).toUpperCase()}${animal.race.slice(1).toLowerCase()}`}
               age={animal.age}
             />
           ))}
