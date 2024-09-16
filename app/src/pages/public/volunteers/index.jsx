@@ -2,7 +2,7 @@ import { useState } from "react";
 import { IMaskInput } from "react-imask";
 
 import NavBar from "../../../components/navbar/NavBar";
-import ContentHero from '../../../components/contentHero/ContentHero';
+import ContentHero from "../../../components/contentHero/ContentHero";
 import Menu from "../../../components/menu/Menu";
 import Footer from "../../../components/footer/Footer";
 import StateSelect from "./StateSelectComponent/StateSelect";
@@ -38,8 +38,8 @@ function Volunteers() {
     address: "",
     availability: "",
     sector: "",
-    state: ""
-  })
+    state: "",
+  });
 
   const [formUnder18, setFormUnder18] = useState({
     responsibleName: "",
@@ -50,7 +50,7 @@ function Volunteers() {
     address: "",
     availability: "",
     sector: "",
-    state: ""
+    state: "",
   });
 
   const onClickSubmitOver18 = () => {
@@ -58,8 +58,8 @@ function Volunteers() {
   };
 
   const onClickSubmitUnder18 = () => {
-    alert(JSON.stringify(formUnder18))
-  }
+    alert(JSON.stringify(formUnder18));
+  };
 
   return (
     <div className="page_container">
@@ -67,11 +67,11 @@ function Volunteers() {
 
       {/* SEÇÃO DO TÍTULO E TEXTO SOBRE SER VOLUNTÁRIO */}
       <ContentHero
-           title ="Seja um voluntário" 
-           subtitle="Faça a diferença na vida de um animal" 
-           text="Voluntariar-se é uma forma incrível de conectar-se com seres que possuem um amor puro e incondicional para oferecer. Além disso,
+        title="Seja um voluntário"
+        subtitle="Faça a diferença na vida de um animal"
+        text="Voluntariar-se é uma forma incrível de conectar-se com seres que possuem um amor puro e incondicional para oferecer. Além disso,
            você estará cercado por uma comunidade de pessoas que compartilham o mesmo amor e respeito pelos animais."
-           text2="Não é necessário ter experiência anterior, tudo o que pedimos é um coração aberto e vontade de fazer a diferença. Os animais precisam de você, e cada gesto de amor conta!"    
+        text2="Não é necessário ter experiência anterior, tudo o que pedimos é um coração aberto e vontade de fazer a diferença. Os animais precisam de você, e cada gesto de amor conta!"
       />
 
       {/* CONTEÚDO PRINCIPAL DA PÁGINA - TAREFAS DO VOLUNTÁRIO */}
@@ -205,84 +205,268 @@ function Volunteers() {
             {selectedOption === "over-18" && (
               <div>
                 <p>
-                Pelo presente Termo de Adesão e ciente da Lei n. 9.608/1998 que
-                rege o trabalho voluntário,decido espontaneamente realizar
-                atividade voluntária nesta organização. <br />Declaro, ainda, que
-                estou ciente de que o trabalho não será remunerado e que não
-                configurará vínculo empregatício ou gerará qualquer obrigação de
-                natureza trabalhista, previdenciária ou afim. <br />Declaro, por fim,
-                que estou ciente de que eventuais danos pessoais ou materiais
-                causados no exercício do trabalho voluntário serão de total e
-                integral responsabilidade minha e não serão imputados à esta
-                organização.
-              </p>
-            
-              <form className="volunteers-form" action="">
-                <div className="align-form">
-                  <input type="text" name="Nome" id="" placeholder="Nome completo" value={formOver18.name} onChange={(e) => setFormOver18({...formOver18, name: e.target.value})}/>
-                  <input type="text" name="E-mail" id="" placeholder="E-mail" value={formOver18.email} onChange={(e) => setFormOver18({...formOver18, email: e.target.value})}/>
-                  <input type="text" name="Endereço" id="" placeholder="Endereço completo" value={formOver18.address} onChange={(e) => setFormOver18({...formOver18, address: e.target.value})}/>
-                  <select defaultValue="" onChange={(e) => setFormOver18({ ...formOver18, sector: e.target.value })}>
-                    <option value="" disabled>Setor</option>
-                    <option value="Canil">Canil</option>
-                    <option value="Gatil">Gatil</option>
-                    <option value="Limpeza">Limpeza</option>
-                  </select>
-                </div>
-                <div className="align-form">
-                  <IMaskInput type="text" name="Celular" id="" placeholder="Celular" value={formOver18.phoneNumber} onAccept={(value, maskRef, e) => setFormOver18({...formOver18, phoneNumber: e.target.value})} mask={"(00) 00000-0000"}/>
-                  <input type="text" name="Profissão" id="" placeholder="Profissão" value={formOver18.occupation} onChange={(e) => setFormOver18({...formOver18, occupation: e.target.value})}/>
-                  <input type="number" name="Disponibilidade" id="" placeholder="Disponibilidade de horas na semana" value={formOver18.availability} onChange={(e) => setFormOver18({...formOver18, availability: e.target.value})}/>
-                  <StateSelect onChange={(e) => setFormOver18({ ...formOver18, state: e.target.value })}/>
-                </div>
-              </form>
+                  Pelo presente Termo de Adesão e ciente da Lei n. 9.608/1998
+                  que rege o trabalho voluntário,decido espontaneamente realizar
+                  atividade voluntária nesta organização. <br />
+                  Declaro, ainda, que estou ciente de que o trabalho não será
+                  remunerado e que não configurará vínculo empregatício ou
+                  gerará qualquer obrigação de natureza trabalhista,
+                  previdenciária ou afim. <br />
+                  Declaro, por fim, que estou ciente de que eventuais danos
+                  pessoais ou materiais causados no exercício do trabalho
+                  voluntário serão de total e integral responsabilidade minha e
+                  não serão imputados à esta organização.
+                </p>
+
+                <form className="volunteers-form" action="">
+                  <div className="align-form">
+                    <input
+                      type="text"
+                      name="Nome"
+                      id=""
+                      placeholder="Nome completo"
+                      value={formOver18.name}
+                      onChange={(e) =>
+                        setFormOver18({ ...formOver18, name: e.target.value })
+                      }
+                    />
+                    <input
+                      type="text"
+                      name="E-mail"
+                      id=""
+                      placeholder="E-mail"
+                      value={formOver18.email}
+                      onChange={(e) =>
+                        setFormOver18({ ...formOver18, email: e.target.value })
+                      }
+                    />
+                    <input
+                      type="text"
+                      name="Endereço"
+                      id=""
+                      placeholder="Endereço completo"
+                      value={formOver18.address}
+                      onChange={(e) =>
+                        setFormOver18({
+                          ...formOver18,
+                          address: e.target.value,
+                        })
+                      }
+                    />
+                    <select
+                      defaultValue=""
+                      onChange={(e) =>
+                        setFormOver18({ ...formOver18, sector: e.target.value })
+                      }
+                    >
+                      <option value="" disabled>
+                        Setor
+                      </option>
+                      <option value="Canil">Canil</option>
+                      <option value="Gatil">Gatil</option>
+                      <option value="Limpeza">Limpeza</option>
+                    </select>
+                  </div>
+                  <div className="align-form">
+                    <IMaskInput
+                      type="text"
+                      name="Celular"
+                      id=""
+                      placeholder="Celular"
+                      value={formOver18.phoneNumber}
+                      onAccept={(value, maskRef, e) =>
+                        setFormOver18({
+                          ...formOver18,
+                          phoneNumber: e.target.value,
+                        })
+                      }
+                      mask={"(00) 00000-0000"}
+                    />
+                    <input
+                      type="text"
+                      name="Profissão"
+                      id=""
+                      placeholder="Profissão"
+                      value={formOver18.occupation}
+                      onChange={(e) =>
+                        setFormOver18({
+                          ...formOver18,
+                          occupation: e.target.value,
+                        })
+                      }
+                    />
+                    <input
+                      type="number"
+                      name="Disponibilidade"
+                      id=""
+                      placeholder="Disponibilidade de horas na semana"
+                      value={formOver18.availability}
+                      onChange={(e) =>
+                        setFormOver18({
+                          ...formOver18,
+                          availability: e.target.value,
+                        })
+                      }
+                    />
+                    <StateSelect
+                      onChange={(e) =>
+                        setFormOver18({ ...formOver18, state: e.target.value })
+                      }
+                    />
+                  </div>
+                </form>
                 <button onClick={onClickSubmitOver18}>Enviar</button>
-                </div>
+              </div>
             )}
 
             {selectedOption === "under-18" && (
               <div>
                 <p>
-                Pela presente Autorização e ciente da Lei n. 9.608/1998 que rege
-                o trabalho voluntário, da Constituição Federal e do Estatuto da
-                Criança e do Adolescente que proíbem o trabalho noturno,
-                perigoso ou insalubre a menores de dezoito anos, autorizo meu
-                filho(a) a realizar atividade voluntária nesta organização.
-                <br />Declaro, ainda, que tenho conhecimento e estou de acordo com os
-                objetivos e a metodologia usada nas atividades e estou ciente de
-                que o projeto tem cunho educacional e social. <br />Declaro, por fim,
-                que estou ciente de que o trabalho não será remunerado e que não
-                configurará vínculo empregatício ou gerará qualquer obrigação de
-                natureza trabalhista, previdenciária ou afim.
+                  Pela presente Autorização e ciente da Lei n. 9.608/1998 que
+                  rege o trabalho voluntário, da Constituição Federal e do
+                  Estatuto da Criança e do Adolescente que proíbem o trabalho
+                  noturno, perigoso ou insalubre a menores de dezoito anos,
+                  autorizo meu filho(a) a realizar atividade voluntária nesta
+                  organização.
+                  <br />
+                  Declaro, ainda, que tenho conhecimento e estou de acordo com
+                  os objetivos e a metodologia usada nas atividades e estou
+                  ciente de que o projeto tem cunho educacional e social. <br />
+                  Declaro, por fim, que estou ciente de que o trabalho não será
+                  remunerado e que não configurará vínculo empregatício ou
+                  gerará qualquer obrigação de natureza trabalhista,
+                  previdenciária ou afim.
                 </p>
                 <form className="volunteers-form" action="">
-                <div className="align-form">
-                  <input type="text" name="Nome Responsável" id="" placeholder="Nome do responsável" value={formUnder18.responsibleName} onChange={(e) => setFormUnder18({...formUnder18, responsibleName: e.target.value})}/>
-                  <input type="text" name="Nome do menor" id="" placeholder="Nome do menor" value={formUnder18.minorsName} onChange={(e) => setFormUnder18({...formUnder18, minorsName: e.target.value})}/>
-                  <input type="text" name="E-mail" id="" placeholder="E-mail" value={formUnder18.email} onChange={(e) => setFormUnder18({...formUnder18, email: e.target.value})}/>
-                  <input type="text" name="Endereço" id="" placeholder="Endereço completo" value={formUnder18.address} onChange={(e) => setFormUnder18({...formUnder18, address: e.target.value})}/>
-                  <select defaultValue="" onChange={(e) => setFormUnder18({ ...formUnder18, sector: e.target.value })}>
-                    <option value="" disabled>Setor</option>
-                    <option value="Canil">Canil</option>
-                    <option value="Gatil">Gatil</option>
-                    <option value="Limpeza">Limpeza</option>
-                  </select>
-                </div>
-                <div className="align-form">
-                  <IMaskInput type="text" name="Celular" id="" placeholder="Celular" value={formUnder18.phoneNumber} onAccept={(value, maskRef, e) => setFormUnder18({...formUnder18, phoneNumber: e.target.value})} mask={"(00) 00000-0000"}/>
-                  <input type="text" name="Período aula" id="" placeholder="Período que estuda" value={formUnder18.periodStudy} onChange={(e) => setFormUnder18({...formUnder18, periodStudy: e.target.value})}/>
-                  <input type="number" name="Disponibilidade" id="" placeholder="Disponibilidade de horas na semana" value={formUnder18.availability} onChange={(e) => setFormUnder18({...formUnder18, availability: e.target.value})}/>
-                  <StateSelect onChange={(e) => setFormUnder18({ ...formUnder18, state: e.target.value })}/>
-                </div>
-              </form>
-              <button onClick={onClickSubmitUnder18}>Enviar</button>
+                  <div className="align-form">
+                    <input
+                      type="text"
+                      name="Nome Responsável"
+                      id=""
+                      placeholder="Nome do responsável"
+                      value={formUnder18.responsibleName}
+                      onChange={(e) =>
+                        setFormUnder18({
+                          ...formUnder18,
+                          responsibleName: e.target.value,
+                        })
+                      }
+                    />
+                    <input
+                      type="text"
+                      name="Nome do menor"
+                      id=""
+                      placeholder="Nome do menor"
+                      value={formUnder18.minorsName}
+                      onChange={(e) =>
+                        setFormUnder18({
+                          ...formUnder18,
+                          minorsName: e.target.value,
+                        })
+                      }
+                    />
+                    <input
+                      type="text"
+                      name="E-mail"
+                      id=""
+                      placeholder="E-mail"
+                      value={formUnder18.email}
+                      onChange={(e) =>
+                        setFormUnder18({
+                          ...formUnder18,
+                          email: e.target.value,
+                        })
+                      }
+                    />
+                    <input
+                      type="text"
+                      name="Endereço"
+                      id=""
+                      placeholder="Endereço completo"
+                      value={formUnder18.address}
+                      onChange={(e) =>
+                        setFormUnder18({
+                          ...formUnder18,
+                          address: e.target.value,
+                        })
+                      }
+                    />
+                    <select
+                      defaultValue=""
+                      onChange={(e) =>
+                        setFormUnder18({
+                          ...formUnder18,
+                          sector: e.target.value,
+                        })
+                      }
+                    >
+                      <option value="" disabled>
+                        Setor
+                      </option>
+                      <option value="Canil">Canil</option>
+                      <option value="Gatil">Gatil</option>
+                      <option value="Limpeza">Limpeza</option>
+                    </select>
+                  </div>
+                  <div className="align-form">
+                    <IMaskInput
+                      type="text"
+                      name="Celular"
+                      id=""
+                      placeholder="Celular"
+                      value={formUnder18.phoneNumber}
+                      onAccept={(value, maskRef, e) =>
+                        setFormUnder18({
+                          ...formUnder18,
+                          phoneNumber: e.target.value,
+                        })
+                      }
+                      mask={"(00) 00000-0000"}
+                    />
+                    <input
+                      type="text"
+                      name="Período aula"
+                      id=""
+                      placeholder="Período que estuda"
+                      value={formUnder18.periodStudy}
+                      onChange={(e) =>
+                        setFormUnder18({
+                          ...formUnder18,
+                          periodStudy: e.target.value,
+                        })
+                      }
+                    />
+                    <input
+                      type="number"
+                      name="Disponibilidade"
+                      id=""
+                      placeholder="Disponibilidade de horas na semana"
+                      value={formUnder18.availability}
+                      onChange={(e) =>
+                        setFormUnder18({
+                          ...formUnder18,
+                          availability: e.target.value,
+                        })
+                      }
+                    />
+                    <StateSelect
+                      onChange={(e) =>
+                        setFormUnder18({
+                          ...formUnder18,
+                          state: e.target.value,
+                        })
+                      }
+                    />
+                  </div>
+                </form>
+                <button onClick={onClickSubmitUnder18}>Enviar</button>
               </div>
             )}
           </section>
         </section>
       </main>
 
-      <Menu currentPage='volunteers' />
+      <Menu currentPage="volunteers" />
       <Footer />
     </div>
   );

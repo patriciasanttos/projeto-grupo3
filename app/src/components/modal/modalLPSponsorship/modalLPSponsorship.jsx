@@ -1,134 +1,146 @@
-import React from "react";
-import styles from "./Styles.scss";
+import React, {useState} from "react";
+import { IMaskInput } from "react-imask";
+import "./Styles.scss";
 
-// Import Icons
-import btnClose from "../../../assets/icons/btn-close.svg";
-import clrHeart from "../../../assets/icons/clr-heart.svg";
-import noclrHeart from "../../../assets/icons/noclr-heart.svg";
-import noclrEnergy from "../../../assets/icons/noclr-energy.svg";
-import clrPawDog from "../../../assets/icons/clr-pawdog.svg";
-import noclrPawDog from "../../../assets/icons/noclr-pawdog.svg";
+import Modal from "../../../components/modal";
+import Button from "../../../components/button";
 
-// Import Images
-import dog from "../../../assets/images/hector.svg";
 
-function Modal({ isOpen, setOpen, setModalOpen }) {
-  if (isOpen) {
-    return (
-      <div className={styles.background}>
-        <div className={styles.modal}>
-          <div className={styles.closeModal}>
-            <button onClick={setModalOpen}>
-              <img src={btnClose} alt={"button close"} />
-            </button>
-          </div>
+function ModalLPSponsorship({
+  isOpen,
+  title,
+  onModalClose,
+  showForm,
+  selectedAnimal,
+}) {
+  const onClickModalButton = () => {
+    if (showForm) {
+      // To do enviar para o back-end
+    } else {
+      window.open("https://0lh2dmk5.forms.app/formulario-de-adocao-da-sjpa", "_blank");
+    }
+  }
 
-          <div className={styles.generalData}>
-            <div>
-              <h2 className={styles.animalName}>Hector</h2>
-              <div className={styles.status}>
-                <div>
-                  <p>
-                    <strong>Carinhoso</strong> <br />
-                    <img className={styles.icons} src={clrHeart} alt="" />
-                    <img className={styles.icons} src={clrHeart} alt="" />
-                    <img className={styles.icons} src={noclrHeart} alt="" />
-                  </p>
-                </div>
+  const [formSponsor, setFormSponsor] = useState(
+    {
+      name: "",
+      address: "",
+      email: "",
+      phoneNumber: "",
+    }
+  )
 
-                <div>
-                  <p>
-                    <strong>Energético</strong> <br />
-                    <img className={styles.icons} src={noclrEnergy} alt="" />
-                    <img className={styles.icons} src={noclrEnergy} alt="" />
-                    <img className={styles.icons} src={noclrEnergy} alt="" />
-                  </p>
-                </div>
+  return (
+    <Modal isOpen={isOpen} onModalClose={onModalClose} title={title}>
+      <>
+        <section className="generalData">
+          <div>
+            <h2 className="animalName">{selectedAnimal?.name}</h2>
 
-                <div>
-                  <p>
-                    <strong>Sociável</strong> <br />
-                    <img className={styles.icons} src={clrPawDog} alt="" />
-                    <img className={styles.icons} src={clrPawDog} alt="" />
-                    <img className={styles.icons} src={noclrPawDog} alt="" />
-                  </p>
-                </div>
-              </div>
-
-              <div className={styles.info}>
-                <p>
-                  <strong>Sexo</strong>: Macho
-                </p>
-                <p>
-                  <strong>Peso aproximado</strong>: 15Kg
-                </p>
-                <p>
-                  <strong>Idade</strong>: 3 anos
-                </p>
-                <p>Sem raça definida (SRD)</p>
-              </div>
+            <div className="info">
+              <p>
+                <strong>Sexo</strong>:{" "}
+                {selectedAnimal?.gender.toUpperCase() === "F" ? "Fêmea" : "Macho"}
+              </p>
+              <p>
+                <strong>Idade</strong>: {selectedAnimal?.age ?? "N/A"}
+              </p>
+              <p>
+                <strong>Raça</strong>: {selectedAnimal?.race}
+              </p>
+              <p>
+                <strong>Porte</strong>: {selectedAnimal?.size}
+              </p>
+              <p>
+                <strong>Temperamento</strong>: {selectedAnimal?.temperament}
+              </p>
             </div>
-            <img className={styles.animal} src={dog} alt="animal    " />
           </div>
+          <img className="animal" src={selectedAnimal?.image} alt="animal" />
+        </section>
 
-          <div className={styles.history}>
-            <h3>História</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Accusantium minima natus commodi error, ad delectus harum possimus
-              laboriosam culpa cumque quo quis, iusto, consectetur voluptate
-              numquam quos nemo dolores. Tenetur! Lorem ipsum dolor Accusantium
-              minima natus commodi error, ad delectus harum possimus laboriosam
-              culpa cumque quo quis, iusto, consectetur voluptate numquam quos
-              nemo dolores. Tenetur!
-            </p>
-          </div>
+        <div className="history">
+          <h3>História</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium
+            minima natus commodi error, ad delectus harum possimus laboriosam
+            culpa cumque quo quis, iusto, consectetur voluptate numquam quos
+            nemo dolores. Tenetur! Lorem ipsum dolor Accusantium minima natus
+            commodi error, ad delectus harum possimus laboriosam culpa cumque
+            quo quis, iusto, consectetur voluptate numquam quos nemo dolores.
+            Tenetur!
+          </p>
+        </div>
 
-          <div className={styles.containerForm}>
-            <div className={styles.forms}>
+        {showForm && (
+          <div className="containerForm">
+            <div className="forms">
               <h2>Preencha o formulário</h2>
               <form action="" method="">
                 <input
+                  value={formSponsor.name}
+                  onChange={(e) =>
+                    setFormSponsor({ ...formSponsor, name: e.target.value })
+                  }
                   type="text"
                   placeholder="Nome Completo *"
                   aria-label="Nome Completo"
                   required
                 />
                 <input
+                  value={formSponsor.address}
+                  onChange={(e) =>
+                    setFormSponsor({ ...formSponsor, address: e.target.value })
+                  }
                   type="text"
                   placeholder="Endereço Completo *"
                   aria-label="Endereço Completo"
                   required
                 />
                 <input
+                  value={formSponsor.email}
+                  onChange={(e) =>
+                    setFormSponsor({ ...formSponsor, email: e.target.value })
+                  }
                   type="email"
                   placeholder="E-mail *"
                   aria-label="E-mail"
                   required
                 />
-                <input
+                <IMaskInput
                   type="text"
-                  placeholder="Celular *"
-                  aria-label="Celular"
-                  required
+                  name="phoneNumber"
+                  id=""
+                  placeholder="Celular"
+                  value={formSponsor.phoneNumber}
+                  onAccept={(value, maskRef, e) =>
+                    setFormSponsor({
+                      ...formSponsor,
+                      phoneNumber: e.target.value,
+                    })
+                  }
+                  mask={"(00) 00000-0000"}
                 />
               </form>
             </div>
 
-            <div className={styles.terms}>
-              <h2>Termo de apadrinhamento</h2>
+            <div className="info-sponsor">
+              <p>
+                Manteremos contato para enviar informações sobre o seu afilhado
+                de quatro patas
+              </p>
             </div>
           </div>
+        )}
 
-          <div className={styles.btnSubmit}>
-            <button type="submit">Quero apadrinhar</button>
-          </div>
+        <div className="btnSubmit">
+          <Button type="submit" onClick={onClickModalButton}>
+            {showForm ? "Quero apadrinhar" : "Quero adotar"}
+          </Button>
         </div>
-      </div>
-    );
-  }
-
-  return null;
+      </>
+    </Modal>
+  );
 }
 
-export default Modal;
+export default ModalLPSponsorship;

@@ -6,6 +6,7 @@ import Footer from "../../../components/footer/Footer";
 import Carousel from "../../../components/carousel/Carousel";
 import DonationCard from "../../../components/card_donation/DonationCard";
 import ModalLPSponsorship from "../../../components/modal/modalLPSponsorship";
+import LoadingPaw from "../../../components/loadingPaw"
 // import styles from './styles.css';
 import "./landingPage.scss";
 // import { animals } from './animals';
@@ -27,11 +28,13 @@ import { getAllAnimals } from "../../../services/api/animals";
 
 function LandingPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedAnimal, setSelectedAnimal] = useState(null);
   const [ animals ] = useState([]);
   const [ loading, setLoading ] = useState(true);
 
   const onClickCardAnimal = (animal) => {
     setIsModalOpen(true);
+    setSelectedAnimal(animal)
   };
 
   useEffect(() => {
@@ -43,9 +46,6 @@ function LandingPage() {
         setLoading(false);
     });
   }, []);
-
-  if (loading)
-    return <div className="loading">Loading...</div>;
 
   return (
     <div className="page_container landing-page">
@@ -76,7 +76,13 @@ function LandingPage() {
           CONHEÇA ALGUNS DE NOSSOS ANIMAIS
         </h3>
         <h1 className="title adoption-title">Adote seu novo companheiro!</h1>
-        <Carousel animals={animals} onClickCardAnimal={onClickCardAnimal} />
+        {
+          loading ? (
+            <LoadingPaw/>
+          ) : (
+            <Carousel animals={animals} onClickCardAnimal={onClickCardAnimal} />
+          )
+        }
         <div className="align-btn margin-btn">
           <Link to="/adoption">
             <button className="btn-adoption btn">Conheça mais animais</button>
@@ -187,12 +193,11 @@ function LandingPage() {
       </section>
       <Footer />
       <ModalLPSponsorship
-        title="Titulo da tela principal"
         isOpen={isModalOpen}
         onModalClose={() => setIsModalOpen(false)}
-      >
-        teste
-      </ModalLPSponsorship>
+        showForm={false}
+        selectedAnimal={selectedAnimal}
+      />
     </div>
   );
 }
