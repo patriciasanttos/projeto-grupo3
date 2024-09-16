@@ -82,22 +82,17 @@
 
 }
 
-.ways-to-donate p, li{
-    color: black;
-}
-
-
 .right p{
     margin-top: 0rem;
 }
 
-a {
+.left a {
     text-decoration: none;
-    color: black;
+    
 }
 
-a:hover{
-    color: gray;
+.letf a:hover{
+    color: rgb(116, 114, 114);
 }
 
 .text-call-platform h3{
@@ -115,4 +110,79 @@ a:hover{
 .digital-platform img{
     width: 15rem;
   
+}
+
+p {
+    color: black;
+  
+}
+
+.left ul {
+    
+    color: black;
+    display: block;        
+}
+
+li {
+    display: block;   
+    color: black;     
+}
+
+.left a{
+    color: black;
+}
+
+@media (max-width: 975px) {
+
+.page_container p{
+    font-size: 1rem;
+
+}
+
+.page_container h3{
+    font-size: 1rem;
+}
+
+.page_container h1{
+    font-size: 2rem;
+}
+
+.ways-to-donate{
+    flex-direction: column;
+    align-items: center;
+    
+    }
+.ways-to-donate p, a{
+    font-size: 0.9rem;
+    align-items: center;
+}
+
+.left {
+        margin-left: 1rem;
+        
+        text-align: center;
+        
+    }
+
+.right {
+    text-align: center;
+   
+}
+.ways-to-donate h3{
+    text-align: center;
+}
+
+.right h4{
+    text-align: center;
+    font-size: 1rem;
+}
+
+.digital-platform{
+    flex-direction: column;
+    align-items: center;
+}
+
+.digital-platform img {
+    margin: 1rem;
+}
 }

@@ -34,8 +34,8 @@ function DonationCard() {
             <div> 
                 <h2>Kit Preventivo <br/> de Doenças</h2>
                 <h3> R$ 40 </h3>
-                <p><br/>Vacina para imunizar cães <br />
-                 e gatos.</p> <br/>
+                <p><br/>Vacina para imunizar  <br />
+                cães e gatos.</p> <br/>
 
 
                 <button>Doe Agora</button> 
@@ -60,6 +60,8 @@ function DonationCard() {
 
             </div>
         </div>
+
+    
     </section>
   );
 }

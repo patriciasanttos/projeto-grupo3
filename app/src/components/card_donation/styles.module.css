@@ -71,5 +71,14 @@
 
      }
 
+     @media (max-width: 975px) {
+       .donation_card{
+            flex-direction: column; 
+            align-items: center;
+          }
 
 
+          .card{
+            height: 28rem;
+          }
+    }
