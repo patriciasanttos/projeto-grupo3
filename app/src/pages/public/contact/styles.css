@@ -12,9 +12,10 @@
 
     .subtitle {
         margin: 0 0 2.5rem 0;
+        
 
         color: var(--title-secondary-color);
-        font-size: 3rem;
+        font-size: 2.5rem;
     }
 
     .contact-page-header {
@@ -186,4 +187,168 @@
             }
         }
     }
+}
+
+
+@media (max-width: 900px) {
+    .contact-page-main{
+        
+        .address {
+
+            iframe {
+            width: 50rem;
+            height: 20rem;
+        }
+    }
+
+    .contacts {
+
+        .whatsapp{
+
+            img{
+                width: 15%;
+            }
+        }
+
+        }
+
+        p {
+            font-size: 1rem;
+        }
+
+        .whatsapp-link {
+
+            p {
+                font-size: 0.8rem;
+            }
+        }
+
+        .email{
+
+            padding-left: 2%;
+
+            img{
+                width: 15%;
+            }
+            
+            p{
+                font-size: 0.9rem;
+            }
+
+        }
+
+        .instagram{
+
+            img{
+                width: 20%;
+            }
+            
+            p{
+                font-size: 0.9rem ;
+            }
+        }
+    }
+
+    }
+
+
+@media (max-width: 600px) {
+    .contact-page-main{
+
+        flex-direction: column;
+
+        .subtitle {
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .address {
+            flex-direction: column ;
+            flex-wrap: wrap;
+            text-align: center;
+            
+
+            iframe {
+                width: 17rem;
+                height: 20rem;
+                align-items: center;
+            }
+        
+
+            .address-text {
+                flex-wrap: wrap;
+                flex-direction: column;
+                justify-items: center; 
+                text-align: center;
+
+                iframe{
+                    align-items: center;
+                }
+
+                div {
+                    padding: 0 0 0 2.5rem;
+
+                }
+    
+                     p {
+                    text-align: center;
+                }
+
+                img {
+                    width: 15%;
+                }
+            
+            }
+
+            
+
+                
+    
+    }
+
+        .contacts{
+
+             flex-wrap: wrap;
+             flex-direction: column;
+             padding-left: 0;
+             justify-items: center;
+             gap: 20px;
+             margin: 0px;
+             
+             p{
+                font-size: 1rem;
+             }
+       
+
+        .contacts-title{
+
+            img {
+                width: 15%;
+            }
+        }
+
+            .whatsapp {
+                align-items: center;
+                justify-items: center;
+                margin: 0rem;
+            
+            }
+
+            .email{
+                justify-items: center;
+                margin-left: 0px !important;
+            }
+       
+            .instagram{
+
+                justify-items: center;
+                margin-left: 0px !important;
+                margin-bottom: 1rem;
+            }
+
+            }
+
+        
+    }
+
 }
