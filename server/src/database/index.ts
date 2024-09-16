@@ -1,5 +1,7 @@
 import { Sequelize } from "sequelize";
-import dbConfig from "./config/database"
+
+/* Conexão usando as credenciais .env (postgres local ou staging)
+//import dbConfig from "./config/database"
 
 const connection = new Sequelize(String(dbConfig.database), String(dbConfig.username), dbConfig.password, {
     dialect: 'postgres',
@@ -12,5 +14,12 @@ const connection = new Sequelize(String(dbConfig.database), String(dbConfig.user
           require: true,
         },
       }
-})
+})*/
+
+// Conexão usando sqlite (arquivo db local)
+const connection = new Sequelize({
+  dialect: "sqlite",
+  storage: "./src/database/database.sqlite",
+});
+
 export default connection;

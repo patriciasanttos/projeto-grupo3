@@ -61,6 +61,7 @@ Volunteer.init({
     },
   }, {
     tableName: "volunteers",
+    timestamps: false,
     sequelize,
   }
 );

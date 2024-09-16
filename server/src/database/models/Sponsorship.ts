@@ -54,6 +54,7 @@ Sponsorships.init({
     },
   }, {
     tableName: "sponsorships",
+    timestamps: false,
     sequelize,
   }
 );
