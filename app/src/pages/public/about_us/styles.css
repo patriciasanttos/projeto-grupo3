@@ -5,6 +5,7 @@
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center center; 
+        padding-top: 5%;
 
         .aboutus-main-text {
             display: flex;
@@ -25,14 +26,14 @@
         }
     }
 
-    .title {
+    .team-title {
         text-align: center;
         color: var(--title-primary-color);
         font-weight: 700;
         font-size: 1.3rem;
     }
     
-    .subtitle {
+    .team-subtitle {
         color: var(--title-secondary-color);
         font-size: 3rem;
     }

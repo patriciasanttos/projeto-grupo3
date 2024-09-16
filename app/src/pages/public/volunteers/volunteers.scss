@@ -32,7 +32,6 @@
             color: var(--background-primary-color);
             font-weight: 900;
             font-size: 3rem;
-
         }
 
         .section-text {
@@ -70,10 +69,7 @@
 
         .volunteer-info {
             width: 80vw;
-
             margin: auto;
-
-
 
             .align-volunteers-info {
                 display: grid;
@@ -146,8 +142,6 @@
             display: flex;
             justify-content: center;
             gap: 10%;
-
-
         }
 
         .align-form {
@@ -170,6 +164,16 @@
             outline: none;
         }
 
+        .volunteers-form select {
+            margin-bottom: 5%;
+            padding: 3%;
+            width: 26.8vw;
+
+            border: 1px solid var(--background-primary-color);
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
         button {
             border-style: none;
             background-color: var(--button-primary-color);
@@ -183,7 +187,6 @@
 
             cursor: pointer;
             transition: background-color 0.3s ease;
-
         }
 
         button:hover {

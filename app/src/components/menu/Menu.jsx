@@ -36,7 +36,7 @@ function Menu({ currentPage }) {
 
         <p>{menu[0].description}</p>
 
-        <Link className={styles.menu_btn} to={menu[0].url} onClick={() => window.scrollTo(0, 0)}>
+        <Link className={styles.menu_btn} to={menu[0].url}>
           <button>{menu[0].buttonText}</button>
         </Link>
       </div>
@@ -46,7 +46,7 @@ function Menu({ currentPage }) {
 
         <p>{menu[1].description}</p>
 
-        <Link className={styles.menu_btn} to={menu[1].url} onClick={() => window.scrollTo(0, 0)}>
+        <Link className={styles.menu_btn} to={menu[1].url}>
           <button>{menu[1].buttonText}</button>
         </Link>
       </div>
@@ -56,7 +56,7 @@ function Menu({ currentPage }) {
 
         <p>{menu[2].description}</p>
 
-        <Link className={styles.menu_btn} to={menu[2].url} onClick={() => window.scrollTo(0, 0)}>
+        <Link className={styles.menu_btn} to={menu[2].url}>
           <button>{menu[2].buttonText}</button>
         </Link>
       </div>
