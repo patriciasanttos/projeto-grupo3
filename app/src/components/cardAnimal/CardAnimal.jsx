@@ -1,6 +1,14 @@
 import styles from './styles.module.css';
 
-const CardAnimal = ({ image, name, gender, race, age, onClickButton }) => {
+const CardAnimal = ({
+  image,
+  name,
+  gender,
+  race,
+  age,
+  onClickButton,
+  animal,
+}) => {
   return (
     <div className={styles.card}>
       <img src={image} alt={`Foto de ${name}`} className={styles.cardImage} />
@@ -9,7 +17,7 @@ const CardAnimal = ({ image, name, gender, race, age, onClickButton }) => {
         <p>{gender}</p>
         <p>{race}</p>
         <p>{age}</p>
-        <button className={styles.cardButton} onClick={onClickButton}>
+        <button className={styles.cardButton} onClick= {() => onClickButton(animal)}>
           Conheça minha história
         </button>
       </div>
