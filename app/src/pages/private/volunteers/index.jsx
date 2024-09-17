@@ -141,6 +141,7 @@ function Volunteers() {
   const onClickEditVolunteer = (volunteer) => {
     setIsModalOpen(true);
     setSelectedVolunteer(volunteer);
+    setModalAction(ModalActionsEnum.UPDATE);
   };
 
   const onClickDeleteVolunteer = (volunteer) => {
