@@ -1,13 +1,13 @@
+import { Animal } from "../database/models";
 import Adoption from "../database/models/Adoption";
 import { AdoptionType } from "../types/types";
 import serverErrorHandler from "../utils/serverErrorHandler";
-import animalsRepository from "./animals.repository";
 
 export default {
     async getAdoptionById(id: number): Promise<{ code: number, data: {} }> {
         try {
             //-----Buscar adoção na tabela
-            const adoption = await Adoption.findOne({ where: { id } });
+            const adoption = await Adoption.findByPk(id);
 
             if (adoption === null)
                 return {
@@ -16,20 +16,10 @@ export default {
                         error: 'Adoption not found'
                     }
                 };
-
-            //-----Buscar animal na tabela
-            const gettedAnimal = await animalsRepository.getAnimalById(adoption.dataValues.animal_id);
-
-            if (gettedAnimal.code === 404)
-                return gettedAnimal;
-
             
             return {
                 code: 200,
-                data: {
-                    ...adoption.dataValues,
-                    animal: gettedAnimal.data
-                }
+                data: adoption.dataValues
             };
         } catch (error: any) {
             return serverErrorHandler(error);
@@ -61,13 +51,38 @@ export default {
     async createAdoption(data: AdoptionType): Promise<{ code: number, data?: {} }> {
         try {
             //-----Buscar animal na tabela
-            const gettedAnimal = await animalsRepository.getAnimalById(data.animal_id);
+            const gettedAnimal = await Animal.findByPk(data.animal_id);
 
-            if (gettedAnimal.code === 404)
-                return gettedAnimal;
+            if (gettedAnimal === null)
+                return {
+                    code: 404,
+                    data: {
+                        error: 'Animal not found'
+                    }
+                };
+
+            const animal = gettedAnimal.dataValues;
 
             // -----Salvar adoção na tabela
-            await Adoption.create({ ...data });
+            await Adoption.create({
+                ...data,
+                id: animal.id,
+                name: animal.name,
+                image: animal.image,
+                species: animal.species,
+                race: animal.race,
+                size: animal.size,
+                color: animal.color,
+                vacine: animal.vacine,
+                castrated: animal.castrated,
+                age: animal.age,
+                gender: animal.gender,
+                temperament: animal.temperament,
+                status: 'Adotado',
+                observation: animal.observation,
+                animal_created_at: animal.created_at,
+            });
+            await gettedAnimal.destroy();
 
             return {
                 code: 201

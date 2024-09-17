@@ -11,7 +11,7 @@ interface AnimalInfo {
     size: string,
     color?: string,
     vacine?: number,
-    castrated?: string,
+    castrated?: boolean,
     age?: string,
     gender?: string,
     temperament?: string,

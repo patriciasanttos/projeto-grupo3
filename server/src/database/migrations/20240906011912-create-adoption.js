@@ -13,7 +13,63 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
+      image: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
       name: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      species: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      race: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      size: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      color: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      vacine: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+      },
+      castrated: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true
+      },
+      age: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      gender: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      temperament: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      status: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      observation: {
+        type: DataTypes.TEXT,
+        allowNull: true
+      },
+      animal_created_at: {
+        type: DataTypes.DATE,
+        allowNull: true
+      },
+      tutors_name: {
         type: DataTypes.STRING,
         allowNull: false
       },
@@ -23,7 +79,7 @@ module.exports = {
       },
       phone: {
         type: DataTypes.BIGINT,
-        allowNull: true
+        allowNull: false
       },
       address: {
         type: DataTypes.TEXT,
