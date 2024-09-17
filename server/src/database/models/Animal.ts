@@ -1,5 +1,6 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "..";
+import Sponsorship from "./Sponsorship";
 
 interface AnimalInfo {
     id: number,

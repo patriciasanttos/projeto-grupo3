@@ -2,7 +2,7 @@ import { Op } from "sequelize";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import Admin from "../database/models/Admin";
-import { AdminType } from "../utils/types";
+import { AdminType } from "../types/types";
 import serverErrorHandler from "../utils/serverErrorHandler";
 require('dotenv').config();
 

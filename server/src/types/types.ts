@@ -8,7 +8,7 @@ export type AnimalType = {
     color?: string,
     vacine?: number,
     castrated?: string,
-    age?: number,
+    age?: string,
     gender?: string,
     temperament?: string,
     bay?: number,

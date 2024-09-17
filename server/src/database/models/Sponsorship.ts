@@ -1,21 +1,21 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "..";
+import Animal from "./Animal";
 
-interface SponsorshipsInfo {
+interface SponsorshipInfo {
     id: number,
     name: string,
     email: string,
     phone: number,
-    animal_id: number,
     created_at?: string,
     updated_at?: string,
 }
 
-type SponsorshipsInfoCreation = Optional<SponsorshipsInfo, 'id'>;
+type SponsorshipInfoCreation = Optional<SponsorshipInfo, 'id'>;
 
-class Sponsorships extends Model<SponsorshipsInfo, SponsorshipsInfoCreation> {}
+class Sponsorship extends Model<SponsorshipInfo, SponsorshipInfoCreation> {}
 
-Sponsorships.init({
+Sponsorship.init({
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -35,15 +35,6 @@ Sponsorships.init({
       type: DataTypes.BIGINT,
       allowNull: true,
     },
-    animal_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: "animals",
-        key: "id",
-      },
-      onDelete: "CASCADE",
-    },
     created_at: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW
@@ -58,4 +49,4 @@ Sponsorships.init({
   }
 );
 
-export default Sponsorships;
+export default Sponsorship;

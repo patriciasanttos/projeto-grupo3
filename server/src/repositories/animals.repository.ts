@@ -1,12 +1,15 @@
 import Animal from "../database/models/Animal";
-import { AnimalType } from "../utils/types";
+import { AnimalType } from "../types/types";
 import serverErrorHandler from "../utils/serverErrorHandler";
+import { Sponsorship } from "../database/models";
 
 export default {
     async getAnimalById(id: number): Promise<{ code: number, data: {} }> {
         try {
             //-----Buscar animal na tabela
-            const animal = await Animal.findOne({ where: { id } });
+            const animal = await Animal.findByPk(id, {
+                include: [ Sponsorship ]
+            });
 
             if (animal === null)
                 return {
@@ -55,7 +58,7 @@ export default {
     async updateAnimal({ id, data }: { id: number, data: AnimalType }): Promise<{ code: number, data?: {} }> {
         try {
             //-----Buscar animal na tabela
-            const animal = await Animal.findOne({ where: { id } })
+            const animal = await Animal.findByPk(id)
             
             if (animal === null)
                 return {
@@ -78,7 +81,7 @@ export default {
     async deleteAnimal(id: number): Promise<{ code: number, data?: {} }> {
         try {
             //-----Buscar animal na tabela
-            const animal = await Animal.findOne({ where: { id } });
+            const animal = await Animal.findByPk(id);
             
             if (animal === null)
                 return {
