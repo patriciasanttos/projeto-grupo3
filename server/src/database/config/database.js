@@ -17,6 +17,7 @@ const dbConfig = {
   database: db.name,
   define: {
     underscored: true,
+    timestamps: false,
   },
   dialectOptions: {
     ssl: {
