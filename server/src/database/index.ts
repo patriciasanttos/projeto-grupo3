@@ -6,11 +6,7 @@ const connection = new Sequelize(String(dbConfig.database), String(dbConfig.user
     host: dbConfig.host,
     port: dbConfig.port,
     define: dbConfig.define,
-    logging: false,
-    dialectOptions: {
-        ssl: {
-          require: true,
-        },
-      }
+    logging: false
 })
+
 export default connection;
