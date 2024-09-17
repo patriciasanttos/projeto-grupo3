@@ -34,7 +34,7 @@ function Donation() {
           <h3 className="call-title">FAÇA A DIFERENÇA NA VIDA DE UM ANIMAL</h3>
           <h1 className="call-subtitle"> Faça uma doação </h1>
 
-            <DonationCard/>
+          <DonationCard/>
 
           <div className="ways-to-donate">
             <div className="left">

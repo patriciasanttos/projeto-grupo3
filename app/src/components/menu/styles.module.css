@@ -44,6 +44,7 @@
         background-color: var(--button-primary-color);
 
         button {
+            text-decoration: none;
             border-style: none;
             background: none;
             cursor: pointer;

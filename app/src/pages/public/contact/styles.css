@@ -1,19 +1,17 @@
 .contact-page-container {
     text-align: center;
 
-    .title {
+    .title-page {
         margin: 0;
         padding: 3rem 0 0.5rem 0;
-
+        text-transform: uppercase;
         color: var(--title-primary-color);
         font-weight: 700;
         font-size: 1.2rem;
     }
 
-    .subtitle {
+    .subtitle-page {
         margin: 0 0 2.5rem 0;
-        
-
         color: var(--title-secondary-color);
         font-size: 2.5rem;
     }
@@ -290,7 +288,7 @@
 
                 }
     
-                     p {
+                p {
                     text-align: center;
                 }
 

@@ -26,8 +26,11 @@ function AboutUs() {
           <div className='aboutus-main-text'>
             <img className='presentation-video' src={video_image} alt="Vídeo" />
 
-            <p className='text'>Há mais de 36 anos, a SJPA surgiu para salvar animais que seriam sacrificados, oferecendo a eles segurança, cuidado e amor. Nosso abrigo se tornou um lar para centenas de cães e gatos abandonados, onde podem se recuperar e encontrar dignidade.
-            Hoje, cuidamos de cerca de 450 animais, todos com histórias marcadas por dor, mas também por esperança. Sem apoio governamental, contamos com a generosidade de pessoas como você para continuar nossa missão.</p>
+            <p className='text-about'>
+              Há mais de 36 anos, a SJPA surgiu para salvar animais que seriam sacrificados, oferecendo a eles segurança, cuidado e amor. Nosso abrigo se tornou um lar para centenas de cães e gatos abandonados, onde podem se recuperar e encontrar dignidade.
+              <br />
+              Hoje, cuidamos de cerca de 450 animais, todos com histórias marcadas por dor, mas também por esperança. Sem apoio governamental, contamos com a generosidade de pessoas como você para continuar nossa missão.
+            </p>
           </div>
         </main>
 

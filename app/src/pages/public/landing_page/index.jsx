@@ -63,7 +63,7 @@ function LandingPage() {
           <p className="hero-text">
             Faça parte dessa missão de amor e esperança!
           </p>
-          <div className="btn-donation">
+          <div>
             <Link to="/donation">
               <button className="btn">Doe Agora</button>
             </Link>
@@ -91,7 +91,7 @@ function LandingPage() {
       </section>
 
       <section className="partner">
-        <h3 className="subtitle partner-subtitle">JUNTE-SE A NÓS</h3>
+        <h3 className="subtitle">Junte-se a nós</h3>
         <h1 className=" title partner-title">Seja um parceiro</h1>
         <div className="align-partner-cards">
           <img src={partnerImg} alt="" />
@@ -112,10 +112,10 @@ function LandingPage() {
       <section className="sponsor-volunteer">
         <section className="sponsor-section">
           <div>
-            <h3 className="sponsor-subtitle subtitle">
-              COM DOAÇÕES VOCÊ PODE APOIAR UM ANIMAL
+            <h3 className="subtitle">
+              Com doações você pode adotar um animal
             </h3>
-            <h1 className="sponsor-title title">Apadrinhe</h1>
+            <h1 className="title">Apadrinhe</h1>
             <p className="sponsor-text">
               O padrinho ajuda no bem estar e no
               <br />
@@ -138,8 +138,8 @@ function LandingPage() {
             <img src={volunteerImg} alt="" />
           </div>
           <div>
-            <h3 className="volunteer-subtitle subtitle">JUNTE-SE A NÓS</h3>
-            <h1 className="volunteer-title title">Seja um voluntário</h1>
+            <h3 className="subtitle">Junte-se a nós</h3>
+            <h1 className="title">Seja um voluntário</h1>
             <div className="icon-container">
               <div className="icon-column">
                 <div className="icon-text">
@@ -180,14 +180,12 @@ function LandingPage() {
       </section>
 
       <section className="donation-section">
-        <h3 className="donation-subtitle">APOIE A NOSSA CAUSA</h3>
+        <h3 className="donation-subtitle">Apoie a nossa causa</h3>
         <h1 className="donation-title">Faça uma doação</h1>
         <DonationCard />
-        <div className="align-btn margin-btn">
+        <div className="donation-btn">
           <Link to="/donation">
-            <button className="btn-donation-lp btn">
-              Outras formas de doar
-            </button>
+            <button className="btn">Outras formas de doar</button>
           </Link>
         </div>
       </section>
