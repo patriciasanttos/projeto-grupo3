@@ -7,7 +7,7 @@ export type AnimalType = {
     size: string,
     color?: string,
     vacine?: number,
-    castrated?: string,
+    castrated?: boolean,
     age?: string,
     gender?: string,
     temperament?: string,
@@ -26,12 +26,30 @@ export type SponsorshipType = {
 }
 
 export type AdoptionType = {
-    id: number,
-    name: string,
+    id?: number,
+    animal_id: number,
+    name?: string,
+    image?: string,
+    species?: string,
+    race?: string,
+    size?: string,
+    color?: string,
+    vacine?: number,
+    castrated?: boolean,
+    age?: string,
+    gender?: string,
+    temperament?: string,
+    bay?: number,
+    sector?: string,
+    status?: string,
+    observation?: string,
+    animal_created_at: string,
+    tutors_name: string,
     email: string,
     phone: number,
     address: string,
-    animal_id: number,
+    created_at?: string,
+    updated_at?: string,
 }
 
 export type VolunteerType = {

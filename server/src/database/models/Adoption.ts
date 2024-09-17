@@ -2,13 +2,27 @@ import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "..";
 
 interface AdoptionInfo {
-    id: number,
-    name: string,
-    email: string,
-    phone: number,
-    address: string,
-    created_at?: string,
-    updated_at?: string,
+  id: number,
+  name: string,
+  image: string,
+  species: string,
+  race?: string,
+  size: string,
+  color?: string,
+  vacine?: number,
+  castrated?: boolean,
+  age?: string,
+  gender?: string,
+  temperament?: string,
+  status: string,
+  observation?: string,
+  animal_created_at?: string,
+  tutors_name: string,
+  email: string,
+  phone: number,
+  address: string,
+  created_at?: string,
+  updated_at?: string,
 }
 
 type AdoptionInfoCreation = Optional<AdoptionInfo, 'id'>;
@@ -23,17 +37,73 @@ Adoption.init({
       primaryKey: true,
       autoIncrement: true,
     },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
+    },
+    species: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    race: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    size: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    color: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    vacine: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    castrated: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true
+    },
+    age: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    gender: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    temperament: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    status: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    observation: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    animal_created_at: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
+    tutors_name: {
+      type: DataTypes.STRING,
+      allowNull: false
     },
     email: {
       type: DataTypes.TEXT,
-      allowNull: false,
+      allowNull: false
     },
     phone: {
       type: DataTypes.BIGINT,
-      allowNull: true,
+      allowNull: false
     },
     address: {
       type: DataTypes.TEXT,
@@ -46,7 +116,7 @@ Adoption.init({
     updated_at: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW
-    },
+    }
   }, {
     tableName: "adoptions",
     sequelize,

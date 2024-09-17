@@ -20,7 +20,7 @@ class AdoptionsController {
     async create(req: Request, res: Response) {
         const data = req.body;
 
-        if (Object.keys(data).length === 0 || data.name === undefined || data.email === undefined || data.phone === undefined || data.address === undefined || data.animal_id === undefined)
+        if (Object.keys(data).length === 0 || data.tutors_name === undefined || data.email === undefined || data.phone === undefined || data.address === undefined || data.animal_id === undefined)
             return res.status(400).json({ error: 'Invalid body request' });
 
         const response = await adoptionRepository.createAdoption(data);
