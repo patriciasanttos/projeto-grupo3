@@ -34,7 +34,7 @@ function AdminPage() {
       adminsInfo: "Nada",
     },
     {
-      id: 1,
+      id: 2,
       name: "Integrante 2",
       email: "integrante2@gmail.com",
       phoneNumber: "(22) 22222-2222",
@@ -43,7 +43,7 @@ function AdminPage() {
       adminsInfo: "Nada",
     },
     {
-      id: 1,
+      id: 3,
       name: "Integrante 3",
       email: "integrante3@gmail.com",
       phoneNumber: "(33) 33333-3333",
@@ -52,7 +52,7 @@ function AdminPage() {
       adminsInfo: "Nada",
     },
     {
-      id: 1,
+      id: 4,
       name: "Integrante 4",
       email: "integrante@gmail.com",
       phoneNumber: "(44) 44444-4444",
@@ -61,7 +61,7 @@ function AdminPage() {
       adminsInfo: "Nada",
     },
     {
-      id: 1,
+      id: 5,
       name: "Integrante 5",
       email: "integrante5@gmail.com",
       phoneNumber: "(55) 55555-5555",
@@ -135,9 +135,9 @@ function AdminPage() {
     setIsModalOpen(false);
   };
 
-  const onClickDeleteAdmin = (tutor) => {
+  const onClickDeleteAdmin = (admin) => {
     setIsModalOpen(true);
-    setSelectedAdmin(tutor);
+    setSelectedAdmin(admin);
     setModalAction(ModalActionsEnum.DELETE);
   };
 
