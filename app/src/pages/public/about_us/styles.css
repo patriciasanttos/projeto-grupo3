@@ -13,10 +13,11 @@
             justify-content: space-evenly;
             padding-bottom: 4rem;
             
-            .text {
+            .text-about {
                 color: #000;
                 width: 35%;
                 font-size: 1.2rem;
+                text-align: center;
             }
     
             .presentation-video {
@@ -70,7 +71,7 @@
                 width: 100%;
                 padding-bottom: 4rem;
 
-                .text {
+                .text-about {
                     width: 80%;
                 }
 

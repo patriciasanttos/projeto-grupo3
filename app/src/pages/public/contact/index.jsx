@@ -27,8 +27,8 @@ function Contact() {
         />
         
         <main className="contact-page-main">
-          <h2 className="title">COMO NOS ENCONTRAR</h2>
-          <h1 className="subtitle">Fale conosco</h1>
+          <h2 className="title-page">Como nos encontrar</h2>
+          <h1 className="subtitle-page">Fale conosco</h1>
 
           <section className="address">
             <iframe 
