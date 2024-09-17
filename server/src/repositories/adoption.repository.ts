@@ -1,5 +1,5 @@
 import Adoption from "../database/models/Adoption";
-import { AdoptionType } from "../utils/types";
+import { AdoptionType } from "../types/types";
 import serverErrorHandler from "../utils/serverErrorHandler";
 import animalsRepository from "./animals.repository";
 

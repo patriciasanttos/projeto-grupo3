@@ -1,6 +1,6 @@
 import { Op } from "sequelize";
-import Volunteer from "../database/models/Volunteers";
-import { VolunteerType } from "../utils/types";
+import Volunteer from "../database/models/Volunteer";
+import { VolunteerType } from "../types/types";
 import serverErrorHandler from "../utils/serverErrorHandler";
 
 export default {

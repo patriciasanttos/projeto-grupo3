@@ -7,7 +7,6 @@ interface AdoptionInfo {
     email: string,
     phone: number,
     address: string,
-    animal_id: number,
     created_at?: string,
     updated_at?: string,
 }
@@ -39,15 +38,6 @@ Adoption.init({
     address: {
       type: DataTypes.TEXT,
       allowNull: false
-    },
-    animal_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: "animals",
-        key: "id",
-      },
-      onDelete: "CASCADE",
     },
     created_at: {
       type: DataTypes.DATE,

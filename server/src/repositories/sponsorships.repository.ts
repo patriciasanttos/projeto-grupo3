@@ -1,13 +1,15 @@
 import Sponsorship from "../database/models/Sponsorship";
-import { SponsorshipType } from "../utils/types";
+import { SponsorshipType } from "../types/types";
 import serverErrorHandler from "../utils/serverErrorHandler";
-import animalsRepository from "./animals.repository";
+import { Animal } from "../database/models/index";
 
 export default {
     async getSponsorshipById(id: number): Promise<{ code: number, data: {} }> {
         try {
             //-----Buscar apadrinhamento na tabela
-            const sponsorship = await Sponsorship.findOne({ where: { id } });
+            const sponsorship = await Sponsorship.findByPk(id, {
+                include: Animal
+            });
 
             if (sponsorship === null)
                 return {
@@ -16,20 +18,10 @@ export default {
                         error: 'Sponsorship not found'
                     }
                 };
-
-            //-----Buscar animal na tabela
-            const gettedAnimal = await animalsRepository.getAnimalById(sponsorship.dataValues.animal_id);
-
-            if (gettedAnimal.code === 404)
-                return gettedAnimal;
-
             
             return {
                 code: 200,
-                data: {
-                    ...sponsorship.dataValues,
-                    animal: gettedAnimal.data
-                }
+                data: sponsorship.dataValues
             };
         } catch (error: any) {
             return serverErrorHandler(error);
@@ -61,13 +53,19 @@ export default {
     async createSponsorship(data: SponsorshipType): Promise<{ code: number, data?: {} }> {
         try {
             //-----Buscar animal na tabela
-            const gettedAnimal = await animalsRepository.getAnimalById(data.animal_id);
+            const gettedAnimal = await Animal.findByPk(data.animal_id);
 
-            if (gettedAnimal.code === 404)
-                return gettedAnimal;
+            if (!gettedAnimal)
+                return {
+                    code: 404,
+                    data: {
+                        error: 'Animal not found'
+                    }
+                };
 
             // -----Salvar apadrinhamento na tabela
-            await Sponsorship.create({ ...data });
+            const sponsorship = await Sponsorship.create({ ...data });
+            await gettedAnimal.addSponsorship(sponsorship);
 
             return {
                 code: 201
@@ -80,7 +78,7 @@ export default {
     async updateSponsorship({ id, data }: { id: number, data: SponsorshipType }): Promise<{ code: number, data?: {} }> {
         try {
             //-----Buscar apadrinhamento na tabela
-            const sponsorship = await Sponsorship.findOne({ where: { id } })
+            const sponsorship = await Sponsorship.findByPk(id)
             
             if (sponsorship === null)
                 return {
@@ -103,7 +101,7 @@ export default {
     async deleteSponsorship(id: number): Promise<{ code: number, data?: {} }> {
         try {
             //-----Buscar apadrinhamento na tabela
-            const sponsorship = await Sponsorship.findOne({ where: { id } });
+            const sponsorship = await Sponsorship.findByPk(id);
             
             if (sponsorship === null)
                 return {

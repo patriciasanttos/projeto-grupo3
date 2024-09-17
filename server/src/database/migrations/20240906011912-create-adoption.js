@@ -29,15 +29,6 @@ module.exports = {
         type: DataTypes.TEXT,
         allowNull: false
       },
-      animal_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'animals',
-          key: 'id'
-        },
-        onDelete: 'CASCADE'
-      },
       created_at: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW
