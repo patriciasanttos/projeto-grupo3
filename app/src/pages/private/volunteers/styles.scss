@@ -2,3 +2,43 @@
     max-height: 70vh;
     overflow-y: scroll;
 }
+
+.admin-voluunters-input{
+    display: flex;
+    align-items:flex-start;
+    gap: 200px;
+    margin-top: 10px;
+    margin-bottom: 100px;
+}
+
+.admin-volunteers-text{
+    display: flex;
+    gap: 20px;
+
+    input{
+        height: 35px;
+        border-radius: 8px;
+        border: 2px solid #5BB656;
+        font-size: 1.375rem;
+        text-align: center;
+    }
+
+    input:focus {
+        outline: none;
+    }
+}
+
+.admin-volunteers-btn{
+    display: flex;
+    flex-direction: column;
+    
+    label{
+        font-size: 1.25rem;
+        margin-bottom: 10px;
+    }
+
+    button{
+        border: none;
+        background: none;
+    }
+}

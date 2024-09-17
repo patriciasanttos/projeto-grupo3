@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import createIcon from '../../../assets/icons/create_icon.svg'
 import AdminNavBar from "../../../components/admin_navbar/AdminNavBar";
 import ModalVolunteers from "../../../components/modal/modalVolunteersAdmin/ModalVolunteers";
 
@@ -12,13 +12,43 @@ function Volunteers() {
   const [modalAction, setModalAction] = useState(null);
   const [selectedVolunteer, setSelectedVolunteer] = useState(null);
 
+  //Filtro de Pesquisa
+  const initialFilter = {
+    name: null,
+    email: null,
+    phoneNumber: null,
+    nameAnimal: null,
+  };
+  const [filter, setFilter] = useState(initialFilter);
+
+  const getFilteredItems = () => {
+    let results = [...volunteersList];
+
+    Object.keys(filter).forEach((filterName) => {
+      if (filter[filterName]) {
+        results = results.filter(
+          (item) =>
+            item[filterName]
+              .toLowerCase()
+              .indexOf(filter[filterName].toLowerCase()) !== -1
+        );
+      }
+    });
+
+    return results;
+  };
+
+  const getFilterState = (field) => {
+    return filter && filter[field] ? filter[field] : "";
+  };
+
   // To do: Trazer lista do back-end
   const [volunteersList, setVolunteersList] = useState([
     {
       id: 1,
-      name: "Pessoa",
-      email: "pessoa@gmail.com",
-      phoneNumber: "(11) 970707-7070",
+      name: "Jorge",
+      email: "jorge@gmail.com",
+      phoneNumber: "(11) 91234-5678",
       address: "Rua dos bobos",
       availability: "8 horas - semana",
       nameResponsible: "Responsável 1",
@@ -30,9 +60,9 @@ function Volunteers() {
     },
     {
       id: 2,
-      name: "Pessoa 2",
-      email: "pessoa2@gmail.com",
-      phoneNumber: "(22) 970707-7070",
+      name: "Lais",
+      email: "lais@gmail.com",
+      phoneNumber: "(22) 99876-5432",
       address: "Rua dos bobos, 02",
       availability: "5 horas - semana",
       nameResponsible: "Responsável 2",
@@ -44,9 +74,9 @@ function Volunteers() {
     },
     {
       id: 3,
-      name: "Pessoa 3",
-      email: "pessoa3@gmail.com",
-      phoneNumber: "(33) 970707-7070",
+      name: "Gabriel",
+      email: "gabriel@gmail.com",
+      phoneNumber: "(33) 98527-4196",
       address: "Rua dos bobos, 03",
       availability: "3 horas - semana",
       nameResponsible: "Responsável 3",
@@ -127,12 +157,34 @@ function Volunteers() {
   return (
     <>
       <AdminNavBar headerTitle="Voluntários">
-        {/* substituir o button pelo ícone de adicionar*/}
-        <button onClick={onClickNewVolunteer}>Adicionar</button>
+        <div className="admin-voluunters-input">
+          <div className="admin-volunteers-text">
+            <input type="text" 
+            placeholder="Nome"
+            value={getFilterState("name")}
+              onChange={(e) => setFilter({ ...filter, name: e.target.value })}
+              />
+            <input type="text" 
+            placeholder="Contato"
+            value={getFilterState("phoneNumber")}
+              onChange={(e) => setFilter({ ...filter, phoneNumber: e.target.value })}
+            />
+            <input type="text" 
+            placeholder="Disponibilidade"
+            value={getFilterState("availability")}
+            onChange={(e) => setFilter({ ...filter, availability: e.target.value })}
+            />
+          </div>
+          <div className="admin-volunteers-btn">
+            <label htmlFor="">Adicionar</label>
+            <button onClick={onClickNewVolunteer}><img className="pointer" src={createIcon} alt="" /></button>
+          </div>
+
+        </div>
         <div className="volunteers-list-container">
           <AdminList
             columns={columns}
-            rows={volunteersList}
+            rows={getFilteredItems()}
             onClickEditRow={onClickEditVolunteer}
             onClickDeleteRow={onClickDeleteVolunteer}
           />
