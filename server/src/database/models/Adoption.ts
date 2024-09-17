@@ -59,7 +59,6 @@ Adoption.init({
     },
   }, {
     tableName: "adoptions",
-    timestamps: false,
     sequelize,
   }
 );

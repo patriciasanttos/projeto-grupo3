@@ -61,7 +61,6 @@ Admin.init({
     },
   }, {
     tableName: "admins",
-    timestamps: false,
     sequelize,
   }
 );

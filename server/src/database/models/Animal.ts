@@ -104,7 +104,6 @@ Animal.init({
     },
   }, {
     tableName: "animals",
-    timestamps: false,
     sequelize,
   }
 );
