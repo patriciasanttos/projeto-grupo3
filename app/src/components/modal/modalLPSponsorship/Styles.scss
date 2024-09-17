@@ -1,0 +1,137 @@
+* {
+    font-family: 'Inter';
+}
+
+:root {
+    --title-primary-color: #26A59E;
+    --title-secondary-color: #5BB656;
+    --background-primary-color: #5BB656;
+    --backroung-secondary-color: #404044;
+    --text-hover-color: #ffffffcf;
+    --button-primary-color: #26A59E;
+    --button-hover-color: #1b9993;
+}
+
+.modalLPSponsorship {
+
+
+
+
+
+
+    /* GENERAL DATA */
+    .generalData {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .animalName {
+        text-align: start;
+        text-transform: uppercase;
+        font-size: 3rem;
+        margin: 0;
+    }
+
+    .status {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 180%;
+
+        p {
+            font-size: 1.2rem;
+        }
+    }
+
+    .icons {
+        width: 1.25rem;
+        height: 1.25rem;
+        padding: 5px 5px 0px 0px;
+    }
+
+    .info {
+        margin-top: 15%;
+
+        p {
+            font-size: 1.4rem;
+            margin: 0;
+        }
+    }
+
+    .animal {
+        margin-left: 20px;
+        align-self: flex-start;
+        max-height: 18.75rem;
+    }
+
+
+    /* HISTORY */
+    .history {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        margin: 5% 0% 8% 0%;
+
+        h3 {
+            font-size: 1.5rem;
+        }
+    }
+
+
+
+    /* FORMS */
+    .containerForm {
+        display: flex;
+        justify-content: space-between;
+        color: var(--background-primary-color);
+
+        h2 {
+            margin-bottom: 1.3rem;
+            font-size: 2rem;
+        }
+    }
+
+    .forms {
+        display: flex;
+        flex-direction: column;
+        max-width: 45%;
+        align-items: start;
+    }
+
+    input {
+        padding: 0.938rem;
+        margin: 10px 0px 10px 0px;
+        border: 2px solid var(--background-primary-color);
+        border-radius: 5px;
+        font-size: 0.875rem;
+        width: 80%;
+        font-weight: 600;
+    }
+
+    input:focus {
+        outline-color: #32732f;
+    }
+
+    .btnSubmit {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        button {
+            border-style: none;
+            background-color: var(--button-primary-color);
+            color: #fff;
+            font-size: 1.3rem;
+            font-weight: 600;
+            border-radius: 5px;
+
+            height: 3rem;
+            width: 15rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 4rem;
+            margin-bottom: 2rem;
+        }
+    }
+}

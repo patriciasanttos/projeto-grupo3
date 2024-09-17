@@ -7,22 +7,27 @@ import genFileName from '../utils/genFileName';
 
 class AnimalController {
     async getAll(req: Request, res: Response) {
+
         const response = await animalsRepository.getAllAnimals();
 
         const animals = Object.entries(response.data).map((animal: any[]) => {
-            const image = fs.readFileSync(path.join(__dirname, '..', 'assets', 'images', 'animals', animal[1].dataValues.image));
             
-            let base64Image = '';
-            if (image)
-                base64Image = Buffer.from(image).toString('base64');
+            let image: Buffer;
+            let base64Image;
+            if (animal[1].dataValues.image) {
+                image = fs.readFileSync(path.join(__dirname, '..', 'assets', 'images', 'animals', animal[1].dataValues.image));
+
+                if (image)
+                    base64Image = Buffer.from(image).toString('base64');
+            }
 
             return {
                 ...animal[1].dataValues,
                 image: base64Image
             };
         })
-
-        res.status(response.code).json(animals);
+      
+        res.status(response.code).json(response.data);
     }
 
     async getById(req: Request, res: Response) {
@@ -30,11 +35,14 @@ class AnimalController {
 
         const response: any = await animalsRepository.getAnimalById(Number(id));
 
-        const image = fs.readFileSync(path.join(__dirname, '..', 'assets', 'images', 'animals', response.data.image));
+        let image: Buffer;
+        let base64Image;
+        if (response.data.image) {
+            image = fs.readFileSync(path.join(__dirname, '..', 'assets', 'images', 'animals', response.data.image));
             
-        let base64Image = '';
-        if (image)
-            base64Image = Buffer.from(image).toString('base64');
+            if (image)
+                base64Image = Buffer.from(image).toString('base64');
+        }
 
         const animal = {
             ...response.data,

@@ -3,9 +3,18 @@ h3 {
     margin: 0;
 }
 
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    height: 100vh;
+}
+
 .subtitle {
     color: var(--title-primary-color);
     font-size: 1rem;
+    text-transform: uppercase;
 }
 
 .title {
@@ -28,21 +37,9 @@ h3 {
     font-size: 1.3rem;
     font-weight: 600;
     border-radius: 5px;
-
     height: 3rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
-}
-
-.align-btn {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-
-.margin-btn {
-    margin-bottom: 50px;
 }
 
 .margin-top-btn {
@@ -54,58 +51,36 @@ h3 {
 }
 
 .hero {
-    background-color: var(--background-primary-color);
+    background-image: url("../../../assets/images/hero-dog.png");
+    background-repeat: no-repeat;
+    background-size: cover;
     border-top: 1px solid rgb(191, 189, 189);
 
-    height: 100vh;
-    // height: calc(100% - 20vw);
+    height: 120vh;
 
-    .title-img {
-        display: flex;
-        justify-content: space-evenly;
-    }
+    margin-bottom: 40px;
+    padding-left: 15%;
 
-    .hero-all-text {
-        width: 35vw;
-        padding: 0 0 5% 30%;
-    }
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
 
     .hero-title {
         font-size: 3.3rem;
         text-align: left;
-        padding-top: 40%;
-
     }
 
     .hero-text {
         font-size: 1.5rem;
-        margin: 0;
-    }
-
-    .btn-donation {
-        margin-left: 30%;
-        height: 2.8rem;
-
-        button {
-            width: 140px;
-        }
-    }
-
-    .hero-dog {
-        width: 45vw;
-
-    }
-
-    .waves {
-        width: 100vw;
-        position: relative;
-        bottom: 150px;
     }
 }
 
 .section-adoption {
     background-image: url('../../../assets/images/background.svg');
     background-repeat: no-repeat;
+    text-align: center;
+    padding-bottom: 4rem;
 
     .adoption-subtitle {
         font-weight: 800;
@@ -122,8 +97,12 @@ h3 {
 }
 
 .partner {
-    background-image: url('../../../assets/images/background_2.svg');
-    padding-bottom: 3%;
+    background-image: url('../../../assets/images/background-partner.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #F4F4F4;
+    padding: 30px 0;
+    text-align: center;
 
     .partner-subtitle {
         padding-top: 3%;
@@ -144,13 +123,16 @@ h3 {
 
     .btn-partner {
         font-size: 1.1rem;
+        padding: 0 1rem;
     }
 }
 
 .sponsor-volunteer {
-    background-image: url('../../../assets/images/background.svg');
-
     .sponsor-section {
+        background-image: url('../../../assets/images/background-sponsor.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+    
         @extend .flex-row;
 
         .sponsor-text {
@@ -166,6 +148,10 @@ h3 {
 }
 
 .volunteer-section {
+    background-image: url('../../../assets/images/background-volunteer.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+
     @extend .flex-row;
 
     .icon-container {
@@ -174,7 +160,7 @@ h3 {
         display: flex;
         flex-direction: row;
         overflow: hidden;
-
+        gap: 3rem;
         color: black;
 
         .icon-column {
@@ -194,7 +180,6 @@ h3 {
                 img {
                     margin-right: 10px;
                 }
-
             }
         }
     }
@@ -202,22 +187,31 @@ h3 {
     .btn-volunteer {
         margin-top: 5%;
         font-size: 1rem;
+        padding: 0 20px;
     }
 }
 
 .donation-section {
-    background-image: url('../../../assets/images/bg-donation.svg');
+    background-image: url('../../../assets/images/background-donation.svg');
+    background-color: var(--background-primary-color);
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 4rem 0;
+    text-align: center;
 
     .donation-subtitle {
         font-size: 1, 1rem;
         font-weight: 900;
         color: black;
-
-        margin-top: 5%;
+        text-transform: uppercase;
     }
 
     .donation-title {
         font-size: 2.5rem;
     }
 
+    .donation-btn button{
+        padding: 0 20px;
+
+    }
 }

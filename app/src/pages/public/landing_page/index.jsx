@@ -1,21 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import NavBar from "../../../components/navbar/NavBar";
 import Footer from "../../../components/footer/Footer";
 import Carousel from "../../../components/carousel/Carousel";
 import DonationCard from "../../../components/card_donation/DonationCard";
-import Modal from "../../../components/modal";
-import { animals } from "./animals";
+import ModalLPSponsorship from "../../../components/modal/modalLPSponsorship";
+import LoadingPaw from "../../../components/loadingPaw"
 // import styles from './styles.css';
 import "./landingPage.scss";
+// import { animals } from './animals';
 
 // import images
-import heroDog from "../../../assets/images/hero-dog.png";
-import Waves from "../../../assets/images/hero-waves.svg";
 import partnerImg from "../../../assets/images/partner-img.svg";
 import sponsorImg from "../../../assets/images/sponsor-img.svg";
 import volunteerImg from "../../../assets/images/volunteer-img.svg";
+import imageDog1 from "../../../assets/images/dog1.svg";
 
 // import icons
 import dog from "../../../assets/icons/dog.svg";
@@ -24,38 +24,51 @@ import heart from "../../../assets/icons/heart.svg";
 import cat from "../../../assets/icons/cat.svg";
 import socialMedia from "../../../assets/icons/social-media.svg";
 import bath from "../../../assets/icons/bath.svg";
+import { getAllAnimals } from "../../../services/api/animals";
 
 function LandingPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedAnimal, setSelectedAnimal] = useState(null);
+  const [ animals ] = useState([]);
+  const [ loading, setLoading ] = useState(true);
 
   const onClickCardAnimal = (animal) => {
     setIsModalOpen(true);
+    setSelectedAnimal(animal)
   };
+
+  useEffect(() => {
+    getAllAnimals()
+      .then(async data => {
+        await data.forEach(animal => {
+          return animals.push({ ...animal, image: imageDog1 })
+        });
+        setLoading(false);
+    });
+  }, []);
 
   return (
     <div className="page_container landing-page">
       <NavBar />
 
       <section className="hero">
-        <div className="title-img">
+        <div className="hero-all-text">
+          <h1 className="hero-title">
+            Há 36 anos cuidando de
+            <br />
+            animais abandonados
+            <br />
+            em Juiz de Fora/MG.
+          </h1>
+          <p className="hero-text">
+            Faça parte dessa missão de amor e esperança!
+          </p>
           <div>
-            <h1 className="hero-title hero-all-text">
-              Há 36 anos cuidando de animais abandonados em Juiz de Fora/MG.
-            </h1>
-            <p className="hero-text hero-all-text">
-              Faça parte dessa missão de amor e esperança!
-            </p>
-            <div className="btn-donation">
-              <Link to="/donation">
-                <button className="btn">Doe Agora</button>
-              </Link>
-            </div>
-          </div>
-          <div>
-            <img className="hero-dog" src={heroDog} alt="" />
+            <Link to="/donation">
+              <button className="btn">Doe Agora</button>
+            </Link>
           </div>
         </div>
-        <img className="waves" src={Waves} alt="" />
       </section>
 
       <section className="section-adoption">
@@ -63,7 +76,13 @@ function LandingPage() {
           CONHEÇA ALGUNS DE NOSSOS ANIMAIS
         </h3>
         <h1 className="title adoption-title">Adote seu novo companheiro!</h1>
-        <Carousel animals={animals} onClickCardAnimal={onClickCardAnimal} />
+        {
+          loading ? (
+            <LoadingPaw/>
+          ) : (
+            <Carousel animals={animals} onClickCardAnimal={onClickCardAnimal} />
+          )
+        }
         <div className="align-btn margin-btn">
           <Link to="/adoption">
             <button className="btn-adoption btn">Conheça mais animais</button>
@@ -72,7 +91,7 @@ function LandingPage() {
       </section>
 
       <section className="partner">
-        <h3 className="subtitle partner-subtitle">JUNTE-SE A NÓS</h3>
+        <h3 className="subtitle">Junte-se a nós</h3>
         <h1 className=" title partner-title">Seja um parceiro</h1>
         <div className="align-partner-cards">
           <img src={partnerImg} alt="" />
@@ -93,10 +112,10 @@ function LandingPage() {
       <section className="sponsor-volunteer">
         <section className="sponsor-section">
           <div>
-            <h3 className="sponsor-subtitle subtitle">
-              COM DOAÇÕES VOCÊ PODE APOIAR UM ANIMAL
+            <h3 className="subtitle">
+              Com doações você pode adotar um animal
             </h3>
-            <h1 className="sponsor-title title">Apadrinhe</h1>
+            <h1 className="title">Apadrinhe</h1>
             <p className="sponsor-text">
               O padrinho ajuda no bem estar e no
               <br />
@@ -119,8 +138,8 @@ function LandingPage() {
             <img src={volunteerImg} alt="" />
           </div>
           <div>
-            <h3 className="volunteer-subtitle subtitle">JUNTE-SE A NÓS</h3>
-            <h1 className="volunteer-title title">Seja um voluntário</h1>
+            <h3 className="subtitle">Junte-se a nós</h3>
+            <h1 className="title">Seja um voluntário</h1>
             <div className="icon-container">
               <div className="icon-column">
                 <div className="icon-text">
@@ -161,25 +180,22 @@ function LandingPage() {
       </section>
 
       <section className="donation-section">
-        <h3 className="donation-subtitle">APOIE A NOSSA CAUSA</h3>
+        <h3 className="donation-subtitle">Apoie a nossa causa</h3>
         <h1 className="donation-title">Faça uma doação</h1>
         <DonationCard />
-        <div className="align-btn margin-btn">
+        <div className="donation-btn">
           <Link to="/donation">
-            <button className="btn-donation-lp btn">
-              Outras formas de doar
-            </button>
+            <button className="btn">Outras formas de doar</button>
           </Link>
         </div>
       </section>
       <Footer />
-      <Modal
-        title="Titulo da tela principal"
+      <ModalLPSponsorship
         isOpen={isModalOpen}
         onModalClose={() => setIsModalOpen(false)}
-      >
-        teste
-      </Modal>
+        showForm={false}
+        selectedAnimal={selectedAnimal}
+      />
     </div>
   );
 }

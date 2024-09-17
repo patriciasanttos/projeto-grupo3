@@ -8,7 +8,7 @@ import './donation.css';
 import DonationCard from '../../../components/card_donation/DonationCard';
 import ContentHero from '../../../components/contentHero/ContentHero';
 
-import qrcode from '../../../assets/images/qrcode.svg'
+import qrcode from '../../../assets/images/qrcodecaixa.svg'
 import pagseguro from '../../../assets/images/pagseguro.svg'
 import paypal from '../../../assets/images/paypal.svg'
 import picpay from '../../../assets/images/picpay.svg'
@@ -34,25 +34,25 @@ function Donation() {
           <h3 className="call-title">FAÇA A DIFERENÇA NA VIDA DE UM ANIMAL</h3>
           <h1 className="call-subtitle"> Faça uma doação </h1>
 
-            <DonationCard/>
+          <DonationCard/>
 
           <div className="ways-to-donate">
             <div className="left">
               <h3>Retirada de Doações</h3>
-              <p>Explicar como pode entrar em contato <br/> 
-              para a retirada de doações de rações,<br/> 
-              remédios e outros itens. <br/><br/>
+              <p>Para retiradas de doações de rações <br/> 
+              remédios, cobertores e outros itens, <br/> 
+              entre em contato pelo Whatsapp para agendar<br/><br/>
 
               Ou você deixar doações com nossos parceiros:</p>
               <ul>
-                <li> <a href="https://g.co/kgs/a9EAibt"> Arca Petstore - Bandeirantes </a></li>
-                <li> <a href="https://g.co/kgs/EG2S4f6"> Arca Petstore - Santa Terezinha </a></li>
-                <li> <a href="https://g.co/kgs/wxo1zJQ">Agropecuária Calé </a></li>
-                <li> <a href="https://maps.app.goo.gl/1xcogVdo4fr3R142A"> Toca dos Bichos </a></li>
-                <li> <a href="https://g.co/kgs/BWLZPxE">Agrotela</a></li>
-                <li> <a href="https://g.co/kgs/dDhNDuV">Veterinária Juiz de Fora</a></li>
-                <li> <a href="https://g.co/kgs/cdnjZzi"> Cão Dágua</a></li>
-                <li> <a href="https://www.google.com/search?rlz=1C1GCEA_enBR1114BR1114&sca_esv=5629ad944f1312b7&cs=0&output=search&tbm=lcl&kgmid=%2Fg%2F11gfd30tqh&q=Benrural&shndl=30&shem=lrnole%2Clsde%2Cvslcca&source=sh%2Fx%2Floc%2Fact%2Fm1%2F1&kgs=d4c7ff74c1f4c91f">Pet Shop BenRural </a></li>
+                <li> <a href="https://g.co/kgs/a9EAibt" target="_blank"> Arca Petstore - Bandeirantes </a></li>
+                <li> <a href="https://g.co/kgs/EG2S4f6" target="_blank"> Arca Petstore - Santa Terezinha </a></li>
+                <li> <a href="https://g.co/kgs/wxo1zJQ" target="_blank">Agropecuária Calé </a></li>
+                <li> <a href="https://maps.app.goo.gl/1xcogVdo4fr3R142A" target="_blank"> Toca dos Bichos </a></li>
+                <li> <a href="https://g.co/kgs/BWLZPxE" target="_blank">Agrotela</a></li>
+                <li> <a href="https://g.co/kgs/dDhNDuV" target="_blank">Veterinária Juiz de Fora</a></li>
+                <li> <a href="https://g.co/kgs/cdnjZzi" target="_blank"> Cão Dágua</a></li>
+                <li> <a href="https://www.google.com/search?rlz=1C1GCEA_enBR1114BR1114&sca_esv=5629ad944f1312b7&cs=0&output=search&tbm=lcl&kgmid=%2Fg%2F11gfd30tqh&q=Benrural&shndl=30&shem=lrnole%2Clsde%2Cvslcca&source=sh%2Fx%2Floc%2Fact%2Fm1%2F1&kgs=d4c7ff74c1f4c91f" target="_blank">Pet Shop BenRural </a></li>
                 
               </ul>
               <br/>
@@ -96,15 +96,15 @@ function Donation() {
           </div>
           <div className="digital-platform">
 
-              <a href="https://pagseguro.uol.com.br/">
+              <a href="https://pagseguro.uol.com.br/" target="_blank">
               <img src={pagseguro} alt="pagseguro" />
               </a>
 
-              <a href="https://www.paypal.com/br/home">
+              <a href="https://www.paypal.com/br/home" target="_blank">
               <img src={paypal} alt="paypal" />
               </a>
 
-              <a href="https://picpay.com/">
+              <a href="https://picpay.com/" target="_blank">
               <img src={picpay} alt="picpay" />
               </a>
 

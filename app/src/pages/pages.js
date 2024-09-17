@@ -12,6 +12,7 @@ import Animals from './private/animals/index';
 import Sponsorships from './private/sponsorships/index';
 import Adoptions from './private/adoptions/index';
 import { Volunteers as AdminVolunteers }  from './private/volunteers/index';
+import Admin from './private/admin_page/index'
 
 const publicPages = {
     LandingPage,
@@ -30,6 +31,7 @@ const privatePages = {
     Sponsorships,
     Adoptions,
     Volunteers: AdminVolunteers,
+    Admin
 }
 
 export {
