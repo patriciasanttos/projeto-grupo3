@@ -3,12 +3,8 @@ import React, { useState } from "react";
 import AdminNavBar from "../../../components/admin_navbar/AdminNavBar";
 import AdminList from "../../../components/admin_list/AdminList";
 import ModalAnimalsAdmin from "../../../components/modal/modalAnimalsAdmin/ModalAnimalsAdmin";
-<<<<<<< Updated upstream
-import ModalActionsEnum from '../../../utils/ModalActionsEnum'
-=======
 import ModalActionsEnum from "../../../utils/ModalActionsEnum";
 import CreateIcon from "../../../assets/icons/create_icon.svg";
->>>>>>> Stashed changes
 
 import "./styles.scss";
 import Input from "../../../components/input/Input";
@@ -156,7 +152,6 @@ function Animals() {
   const onClickEditAnimal = (animal) => {
     setIsModalOpen(true);
     setSelectedAnimal(animal);
-<<<<<<< Updated upstream
     setModalAction(ModalActionsEnum.UPDATE)
   };
 
@@ -164,46 +159,21 @@ function Animals() {
     setIsModalOpen(true);
     setSelectedAnimal(animal);
     setModalAction(ModalActionsEnum.DELETE)
-=======
-    setModalAction(ModalActionsEnum.UPDATE);
->>>>>>> Stashed changes
   };
 
   const onClickNewAnimal = () => {
     setIsModalOpen(true);
     setSelectedAnimal(null);
-<<<<<<< Updated upstream
-    setModalAction(ModalActionsEnum.CREATE)
-=======
     setModalAction(ModalActionsEnum.CREATE);
   };
   
-  const onClickDeleteAnimal = (animal) => {
-    setIsModalOpen(true);
-    setSelectedAnimal(animal);
-    setModalAction(ModalActionsEnum.DELETE);
-  };
-
   const getFilterState = (field) => {
     return filter && filter[field] ? filter[field] : "";
->>>>>>> Stashed changes
   };
 
   return (
     <>
       <AdminNavBar headerTitle="Animais">
-<<<<<<< Updated upstream
-        <button onClick={onClickNewAnimal}>Adicionar</button>
-        <div className="animal-list-container">
-          <AdminList
-            columns={columns}
-            rows={animalsList}
-            onClickEditRow={onClickEditAnimal}
-            onClickDeleteRow={onClickDeleteAnimal}
-          />
-        </div>
-        
-=======
         <div className="animal-list-container">
           <div className="filters">
             <Input
@@ -245,7 +215,6 @@ function Animals() {
           onClickEditRow={onClickEditAnimal}
           onClickDeleteRow={onClickDeleteAnimal}
         />
->>>>>>> Stashed changes
       </AdminNavBar>
       <ModalAnimalsAdmin
         isOpen={isModalOpen}
