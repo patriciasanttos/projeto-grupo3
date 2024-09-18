@@ -51,28 +51,34 @@ h3 {
 }
 
 .hero {
-    background-image: url("../../../assets/images/hero-dog.png");
+    background-image: url("../../../assets/images/background-hero.svg");
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
     border-top: 1px solid rgb(191, 189, 189);
 
-    height: 120vh;
-
-    margin-bottom: 40px;
-    padding-left: 15%;
+    height: 780px;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
 
-
-    .hero-title {
-        font-size: 3.3rem;
-        text-align: left;
+    .hero-all-text{
+        padding-left: 11%;
+        margin-bottom: 40px;
     }
 
+    .hero-title {
+        font-size: clamp(2rem, 5vw, 3.3rem); 
+        text-align: left;
+    }
+    
     .hero-text {
-        font-size: 1.5rem;
+        font-size: clamp(1rem, 3vw, 1.5rem); 
+    }
+    
+    button {
+        padding: 0 20px;
     }
 }
 
@@ -80,7 +86,7 @@ h3 {
     background-image: url('../../../assets/images/background.svg');
     background-repeat: no-repeat;
     text-align: center;
-    padding-bottom: 4rem;
+    padding: 2rem 0;
 
     .adoption-subtitle {
         font-weight: 800;
@@ -92,6 +98,7 @@ h3 {
 
     .btn-adoption {
         font-size: 1.1rem;
+        padding: 0 10px;
     }
 
 }
@@ -115,10 +122,8 @@ h3 {
     .align-partner-cards {
         display: flex;
         flex-direction: row;
-        justify-content: space-evenly;
-
-        width: 80vw;
-        padding-left: 9%;
+        gap: 10px;
+        justify-content: center;
     }
 
     .btn-partner {
@@ -127,18 +132,16 @@ h3 {
     }
 }
 
-.sponsor-volunteer {
-    .sponsor-section {
-        background-image: url('../../../assets/images/background-sponsor.svg');
-        background-size: cover;
-        background-repeat: no-repeat;
+.sponsor-section {
+    background-image: url('../../../assets/images/background-sponsor.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
     
-        @extend .flex-row;
+    @extend .flex-row;
 
-        .sponsor-text {
-            color: black;
-            text-align: center;
-        }
+    .sponsor-text {
+        color: black;
+        text-align: center;
     }
 
     .btn-sponsor {
@@ -214,4 +217,33 @@ h3 {
         padding: 0 20px;
 
     }
+}
+
+
+@media (max-width: 768px) {
+    .volunteer-section{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 2rem;
+        padding: 2rem 0;
+    }
+
+    .sponsor-section{
+        display: flex;
+        flex-direction: column;
+        padding: 2rem 0;
+    }
+
+    .image-content{
+        display: none;
+    }
+
+    .partner .align-partner-cards{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero {
+       height: 500px;
+    }   
 }

@@ -112,29 +112,23 @@ function LandingPage() {
       <section className="sponsor-volunteer">
         <section className="sponsor-section">
           <div>
-            <h3 className="subtitle">
-              Com doações você pode adotar um animal
-            </h3>
+            <h3 className="subtitle">Com doações você pode apoiar um animal</h3>
             <h1 className="title">Apadrinhe</h1>
             <p className="sponsor-text">
-              O padrinho ajuda no bem estar e no
-              <br />
-              cuidado do animal. Você pode se sentir
-              <br />a vontade para visitá-lo quando quiser.
-              <br />
-              Contribua mensalmente!
+              O padrinho ajuda no bem estar e no cuidado do animal. <br /> Você pode se sentir a vontade para visitá-lo quando quiser.
+             <br /> Contribua mensalmente!
             </p>
             <Link to="/sponsorship">
               <button className="btn-sponsor btn">Quero apadrinhar</button>
             </Link>
           </div>
-          <div>
+          <div className="image-content">
             <img src={sponsorImg} alt="" />
           </div>
         </section>
 
         <section className="volunteer-section">
-          <div>
+          <div className="image-content">
             <img src={volunteerImg} alt="" />
           </div>
           <div>
