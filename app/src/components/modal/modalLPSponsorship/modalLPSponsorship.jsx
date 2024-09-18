@@ -34,13 +34,15 @@ function ModalLPSponsorship({
     <Modal isOpen={isOpen} onModalClose={onModalClose} title={title}>
       <>
         <section className="generalData">
-          <div>
+          <div className="animal-info">
             <h2 className="animalName">{selectedAnimal?.name}</h2>
 
             <div className="info">
               <p>
                 <strong>Sexo</strong>:{" "}
-                {selectedAnimal?.gender.toUpperCase() === "F" ? "Fêmea" : "Macho"}
+                {selectedAnimal?.gender.toUpperCase() === "F"
+                  ? "Fêmea"
+                  : "Macho"}
               </p>
               <p>
                 <strong>Idade</strong>: {selectedAnimal?.age ?? "N/A"}
@@ -56,7 +58,9 @@ function ModalLPSponsorship({
               </p>
             </div>
           </div>
-          <img className="animal" src={selectedAnimal?.image} alt="animal" />
+          <div className="img-modal">
+            <img className="animal" src={selectedAnimal?.image} alt="animal" />
+          </div>
         </section>
 
         <div className="history">

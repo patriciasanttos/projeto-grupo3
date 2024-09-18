@@ -54,7 +54,6 @@
             }
         }
 
-
         /* BUTTON MODAL */
         .closeModal {
             position: relative;
@@ -74,93 +73,11 @@
             }
         }
 
-        /* GENERAL DATA */
-        .generalData {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-        }
-
-        .animalName {
-            text-align: start;
-            text-transform: uppercase;
-            font-size: 3rem;
-            margin: 0;
-        }
-
-        .status {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            width: 180%;
-
-            p {
-                font-size: 1.2rem;
-            }
-        }
-
-        .icons {
-            width: 1.25rem;
-            height: 1.25rem;
-            padding: 5px 5px 0px 0px;
-        }
-
-        .info {
-            margin-top: 15%;
-
-            p {
-                font-size: 1.4rem;
-                margin: 0;
-            }
-        }
-
-        .animal {
-            margin-left: 20px;
-            align-self: flex-start;
-            max-height: 18.75rem;
-        }
-
-
-        /* HISTORY */
-        .history {
-            display: flex;
-            flex-direction: column;
-            align-items: start;
-            margin: 10px 0px 10px 0px;
-
-            h3 {
-                font-size: 1.5rem;
-            }
-        }
-
         /* FORMS */
-        .containerForm {
-            display: flex;
-            justify-content: space-evenly;
-            color: var(--background-primary-color);
-
-            h2 {
-                margin: 0px 0px 15px 0px;
-                font-size: 1.5rem;
-            }
-
-            .info-sponsor {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-
-                color: black;
-                font-size: 1.2rem;
-
-                width: 45%;
-
-            }
-        }
-
         .forms {
             display: flex;
             flex-direction: column;
-            max-width: 45%;
+            max-width: 60%;
             align-items: start;
         }
 
@@ -218,7 +135,6 @@
                         margin: 0;
                     }
                 }
-
             }
         }
 
@@ -267,3 +183,4 @@
             }
         }
     }
+
