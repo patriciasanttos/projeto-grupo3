@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import AdminNavBar from "../../../components/admin_navbar/AdminNavBar";
 import ModalSponsorshipsAdmin from "../../../components/modal/modalSponsorshipsAdmin/ModalSponsorshipsAdmin";
 import AdminList from "../../../components/admin_list/AdminList";
 import ModalActionsEnum from "../../../utils/ModalActionsEnum";
+import { getAllAnimals } from "../../../services/api/animals";
+import { getAllSponsorshipships } from "../../../services/api/sponsorships";
+
 import CreateIcon from "../../../assets/icons/create_icon.svg";
 
 import "./styles.scss";
@@ -13,6 +16,8 @@ function Sponsorships() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalAction, setModalAction] = useState(null);
   const [selectedSponsor, setSelectedSponsor] = useState(null);
+  const [animalsList, setAnimalsList] = useState([]);
+  const [sponsorsList, setSponsorsList] = useState([]);
 
   const initialFilter = {
     name: null,
@@ -22,151 +27,16 @@ function Sponsorships() {
   };
   const [filter, setFilter] = useState(initialFilter);
 
-  // To do: Trazer lista do back-end
-  const [sponsorsList, setSponsorsList] = useState([
-    {
-      id: 1,
-      name: "Padrinho 1",
-      email: "padrinho_1@gmail.com",
-      phoneNumber: "(11) 11111-1111",
-      sponsorDate: "14/09/24",
-      nameAnimal: "Hector",
-      sex: "Macho",
-      temperament: "Ansioso",
-      castrated: "Sim",
-      healthHistory: "Bom",
-      adoptionStatus: "",
-      sponsorsInfo: "",
-    },
-    {
-      id: 2,
-      name: "Padrinho 2",
-      email: "padrinho_2@gmail.com",
-      phoneNumber: "(22) 22222-2222",
-      sponsorDate: "14/09/24",
-      nameAnimal: "Hector",
-      sex: "Macho",
-      temperament: "Ansioso",
-      castrated: "Sim",
-      healthHistory: "Bom",
-      adoptionStatus: "",
-      sponsorsInfo: "",
-    },
-    {
-      id: 3,
-      name: "Padrinho 3",
-      email: "padrinho_3@gmail.com",
-      phoneNumber: "(33) 33333-3333",
-      sponsorDate: "14/09/24",
-      nameAnimal: "Hector",
-      sex: "Macho",
-      temperament: "Ansioso",
-      castrated: "Sim",
-      healthHistory: "Bom",
-      adoptionStatus: "",
-      sponsorsInfo: "",
-    },
-    {
-      id: 3,
-      name: "Padrinho 3",
-      email: "padrinho_3@gmail.com",
-      phoneNumber: "(33) 33333-3333",
-      sponsorDate: "14/09/24",
-      nameAnimal: "Hector",
-      sex: "Macho",
-      temperament: "Ansioso",
-      castrated: "Sim",
-      healthHistory: "Bom",
-      adoptionStatus: "",
-      sponsorsInfo: "",
-    },
-    {
-      id: 3,
-      name: "Padrinho 3",
-      email: "padrinho_3@gmail.com",
-      phoneNumber: "(33) 33333-3333",
-      sponsorDate: "14/09/24",
-      nameAnimal: "Hector",
-      sex: "Macho",
-      temperament: "Ansioso",
-      castrated: "Sim",
-      healthHistory: "Bom",
-      adoptionStatus: "",
-      sponsorsInfo: "",
-    },
-    {
-      id: 3,
-      name: "Padrinho 3",
-      email: "padrinho_3@gmail.com",
-      phoneNumber: "(33) 33333-3333",
-      sponsorDate: "14/09/24",
-      nameAnimal: "Hector",
-      sex: "Macho",
-      temperament: "Ansioso",
-      castrated: "Sim",
-      healthHistory: "Bom",
-      adoptionStatus: "",
-      sponsorsInfo: "",
-    },
-    {
-      id: 3,
-      name: "Padrinho 3",
-      email: "padrinho_3@gmail.com",
-      phoneNumber: "(33) 33333-3333",
-      sponsorDate: "14/09/24",
-      nameAnimal: "Hector",
-      sex: "Macho",
-      temperament: "Ansioso",
-      castrated: "Sim",
-      healthHistory: "Bom",
-      adoptionStatus: "",
-      sponsorsInfo: "",
-    },
-    {
-      id: 3,
-      name: "Padrinho 3",
-      email: "padrinho_3@gmail.com",
-      phoneNumber: "(33) 33333-3333",
-      sponsorDate: "14/09/24",
-      nameAnimal: "Hector",
-      sex: "Macho",
-      temperament: "Ansioso",
-      castrated: "Sim",
-      healthHistory: "Bom",
-      adoptionStatus: "",
-      sponsorsInfo: "",
-    },
-    {
-      id: 3,
-      name: "Padrinho 3",
-      email: "padrinho_3@gmail.com",
-      phoneNumber: "(33) 33333-3333",
-      sponsorDate: "14/09/24",
-      nameAnimal: "Hector",
-      sex: "Macho",
-      temperament: "Ansioso",
-      castrated: "Sim",
-      healthHistory: "Bom",
-      adoptionStatus: "",
-      sponsorsInfo: "",
-    },
-    {
-      id: 3,
-      name: "Padrinho 3",
-      email: "padrinho_3@gmail.com",
-      phoneNumber: "(33) 33333-3333",
-      sponsorDate: "14/09/24",
-      nameAnimal: "Hector",
-      sex: "Macho",
-      temperament: "Ansioso",
-      castrated: "Sim",
-      healthHistory: "Bom",
-      adoptionStatus: "",
-      sponsorsInfo: "",
-    },
-  ]);
+  useEffect(() => {
+    getAllSponsorshipships().then(setSponsorsList);
+    getAllAnimals().then(setAnimalsList);
+  }, []);
 
   const columns = [
+    {
+      title: "ID",
+      rowKey: "id",
+    },
     {
       title: "Nome",
       rowKey: "name",
