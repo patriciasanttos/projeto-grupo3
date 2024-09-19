@@ -64,7 +64,7 @@ function Contact() {
 
               <div className="whatsapp-link">
                 <p>Responsável: Elenir da Silva Silveira</p> <br /> <br />
-                <a href="https://api.whatsapp.com/send?phone=553299655493">
+                <a className='contact-link' href="https://api.whatsapp.com/send?phone=553299655493">
                   <div>
                     <img src={link_icon} alt="Link" /> 
                     <p>+55 (32) 9965-5493</p>
@@ -90,7 +90,7 @@ function Contact() {
                 <img src={instagram_icon} alt="Instagram" style={{ marginLeft: '5%' }}  />
               </div>
 
-              <a href="https://www.instagram.com/ong_sjpa/">
+              <a className='contact-link' href="https://www.instagram.com/ong_sjpa/">
                 <img src={link_icon} alt="Link" />
                 <p>ong_sjpa</p>
               </a>

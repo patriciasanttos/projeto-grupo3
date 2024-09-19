@@ -91,6 +91,10 @@
                 margin: 0;
             }
 
+            .contact-link {
+                text-decoration: underline #000;
+            }
+
             .contacts-title {
                 display: flex;
                 flex-direction: row;
