@@ -4,13 +4,23 @@ import AdminNavBar from "../../../components/admin_navbar/AdminNavBar";
 import ModalAdoptionsAdmin from "../../../components/modal/modalAdoptionsAdmin/ModalAdoptionsAdmin";
 import AdminList from "../../../components/admin_list/AdminList";
 import ModalActionsEnum from "../../../utils/ModalActionsEnum";
+import CreateIcon from "../../../assets/icons/create_icon.svg";
 
 import "./styles.scss";
+import Input from "../../../components/input/Input";
 
 function Adoptions() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalAction, setModalAction] = useState(null);
   const [selectedTutor, setSelectedTutor] = useState(null);
+
+  const initialFilter = {
+    name: null,
+    email: null,
+    phoneNumber: null,
+    nameAnimal: null,
+  };
+  const [filter, setFilter] = useState(initialFilter);
 
   // To do: Trazer lista do back-end
   const [tutorsList, setTutorsList] = useState([
@@ -81,6 +91,23 @@ function Adoptions() {
     },
   ];
 
+  const getFilteredItems = () => {
+    let results = [...tutorsList];
+
+    Object.keys(filter).forEach((filterName) => {
+      if (filter[filterName]) {
+        results = results.filter(
+          (item) =>
+            item[filterName]
+              .toLowerCase()
+              .indexOf(filter[filterName].toLowerCase()) !== -1
+        );
+      }
+    });
+
+    return results;
+  };
+
   // To do: Enviar para o back-end
   const updateTutorsList = (tutor) => {
     let tutors = [...tutorsList];
@@ -93,7 +120,9 @@ function Adoptions() {
 
   // To do: Enviar para o back-end
   const deleteTutorsList = (tutor) => {
-    setTutorsList(tutorsList.filter((tutors) => tutors.id !== tutor.id));
+    setTutorsList(
+      tutorsList.filter((tutors) => tutors.id !== tutor.id)
+  );
     setIsModalOpen(false);
   };
 
@@ -126,11 +155,54 @@ function Adoptions() {
     setModalAction(ModalActionsEnum.CREATE);
   };
 
+  const getFilterState = (field) => {
+    return filter && filter[field] ? filter[field] : "";
+  };
+
   return (
     <>
       <AdminNavBar headerTitle="Adoções">
-        {/* substituir o button pelo ícone de adicionar*/}
-        <button onClick={onClickNewTutor}>Adicionar</button>
+      <div className="sponsorship-filter-container">
+          <div className="filters">
+            <Input
+              type="text"
+              placeholder="Nome do Padrinho"
+              value={getFilterState("name")}
+              onChange={(e) => setFilter({ ...filter, name: e.target.value })}
+            />
+
+            <Input
+              type="text"
+              placeholder="E-mail"
+              value={getFilterState("email")}
+              onChange={(e) => setFilter({ ...filter, email: e.target.value })}
+            />
+
+            <Input
+              type="text"
+              placeholder="Celular"
+              value={getFilterState("phoneNumber")}
+              onChange={(e) => setFilter({ ...filter, phoneNumber: e.target.value })}
+            />
+
+            <Input
+              type="text"
+              placeholder="Apadrinhou"
+              value={getFilterState("nameAnimal")}
+              onChange={(e) => setFilter({ ...filter, nameAnimal: e.target.value })}
+            />
+          </div>
+
+          <div className="add-icon">
+            Adicionar
+            <img
+              className="pointer"
+              src={CreateIcon}
+              onClick={onClickNewTutor}
+              alt=""
+            />
+          </div>
+        </div>
         <div className="adoptions-list-container">
           <AdminList
             columns={columns}
