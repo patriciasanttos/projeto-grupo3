@@ -11,7 +11,6 @@ class AnimalController {
         const response = await animalsRepository.getAllAnimals();
 
         const animals = Object.entries(response.data).map((animal: any[]) => {
-            
             let image: Buffer;
             let base64Image;
             if (animal[1].dataValues.image) {
@@ -27,7 +26,7 @@ class AnimalController {
             };
         })
       
-        res.status(response.code).json(response.data);
+        res.status(response.code).json(animals);
     }
 
     async getById(req: Request, res: Response) {
