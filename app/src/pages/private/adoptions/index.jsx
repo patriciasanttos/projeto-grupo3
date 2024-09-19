@@ -16,9 +16,8 @@ function Adoptions() {
 
   const initialFilter = {
     name: null,
-    email: null,
     phoneNumber: null,
-    nameAnimal: null,
+    address: null,
   };
   const [filter, setFilter] = useState(initialFilter);
 
@@ -162,34 +161,27 @@ function Adoptions() {
   return (
     <>
       <AdminNavBar headerTitle="Adoções">
-      <div className="sponsorship-filter-container">
+      <div className="tutor-filter-container">
           <div className="filters">
             <Input
               type="text"
-              placeholder="Nome do Padrinho"
+              placeholder="Nome"
               value={getFilterState("name")}
               onChange={(e) => setFilter({ ...filter, name: e.target.value })}
             />
 
             <Input
               type="text"
-              placeholder="E-mail"
-              value={getFilterState("email")}
-              onChange={(e) => setFilter({ ...filter, email: e.target.value })}
-            />
-
-            <Input
-              type="text"
-              placeholder="Celular"
+              placeholder="Contato"
               value={getFilterState("phoneNumber")}
               onChange={(e) => setFilter({ ...filter, phoneNumber: e.target.value })}
             />
 
             <Input
               type="text"
-              placeholder="Apadrinhou"
-              value={getFilterState("nameAnimal")}
-              onChange={(e) => setFilter({ ...filter, nameAnimal: e.target.value })}
+              placeholder="Endereço"
+              value={getFilterState("address")}
+              onChange={(e) => setFilter({ ...filter, address: e.target.value })}
             />
           </div>
 
@@ -206,7 +198,7 @@ function Adoptions() {
         <div className="adoptions-list-container">
           <AdminList
             columns={columns}
-            rows={tutorsList}
+            rows={getFilteredItems()}
             onClickEditRow={onClickEditTutor}
             onClickDeleteRow={onClickDeleteTutor}
           />
