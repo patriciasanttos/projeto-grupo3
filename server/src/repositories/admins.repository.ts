@@ -12,7 +12,7 @@ type UpdateDataType = {
     email?: string,
     phone?: number,
     password?: string,
-    permissions?: string,
+    permissions?: Permission[],
 }
 
 export default {
@@ -169,7 +169,13 @@ export default {
     async updateAdmin(data: UpdateDataType): Promise<{ code: number, data?: {} }> {
         try {
             //-----Buscar administrador na tabela
-            const gettedAdmin = await Admin.findOne({ where: { id: data.id } })
+            const gettedAdmin = await Admin.findByPk(data.id, {
+                include: {
+                    model: Permission,
+                    as: 'permissions',
+                    attributes: ['id'],
+                }
+            })
             
             if (gettedAdmin === null)
                 return {
@@ -178,24 +184,6 @@ export default {
                         error: 'Administrator not found'
                     }
                 };
-
-            if (data.email || data.phone) {
-                if (data.email === gettedAdmin.dataValues.email)
-                    return {
-                        code: 409,
-                        data: {
-                            error: 'Email already registered'
-                        }
-                    };
-
-                if (data.phone === gettedAdmin.dataValues.phone)
-                    return {
-                        code: 409,
-                        data: {
-                            error: 'Phone already registered'
-                        }
-                    };
-            }
             
             if (data.password) {
                 const userData = { ...data };
@@ -218,8 +206,10 @@ export default {
                     code: 200
                 };
             };
-            
-            await gettedAdmin.update({ ...data });
+
+            const admin = await gettedAdmin.update({ ...data });
+            if (data.permissions)
+                await admin.setPermissions([ ...data.permissions ]);
 
             return {
                 code: 200

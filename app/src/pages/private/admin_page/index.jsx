@@ -8,7 +8,7 @@ import CreateIcon from "../../../assets/icons/create_icon.svg";
 import Input from "../../../components/input/Input";
 
 import "./styles.scss";
-import { createAdmin, getAllAdmins } from "../../../services/api/admins";
+import { createAdmin, getAllAdmins, updateAdmin } from "../../../services/api/admins";
 
 function AdminPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -71,13 +71,24 @@ function AdminPage() {
     return results;
   };
 
-  // To do: Enviar para o back-end
-  const updateAdminsList = (admin) => {
+  const updateAdminsList = async (admin) => {
     let admins = [...adminsList];
     admins[admin.id - 1] = {
       ...admin,
     };
     console.log('>>> admin', admin)
+
+    await updateAdmin({
+      ...admin,
+      phone: Number(admin.phone.replace(/[()\-\s]/g, '')),
+    })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
     setAdminsList(admins);
     setIsModalOpen(false);
   };
@@ -88,14 +99,14 @@ function AdminPage() {
     setIsModalOpen(false);
   };
 
-  const createAdminsList = (admin) => {
+  const createAdminsList = async (admin) => {
     let admins = [...adminsList];
     admins.push({
       ...admin,
       id: adminsList.length + 1,
     });
 
-    createAdmin({
+    await createAdmin({
       ...admin,
       phone: Number(admin.phone.replace(/[()\-\s]/g, '')),
     })

@@ -15,5 +15,7 @@ declare module '../database/models' {
 
   interface Admin {
     addPermission: (permission: Permission | Permission[]) => Promise<void>;
+    setPermissions: (permission: Permission | Permission[]) => Promise<void>;
+    permissions: Permission[];
   }
 }
