@@ -17,7 +17,7 @@ export const loginAdmin = async ({ user, password }) => {
 }
 
 export const createAdmin = async (data) => {
-    return await axiosPost('/admins/login', data);
+    return await axiosPost('/admins', data);
 }
 
 export const updateAdmin = async (data) => {

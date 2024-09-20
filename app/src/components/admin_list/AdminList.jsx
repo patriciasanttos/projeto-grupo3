@@ -37,7 +37,7 @@ function AdminList({ columns, rows, onClickEditRow, onClickDeleteRow }) {
           {rows.map((row, index) => (
             <tr key={row.id} className="row">
               {columns.map((column, i) => ( 
-                <td key={`${index} - ${i}`}>{getCell(row[column.rowKey])}</td> 
+                <td key={`${index} - ${i}`}>{getCell(row[column.rowKey])}</td>
               ))}
               <td className="flex-row">
                 <Tooltip text="Editar">

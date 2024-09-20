@@ -19,7 +19,7 @@ const ModalAdmin = ({
     phoneNumber: "",
     password: "",
     permissions: [],
-    adminsInfo: "",
+    observation: "",
   };
   const [formAdmins, setFormAdmins] = useState(initialFormAdmins);
 
@@ -40,7 +40,7 @@ const ModalAdmin = ({
 
     setFormAdmins({
       ...selectedAdmin,
-      permissions: isOpen ? getAdminPerms(selectedAdmin) : []
+      permissions: isOpen && selectedAdmin ? getAdminPerms(selectedAdmin) : []
     });
   }, [selectedAdmin, isOpen]);
 
@@ -106,7 +106,7 @@ const ModalAdmin = ({
             placeholder="Nome"
             value={getFormState("name")}
             onChange={(e) =>
-              setFormAdmins({ ...formAdmins, user: e.target.value })
+              setFormAdmins({ ...formAdmins, name: e.target.value })
             }
           />
           <input
@@ -146,35 +146,31 @@ const ModalAdmin = ({
         <div>
           <p>Selecionar níveis:</p>
           <div className="list-checkbox-container">
-            {listLevelOption.map((item, index) => {
-              console.log(formAdmins?.permissions.indexOf(item.id))
-
-              return (
-                <div className="checkbox">
-                  <input
-                    type="checkbox"
-                    name={item.id}
-                    onChange={(e) => onChangeCheckbox(e.target.checked, item.id)}
-                    checked={formAdmins?.permissions.indexOf(item.id) !== -1 ? "checked" : ""}
-                  />
-                  <label for={item.id}>{item.name}</label>
-                </div>
-              )
-            })}
+            {listLevelOption.map((item, index) => (
+              <div className="checkbox">
+                <input
+                  type="checkbox"
+                  name={item.id}
+                  onChange={(e) => onChangeCheckbox(e.target.checked, item.id)}
+                  checked={formAdmins?.permissions.indexOf(item.id) !== -1 ? "checked" : ""}
+                />
+                <label for={item.id}>{item.name}</label>
+              </div>
+            ))}
           </div>
         </div>
 
         <textarea
           rows="8"
           cols="10"
-          name="adminsInfo"
+          name="observation"
           id=""
           placeholder="Adicione informações importantes"
-          value={getFormState("adminsInfo")}
+          value={getFormState("observation")}
           onChange={(e) =>
             setFormAdmins({
               ...formAdmins,
-              adminsInfo: e.target.value,
+              observation: e.target.value,
             })
           }
         />

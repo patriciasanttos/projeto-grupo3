@@ -20,7 +20,7 @@ export default {
         try {
             //-----Buscar administrador na tabela
             const gettedAdmin = await Admin.findByPk(id, {
-                attributes: [ 'id', 'name', 'email', 'phone', 'image' ],
+                attributes: [ 'id', 'name', 'email', 'phone', 'image', "observation" ],
                 include: {
                     model: Permission,
                     as: 'permissions',
@@ -50,7 +50,7 @@ export default {
         try {
             //-----Buscar administradores na tabela
             const admins = await Admin.findAll({
-                attributes: [ 'name', 'email', 'phone', 'image' ],
+                attributes: [ 'id', 'name', 'email', 'phone', 'image', "observation" ],
                 include: {
                     model: Permission,
                     as: 'permissions',
@@ -151,8 +151,12 @@ export default {
             const salt = await bcrypt.genSalt(12);
             userData.password = await bcrypt.hash(userData.password, salt);
 
-            // -----Salvar administrador na tabela
-            await Admin.create({ ...data });
+            const adminProps = { ...data };
+            delete adminProps.permissions;
+            //-----Salvar administrador na tabela
+            const admin = await Admin.create({ ...adminProps });
+            if (data.permissions)
+                data.permissions.forEach(async perm => await admin.addPermission(perm));
 
             return {
                 code: 201
