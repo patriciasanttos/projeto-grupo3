@@ -69,6 +69,10 @@ function Adoptions() {
 
   const columns = [
     {
+      title: "ID",
+      rowKey: "id",
+    },
+    {
       title: "Nome",
       rowKey: "name",
     },

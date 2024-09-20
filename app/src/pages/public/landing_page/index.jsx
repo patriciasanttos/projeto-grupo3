@@ -7,6 +7,8 @@ import Carousel from "../../../components/carousel/Carousel";
 import DonationCard from "../../../components/card_donation/DonationCard";
 import ModalLPSponsorship from "../../../components/modal/modalLPSponsorship";
 import LoadingPaw from "../../../components/loadingPaw"
+import { getAllAnimals } from "../../../services/api/animals";
+
 // import styles from './styles.css';
 import "./landingPage.scss";
 // import { animals } from './animals';
@@ -24,7 +26,6 @@ import heart from "../../../assets/icons/heart.svg";
 import cat from "../../../assets/icons/cat.svg";
 import socialMedia from "../../../assets/icons/social-media.svg";
 import bath from "../../../assets/icons/bath.svg";
-import { getAllAnimals } from "../../../services/api/animals";
 
 function LandingPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);

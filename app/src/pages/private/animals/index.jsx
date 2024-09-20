@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import AdminNavBar from "../../../components/admin_navbar/AdminNavBar";
 import AdminList from "../../../components/admin_list/AdminList";
@@ -8,80 +8,44 @@ import CreateIcon from "../../../assets/icons/create_icon.svg";
 
 import "./styles.scss";
 import Input from "../../../components/input/Input";
+import { getAllAnimals } from "../../../services/api/animals";
 
 function Animals() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalAction, setModalAction] = useState(null);
   const [selectedAnimal, setSelectedAnimal] = useState(null);
+  const [animalsList, setAnimalsList] = useState([]);
+
+  useEffect(() => {
+    getAllAnimals().then((animals) => {
+      setAnimalsList(animals.map((animal) => ({
+        ...animal,
+        gender: animal.gender.toUpperCase(),
+        sector: animal.sector.toUpperCase()
+      })))
+    });
+  }, []);
 
   const initialFilter = {
     name: null,
-    sex: null,
+    gender: null,
     race: null,
   };
   const [filter, setFilter] = useState(initialFilter);
 
-  // To do: Trazer lista do back-end
-  const [animalsList, setAnimalsList] = useState([
-    {
-      id: 1,
-      name: "Hector",
-      linkImg: "hectorporhector",
-      sex: "Macho",
-      size: "Médio",
-      race: "SRD",
-      local: "Setor A - Baia 01",
-      temperament: "ansioso",
-      sponsor: "Não",
-      status: "Disponível",
-      stageLife: "Filhote",
-      healthHistory: "",
-      castrated: "",
-      animalsInfo: "",
-    },
-    {
-      id: 2,
-      name: "Júlia",
-      linkImg: "juliaporjulia",
-      sex: "Fêmea",
-      size: "Médio",
-      race: "SRD",
-      local: "Setor A - Baia 01",
-      temperament: "ansiosa",
-      sponsor: "Sim",
-      status: "Disponível",
-      stageLife: "Filhote",
-      healthHistory: "",
-      castrated: "",
-      animalsInfo: "",
-    },
-    {
-      id: 3,
-      name: "Andressa",
-      linkImg: "andressaporandressa",
-      sex: "Fêmea",
-      size: "Médio",
-      race: "SRD",
-      local: "Setor A - Baia 01",
-      temperament: "ansiosa",
-      sponsor: "Não",
-      status: "Disponível",
-      stageLife: "Filhote",
-      healthHistory: "",
-      castrated: "",
-      animalsInfo: "",
-    },
-  ]);
-
   // Coluna: title o que será exibido e rowKey pega a propriedade que será exibida
   const columns = [
+    {
+      title: "ID",
+      rowKey: "id",
+    },
     {
       title: "Nome",
       rowKey: "name",
     },
     {
       title: "Sexo",
-      rowKey: "sex",
+      rowKey: "gender",
     },
     {
       title: "Porte",
@@ -92,8 +56,8 @@ function Animals() {
       rowKey: "race",
     },
     {
-      title: "Local",
-      rowKey: "local",
+      title: "Setor",
+      rowKey: "sector",
     },
     {
       title: "Padrinho",
@@ -171,6 +135,8 @@ function Animals() {
     return filter && filter[field] ? filter[field] : "";
   };
 
+  console.log('>>>> animalsList', animalsList[0])
+
   return (
     <>
       <AdminNavBar headerTitle="Animais">
@@ -186,8 +152,8 @@ function Animals() {
             <Input
               type="text"
               placeholder="Sexo"
-              value={getFilterState("sex")}
-              onChange={(e) => setFilter({ ...filter, sex: e.target.value })}
+              value={getFilterState("gender")}
+              onChange={(e) => setFilter({ ...filter, gender: e.target.value })}
             />
 
             <Input
