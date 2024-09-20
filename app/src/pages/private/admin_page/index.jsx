@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import AdminNavBar from "../../../components/admin_navbar/AdminNavBar";
 import ModalAdmin from "../../../components/modal/modalAdmin/ModalAdmin";
@@ -8,6 +8,7 @@ import CreateIcon from "../../../assets/icons/create_icon.svg";
 import Input from "../../../components/input/Input";
 
 import "./styles.scss";
+import { getAllAdmins } from "../../../services/api/admins";
 
 function AdminPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,54 +23,17 @@ function AdminPage() {
   };
   const [filter, setFilter] = useState(initialFilter);
 
-  // To do: Trazer lista do back-end
-  const [adminsList, setAdminsList] = useState([
-    {
-      id: 1,
-      name: "Integrante 1",
-      email: "integrante1@gmail.com",
-      phoneNumber: "(11) 11111-1111",
-      password: "123456",
-      permissions: ["Nível 1"],
-      adminsInfo: "Nada",
-    },
-    {
-      id: 2,
-      name: "Integrante 2",
-      email: "integrante2@gmail.com",
-      phoneNumber: "(22) 22222-2222",
-      password: "123456",
-      permissions: ["Nível 2"],
-      adminsInfo: "Nada",
-    },
-    {
-      id: 3,
-      name: "Integrante 3",
-      email: "integrante3@gmail.com",
-      phoneNumber: "(33) 33333-3333",
-      password: "123456",
-      permissions: ["Nível 3"],
-      adminsInfo: "Nada",
-    },
-    {
-      id: 4,
-      name: "Integrante 4",
-      email: "integrante@gmail.com",
-      phoneNumber: "(44) 44444-4444",
-      password: "123456",
-      permissions: ["Nível 4"],
-      adminsInfo: "Nada",
-    },
-    {
-      id: 5,
-      name: "Integrante 5",
-      email: "integrante5@gmail.com",
-      phoneNumber: "(55) 55555-5555",
-      password: "123456",
-      permissions: ["Nível 5"],
-      adminsInfo: "Nada",
-    },
-  ]);
+  const [adminsList, setAdminsList] = useState([]); 
+
+  useEffect(() => {
+    getAllAdmins()
+      .then(data => {
+        setAdminsList(data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
 
   const columns = [
     {
@@ -82,7 +46,7 @@ function AdminPage() {
     },
     {
       title: "Contato",
-      rowKey: "phoneNumber",
+      rowKey: "phone",
     },
     {
       title: "Permissão",

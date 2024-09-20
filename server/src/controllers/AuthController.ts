@@ -45,7 +45,7 @@ class AutoController {
 
         const administrator = {
             ...response.data,
-            image: base64Image || response.data
+            image: base64Image || null
         };
 
         res.status(response.code).json(administrator);

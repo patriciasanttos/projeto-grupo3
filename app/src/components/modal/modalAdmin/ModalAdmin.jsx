@@ -24,17 +24,23 @@ const ModalAdmin = ({
   const [formAdmins, setFormAdmins] = useState(initialFormAdmins);
 
   const listLevelOption = [
-    { id: "Nível 1", name: "Nível 1" },
-    { id: "Nível 2", name: "Nível 2" },
-    { id: "Nível 3", name: "Nível 3" },
-    { id: "Nível 4", name: "Nível 4" },
-    { id: "Nível 5", name: "Nível 5" },
-    { id: "Nível 6", name: "Nível 6" },
+    { id: 1, name: "Animais" },
+    { id: 2, name: "Apadrinhamentos" },
+    { id: 3, name: "Adoções" },
+    { id: 4, name: "Voluntários" },
+    { id: 5, name: "Administradores" },
+    { id: 6, name: "Tudo" },
   ];
 
   useEffect(() => {
+    const getAdminPerms = (admin) => {
+      const adminPerms = admin.permissions.map(perm => perm.id);
+      return adminPerms;
+    }
+
     setFormAdmins({
       ...selectedAdmin,
+      permissions: isOpen ? getAdminPerms(selectedAdmin) : []
     });
   }, [selectedAdmin, isOpen]);
 
@@ -80,7 +86,7 @@ const ModalAdmin = ({
       isOpen={isOpen}
       onModalClose={onClickModalClose}
       onDeleteConfirm={onClickDelete}
-      message={`Deseja apagar o integrante: ${selectedAdmin.name}`}
+      message={`Deseja apagar o integrante: ${selectedAdmin.user}`}
     />
   ) : (
     <Modal
@@ -100,7 +106,7 @@ const ModalAdmin = ({
             placeholder="Nome"
             value={getFormState("name")}
             onChange={(e) =>
-              setFormAdmins({ ...formAdmins, name: e.target.value })
+              setFormAdmins({ ...formAdmins, user: e.target.value })
             }
           />
           <input
@@ -118,9 +124,9 @@ const ModalAdmin = ({
             type="text"
             name="Celular"
             placeholder="Contato"
-            value={getFormState("phoneNumber")}
+            value={getFormState("phone")}
             onAccept={(value, maskRef, e) =>
-              setFormAdmins({ ...formAdmins, phoneNumber: value })
+              setFormAdmins({ ...formAdmins, phone: value })
             }
             mask={"(00) 00000-0000"}
           />
@@ -140,17 +146,21 @@ const ModalAdmin = ({
         <div>
           <p>Selecionar níveis:</p>
           <div className="list-checkbox-container">
-            {listLevelOption.map((item, index) => (
-              <div className="checkbox">
-                <input
-                  type="checkbox"
-                  name={item.id}
-                  onChange={(e) => onChangeCheckbox(e.target.checked, item.id)}
-                  checked={formAdmins?.permissions?.indexOf(item.id) !== -1 ? "checked" : ""}
-                />
-                <label for={item.id}>{item.name}</label>
-              </div>
-            ))}
+            {listLevelOption.map((item, index) => {
+              console.log(formAdmins?.permissions.indexOf(item.id))
+
+              return (
+                <div className="checkbox">
+                  <input
+                    type="checkbox"
+                    name={item.id}
+                    onChange={(e) => onChangeCheckbox(e.target.checked, item.id)}
+                    checked={formAdmins?.permissions.indexOf(item.id) !== -1 ? "checked" : ""}
+                  />
+                  <label for={item.id}>{item.name}</label>
+                </div>
+              )
+            })}
           </div>
         </div>
 

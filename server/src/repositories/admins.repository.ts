@@ -1,7 +1,7 @@
 import { Op } from "sequelize";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import Admin from "../database/models/Admin";
+import { Admin, Permission } from "../database/models";
 import { AdminType } from "../types/types";
 import serverErrorHandler from "../utils/serverErrorHandler";
 require('dotenv').config();
@@ -19,7 +19,15 @@ export default {
     async getAdminById(id: number): Promise<{ code: number, data: {} }> {
         try {
             //-----Buscar administrador na tabela
-            const gettedAdmin = await Admin.findOne({ where: { id } });
+            const gettedAdmin = await Admin.findByPk(id, {
+                attributes: [ 'id', 'name', 'email', 'phone', 'image' ],
+                include: {
+                    model: Permission,
+                    as: 'permissions',
+                    attributes: ['id', 'name'],
+                    through: { attributes: [] }
+                }
+            });
 
             if (gettedAdmin === null)
                 return {
@@ -31,13 +39,7 @@ export default {
 
             return {
                 code: 200,
-                data: {
-                    name: gettedAdmin.dataValues.name,
-                    email: gettedAdmin.dataValues.email,
-                    phone: gettedAdmin.dataValues.phone,
-                    permissions: gettedAdmin.dataValues.permissions,
-                    image: gettedAdmin.dataValues.image
-                }
+                data: gettedAdmin.toJSON()
             };
         } catch (error: any) {
             return serverErrorHandler(error);
@@ -47,7 +49,15 @@ export default {
     async getAllAdmins(): Promise<{ code: number, data: {} }> {
         try {
             //-----Buscar administradores na tabela
-            const admins = await Admin.findAll();
+            const admins = await Admin.findAll({
+                attributes: [ 'name', 'email', 'phone', 'image' ],
+                include: {
+                    model: Permission,
+                    as: 'permissions',
+                    attributes: ['id', 'name'],
+                    through: { attributes: [] }
+                }
+            });
 
             if (admins === null)
                 return {
@@ -59,16 +69,7 @@ export default {
 
             return {
                 code: 200,
-                data: admins.map(user => {
-                    return {
-                        id: user.dataValues.id,
-                        user: user.dataValues.name,
-                        email: user.dataValues.email,
-                        phone: user.dataValues.phone,
-                        permissions: user.dataValues.permissions,
-                        image: user.dataValues.image
-                    };
-                })
+                data: admins.map(admin => admin.toJSON())
             };
         } catch (error: any) {
             return serverErrorHandler(error);
