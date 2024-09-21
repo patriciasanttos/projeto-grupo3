@@ -86,7 +86,7 @@ const ModalAdmin = ({
       isOpen={isOpen}
       onModalClose={onClickModalClose}
       onDeleteConfirm={onClickDelete}
-      message={`Deseja apagar o integrante: ${selectedAdmin.user}`}
+      message={`Deseja apagar o integrante: ${selectedAdmin.name}`}
     />
   ) : (
     <Modal

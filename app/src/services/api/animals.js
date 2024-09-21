@@ -17,5 +17,5 @@ export const updateAnimal = async (data) => {
 }
 
 export const deleteAnimal = async (id) => {
-    return await axiosDelete(`/animals/:${id}`);
+    return await axiosDelete(`/animals/${id}`);
 }

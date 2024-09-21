@@ -25,5 +25,5 @@ export const updateAdmin = async (data) => {
 }
 
 export const deleteAdmin = async (id) => {
-    return await axiosDelete(`/animals/:${id}`);
+    return await axiosDelete(`/admins/${id}`);
 }

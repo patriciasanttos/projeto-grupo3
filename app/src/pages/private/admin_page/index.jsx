@@ -8,7 +8,7 @@ import CreateIcon from "../../../assets/icons/create_icon.svg";
 import Input from "../../../components/input/Input";
 
 import "./styles.scss";
-import { createAdmin, getAllAdmins, updateAdmin } from "../../../services/api/admins";
+import { createAdmin, deleteAdmin, getAllAdmins, updateAdmin } from "../../../services/api/admins";
 
 function AdminPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -76,25 +76,26 @@ function AdminPage() {
     admins[admin.id - 1] = {
       ...admin,
     };
-    console.log('>>> admin', admin)
 
     await updateAdmin({
       ...admin,
       phone: Number(admin.phone.replace(/[()\-\s]/g, '')),
-    })
-      .then(res => {
-        console.log(res);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    }).catch(error => {
+      console.log(error);
+    });
 
     setAdminsList(admins);
     setIsModalOpen(false);
   };
 
   // To do: Enviar para o back-end
-  const deleteAdminsList = (admin) => {
+  const deleteAdminsList = async (admin) => {
+    console.log(admin.id)
+    await deleteAdmin(admin.id)
+      .catch(error => {
+        console.log(error);
+      })
+
     setAdminsList(adminsList.filter((admins) => admins.id !== admin.id));
     setIsModalOpen(false);
   };
@@ -109,13 +110,9 @@ function AdminPage() {
     await createAdmin({
       ...admin,
       phone: Number(admin.phone.replace(/[()\-\s]/g, '')),
-    })
-      .then(res => {
-        console.log(res);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    }).catch(error => {
+      console.log(error);
+    });
 
     setAdminsList(admins);
     setIsModalOpen(false);
