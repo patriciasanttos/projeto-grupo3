@@ -1,7 +1,7 @@
 import { Op } from "sequelize";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import Admin from "../database/models/Admin";
+import { Admin, Permission } from "../database/models";
 import { AdminType } from "../types/types";
 import serverErrorHandler from "../utils/serverErrorHandler";
 require('dotenv').config();
@@ -12,14 +12,22 @@ type UpdateDataType = {
     email?: string,
     phone?: number,
     password?: string,
-    permissions?: string,
+    permissions?: Permission[],
 }
 
 export default {
     async getAdminById(id: number): Promise<{ code: number, data: {} }> {
         try {
             //-----Buscar administrador na tabela
-            const gettedAdmin = await Admin.findOne({ where: { id } });
+            const gettedAdmin = await Admin.findByPk(id, {
+                attributes: [ 'id', 'name', 'email', 'phone', 'image', "observation" ],
+                include: {
+                    model: Permission,
+                    as: 'permissions',
+                    attributes: ['id', 'name'],
+                    through: { attributes: [] }
+                }
+            });
 
             if (gettedAdmin === null)
                 return {
@@ -31,13 +39,7 @@ export default {
 
             return {
                 code: 200,
-                data: {
-                    name: gettedAdmin.dataValues.name,
-                    email: gettedAdmin.dataValues.email,
-                    phone: gettedAdmin.dataValues.phone,
-                    permissions: gettedAdmin.dataValues.permissions,
-                    image: gettedAdmin.dataValues.image
-                }
+                data: gettedAdmin.toJSON()
             };
         } catch (error: any) {
             return serverErrorHandler(error);
@@ -47,7 +49,15 @@ export default {
     async getAllAdmins(): Promise<{ code: number, data: {} }> {
         try {
             //-----Buscar administradores na tabela
-            const admins = await Admin.findAll();
+            const admins = await Admin.findAll({
+                attributes: [ 'id', 'name', 'email', 'phone', 'image', "observation" ],
+                include: {
+                    model: Permission,
+                    as: 'permissions',
+                    attributes: ['id', 'name'],
+                    through: { attributes: [] }
+                }
+            });
 
             if (admins === null)
                 return {
@@ -59,16 +69,7 @@ export default {
 
             return {
                 code: 200,
-                data: admins.map(user => {
-                    return {
-                        id: user.dataValues.id,
-                        user: user.dataValues.name,
-                        email: user.dataValues.email,
-                        phone: user.dataValues.phone,
-                        permissions: user.dataValues.permissions,
-                        image: user.dataValues.image
-                    };
-                })
+                data: admins.map(admin => admin.toJSON())
             };
         } catch (error: any) {
             return serverErrorHandler(error);
@@ -150,8 +151,12 @@ export default {
             const salt = await bcrypt.genSalt(12);
             userData.password = await bcrypt.hash(userData.password, salt);
 
-            // -----Salvar administrador na tabela
-            await Admin.create({ ...data });
+            const adminProps = { ...data };
+            delete adminProps.permissions;
+            //-----Salvar administrador na tabela
+            const admin = await Admin.create({ ...adminProps });
+            if (data.permissions)
+                data.permissions.forEach(async perm => await admin.addPermission(perm));
 
             return {
                 code: 201
@@ -164,7 +169,13 @@ export default {
     async updateAdmin(data: UpdateDataType): Promise<{ code: number, data?: {} }> {
         try {
             //-----Buscar administrador na tabela
-            const gettedAdmin = await Admin.findOne({ where: { id: data.id } })
+            const gettedAdmin = await Admin.findByPk(data.id, {
+                include: {
+                    model: Permission,
+                    as: 'permissions',
+                    attributes: ['id'],
+                }
+            })
             
             if (gettedAdmin === null)
                 return {
@@ -173,24 +184,6 @@ export default {
                         error: 'Administrator not found'
                     }
                 };
-
-            if (data.email || data.phone) {
-                if (data.email === gettedAdmin.dataValues.email)
-                    return {
-                        code: 409,
-                        data: {
-                            error: 'Email already registered'
-                        }
-                    };
-
-                if (data.phone === gettedAdmin.dataValues.phone)
-                    return {
-                        code: 409,
-                        data: {
-                            error: 'Phone already registered'
-                        }
-                    };
-            }
             
             if (data.password) {
                 const userData = { ...data };
@@ -213,8 +206,10 @@ export default {
                     code: 200
                 };
             };
-            
-            await gettedAdmin.update({ ...data });
+
+            const admin = await gettedAdmin.update({ ...data });
+            if (data.permissions)
+                await admin.setPermissions([ ...data.permissions ]);
 
             return {
                 code: 200

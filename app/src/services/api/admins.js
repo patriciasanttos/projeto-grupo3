@@ -17,7 +17,7 @@ export const loginAdmin = async ({ user, password }) => {
 }
 
 export const createAdmin = async (data) => {
-    return await axiosPost('/admins/login', data);
+    return await axiosPost('/admins', data);
 }
 
 export const updateAdmin = async (data) => {
@@ -25,5 +25,5 @@ export const updateAdmin = async (data) => {
 }
 
 export const deleteAdmin = async (id) => {
-    return await axiosDelete(`/animals/:${id}`);
+    return await axiosDelete(`/admins/${id}`);
 }

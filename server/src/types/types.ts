@@ -1,3 +1,5 @@
+import { Permission } from "../database/models"
+
 export type AnimalType = {
     id: number,
     image: string,
@@ -69,5 +71,5 @@ export type AdminType = {
     email: string,
     phone: number,
     password: string,
-    permissions: string,
+    permissions?: Permission[],
 }
