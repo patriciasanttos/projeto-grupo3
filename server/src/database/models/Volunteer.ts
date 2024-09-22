@@ -5,10 +5,15 @@ interface VolunteerInfo {
     id: number,
     image?: string,
     name: string,
+    responsible_name?: string,
     email: string,
     phone: number,
     address: string,
     availability: string,
+    study_schedule?: string,
+    profession?: string,
+    sector: string,
+    observation?: string,
     created_at?: string,
     updated_at?: string,
 }
@@ -33,6 +38,10 @@ Volunteer.init({
       type: DataTypes.STRING,
       allowNull: false,
     },
+    responsible_name: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     email: {
       type: DataTypes.TEXT,
       allowNull: false,
@@ -48,6 +57,22 @@ Volunteer.init({
       allowNull: false
     },
     availability: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    study_schedule: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    profession: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    sector: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    observation: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
