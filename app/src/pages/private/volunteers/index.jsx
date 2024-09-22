@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import createIcon from '../../../assets/icons/create_icon.svg'
 import AdminNavBar from "../../../components/admin_navbar/AdminNavBar";
 import ModalVolunteers from "../../../components/modal/modalVolunteersAdmin/ModalVolunteers";
@@ -6,6 +6,7 @@ import ModalVolunteers from "../../../components/modal/modalVolunteersAdmin/Moda
 import "./styles.scss";
 import AdminList from "../../../components/admin_list/AdminList";
 import ModalActionsEnum from '../../../utils/ModalActionsEnum'
+import { createVolunteer, deleteVolunteer, getAllVolunteers, updateVolunteer } from "../../../services/api/volunteers";
 
 function Volunteers() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,8 +17,7 @@ function Volunteers() {
   const initialFilter = {
     name: null,
     email: null,
-    phoneNumber: null,
-    nameAnimal: null,
+    phone: null
   };
   const [filter, setFilter] = useState(initialFilter);
 
@@ -42,51 +42,12 @@ function Volunteers() {
     return filter && filter[field] ? filter[field] : "";
   };
 
-  // To do: Trazer lista do back-end
-  const [volunteersList, setVolunteersList] = useState([
-    {
-      id: 1,
-      name: "Jorge",
-      email: "jorge@gmail.com",
-      phoneNumber: "(11) 91234-5678",
-      address: "Rua dos bobos",
-      availability: "8 horas - semana",
-      nameResponsible: "Responsável 1",
-      occupation: "Profissão 1",
-      studyTime: "Manhã",
-      sector: "Design",
-      startDate: "10/09/24",
-      volunteersInfo: "Nada a declarar 1",
-    },
-    {
-      id: 2,
-      name: "Lais",
-      email: "lais@gmail.com",
-      phoneNumber: "(22) 99876-5432",
-      address: "Rua dos bobos, 02",
-      availability: "5 horas - semana",
-      nameResponsible: "Responsável 2",
-      occupation: "Profissão 2",
-      studyTime: "Tarde",
-      sector: "Não defino",
-      startDate: "10/08/24",
-      volunteersInfo: "Nada a declarar 2",
-    },
-    {
-      id: 3,
-      name: "Gabriel",
-      email: "gabriel@gmail.com",
-      phoneNumber: "(33) 98527-4196",
-      address: "Rua dos bobos, 03",
-      availability: "3 horas - semana",
-      nameResponsible: "Responsável 3",
-      occupation: "Profissão 3",
-      studyTime: "Noite",
-      sector: "Rede social",
-      startDate: "10/07/24",
-      volunteersInfo: "Nada a declarar 3",
-    },
-  ]);
+  const [volunteersList, setVolunteersList] = useState([]);
+
+  useEffect(() => {
+    getAllVolunteers()
+      .then(data => setVolunteersList(data));
+  }, []);
 
   const columns = [
     {
@@ -99,7 +60,7 @@ function Volunteers() {
     },
     {
       title: "Celular",
-      rowKey: "phoneNumber",
+      rowKey: "phone",
     },
     {
       title: "Endereço",
@@ -111,29 +72,49 @@ function Volunteers() {
     },
   ];
 
-  // To do: Enviar para o back-end
-  const updateVolunteersList = (volunteer) => {
-    let volunteers = [...volunteersList];
-    volunteers[volunteer.id - 1] = {
-      ...volunteer,
-    };
+  const updateVolunteersList = async (volunteer) => {
+    let volunteers = volunteersList.map((volunt) => {
+      if (volunt.id === volunteer.id)
+        return volunteer;
+
+      return volunt;
+    });
+
+    if (volunteer.phone)
+      volunteer.phone = Number(volunteer.phone.replace(/[()\-\s]/g, ''));
+
+    await updateVolunteer(volunteer)
+      .catch(error => {
+        console.log(error);
+      });
+
     setVolunteersList(volunteers);
     setIsModalOpen(false);
   };
 
-  // To do: Enviar para o back-end
-  const deleteVolunteersList = (volunteer) => {
+  const deleteVolunteersList = async (volunteer) => {
+    await deleteVolunteer(volunteer.id)
+      .catch(error => {
+        console.log(error);
+      });
+
     setVolunteersList(volunteersList.filter((volunteers) => volunteers.id !== volunteer.id));
     setIsModalOpen(false);
   }
 
-  // To do: Enviar para o back-end
-  const createVolunteersList = (volunteer) => {
+  const createVolunteersList = async (volunteer) => {
     let volunteers = [...volunteersList];
     volunteers.push({
       ...volunteer,
       id: volunteersList.length + 1,
     });
+
+    await createVolunteer({
+      ...volunteer,
+      phone: Number(volunteer.phone.replace(/[()\-\s]/g, '')),
+    })
+      .catch(error => console.log(error));
+
     setVolunteersList(volunteers);
     setIsModalOpen(false);
   };
@@ -167,8 +148,8 @@ function Volunteers() {
               />
             <input type="text" 
             placeholder="Contato"
-            value={getFilterState("phoneNumber")}
-              onChange={(e) => setFilter({ ...filter, phoneNumber: e.target.value })}
+            value={getFilterState("phone")}
+              onChange={(e) => setFilter({ ...filter, phone: e.target.value })}
             />
             <input type="text" 
             placeholder="Disponibilidade"

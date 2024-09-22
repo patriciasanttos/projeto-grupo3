@@ -17,15 +17,14 @@ const ModalVolunteers = ({
     return {
       name: "",
       email: "",
-      phoneNumber: "",
+      phone: "",
       address: "",
-      nameResponsible: "",
-      occupation: "",
-      studyTime: "",
+      responsible_name: "",
+      profession: "",
+      study_schedule: "",
       availability: "",
       sector: "",
-      startDate: "",
-      volunteersInfo: "",
+      observation: "",
     };
   }, []);
   const [formVolunteers, setFormVolunteers] = useState(initialFormVolunteers);
@@ -102,9 +101,9 @@ const ModalVolunteers = ({
             type="text"
             name="Celular"
             placeholder="Contato"
-            value={getFormState("phoneNumber")}
+            value={getFormState("phone")}
             onAccept={(value, maskRef, e) =>
-              setFormVolunteers({ ...formVolunteers, phoneNumber: value })
+              setFormVolunteers({ ...formVolunteers, phone: value })
             }
             mask={"(00) 00000-0000"}
           />
@@ -124,28 +123,28 @@ const ModalVolunteers = ({
         <div className="al-modal-form">
           <input
             type="text"
-            name="nameResponsible"
+            name="responsible_name"
             id=""
             placeholder="Nome do responsável - se for menor"
-            value={getFormState("nameResponsible")}
+            value={getFormState("responsible_name")}
             onChange={(e) =>
               setFormVolunteers({
                 ...formVolunteers,
-                nameResponsible: e.target.value,
+                responsible_name: e.target.value,
               })
             }
           />
 
           <input
             type="text"
-            name="occupation"
+            name="profession"
             id=""
             placeholder="Profissão"
-            value={getFormState("occupation")}
+            value={getFormState("profession")}
             onChange={(e) =>
               setFormVolunteers({
                 ...formVolunteers,
-                occupation: e.target.value,
+                profession: e.target.value,
               })
             }
           />
@@ -154,14 +153,14 @@ const ModalVolunteers = ({
         <div className="al-modal-form">
           <input
             type="text"
-            name="studyTime"
+            name="study_schedule"
             id=""
             placeholder="Horário que estuda -se menor"
-            value={getFormState("studyTime")}
+            value={getFormState("study_schedule")}
             onChange={(e) =>
               setFormVolunteers({
                 ...formVolunteers,
-                studyTime: e.target.value,
+                study_schedule: e.target.value,
               })
             }
           />
@@ -201,25 +200,19 @@ const ModalVolunteers = ({
             id=""
             placeholder="Data de início"
             value={getFormState("startDate")}
-            onChange={(e) =>
-              setFormVolunteers({
-                ...formVolunteers,
-                startDate: e.target.value,
-              })
-            }
           />
         </div>
         <textarea
           rows="8"
           cols="10"
-          name="volunteersInfo"
+          name="observation"
           id=""
           placeholder="Adicione informações importantes sobre o voluntário"
-          value={getFormState("volunteersInfo")}
+          value={getFormState("observation")}
           onChange={(e) =>
             setFormVolunteers({
               ...formVolunteers,
-              volunteersInfo: e.target.value,
+              observation: e.target.value,
             })
           }
         />
