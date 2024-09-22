@@ -207,8 +207,11 @@ export default {
                 };
             };
 
-            const admin = await gettedAdmin.update({ ...data });
-            if (data.permissions)
+            const adminUpdated = { ...data };
+            delete adminUpdated.permissions;
+
+            const admin = await gettedAdmin.update({ ...adminUpdated });
+            if (data.permissions && data.permissions.length > 0)
                 await admin.setPermissions([ ...data.permissions ]);
 
             return {

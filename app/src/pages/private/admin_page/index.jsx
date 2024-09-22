@@ -18,8 +18,7 @@ function AdminPage() {
   const initialFilter = {
     name: null,
     email: null,
-    phoneNumber: null,
-    nameAnimal: null,
+    phoneNumber: null
   };
   const [filter, setFilter] = useState(initialFilter);
 
@@ -72,23 +71,25 @@ function AdminPage() {
   };
 
   const updateAdminsList = async (admin) => {
-    let admins = [...adminsList];
-    admins[admin.id - 1] = {
-      ...admin,
-    };
+    let admins = adminsList.map((adm) => {
+      if (adm.id === admin.id)
+        return admin;
+
+      return adm;
+    });
 
     await updateAdmin({
       ...admin,
       phone: Number(admin.phone.replace(/[()\-\s]/g, '')),
-    }).catch(error => {
-      console.log(error);
-    });
+    })
+      .catch(error => {
+        console.log(error);
+      });
 
     setAdminsList(admins);
     setIsModalOpen(false);
   };
 
-  // To do: Enviar para o back-end
   const deleteAdminsList = async (admin) => {
     console.log(admin.id)
     await deleteAdmin(admin.id)
@@ -110,9 +111,10 @@ function AdminPage() {
     await createAdmin({
       ...admin,
       phone: Number(admin.phone.replace(/[()\-\s]/g, '')),
-    }).catch(error => {
-      console.log(error);
-    });
+    })
+      .catch(error => {
+        console.log(error);
+      });
 
     setAdminsList(admins);
     setIsModalOpen(false);
@@ -155,7 +157,7 @@ function AdminPage() {
             <Input
               type="text"
               placeholder="Permissão"
-              value={getFilterState("permission")}
+              value={getFilterState("permissions")}
               onChange={(e) =>
                 setFilter({ ...filter, permission: e.target.value })
               }
