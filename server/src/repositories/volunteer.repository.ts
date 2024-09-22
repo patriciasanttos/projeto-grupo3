@@ -78,33 +78,16 @@ export default {
         }
     },
 
-    async updateVolunteer({ id, data }: { id: number, data: VolunteerType }): Promise<{ code: number, data?: {} }> {
+    async updateVolunteer(data: VolunteerType): Promise<{ code: number, data?: {} }> {
         try {
             //-----Buscar voluntário na tabela
-            const volunteer = await Volunteer.findOne({ where: { id } })
+            const volunteer = await Volunteer.findByPk(data.id)
             
             if (volunteer === null)
                 return {
                     code: 404,
                     data: {
                         error: 'Volunteer not found'
-                    }
-                };
-
-            const volunteerExistis = await Volunteer.findOne({
-                where: {
-                    [Op.or]: [
-                    { email: data.email },
-                    { phone: data.phone }
-                    ]
-                }
-            });
-
-            if (volunteerExistis !== null)
-                return {
-                    code: 401,
-                    data: {
-                        error: 'Email or phone already in use'
                     }
                 };
 
