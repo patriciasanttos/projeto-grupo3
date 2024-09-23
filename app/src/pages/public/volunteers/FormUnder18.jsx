@@ -1,9 +1,12 @@
 import { useState } from "react";
 
-import { IMaskInput } from "react-imask";
-import StateSelect from "./StateSelectComponent/StateSelect";
+import Input from "../../../components/input";
+import Dropdown from "../../../components/dropdown";
 
-const FormOver18 = () => {
+import StateSelect from "./StateSelectComponent/StateSelect";
+import isEmailValid from '../../../utils/isEmailValid'
+
+const FormUnder18 = () => {
   const formUnder18Initial = {
     responsibleName: "",
     phoneNumber: "",
@@ -20,8 +23,42 @@ const FormOver18 = () => {
   const [formUnder18Errors, setFormUnder18Errors] =
     useState(formUnder18Initial);
 
+  const validateFormUnder18 = () => {
+    let isValid = true;
+
+    let errors = {};
+    Object.keys(formUnder18).forEach((field) => {
+      if (
+        formUnder18[field] === "" ||
+        formUnder18[field] === null ||
+        formUnder18[field] === undefined
+      ) {
+        errors[field] = "obrigatório";
+        isValid = false;
+      } else if (field === 'email' && !isEmailValid(formUnder18[field])) {
+        errors[field] = "inválido";
+        isValid = false;
+      }
+    });
+    setFormUnder18Errors({ ...formUnder18Errors, ...errors });
+
+    return isValid;
+  };
+
   const onClickSubmitUnder18 = () => {
-    alert(JSON.stringify(formUnder18));
+    const isValid = validateFormUnder18();
+
+    if (isValid) {
+      alert(JSON.stringify(formUnder18));
+    }
+  };
+
+  const updateFormUnder18 = (field, value) => {
+    setFormUnder18({ ...formUnder18, [field]: value });
+
+    if (formUnder18Errors[field]) {
+      setFormUnder18Errors({ ...formUnder18Errors, [field]: null });
+    }
   };
 
   return (
@@ -42,123 +79,89 @@ const FormOver18 = () => {
       </p>
       <form className="volunteers-form" action="">
         <div className="align-form">
-          <input
+          <Input
             type="text"
             name="Nome Responsável"
             id=""
             placeholder="Nome do responsável"
             value={formUnder18.responsibleName}
             onChange={(e) =>
-              setFormUnder18({
-                ...formUnder18,
-                responsibleName: e.target.value,
-              })
+              updateFormUnder18("responsibleName", e.target.value)
             }
+            error={formUnder18Errors.responsibleName}
           />
-          <input
+          <Input
             type="text"
             name="Nome do menor"
             id=""
             placeholder="Nome do menor"
             value={formUnder18.minorsName}
-            onChange={(e) =>
-              setFormUnder18({
-                ...formUnder18,
-                minorsName: e.target.value,
-              })
-            }
+            onChange={(e) => updateFormUnder18("minorsName", e.target.value)}
+            error={formUnder18Errors.minorsName}
           />
-          <input
+          <Input
             type="text"
             name="E-mail"
             id=""
             placeholder="E-mail"
             value={formUnder18.email}
-            onChange={(e) =>
-              setFormUnder18({
-                ...formUnder18,
-                email: e.target.value,
-              })
-            }
+            onChange={(e) => updateFormUnder18("email", e.target.value)}
+            error={formUnder18Errors.email}
           />
-          <input
+          <Input
             type="text"
             name="Endereço"
             id=""
             placeholder="Endereço completo"
             value={formUnder18.address}
-            onChange={(e) =>
-              setFormUnder18({
-                ...formUnder18,
-                address: e.target.value,
-              })
-            }
+            onChange={(e) => updateFormUnder18("address", e.target.value)}
+            error={formUnder18Errors.address}
           />
-          <select
+          <Dropdown
             defaultValue=""
-            onChange={(e) =>
-              setFormUnder18({
-                ...formUnder18,
-                sector: e.target.value,
-              })
-            }
+            placeholder="Setor"
+            onChange={(e) => updateFormUnder18("sector", e.target.value)}
+            error={formUnder18Errors.sector}
           >
-            <option value="" disabled>
-              Setor
-            </option>
             <option value="Canil">Canil</option>
             <option value="Gatil">Gatil</option>
             <option value="Limpeza">Limpeza</option>
-          </select>
+          </Dropdown>
         </div>
         <div className="align-form">
-          <IMaskInput
+          <Input
             type="text"
             name="Celular"
             id=""
             placeholder="Celular"
             value={formUnder18.phoneNumber}
-            onAccept={(value, maskRef, e) =>
-              setFormUnder18({
-                ...formUnder18,
-                phoneNumber: e.target.value,
-              })
-            }
             mask={"(00) 00000-0000"}
+            onChange={(e) => updateFormUnder18("phoneNumber", e.target.value)}
+            error={formUnder18Errors.phoneNumber}
           />
-          <input
+          <Input
             type="text"
             name="Período aula"
             id=""
             placeholder="Período que estuda"
             value={formUnder18.periodStudy}
-            onChange={(e) =>
-              setFormUnder18({
-                ...formUnder18,
-                periodStudy: e.target.value,
-              })
-            }
+            onChange={(e) => updateFormUnder18("periodStudy", e.target.value)}
+            error={formUnder18Errors.periodStudy}
           />
-          <input
+          <Input
             type="number"
             name="Disponibilidade"
             id=""
             placeholder="Disponibilidade de horas na semana"
             value={formUnder18.availability}
-            onChange={(e) =>
-              setFormUnder18({
-                ...formUnder18,
-                availability: e.target.value,
-              })
-            }
+            onChange={(e) => updateFormUnder18("availability", e.target.value)}
+            error={formUnder18Errors.availability}
           />
           <StateSelect
-            onChange={(e) =>
-              setFormUnder18({
-                ...formUnder18,
-                state: e.target.value,
-              })
-            }
+            defaultValue=""
+            placeholder="Estado"
+            onChange={(e) => updateFormUnder18("state", e.target.value)}
+            error={formUnder18Errors.state}
           />
         </div>
       </form>
@@ -167,4 +170,4 @@ const FormOver18 = () => {
   );
 };
 
-export default FormOver18;
+export default FormUnder18;

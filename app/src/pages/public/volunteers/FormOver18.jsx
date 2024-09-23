@@ -4,6 +4,7 @@ import Input from "../../../components/input";
 import Dropdown from "../../../components/dropdown";
 
 import StateSelect from "./StateSelectComponent/StateSelect";
+import isEmailValid from '../../../utils/isEmailValid'
 
 const FormOver18 = () => {
   const formOver18Initial = {
@@ -33,6 +34,9 @@ const FormOver18 = () => {
         console.log(field);
 
         errors[field] = "obrigatório";
+        isValid = false;
+      } else if (field === 'email' && !isEmailValid(formOver18[field])) {
+        errors[field] = "inválido";
         isValid = false;
       }
     });
