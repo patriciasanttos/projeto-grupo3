@@ -85,6 +85,16 @@
     @media (max-width: 600px) {
         .modal {
             width: 80%;
+            overflow-y: auto;
+
+            .btnSubmit {
+                margin-bottom: 20px;
+
+                .button {
+                    padding: 15px;
+                    font-size: 1.2rem;
+                }
+            }
         }
 
         .generalData {
@@ -98,12 +108,12 @@
 
             .animalName {
                 text-align: center;
-                font-size: 2rem;
+                font-size: 1.5rem;
             }
 
             .animal {
                 text-align: center;
-                width: 230px;
+                width: 200px;
             }
 
             .info {
@@ -134,11 +144,12 @@
             }
 
             h2 {
-                margin: 0px 0px 15px 35px;
+                margin: 0px 0px 15px 0px;
             }
 
             .forms {
-                width: 150px;
+                width: 100%;
+                max-width: 80% !important;
             }
 
         }
