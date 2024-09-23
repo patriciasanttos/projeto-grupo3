@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import styles from './styles.module.css';
+import './Menu.scss';
 import { Link } from 'react-router-dom';
 
 const menuItems = [
@@ -30,33 +30,33 @@ function Menu({ currentPage }) {
   }, [currentPage]);
 
   return (
-    <section className={styles.menu}>
-      <div className={styles.menu_left}>
+    <section className="menu">
+      <div className="menu_left">
         <h1>{menu[0].title}</h1>
 
         <p>{menu[0].description}</p>
 
-        <Link className={styles.menu_btn} to={menu[0].url}>
+        <Link className="menu_btn" to={menu[0].url}>
           <button>{menu[0].buttonText}</button>
         </Link>
       </div>
 
-      <div className={styles.menu_center}>
+      <div className="menu_center">
         <h1>{menu[1].title}</h1>
 
         <p>{menu[1].description}</p>
 
-        <Link className={styles.menu_btn} to={menu[1].url}>
+        <Link className="menu_btn" to={menu[1].url}>
           <button>{menu[1].buttonText}</button>
         </Link>
       </div>
 
-      <div className={styles.menu_right}>
+      <div className="menu_right">
         <h1>{menu[2].title}</h1>
 
         <p>{menu[2].description}</p>
 
-        <Link className={styles.menu_btn} to={menu[2].url}>
+        <Link className="menu_btn" to={menu[2].url}>
           <button>{menu[2].buttonText}</button>
         </Link>
       </div>
