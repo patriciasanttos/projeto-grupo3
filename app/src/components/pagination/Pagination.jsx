@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import './Pagination.scss'
 
 const Pagination = ({ listItems, onPaginate }) => {
   const [currentPage, setCurrentPage] = useState(1);

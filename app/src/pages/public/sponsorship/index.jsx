@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import styles from "./styles.module.css";
+import "./sponsorship.scss";
 
 import NavBar from "../../../components/navbar/NavBar";
 import Footer from "../../../components/footer/Footer";
@@ -56,10 +56,10 @@ function Sponsorship() {
       {loading ? (
         <LoadingPaw />
       ) : (
-        <div className={styles.contentContainer}>
-          <p className={styles.text}>Conheça alguns de nossos animais</p>
-          <div className={styles.photoGallery}>
-            <div className={styles.cardContainer}>
+        <div className="contentContainer">
+          <p className="text">Conheça alguns de nossos animais</p>
+          <div className="photoGallery">
+            <div className="cardContainer">
               {paginatedAnimals.map((animal) => (
                 <CardAnimal
                   onClickButton={onClickCardAnimal}

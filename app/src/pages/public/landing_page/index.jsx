@@ -14,7 +14,9 @@ import "./landingPage.scss";
 // import { animals } from './animals';
 
 // import images
-import partnerImg from "../../../assets/images/partner-img.svg";
+import vetSluzia from "../../../assets/images/vet-sluzia.svg";
+import agrotela from "../../../assets/images/agrotela.svg";
+import vetJf from "../../../assets/images/vet-Jf.svg";
 import sponsorImg from "../../../assets/images/sponsor-img.svg";
 import volunteerImg from "../../../assets/images/volunteer-img.svg";
 import imageDog1 from "../../../assets/images/dog1.svg";
@@ -77,13 +79,11 @@ function LandingPage() {
           CONHEÇA ALGUNS DE NOSSOS ANIMAIS
         </h3>
         <h1 className="title adoption-title">Adote seu novo companheiro!</h1>
-        {
-          loading ? (
-            <LoadingPaw/>
-          ) : (
-            <Carousel animals={animals} onClickCardAnimal={onClickCardAnimal} />
-          )
-        }
+        {loading ? (
+          <LoadingPaw />
+        ) : (
+          <Carousel animals={animals} onClickCardAnimal={onClickCardAnimal} />
+        )}
         <div className="align-btn margin-btn">
           <Link to="/adoption">
             <button className="btn-adoption btn">Conheça mais animais</button>
@@ -95,10 +95,21 @@ function LandingPage() {
         <h3 className="subtitle">Junte-se a nós</h3>
         <h1 className=" title partner-title">Seja um parceiro</h1>
         <div className="align-partner-cards">
-          <img src={partnerImg} alt="" />
-          <img src={partnerImg} alt="" />
-          <img src={partnerImg} alt="" />
-          <img src={partnerImg} alt="" />
+          <a
+            href="https://www.instagram.com/clinicavetsantaluzia/"
+            target="blank"
+          >
+            <img src={vetSluzia} alt="" />{" "}
+          </a>
+          <a href="https://www.instagram.com/agrotela/" target="blank">
+            <img src={agrotela} alt="" />
+          </a>
+          <a
+            href="https://www.instagram.com/clinicaveterinaria_cvjf"
+            target="blank"
+          >
+            <img src={vetJf} alt="" />
+          </a>
         </div>
         <div className="align-btn margin-top-btn">
           <a
@@ -116,8 +127,9 @@ function LandingPage() {
             <h3 className="subtitle">Com doações você pode apoiar um animal</h3>
             <h1 className="title">Apadrinhe</h1>
             <p className="sponsor-text">
-              O padrinho ajuda no bem estar e no cuidado do animal. <br /> Você pode se sentir a vontade para visitá-lo quando quiser.
-             <br /> Contribua mensalmente!
+              O padrinho ajuda no bem estar e no cuidado do animal. <br /> Você
+              pode se sentir a vontade para visitá-lo quando quiser.
+              <br /> Contribua mensalmente!
             </p>
             <Link to="/sponsorship">
               <button className="btn-sponsor btn">Quero apadrinhar</button>
@@ -132,7 +144,7 @@ function LandingPage() {
           <div className="image-content">
             <img src={volunteerImg} alt="" />
           </div>
-          <div>
+          <div style={{ width: '100%' }}>
             <h3 className="subtitle">Junte-se a nós</h3>
             <h1 className="title">Seja um voluntário</h1>
             <div className="icon-container">

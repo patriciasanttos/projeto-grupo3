@@ -83,10 +83,9 @@ const FilterSidebar = ({ filtersState, setFiltersState }) => {
         <div className={styles.filterGroup}>
           <label className={styles.title}>Idade</label>
           <div>
-            <label><input type="checkbox" name='age' value='10' onChange={(e) => setFilters(e)}/> Até 10 anos </label>
-            <label><input type="checkbox" name='age' value='5' onChange={(e) => setFilters(e)}/> Até 5 anos </label>
-            <label><input type="checkbox" name='age' value='10+' onChange={(e) => setFilters(e)}/> Mais de 10 anos </label>
-            <label><input type="checkbox" name='age' value='6' onChange={(e) => setFilters(e)}/> Menos de 6 meses </label>
+            <label><input type="checkbox" name='age' value='Filhote' onChange={(e) => setFilters(e)}/> Filhote </label>
+            <label><input type="checkbox" name='age' value='Adulto' onChange={(e) => setFilters(e)}/> Adulto </label>
+            <label><input type="checkbox" name='age' value='Idoso' onChange={(e) => setFilters(e)}/> Idoso </label>
           </div>
         </div>
       </div>

@@ -1,0 +1,38 @@
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    height: 100vh;
+}
+
+.text{
+    text-align: center;
+    padding-bottom: 20px;
+    color: #26A59E;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+.contentContainer {
+    background-image: url('../../../assets/images/background_2.svg');
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 0px;
+    background-color: #F4F4F4;
+}
+
+.photoGallery{
+    display: flex;
+    flex-direction: row;
+    max-width: 900px;
+}
+  
+.cardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}

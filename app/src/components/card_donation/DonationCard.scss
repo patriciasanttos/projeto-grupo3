@@ -1,4 +1,4 @@
-.donation_card{
+.donation_card {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -17,33 +17,34 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    .card div{
+    .card div {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         padding-top: 25px;
-        gap: 20px;
     }
 
     .icon-container {
         position: relative;
-        height: 50px; 
+        height: 50px;
     }
 
-    .icon_donation{
+    .icon_donation {
         background-color: var(--background-primary-color);
         border-radius: 100px;
-        border: 0.5rem solid white; 
+        border: 0.5rem solid white;
         position: absolute;
-        top: -35px; 
+        top: -35px;
         left: 50%;
         transform: translateX(-50%);
-        width: 4rem; 
-        padding: 0.7rem;   
+        width: 4rem;
+        padding: 0.7rem;
     }
 
-    .card h2, p, h3{
+    .card h2,
+    p,
+    h3 {
         color: #2D2D33;
     }
 
@@ -52,14 +53,14 @@
         font-weight: 900;
         text-align: center;
     }
-    
+
     p {
         text-align: center;
     }
-    
+
     button {
         position: absolute;
-        bottom: 40px; 
+        bottom: 40px;
         left: 50%;
         transform: translateX(-50%);
         border-style: none;
@@ -81,14 +82,15 @@
     }
 }
 
-@media (max-width: 975px) {
-    .donation_card{
-        flex-direction: column; 
-        align-items: center;
-        gap: 4rem;
-    }
+@media (max-width: 768px) {
+    .donation_card {
+        justify-content:initial;
+        margin: 0px 15px;
+        overflow-x: auto;
 
-    .card{
-        height: 28rem;
+        .card {
+            flex: 0 0 auto;
+            width: 70%;
+        }
     }
 }

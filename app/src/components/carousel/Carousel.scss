@@ -19,5 +19,38 @@
 
         .arrow {
             cursor: pointer;
+            width: 40px;
+        }
+
+        .arrow-left {
+            margin-right: 10px;
+        }
+
+        .arrow-right {
+            margin-left: 10px;
+        }
+    }
+
+
+    @media (max-width: 768px) {
+        .carousel {
+            // justify-content: initial;
+            margin: 0px 15px;
+            // overflow-x: auto;
+            width: 90%;
+
+            .card {
+                flex: 0 0 auto;
+                width: 70%;
+            }
+
+            .arrow {
+                display: none;
+            }
+
+            .container-cards {
+                width: 100%;
+            flex: 0 0 auto;
+            }
         }
     }

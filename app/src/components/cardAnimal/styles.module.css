@@ -48,41 +48,22 @@
     .card {
         display: flex;
         flex-direction: row;
-        min-width: 460px;
+        width: 380px;
+
+        margin-bottom: 20px;
     }
 
     .cardImage{
-        width: 55%;
+        width: 50%;
     }
 
     .cardContent{
         width: 45%;
         margin-top: 20px;
     }
-          
-}
 
-
-@media (max-width: 550px) {
-    .card {
-        display: flex;
-        flex-direction: row;
-        min-width: 310px;
-    }
-
-    .cardImage{
-        width: 50%;
-    }
-
-    .cardContent{
-        width: 50%;
-        padding-bottom: 0px;
-    }
-
-    .cardButton {
-        padding: 10px 4px;
-        font-size: 12px;
-        margin-top: 10px;
-    }
+        .cardButton {
+            margin-left: 15px;
+        }
           
 }
