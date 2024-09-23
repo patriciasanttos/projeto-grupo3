@@ -8,7 +8,7 @@ import Footer from '../../../components/footer/Footer';
 import video_image from '../../../assets/images/video_image.svg'
 import joao_image from '../../../assets/images/joao.svg'
 
-import './styles.css';
+import './about_us.scss';
 import Card from '../../../components/card/Card';
 
 function AboutUs() {
