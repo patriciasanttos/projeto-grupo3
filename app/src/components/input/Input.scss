@@ -4,5 +4,13 @@
     border: 2px solid var(--background-primary-color);
     border-radius: 5px;
     font-size: 0.875rem;
-    font-weight: 600;
+    font-weight: 500;
+}
+
+.input-error {
+    border: 1px solid red !important;
+}
+
+.input-error::placeholder {
+    color: red;
 }
