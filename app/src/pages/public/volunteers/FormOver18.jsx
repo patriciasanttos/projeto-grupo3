@@ -31,8 +31,6 @@ const FormOver18 = () => {
         formOver18[field] === null ||
         formOver18[field] === undefined
       ) {
-        console.log(field);
-
         errors[field] = "obrigatório";
         isValid = false;
       } else if (field === 'email' && !isEmailValid(formOver18[field])) {
