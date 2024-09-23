@@ -58,31 +58,34 @@ function Sponsorship() {
       ) : (
         <div className="contentContainer">
           <p className="text">Conheça alguns de nossos animais</p>
-          <div className="photoGallery">
-            <div className="cardContainer">
-              {paginatedAnimals.map((animal) => (
-                <CardAnimal
-                  onClickButton={onClickCardAnimal}
-                  animal={animal}
-                  key={animal.id}
-                  image={animal.image}
-                  name={
-                    animal.name.charAt(0).toUpperCase() +
-                    animal.name.slice(1).toLowerCase()
-                  }
-                  gender={
-                    ["m", "M"].includes(animal.gender) ? "Macho" : "Fêmea"
-                  }
-                  race={
-                    animal.race === "srd"
-                      ? "Sem raça definida"
-                      : `${animal.race.charAt(0).toUpperCase()}${animal.race
-                          .slice(1)
-                          .toLowerCase()}`
-                  }
-                  age={animal.age}
-                />
-              ))}
+
+          <div className="photoGalleryCenter">
+            <div className="photoGallery">
+              <div className="cardContainer">
+                {paginatedAnimals.map((animal) => (
+                  <CardAnimal
+                    onClickButton={onClickCardAnimal}
+                    animal={animal}
+                    key={animal.id}
+                    image={animal.image}
+                    name={
+                      animal.name.charAt(0).toUpperCase() +
+                      animal.name.slice(1).toLowerCase()
+                    }
+                    gender={
+                      ["m", "M"].includes(animal.gender) ? "Macho" : "Fêmea"
+                    }
+                    race={
+                      animal.race === "srd"
+                        ? "Sem raça definida"
+                        : `${animal.race.charAt(0).toUpperCase()}${animal.race
+                            .slice(1)
+                            .toLowerCase()}`
+                    }
+                    age={animal.age}
+                  />
+                ))}
+              </div>
             </div>
           </div>
           <Pagination
