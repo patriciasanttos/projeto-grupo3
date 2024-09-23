@@ -157,8 +157,14 @@ h3 {
 
     @extend .flex-row;
 
+    .icon-container-center {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
     .icon-container {
-        width: 100%;
         padding: 10px;
         display: flex;
         flex-direction: row;
@@ -249,6 +255,10 @@ h3 {
             padding: 0px;
             gap: 0px;
         }
+
+        .icon-column {
+            padding-left: 20px !important;
+        }
     }
 
     .sponsor-section {
@@ -263,7 +273,7 @@ h3 {
 
     .partner .align-partner-cards {
         flex-direction: row;
-        align-items: center; 
+        align-items: center;
         justify-content: initial;
         overflow-x: auto;
         gap: 20px;

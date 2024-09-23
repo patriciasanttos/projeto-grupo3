@@ -144,39 +144,42 @@ function LandingPage() {
           <div className="image-content">
             <img src={volunteerImg} alt="" />
           </div>
-          <div style={{ width: '100%' }}>
+          <div >
             <h3 className="subtitle">Junte-se a nós</h3>
             <h1 className="title">Seja um voluntário</h1>
-            <div className="icon-container">
-              <div className="icon-column">
-                <div className="icon-text">
-                  <img src={dog} alt={"Dog"} />
-                  <label>Limpeza de Canil</label>
+
+            <div className="icon-container-center">
+              <div className="icon-container">
+                <div className="icon-column">
+                  <div className="icon-text">
+                    <img src={dog} alt={"Dog"} />
+                    <label>Limpeza de Canil</label>
+                  </div>
+                  <div className="icon-text">
+                    <img src={walkDog} alt={"Walk Dog"} />
+                    <label>Passeio com os cães</label>
+                  </div>
+                  <div className="icon-text">
+                    <img src={heart} alt={"Heart"} />
+                    <label>Dar carinho</label>
+                  </div>
                 </div>
-                <div className="icon-text">
-                  <img src={walkDog} alt={"Walk Dog"} />
-                  <label>Passeio com os cães</label>
-                </div>
-                <div className="icon-text">
-                  <img src={heart} alt={"Heart"} />
-                  <label>Dar carinho</label>
+                <div className="icon-column">
+                  <div className="icon-text">
+                    <img src={cat} alt={"Cat"} />
+                    <label>Limpeza de Gatil</label>
+                  </div>
+                  <div className="icon-text">
+                    <img src={socialMedia} alt={"Social Media"} />
+                    <label>Divulgação nas Redes Sociais</label>
+                  </div>
+                  <div className="icon-text">
+                    <img src={bath} alt={"Bath"} />
+                    <label>Dar um banho</label>
+                  </div>
                 </div>
               </div>
-              <div className="icon-column">
-                <div className="icon-text">
-                  <img src={cat} alt={"Cat"} />
-                  <label>Limpeza de Gatil</label>
-                </div>
-                <div className="icon-text">
-                  <img src={socialMedia} alt={"Social Media"} />
-                  <label>Divulgação nas Redes Sociais</label>
-                </div>
-                <div className="icon-text">
-                  <img src={bath} alt={"Bath"} />
-                  <label>Dar um banho</label>
-                </div>
               </div>
-            </div>
             <Link to="/volunteers">
               <button className="btn-volunteer btn">
                 Quero ser voluntário

@@ -15,6 +15,13 @@
     font-size: 16px;
 }
 
+.photoGalleryCenter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
 .contentContainer {
     background-image: url('../../../assets/images/background_2.svg');
     display: flex;
