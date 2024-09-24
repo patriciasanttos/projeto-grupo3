@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './styles.module.css';
+import './DonationCard.scss';
 
 import broom from '../../assets/icons/broom.svg'
 import med_kit from '../../assets/icons/med_kit.svg'
@@ -9,10 +9,10 @@ import medicine from '../../assets/icons/medicine.svg'
 
 function DonationCard() {
   return (
-    <section className={styles.donation_card}>
-        <div className={styles.card}>
+    <section className="donation_card">
+        <div className="card">
             <div class="icon-container">
-                <img src={broom} alt="Icone de Limpeza" className={styles.icon_donation}/>
+                <img src={broom} alt="Icone de Limpeza" className="icon_donation"/>
             </div>
             <div> 
                 <h2>Kit de Limpeza</h2>
@@ -21,9 +21,9 @@ function DonationCard() {
                 <button>Doe Agora</button> 
             </div>
         </div>
-        <div className={styles.card}>
+        <div className="card">
         <div class="icon-container">
-            <img src={med_kit} alt="kit medico" className={styles.icon_donation} />
+            <img src={med_kit} alt="kit medico" className="icon_donation" />
        </div>
             <div> 
                 <h2>Kit Preventivo <br />de Doenças</h2>
@@ -32,9 +32,9 @@ function DonationCard() {
                 <button>Doe Agora</button> 
             </div>
         </div>
-        <div className={styles.card}>
+        <div className="card">
         <div class="icon-container">
-            <img src={medicine} alt="seringa" className={styles.icon_donation} />
+            <img src={medicine} alt="seringa" className="icon_donation" />
          </div>
             <div> 
                 <h2>Kit Diária <br />de Internação</h2>

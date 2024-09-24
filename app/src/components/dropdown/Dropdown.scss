@@ -1,0 +1,8 @@
+.dropdown-error {
+    border: 1px solid red !important;
+    color: red;
+}
+
+.dropdown-error option:not(:first-child) {
+    color: black;
+}

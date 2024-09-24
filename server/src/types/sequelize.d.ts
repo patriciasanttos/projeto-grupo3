@@ -1,4 +1,4 @@
-import { Animal, Sponsor } from '../database/models/index';
+import { Animal, Permission, Sponsor } from '../database/models/index';
 
 declare module '../database/models' {
   interface Animal {
@@ -11,5 +11,11 @@ declare module '../database/models' {
 
   interface Adoption {
     addAdoption: (animal: Animal | Animal[]) => Promise<void>;
+  }
+
+  interface Admin {
+    addPermission: (permission: Permission | Permission[]) => Promise<void>;
+    setPermissions: (permission: Permission | Permission[]) => Promise<void>;
+    permissions: Permission[];
   }
 }

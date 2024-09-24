@@ -35,9 +35,9 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false
       },
-      permissions: {
+      observation: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
       },
       created_at: {
         type: DataTypes.DATE,

@@ -21,6 +21,10 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false
       },
+      responsible_name: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
       email: {
         type: DataTypes.TEXT,
         allowNull: false,
@@ -36,8 +40,24 @@ module.exports = {
         allowNull: false
       },
       availability: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      study_schedule: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      sector: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      profession: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      observation: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: true
       },
       created_at: {
         type: DataTypes.DATE,

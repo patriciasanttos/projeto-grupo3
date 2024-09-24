@@ -14,24 +14,33 @@ const ModalAnimalsAdmin = ({
 }) => {
   const initialFormAnimals = useMemo(() => {
     return {
+      id: 0,
+      species: "",
       name: "",
-      linkImg: "",
-      sex: "",
+      image: "",
+      oldImage: "",
+      gender: "",
       size: "",
       race: "",
-      local: "",
+      sector: "",
+      bay: 0,
       temperament: "",
-      sponsor: "",
-      status: "",
       stageLife: "",
-      healthHistory: "",
       castrated: "",
-      animalsInfo: "",
+      color: "",
+      vacine: 0,
+      status: "",
+      observation: "",
     };
   }, []);
   const [formAnimals, setFormAnimals] = useState(initialFormAnimals);
 
-  const listSexOption = [
+  const listSpeciesOption = [
+    { id: "Cão", name: "Cão" },
+    { id: "Gato", name: "Gato" },
+  ];
+
+  const listGenderOption = [
     { id: "Macho", name: "Macho" },
     { id: "Fêmea", name: "Fêmea" },
   ];
@@ -53,19 +62,16 @@ const ModalAnimalsAdmin = ({
     { id: "Não", name: "Não" },
   ];
 
-  const listSponsorshipOption = [
-    { id: "Sim", name: "Sim" },
-    { id: "Não", name: "Não" },
-  ];
-
   const listStatusOption = [
     { id: "Disponível", name: "Disponível" },
     { id: "Indisponível", name: "Indisponível" },
+    { id: "Clínica veterinária", name: "Clínica veterinária" },
   ];
 
   useEffect(() => {
     setFormAnimals({
       ...selectedAnimal,
+      oldImage: selectedAnimal?.image
     });
   }, [selectedAnimal, isOpen]);
 
@@ -125,30 +131,28 @@ const ModalAnimalsAdmin = ({
             }
           />
 
-          <input type="file" id="myfile" name="myfile"/>
-
-          {/* <input
-            type="text"
-            name="linkImg"
-            placeholder="Link da imagem"
-            value={getFormState("linkImg")}
-            onChange={(e) =>
-              setFormAnimals({ ...formAnimals, linkImg: e.target.value })
+          <input 
+            type="file" 
+            id="image" 
+            name="image"
+            onChange={(e) => 
+              setFormAnimals({ ...formAnimals, image: e.target.files[0] })
             }
-          /> */}
+          />
         </div>
+
         <div className="al-modal-form">
           <select
-            style={getSelectStyle("sex")}
-            value={getFormState("sex")}
+            style={getSelectStyle("gender")}
+            value={getFormState("gender")}
             onChange={(e) => {
-              setFormAnimals({ ...formAnimals, sex: e.target.value });
+              setFormAnimals({ ...formAnimals, gender: e.target.value });
             }}
           >
             <option value="" disabled>
               Sexo
             </option>
-            {listSexOption.map((item, index) => (
+            {listGenderOption.map((item, index) => (
               <option key={item.id} value={item.id}>
                 {item.name}
               </option>
@@ -188,22 +192,6 @@ const ModalAnimalsAdmin = ({
             }
           />
 
-          <input
-            type="text"
-            name="local"
-            id=""
-            placeholder="Alocação"
-            value={getFormState("local")}
-            onChange={(e) =>
-              setFormAnimals({
-                ...formAnimals,
-                local: e.target.value,
-              })
-            }
-          />
-        </div>
-
-        <div className="al-modal-form">
           <select
             style={getSelectStyle("stageLife")}
             value={getFormState("stageLife")}
@@ -220,6 +208,52 @@ const ModalAnimalsAdmin = ({
               </option>
             ))}
           </select>
+        </div>
+
+        <div className="al-modal-form">
+          <input
+            type="text"
+            name="local"
+            id=""
+            placeholder="Setor"
+            value={getFormState("sector")}
+            onChange={(e) =>
+              setFormAnimals({
+                ...formAnimals,
+                sector: e.target.value,
+              })
+            }
+          />
+
+          <input
+            type="number"
+            name="bay"
+            id=""
+            placeholder="Baia"
+            value={getFormState("bay")}
+            onChange={(e) =>
+              setFormAnimals({
+                ...formAnimals,
+                bay: e.target.value,
+              })
+            }
+          />
+        </div>
+
+        <div className="al-modal-form">
+          <input
+            type="text"
+            name="temperament"
+            id=""
+            placeholder="Temperamento"
+            value={getFormState("temperament")}
+            onChange={(e) =>
+              setFormAnimals({
+                ...formAnimals,
+                temperament: e.target.value,
+              })
+            }
+          />
 
           <select
             style={getSelectStyle("castrated")}
@@ -237,53 +271,43 @@ const ModalAnimalsAdmin = ({
               </option>
             ))}
           </select>
-        </div>
-        <div className="al-modal-form">
-          <input
-            type="text"
-            name="temperament"
-            id=""
-            placeholder="Temperamento"
-            value={getFormState("temperament")}
-            onChange={(e) =>
-              setFormAnimals({
-                ...formAnimals,
-                temperament: e.target.value,
-              })
-            }
-          />
-          <select
-            style={getSelectStyle("sponsor")}
-            value={getFormState("sponsor")}
-            onChange={(e) =>
-              setFormAnimals({ ...formAnimals, sponsor: e.target.value })
-            }
-          >
-            <option value="" disabled>
-              Padrinho
-            </option>
-            {listSponsorshipOption.map((item, index) => (
-              <option key={item.id} value={item.id}>
-                {item.name}
-              </option>
-            ))}
-          </select>
+
         </div>
 
         <div className="al-modal-form">
-          <input
+        <input
             type="text"
-            name="healthHistory"
+            name="color"
             id=""
-            placeholder="Histórico de saúde"
-            value={getFormState("healthHistory")}
+            placeholder="Cor"
+            value={getFormState("color")}
             onChange={(e) =>
               setFormAnimals({
                 ...formAnimals,
-                healthHistory: e.target.value,
+                color: e.target.value,
               })
             }
           />
+
+          <input
+            type="number"
+            min="2000"
+            max="9999"
+            required
+            name="vacine"
+            id=""
+            placeholder="Ano de vacinação"
+            value={getFormState("vacine")}
+            onChange={(e) =>
+              setFormAnimals({
+                ...formAnimals,
+                vacine: e.target.value,
+              })
+            }
+          />
+        </div>
+
+        <div className="al-modal-form">
           <select
             style={getSelectStyle("status")}
             value={getFormState("status")}
@@ -292,9 +316,26 @@ const ModalAnimalsAdmin = ({
             }
           >
             <option value="" disabled>
-              Status de adoção
+              Status
             </option>
             {listStatusOption.map((item, index) => (
+              <option key={item.id} value={item.id}>
+                {item.name}
+              </option>
+            ))}
+          </select>
+
+          <select
+            style={getSelectStyle("species")}
+            value={getFormState("species")}
+            onChange={(e) => {
+              setFormAnimals({ ...formAnimals, species: e.target.value });
+            }}
+          >
+            <option value="" disabled>
+              Espécie
+            </option>
+            {listSpeciesOption.map((item, index) => (
               <option key={item.id} value={item.id}>
                 {item.name}
               </option>
@@ -304,14 +345,14 @@ const ModalAnimalsAdmin = ({
         <textarea
           rows="8"
           cols="10"
-          name="animalsInfo"
+          name="observation"
           id=""
           placeholder="Conte a história do animal"
-          value={getFormState("animalsInfo")}
+          value={getFormState("observation")}
           onChange={(e) =>
             setFormAnimals({
               ...formAnimals,
-              animalsInfo: e.target.value,
+              observation: e.target.value,
             })
           }
         />

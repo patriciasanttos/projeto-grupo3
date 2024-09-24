@@ -1,78 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import AdminNavBar from "../../../components/admin_navbar/AdminNavBar";
 import AdminList from "../../../components/admin_list/AdminList";
 import ModalAnimalsAdmin from "../../../components/modal/modalAnimalsAdmin/ModalAnimalsAdmin";
-import ModalActionsEnum from '../../../utils/ModalActionsEnum'
+import ModalActionsEnum from "../../../utils/ModalActionsEnum";
+import CreateIcon from "../../../assets/icons/create_icon.svg";
 
 import "./styles.scss";
+import Input from "../../../components/input/Input";
+import { createAnimal, deleteAnimal, getAllAnimals, updateAnimal } from "../../../services/api/animals";
 
 function Animals() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalAction, setModalAction] = useState(null);
   const [selectedAnimal, setSelectedAnimal] = useState(null);
-  
-  // To do: Trazer lista do back-end
-  const [animalsList, setAnimalsList] = useState([
-    {
-      id: 1,
-      name: "Hector",
-      linkImg: "hectorporhector",
-      sex: "Macho",
-      size: "Médio",
-      race: "SRD",
-      local: "Setor A - Baia 01",
-      temperament: "ansioso",
-      sponsor: "Não",
-      status: "Disponível",
-      stageLife: "Filhote",
-      healthHistory: "",
-      castrated: "",
-      animalsInfo: "",
-    },
-    {
-      id: 2,
-      name: "Júlia",
-      linkImg: "juliaporjulia",
-      sex: "Fêmea",
-      size: "Médio",
-      race: "SRD",
-      local: "Setor A - Baia 01",
-      temperament: "ansiosa",
-      sponsor: "Sim",
-      status: "Disponível",
-      stageLife: "Filhote",
-      healthHistory: "",
-      castrated: "",
-      animalsInfo: "",
-    },
-    {
-      id: 3,
-      name: "Andressa",
-      linkImg: "andressaporandressa",
-      sex: "Fêmea",
-      size: "Médio",
-      race: "SRD",
-      local: "Setor A - Baia 01",
-      temperament: "ansiosa",
-      sponsor: "Não",
-      status: "Disponível",
-      stageLife: "Filhote",
-      healthHistory: "",
-      castrated: "",
-      animalsInfo: "",
-    },
-  ]);
+  const [animalsList, setAnimalsList] = useState([]);
 
-  // Coluna: title o que será exibido e rowKey pega a propriedade que será exibida
+  useEffect(() => {
+    getAllAnimals().then((animals) => {
+      setAnimalsList(animals.map((animal) => ({
+        ...animal,
+        stageLife: animal.age,
+        castrated: animal.castrated === true ? 'Sim' : 'Não',
+        sponsor: animal.sponsorships?.lenth > 0 ? 'Sim' : 'Não',
+        gender: animal.gender.toUpperCase(),
+        sector: animal.sector.toUpperCase()
+      })))
+    });
+  }, []);
+
+  const initialFilter = {
+    name: null,
+    gender: null,
+    race: null,
+  };
+  const [filter, setFilter] = useState(initialFilter);
+
   const columns = [
+    {
+      title: "ID",
+      rowKey: "id",
+    },
     {
       title: "Nome",
       rowKey: "name",
     },
     {
       title: "Sexo",
-      rowKey: "sex",
+      rowKey: "gender",
     },
     {
       title: "Porte",
@@ -83,8 +58,8 @@ function Animals() {
       rowKey: "race",
     },
     {
-      title: "Local",
-      rowKey: "local",
+      title: "Setor",
+      rowKey: "sector",
     },
     {
       title: "Padrinho",
@@ -96,29 +71,96 @@ function Animals() {
     },
   ];
 
-  // To do: Enviar para o back-end
-  const updateAnimalsList = (animal) => {
+  const getFilteredItems = () => {
+    let results = [...animalsList];
+
+    Object.keys(filter).forEach((filterName) => {
+      if (filter[filterName]) {
+        results = results.filter(
+          (item) =>
+            item[filterName]
+              .toLowerCase()
+              .indexOf(filter[filterName].toLowerCase()) !== -1
+        );
+      }
+    });
+
+    return results;
+  };
+
+  const updateAnimalsList = async (animal) => {
     let animals = [...animalsList];
     animals[animal.id - 1] = {
       ...animal,
     };
+
+    const formData = new FormData();
+
+    formData.append("id", animal.id);
+    formData.append("species", animal.species);
+    formData.append("name", animal.name);
+    formData.append("gender", animal.gender === 'Macho' ? 'm' : 'f');
+    formData.append("size", animal.size);
+    formData.append("race", animal.race);
+    formData.append("bay", animal.bay);
+    formData.append("sector", animal.sector);
+    formData.append("temperament", animal.temperament);
+    formData.append("status", animal.status);
+    formData.append("age", animal.stageLife);
+    formData.append("castrated", animal.castrated === 'Sim' ? true : false);
+    formData.append("color", animal.color);
+    formData.append("vacine", animal.vacine);
+    formData.append("observation", animal.observation);
+
+    if (animal.image && animal.image !== animal.oldImage) {
+      formData.append("image", animal.image);
+    }
+
+    await updateAnimal(formData)
+      .catch(error => console.log(error));
+
     setAnimalsList(animals);
     setIsModalOpen(false);
   };
 
-  // To do: Enviar para o back-end
-  const deleteAnimalsList = (animal) => {
+  const deleteAnimalsList = async (animal) => {
+    await deleteAnimal(animal.id);
+
     setAnimalsList(animalsList.filter((animals) => animals.id !== animal.id));
     setIsModalOpen(false);
   }
 
-  // To do: Enviar para o back-end
-  const createAnimalsList = (animal) => {
+  const createAnimalsList = async (animal) => {
     let animals = [...animalsList];
     animals.push({
       ...animal,
       id: animalsList.length + 1,
     });
+
+    const formData = new FormData();
+
+    formData.append("species", animal.species);
+    formData.append("name", animal.name);
+    formData.append("gender", animal.gender === 'Macho' ? 'm' : 'f');
+    formData.append("size", animal.size);
+    formData.append("race", animal.race);
+    formData.append("bay", animal.bay);
+    formData.append("sector", animal.sector);
+    formData.append("temperament", animal.temperament);
+    formData.append("status", animal.status);
+    formData.append("age", animal.stageLife);
+    formData.append("castrated", animal.castrated === 'Sim' ? true : false);
+    formData.append("color", animal.color);
+    formData.append("vacine", animal.vacine);
+    formData.append("observation", animal.observation);
+
+    if (animal.image) {
+      formData.append("image", animal.image);
+    }
+
+    await createAnimal(formData)
+      .catch(error => console.log(error));
+
     setAnimalsList(animals);
     setIsModalOpen(false);
   };
@@ -138,22 +180,57 @@ function Animals() {
   const onClickNewAnimal = () => {
     setIsModalOpen(true);
     setSelectedAnimal(null);
-    setModalAction(ModalActionsEnum.CREATE)
+    setModalAction(ModalActionsEnum.CREATE);
+  };
+  
+  const getFilterState = (field) => {
+    return filter && filter[field] ? filter[field] : "";
   };
 
   return (
     <>
       <AdminNavBar headerTitle="Animais">
-        <button onClick={onClickNewAnimal}>Adicionar</button>
         <div className="animal-list-container">
-          <AdminList
-            columns={columns}
-            rows={animalsList}
-            onClickEditRow={onClickEditAnimal}
-            onClickDeleteRow={onClickDeleteAnimal}
-          />
+          <div className="filters">
+            <Input
+              type="text"
+              placeholder="Animal"
+              value={getFilterState("name")}
+              onChange={(e) => setFilter({ ...filter, name: e.target.value })}
+            />
+
+            <Input
+              type="text"
+              placeholder="Sexo"
+              value={getFilterState("gender")}
+              onChange={(e) => setFilter({ ...filter, gender: e.target.value })}
+            />
+
+            <Input
+              type="text"
+              placeholder="Raça"
+              value={getFilterState("race")}
+              onChange={(e) => setFilter({ ...filter, race: e.target.value })}
+            />
+          </div>
+
+          <div className="add-icon">
+            Adicionar
+            <img
+              className="pointer"
+              src={CreateIcon}
+              onClick={onClickNewAnimal}
+              alt=""
+            />
+          </div>
         </div>
-        
+
+        <AdminList
+          columns={columns}
+          rows={getFilteredItems()}
+          onClickEditRow={onClickEditAnimal}
+          onClickDeleteRow={onClickDeleteAnimal}
+        />
       </AdminNavBar>
       <ModalAnimalsAdmin
         isOpen={isModalOpen}

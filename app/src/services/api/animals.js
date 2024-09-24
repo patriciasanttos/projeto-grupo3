@@ -9,13 +9,21 @@ export const getAnimalById = async (id) => {
 }
 
 export const createAnimal = async (data) => {
-    return await axiosPost('/animals', data);
+    return await axiosPost('/animals', data, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    });
 }
 
 export const updateAnimal = async (data) => {
-    return await axiosPut('/animals', data);
+    return await axiosPut('/animals', data, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    });
 }
 
 export const deleteAnimal = async (id) => {
-    return await axiosDelete(`/animals/:${id}`);
+    return await axiosDelete(`/animals/${id}`);
 }

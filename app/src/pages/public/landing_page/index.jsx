@@ -7,12 +7,14 @@ import Carousel from "../../../components/carousel/Carousel";
 import DonationCard from "../../../components/card_donation/DonationCard";
 import ModalLPSponsorship from "../../../components/modal/modalLPSponsorship";
 import LoadingPaw from "../../../components/loadingPaw"
-// import styles from './styles.css';
+import { getAllAnimals } from "../../../services/api/animals";
+
 import "./landingPage.scss";
-// import { animals } from './animals';
 
 // import images
-import partnerImg from "../../../assets/images/partner-img.svg";
+import vetSluzia from "../../../assets/images/vet-sluzia.svg";
+import agrotela from "../../../assets/images/agrotela.svg";
+import vetJf from "../../../assets/images/vet-Jf.svg";
 import sponsorImg from "../../../assets/images/sponsor-img.svg";
 import volunteerImg from "../../../assets/images/volunteer-img.svg";
 import imageDog1 from "../../../assets/images/dog1.svg";
@@ -24,7 +26,6 @@ import heart from "../../../assets/icons/heart.svg";
 import cat from "../../../assets/icons/cat.svg";
 import socialMedia from "../../../assets/icons/social-media.svg";
 import bath from "../../../assets/icons/bath.svg";
-import { getAllAnimals } from "../../../services/api/animals";
 
 function LandingPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -40,8 +41,11 @@ function LandingPage() {
   useEffect(() => {
     getAllAnimals()
       .then(async data => {
-        await data.forEach(animal => {
-          return animals.push({ ...animal, image: imageDog1 })
+        await data.forEach((animal, index) => {
+          return animals.push({ 
+            ...animal, 
+            image: animal.image ? `data:image/png;base64,${animal.image}` : imageDog1
+          })
         });
         setLoading(false);
     });
@@ -76,13 +80,11 @@ function LandingPage() {
           CONHEÇA ALGUNS DE NOSSOS ANIMAIS
         </h3>
         <h1 className="title adoption-title">Adote seu novo companheiro!</h1>
-        {
-          loading ? (
-            <LoadingPaw/>
-          ) : (
-            <Carousel animals={animals} onClickCardAnimal={onClickCardAnimal} />
-          )
-        }
+        {loading ? (
+          <LoadingPaw />
+        ) : (
+          <Carousel animals={animals} onClickCardAnimal={onClickCardAnimal} />
+        )}
         <div className="align-btn margin-btn">
           <Link to="/adoption">
             <button className="btn-adoption btn">Conheça mais animais</button>
@@ -94,10 +96,21 @@ function LandingPage() {
         <h3 className="subtitle">Junte-se a nós</h3>
         <h1 className=" title partner-title">Seja um parceiro</h1>
         <div className="align-partner-cards">
-          <img src={partnerImg} alt="" />
-          <img src={partnerImg} alt="" />
-          <img src={partnerImg} alt="" />
-          <img src={partnerImg} alt="" />
+          <a
+            href="https://www.instagram.com/clinicavetsantaluzia/"
+            target="blank"
+          >
+            <img src={vetSluzia} alt="" />{" "}
+          </a>
+          <a href="https://www.instagram.com/agrotela/" target="blank">
+            <img src={agrotela} alt="" />
+          </a>
+          <a
+            href="https://www.instagram.com/clinicaveterinaria_cvjf"
+            target="blank"
+          >
+            <img src={vetJf} alt="" />
+          </a>
         </div>
         <div className="align-btn margin-top-btn">
           <a
@@ -112,64 +125,62 @@ function LandingPage() {
       <section className="sponsor-volunteer">
         <section className="sponsor-section">
           <div>
-            <h3 className="subtitle">
-              Com doações você pode adotar um animal
-            </h3>
+            <h3 className="subtitle">Com doações você pode apoiar um animal</h3>
             <h1 className="title">Apadrinhe</h1>
             <p className="sponsor-text">
-              O padrinho ajuda no bem estar e no
-              <br />
-              cuidado do animal. Você pode se sentir
-              <br />a vontade para visitá-lo quando quiser.
-              <br />
-              Contribua mensalmente!
+              O padrinho ajuda no bem estar e no cuidado do animal. <br /> Você
+              pode se sentir a vontade para visitá-lo quando quiser.
+              <br /> Contribua mensalmente!
             </p>
             <Link to="/sponsorship">
               <button className="btn-sponsor btn">Quero apadrinhar</button>
             </Link>
           </div>
-          <div>
+          <div className="image-content">
             <img src={sponsorImg} alt="" />
           </div>
         </section>
 
         <section className="volunteer-section">
-          <div>
+          <div className="image-content">
             <img src={volunteerImg} alt="" />
           </div>
-          <div>
+          <div >
             <h3 className="subtitle">Junte-se a nós</h3>
             <h1 className="title">Seja um voluntário</h1>
-            <div className="icon-container">
-              <div className="icon-column">
-                <div className="icon-text">
-                  <img src={dog} alt={"Dog"} />
-                  <label>Limpeza de Canil</label>
+
+            <div className="icon-container-center">
+              <div className="icon-container">
+                <div className="icon-column">
+                  <div className="icon-text">
+                    <img src={dog} alt={"Dog"} />
+                    <label>Limpeza de Canil</label>
+                  </div>
+                  <div className="icon-text">
+                    <img src={walkDog} alt={"Walk Dog"} />
+                    <label>Passeio com os cães</label>
+                  </div>
+                  <div className="icon-text">
+                    <img src={heart} alt={"Heart"} />
+                    <label>Dar carinho</label>
+                  </div>
                 </div>
-                <div className="icon-text">
-                  <img src={walkDog} alt={"Walk Dog"} />
-                  <label>Passeio com os cães</label>
-                </div>
-                <div className="icon-text">
-                  <img src={heart} alt={"Heart"} />
-                  <label>Dar carinho</label>
+                <div className="icon-column">
+                  <div className="icon-text">
+                    <img src={cat} alt={"Cat"} />
+                    <label>Limpeza de Gatil</label>
+                  </div>
+                  <div className="icon-text">
+                    <img src={socialMedia} alt={"Social Media"} />
+                    <label>Divulgação nas Redes Sociais</label>
+                  </div>
+                  <div className="icon-text">
+                    <img src={bath} alt={"Bath"} />
+                    <label>Dar um banho</label>
+                  </div>
                 </div>
               </div>
-              <div className="icon-column">
-                <div className="icon-text">
-                  <img src={cat} alt={"Cat"} />
-                  <label>Limpeza de Gatil</label>
-                </div>
-                <div className="icon-text">
-                  <img src={socialMedia} alt={"Social Media"} />
-                  <label>Divulgação nas Redes Sociais</label>
-                </div>
-                <div className="icon-text">
-                  <img src={bath} alt={"Bath"} />
-                  <label>Dar um banho</label>
-                </div>
               </div>
-            </div>
             <Link to="/volunteers">
               <button className="btn-volunteer btn">
                 Quero ser voluntário

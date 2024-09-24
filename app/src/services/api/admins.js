@@ -11,19 +11,28 @@ export const getAdminById = async (id) => {
 export const loginAdmin = async ({ user, password }) => {
     return await axiosGet(`/admins/login`, {
         headers: {
-            'Authorization': `${user}:${password}`
+            'Authorization': `${user}:${password}`,
+            'Content-Type': 'application/json'
         }
     });
 }
 
 export const createAdmin = async (data) => {
-    return await axiosPost('/admins/login', data);
+    return await axiosPost('/admins', data, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
 }
 
 export const updateAdmin = async (data) => {
-    return await axiosPut('/admins', data);
+    return await axiosPut('/admins', data, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
 }
 
 export const deleteAdmin = async (id) => {
-    return await axiosDelete(`/animals/:${id}`);
+    return await axiosDelete(`/admins/${id}`);
 }

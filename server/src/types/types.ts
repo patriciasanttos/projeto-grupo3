@@ -1,5 +1,7 @@
+import { Permission } from "../database/models"
+
 export type AnimalType = {
-    id: number,
+    id?: number,
     image: string,
     name: string,
     species: string,
@@ -56,10 +58,17 @@ export type VolunteerType = {
     id: number,
     image?: string,
     name: string,
+    responsible_name?: string,
     email: string,
     phone: number,
     address: string,
     availability: string,
+    study_schedule?: string,
+    profession?: string,
+    sector: string,
+    observation?: string,
+    created_at?: string,
+    updated_at?: string,
 }
 
 export type AdminType = {
@@ -69,5 +78,5 @@ export type AdminType = {
     email: string,
     phone: number,
     password: string,
-    permissions: string,
+    permissions?: Permission[],
 }

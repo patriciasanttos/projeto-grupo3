@@ -55,11 +55,11 @@ export default {
         }
     },
 
-    async updateAnimal({ id, data }: { id: number, data: AnimalType }): Promise<{ code: number, data?: {} }> {
+    async updateAnimal(data: AnimalType): Promise<{ code: number, data?: {} }> {
         try {
             //-----Buscar animal na tabela
-            const animal = await Animal.findByPk(id)
-            
+            const animal = await Animal.findByPk(data.id)
+
             if (animal === null)
                 return {
                     code: 404,
@@ -68,6 +68,7 @@ export default {
                     }
                 };
 
+            delete data.id;
             await animal.update({ ...data });
 
             return {

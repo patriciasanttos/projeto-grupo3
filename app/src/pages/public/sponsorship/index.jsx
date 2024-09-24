@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import styles from "./styles.module.css";
+import "./sponsorship.scss";
 
 import NavBar from "../../../components/navbar/NavBar";
 import Footer from "../../../components/footer/Footer";
@@ -56,33 +56,36 @@ function Sponsorship() {
       {loading ? (
         <LoadingPaw />
       ) : (
-        <div className={styles.contentContainer}>
-          <p className={styles.text}>Conheça alguns de nossos animais</p>
-          <div className={styles.photoGallery}>
-            <div className={styles.cardContainer}>
-              {paginatedAnimals.map((animal) => (
-                <CardAnimal
-                  onClickButton={onClickCardAnimal}
-                  animal={animal}
-                  key={animal.id}
-                  image={animal.image}
-                  name={
-                    animal.name.charAt(0).toUpperCase() +
-                    animal.name.slice(1).toLowerCase()
-                  }
-                  gender={
-                    ["m", "M"].includes(animal.gender) ? "Macho" : "Fêmea"
-                  }
-                  race={
-                    animal.race === "srd"
-                      ? "Sem raça definida"
-                      : `${animal.race.charAt(0).toUpperCase()}${animal.race
-                          .slice(1)
-                          .toLowerCase()}`
-                  }
-                  age={animal.age}
-                />
-              ))}
+        <div className="contentContainer">
+          <p className="text">Conheça alguns de nossos animais</p>
+
+          <div className="photoGalleryCenter">
+            <div className="photoGallery">
+              <div className="cardContainer">
+                {paginatedAnimals.map((animal) => (
+                  <CardAnimal
+                    onClickButton={onClickCardAnimal}
+                    animal={animal}
+                    key={animal.id}
+                    image={animal.image}
+                    name={
+                      animal.name.charAt(0).toUpperCase() +
+                      animal.name.slice(1).toLowerCase()
+                    }
+                    gender={
+                      ["m", "M"].includes(animal.gender) ? "Macho" : "Fêmea"
+                    }
+                    race={
+                      animal.race === "srd"
+                        ? "Sem raça definida"
+                        : `${animal.race.charAt(0).toUpperCase()}${animal.race
+                            .slice(1)
+                            .toLowerCase()}`
+                    }
+                    age={animal.age}
+                  />
+                ))}
+              </div>
             </div>
           </div>
           <Pagination

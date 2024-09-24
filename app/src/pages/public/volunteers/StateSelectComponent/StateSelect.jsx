@@ -1,9 +1,14 @@
 import React from 'react';
+import Dropdown from '../../../../components/dropdown'
 
-const StateSelect = ({ onChange }) => {
+const StateSelect = ({ onChange, error }) => {
   return (
-    <select defaultValue="" onChange={onChange}>
-      <option value="" disabled>Estado</option>
+    <Dropdown
+      defaultValue=""
+      placeholder="Estado"
+      onChange={onChange}
+      error={error}
+    >
       <option value="AC">Acre</option>
       <option value="AL">Alagoas</option>
       <option value="AP">Amapá</option>
@@ -31,7 +36,7 @@ const StateSelect = ({ onChange }) => {
       <option value="SP">São Paulo</option>
       <option value="SE">Sergipe</option>
       <option value="TO">Tocantins</option>
-    </select>
+    </Dropdown>
   );
 };
 

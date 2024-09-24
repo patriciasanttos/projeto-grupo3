@@ -8,7 +8,7 @@ interface AdminInfo {
     email: string,
     phone: number
     password: string,
-    permissions: string,
+    observation?: string,
     created_at?: string,
     updated_at?: string,
 }
@@ -47,9 +47,9 @@ Admin.init({
       type: DataTypes.STRING,
       allowNull: false
     },
-    permissions: {
-      type: DataTypes.STRING,
-      allowNull: false
+    observation: {
+      type: DataTypes.TEXT,
+      allowNull: true
     },
     created_at: {
       type: DataTypes.DATE,
