@@ -9,11 +9,19 @@ export const getVolunteerById = async (id) => {
 }
 
 export const createVolunteer = async (data) => {
-    return await axiosPost('/volunteers', data);
+    return await axiosPost('/volunteers', data, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
 }
 
 export const updateVolunteer = async (data) => {
-    return await axiosPut('/volunteers', data);
+    return await axiosPut('/volunteers', data, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
 }
 
 export const deleteVolunteer = async (id) => {

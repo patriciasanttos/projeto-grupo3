@@ -9,9 +9,7 @@ import ModalLPSponsorship from "../../../components/modal/modalLPSponsorship";
 import LoadingPaw from "../../../components/loadingPaw"
 import { getAllAnimals } from "../../../services/api/animals";
 
-// import styles from './styles.css';
 import "./landingPage.scss";
-// import { animals } from './animals';
 
 // import images
 import partnerImg from "../../../assets/images/partner-img.svg";
@@ -41,8 +39,11 @@ function LandingPage() {
   useEffect(() => {
     getAllAnimals()
       .then(async data => {
-        await data.forEach(animal => {
-          return animals.push({ ...animal, image: imageDog1 })
+        await data.forEach((animal, index) => {
+          return animals.push({ 
+            ...animal, 
+            image: animal.image ? `data:image/png;base64,${animal.image}` : imageDog1
+          })
         });
         setLoading(false);
     });

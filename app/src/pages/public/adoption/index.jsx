@@ -36,7 +36,10 @@ const Adoption = () => {
       const data = (await getAllAnimals()).slice(0, LIMIT_ITEMS);
 
       await data.forEach((animal) => {
-        animals.push({ ...animal, image: imageDog1 });
+        animals.push({ 
+          ...animal, 
+          image: animal.image ? `data:image/png;base64,${animal.image}` : imageDog1
+        });
       });
 
       setAnimals(animals);
