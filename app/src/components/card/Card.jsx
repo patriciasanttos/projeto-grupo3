@@ -1,10 +1,10 @@
 import React from 'react';
 
-import styles from './styles.module.css';
+import './Card.scss';
 
 function Card({ name, img, role }) {
   return (
-    <div className={styles.card}>
+    <div className="card">
         <img src={img} alt="Foto" />
 
         <h2>{name}</h2>

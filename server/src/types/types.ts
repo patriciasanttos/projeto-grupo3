@@ -20,32 +20,15 @@ export type AnimalType = {
 }
 
 export type SponsorshipType = {
-    id: number,
+    id?: number,
     name: string,
     email: string,
     phone: number,
-    animal_id: number,
+    animal_id?: number,
 }
 
 export type AdoptionType = {
-    id?: number,
     animal_id: number,
-    name?: string,
-    image?: string,
-    species?: string,
-    race?: string,
-    size?: string,
-    color?: string,
-    vacine?: number,
-    castrated?: boolean,
-    age?: string,
-    gender?: string,
-    temperament?: string,
-    bay?: number,
-    sector?: string,
-    status?: string,
-    observation?: string,
-    animal_created_at: string,
     tutors_name: string,
     email: string,
     phone: number,

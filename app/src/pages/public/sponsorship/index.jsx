@@ -7,7 +7,7 @@ import Footer from "../../../components/footer/Footer";
 import Menu from "../../../components/menu/Menu";
 import CardAnimal from "../../../components/cardAnimal/CardAnimal";
 import ModalLPSponsorship from "../../../components/modal/modalLPSponsorship";
-import imageDog1 from "../../../assets/images/dog1.svg";
+import imageDog1 from "../../../assets/images/landing_page/dog1.svg";
 import ContentHero from "../../../components/contentHero/ContentHero";
 import LoadingPaw from "../../../components/loadingPaw";
 import { getAllAnimals } from "../../../services/api/animals";

@@ -37,7 +37,7 @@
             border-radius: 0.625rem;
             color: black;
             padding: 1.5% 2% 2% 2%;
-            background-image: url(../../assets/images/bg-green.svg);
+            background-image: url("../../assets/images/backgrounds/bg-green.svg");
             background-size: cover;
 
             .modalHeader {
@@ -115,6 +115,12 @@
                 flex-direction: row;
                 justify-content: space-evenly;
                 gap: 40px;
+
+                input[readonly] {
+                    opacity: 0.6;
+                    background-color: #f0f0f0;
+                    cursor: not-allowed;
+                }
             }
 
             .list-checkbox-container {

@@ -12,20 +12,21 @@ import { getAllAnimals } from "../../../services/api/animals";
 import "./landingPage.scss";
 
 // import images
-import vetSluzia from "../../../assets/images/vet-sluzia.svg";
-import agrotela from "../../../assets/images/agrotela.svg";
-import vetJf from "../../../assets/images/vet-Jf.svg";
-import sponsorImg from "../../../assets/images/sponsor-img.svg";
-import volunteerImg from "../../../assets/images/volunteer-img.svg";
-import imageDog1 from "../../../assets/images/dog1.svg";
+import vetSluzia from "../../../assets/images/landing_page/vet-sluzia.svg";
+import agrotela from "../../../assets/images/landing_page/agrotela.svg";
+import vetJf from "../../../assets/images/landing_page/vet-Jf.svg";
+import arca from "../../../assets/images/landing_page/arca.svg";
+import sponsorImg from "../../../assets/images/landing_page/sponsor-img.svg";
+import volunteerImg from "../../../assets/images/landing_page/volunteer-img.svg";
+import imageDog1 from "../../../assets/images/landing_page/dog1.svg";
 
 // import icons
-import dog from "../../../assets/icons/dog.svg";
-import walkDog from "../../../assets/icons/walk-dog.svg";
-import heart from "../../../assets/icons/heart.svg";
-import cat from "../../../assets/icons/cat.svg";
-import socialMedia from "../../../assets/icons/social-media.svg";
-import bath from "../../../assets/icons/bath.svg";
+import dog from "../../../assets/icons/landing_page/dog.svg";
+import walkDog from "../../../assets/icons/landing_page/walk-dog.svg";
+import heart from "../../../assets/icons/landing_page/heart.svg";
+import cat from "../../../assets/icons/landing_page/cat.svg";
+import socialMedia from "../../../assets/icons/landing_page/social-media.svg";
+import bath from "../../../assets/icons/landing_page/bath.svg";
 
 function LandingPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -111,6 +112,9 @@ function LandingPage() {
           >
             <img src={vetJf} alt="" />
           </a>
+          <a href="https://www.instagram.com/arcapetstorejf/" target="blank">
+            <img src={arca} alt="" />{" "}
+          </a>
         </div>
         <div className="align-btn margin-top-btn">
           <a
@@ -143,9 +147,9 @@ function LandingPage() {
 
         <section className="volunteer-section">
           <div className="image-content">
-            <img src={volunteerImg} alt="" />
+            <img className="volunteer-img" src={volunteerImg} alt="" />
           </div>
-          <div >
+          <div>
             <h3 className="subtitle">Junte-se a nós</h3>
             <h1 className="title">Seja um voluntário</h1>
 
@@ -180,7 +184,7 @@ function LandingPage() {
                   </div>
                 </div>
               </div>
-              </div>
+            </div>
             <Link to="/volunteers">
               <button className="btn-volunteer btn">
                 Quero ser voluntário

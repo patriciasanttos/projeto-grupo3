@@ -25,5 +25,5 @@ export const updateSponsorship = async (data) => {
 }
 
 export const deleteSponsorship = async (id) => {
-    return await axiosDelete(`/sponsorships/:${id}`);
+    return await axiosDelete(`/sponsorships/${id}`);
 }
