@@ -193,3 +193,33 @@
             background-color: var(--button-hover-color);
         }
     }
+
+    @media (max-width: 768px) {
+        .volunteer-info {
+            width: 75% !important;
+
+            .align-volunteers-info {
+                display: flex !important; 
+                flex-direction: column;
+            }
+
+            .volunteer-title {
+                padding: 20px 0px;
+            }
+
+            .icon-text {
+                padding: 0px !important;
+
+                li {
+
+                    padding: 10px 5px;
+                    margin:0px;
+
+                    br {
+                        display: none;
+                    }
+                }
+            }
+
+        }
+    }
