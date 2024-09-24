@@ -46,10 +46,10 @@
         background-repeat: no-repeat;
         background-position: center center;
 
-        padding-bottom: 7rem;
-        padding-top: 3rem;
+        padding-bottom: 60px;
+        padding-top: 60px;
 
-        .aboutus-team-cards {
+        .aboutus-team-cards-scroll {
             color: #2D2D33;
 
             padding: 5% 2% 0 10%;
@@ -58,7 +58,7 @@
             display: grid;
             grid-auto-flow: column;
             grid-template-rows: 1fr 1fr;
-            gap: 10%;
+            gap: 5%;
         }
     }
 }
@@ -80,6 +80,24 @@
                     width: 70%;
                 }
             }
+        }
+
+        .aboutus-section-team {
+            padding-bottom: 40px;
+
+            .aboutus-team-cards {
+                justify-content: initial;
+                margin: 0px 15px;
+                overflow-x: auto;
+
+                .aboutus-team-cards-scroll {
+                    flex: 0 0 auto;
+                    width: 70%;
+                    margin-bottom: 20px;
+                    gap: 10%;
+                }
+            }
+
         }
 
     }
