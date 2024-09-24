@@ -66,7 +66,6 @@ export default {
             // -----Salvar adoção na tabela
             await Adoption.create({
                 ...data,
-                id: animal.id,
                 name: animal.name,
                 image: animal.image,
                 species: animal.species,

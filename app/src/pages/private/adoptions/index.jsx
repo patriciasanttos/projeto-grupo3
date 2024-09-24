@@ -8,6 +8,7 @@ import CreateIcon from "../../../assets/icons/create_icon.svg";
 
 import "./styles.scss";
 import Input from "../../../components/input/Input";
+import { createAdoption } from "../../../services/api/adoptions";
 
 function Adoptions() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -129,13 +130,22 @@ function Adoptions() {
     setIsModalOpen(false);
   };
 
-  // To do: Enviar para o back-end
-  const createTutorsList = (tutor) => {
+  const createTutorsList = async (tutor) => {
     let tutors = [...tutorsList];
     tutors.push({
       ...tutor,
       id: tutorsList.length + 1,
     });
+
+    await createAdoption({
+      ...tutor,
+      phone: Number(tutor.phone.replace(/[()\-\s]/g, ''))
+    })
+      .then(res => console.log(res))
+      .catch(error => {
+        console.log(error);
+      });
+
     setTutorsList(tutors);
     setIsModalOpen(false);
   };

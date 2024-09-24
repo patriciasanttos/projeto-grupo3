@@ -14,17 +14,12 @@ const ModalAdoptionsAdmin = ({
   deleteTutorsList,
 }) => {
   const initialFormTutors = {
-    name: "",
+    tutors_name: "",
     email: "",
-    phoneNumber: "",
+    phone: "",
     address: "",
-    nameAnimal: "",
-    sex: "",
-    temperament: "",
-    castrated: "",
-    healthHistory: "",
-    adoptionDate: "",
-    tutorsInfo: "",
+    animal_id: "",
+    observation: "",
   };
   const [formTutors, setFormTutors] = useState(initialFormTutors);
 
@@ -62,7 +57,7 @@ const ModalAdoptionsAdmin = ({
       isOpen={isOpen}
       onModalClose={onClickModalClose}
       onDeleteConfirm={onClickDelete}
-      message={`Deseja apagar o tutor: ${selectedTutor.name}`}
+      message={`Deseja apagar o tutor: ${selectedTutor.tutors_name}`}
     />
   ) : (
     <Modal
@@ -78,9 +73,9 @@ const ModalAdoptionsAdmin = ({
             type="text"
             name="name"
             placeholder="Nome do Tutor"
-            value={getFormState("name")}
+            value={getFormState("tutors_name")}tutors_name
             onChange={(e) =>
-              setFormTutors({ ...formTutors, name: e.target.value })
+              setFormTutors({ ...formTutors, tutors_name: e.target.value })
             }
           />
           <input
@@ -98,9 +93,9 @@ const ModalAdoptionsAdmin = ({
             type="text"
             name="Celular"
             placeholder="Contato"
-            value={getFormState("phoneNumber")}
+            value={getFormState("phone")}
             onAccept={(value, maskRef, e) =>
-              setFormTutors({ ...formTutors, phoneNumber: value })
+              setFormTutors({ ...formTutors, phone: value })
             }
             mask={"(00) 00000-0000"}
           />
@@ -120,102 +115,31 @@ const ModalAdoptionsAdmin = ({
         <div className="al-modal-form">
           <input
             type="text"
-            name="nameAnimal"
+            name="animal_id"
             id=""
-            placeholder="Nome do animal"
-            value={getFormState("nameAnimal")}
+            placeholder="ID do animal"
+            readOnly={selectedTutor ? true : false}
+            value={getFormState("animal_id")}
             onChange={(e) =>
               setFormTutors({
                 ...formTutors,
-                nameAnimal: e.target.value,
-              })
-            }
-          />
-
-          <input
-            type="text"
-            name="sex"
-            id=""
-            placeholder="Sexo do animal"
-            value={getFormState("sex")}
-            onChange={(e) =>
-              setFormTutors({
-                ...formTutors,
-                sex: e.target.value,
+                animal_id: e.target.value,
               })
             }
           />
         </div>
 
-        <div className="al-modal-form">
-          <input
-            type="text"
-            name="temperament"
-            id=""
-            placeholder="Temperamento do animal"
-            value={getFormState("temperament")}
-            onChange={(e) =>
-              setFormTutors({
-                ...formTutors,
-                temperament: e.target.value,
-              })
-            }
-          />
-
-          <input
-            type="text"
-            name="castrated"
-            id=""
-            placeholder="Castrado"
-            value={getFormState("castrated")}
-            onChange={(e) =>
-              setFormTutors({
-                ...formTutors,
-                castrated: e.target.value,
-              })
-            }
-          />
-        </div>
-        <div className="al-modal-form">
-          <input
-            type="text"
-            name="healthHistory"
-            id=""
-            placeholder="Histórico de saúde"
-            value={getFormState("healthHistory")}
-            onChange={(e) =>
-              setFormTutors({
-                ...formTutors,
-                healthHistory: e.target.value,
-              })
-            }
-          />
-
-          <input
-            type="text"
-            name="adoptionDate"
-            id=""
-            placeholder="Data da adoção"
-            value={getFormState("adoptionDate")}
-            onChange={(e) =>
-              setFormTutors({
-                ...formTutors,
-                adoptionDate: e.target.value,
-              })
-            }
-          />
-        </div>
         <textarea
           rows="8"
           cols="10"
-          name="tutorsInfo"
+          name="observation"
           id=""
           placeholder="Adicione informações importantes sobre o tutor ou animal"
-          value={getFormState("tutorsInfo")}
+          value={getFormState("observation")}
           onChange={(e) =>
             setFormTutors({
               ...formTutors,
-              tutorsInfo: e.target.value,
+              observation: e.target.value,
             })
           }
         />
