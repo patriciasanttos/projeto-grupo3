@@ -1,11 +1,11 @@
 import React, { Children } from 'react';
 
 import logo from '../../assets/images/logo.svg';
-import animals_icon from '../../assets/icons/animals_icon.svg';
-import sponsorships_icon from '../../assets/icons/sponsorships_icon.svg';
-import adoptions_icon from '../../assets/icons/adoptions_icon.svg';
-import volunteers_icon from '../../assets/icons/volunteers_icon.svg';
-import admin_icon from "../../assets/icons/admin_icon.svg";
+import animals_icon from '../../assets/icons/navbar_admin/animals_icon.svg';
+import sponsorships_icon from "../../assets/icons/navbar_admin/sponsorships_icon.svg";
+import adoptions_icon from "../../assets/icons/navbar_admin/adoptions_icon.svg";
+import volunteers_icon from "../../assets/icons/navbar_admin/volunteers_icon.svg";
+import admin_icon from "../../assets/icons/navbar_admin/admin_icon.svg";
 
 import './styles.scss';
 import { Link } from 'react-router-dom';

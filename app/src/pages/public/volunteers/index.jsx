@@ -10,20 +10,20 @@ import FormUnder18 from "./FormUnder18";
 import "./volunteers.scss";
 
 //Icons
-import dog from "../../../assets/icons/dog.svg";
-import walkDog from "../../../assets/icons/walk-dog.svg";
-import heart from "../../../assets/icons/heart.svg";
-import cat from "../../../assets/icons/cat.svg";
-import socialMedia from "../../../assets/icons/social-media.svg";
-import bath from "../../../assets/icons/bath.svg";
-import clothing from "../../../assets/icons/clothing.svg";
-import gloves from "../../../assets/icons/gloves.svg";
-import food from "../../../assets/icons/food.svg";
-import dogHouse from "../../../assets/icons/dog-house.svg";
-import attention from "../../../assets/icons/attention.svg";
-import volunteers from "../../../assets/icons/volunteers.svg";
-import clock from "../../../assets/icons/clock.svg";
-import whatsApp from "../../../assets/icons/whatsapp.svg";
+import dog from "../../../assets/icons/landing_page/dog.svg";
+import walkDog from "../../../assets/icons/landing_page/walk-dog.svg";
+import heart from "../../../assets/icons/landing_page/heart.svg";
+import cat from "../../../assets/icons/landing_page/cat.svg";
+import socialMedia from "../../../assets/icons/landing_page/social-media.svg";
+import bath from "../../../assets/icons/landing_page/bath.svg";
+import clothing from "../../../assets/icons/volunteers_lp/clothing.svg";
+import gloves from "../../../assets/icons/volunteers_lp/gloves.svg";
+import food from "../../../assets/icons/volunteers_lp/food.svg";
+import dogHouse from "../../../assets/icons/volunteers_lp/dog-house.svg";
+import attention from "../../../assets/icons/volunteers_lp/attention.svg";
+import volunteers from "../../../assets/icons/volunteers_lp/volunteers.svg";
+import clock from "../../../assets/icons/volunteers_lp/clock.svg";
+import whatsApp from "../../../assets/icons/volunteers_lp/whatsapp.svg";
 
 // import { Container } from './styles';
 

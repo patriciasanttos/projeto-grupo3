@@ -2,9 +2,9 @@ import React from 'react';
 
 import './DonationCard.scss';
 
-import broom from '../../assets/icons/broom.svg'
-import med_kit from '../../assets/icons/med_kit.svg'
-import medicine from '../../assets/icons/medicine.svg'
+import broom from '../../assets/icons/donation/broom.svg'
+import med_kit from "../../assets/icons/donation/med_kit.svg";
+import medicine from "../../assets/icons/donation/medicine.svg";
 
 
 function DonationCard() {

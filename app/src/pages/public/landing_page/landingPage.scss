@@ -51,7 +51,7 @@ h3 {
 }
 
 .hero {
-    background-image: url("../../../assets/images/hero-dog-desktop.png");
+    background-image: url("../../../assets/images/backgrounds/hero-dog-desktop.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -83,7 +83,7 @@ h3 {
 }
 
 .section-adoption {
-    background-image: url('../../../assets/images/background.svg');
+    background-image: url('../../../assets/images/backgrounds/bg-gray-paw.svg');
     background-repeat: no-repeat;
     text-align: center;
     padding: 2rem 0;
@@ -104,7 +104,7 @@ h3 {
 }
 
 .partner {
-    background-image: url('../../../assets/images/background-partner.svg');
+    background-image: url('../../../assets/images/backgrounds/bg-white-paw.svg');
     background-size: cover;
     background-repeat: no-repeat;
     background-color: #F4F4F4;
@@ -132,10 +132,15 @@ h3 {
     }
 }
 
-.sponsor-section {
-    background-image: url('../../../assets/images/background-sponsor.svg');
+
+.sponsor-volunteer {
+    background-image: url('../../../assets/images/backgrounds/bg-gray-paw.svg');
     background-size: cover;
     background-repeat: no-repeat;
+
+}
+
+.sponsor-section {
 
     @extend .flex-row;
 
@@ -151,9 +156,6 @@ h3 {
 }
 
 .volunteer-section {
-    background-image: url('../../../assets/images/background-volunteer.svg');
-    background-size: cover;
-    background-repeat: no-repeat;
 
     @extend .flex-row;
 
@@ -201,7 +203,7 @@ h3 {
 }
 
 .donation-section {
-    background-image: url('../../../assets/images/background-donation.svg');
+    background-image: url('../../../assets/images/backgrounds/background-donation.svg');
     background-color: var(--background-primary-color);
     background-size: cover;
     background-repeat: no-repeat;
@@ -225,9 +227,9 @@ h3 {
     }
 }
 
-@media (min-width: 380px) and (max-width: 500px) {
+@media (min-width: 380px) and (max-width: 560px) {
     .hero {
-        background-image: url("../../../assets/images/hero-dog-mobile.png") !important;
+        background-image: url("../../../assets/images/backgrounds/hero-dog-mobile.png") !important;
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
@@ -246,7 +248,7 @@ h3 {
 @media (max-width: 768px) {
 
     .hero {
-        background-image: url("../../../assets/images/hero-dog-tablet.png");
+        background-image: url("../../../assets/images/backgrounds/hero-dog-tablet.png");
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
@@ -307,9 +309,9 @@ h3 {
 
 }
 
-@media (min-width: 768px) and (max-width: 999px){
+@media (min-width: 768px) and (max-width: 999px) {
     .hero {
-        background-image: url("../../../assets/images/hero-dog-tablet.png");
+        background-image: url("../../../assets/images/backgrounds/hero-dog-tablet.png");
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
@@ -342,18 +344,18 @@ h3 {
         margin-bottom: 40px;
 
         .sponsor-section {
-        
-                img {
-                    width: 200px;
-                }
+
+            img {
+                width: 200px;
             }
-        
-            .volunteer-section {
-        
-                .volunteer-img {
-                    width: 200px;
-                }
+        }
+
+        .volunteer-section {
+
+            .volunteer-img {
+                width: 200px;
             }
+        }
 
     }
 }
@@ -361,7 +363,8 @@ h3 {
 
 @media (min-width:1000px) {
     .hero {
-        background-image: url("../../../assets/images/hero-dog-desktop.png");
+        background-image: url("../../../assets/images/backgrounds/hero-dog-desktop.png");
+        height: 990px;
 
         .hero-all-text {
             padding-left: 220px;
@@ -373,17 +376,17 @@ h3 {
         justify-content: center;
     }
 
-        .sponsor-section {
-    
-            img {
-                width: 400px;
-            }
+    .sponsor-section {
+
+        img {
+            width: 400px;
         }
-    
-        .volunteer-section {
-    
-            .volunteer-img {
-                width: 400px;
-            }
+    }
+
+    .volunteer-section {
+
+        .volunteer-img {
+            width: 400px;
         }
+    }
 }
