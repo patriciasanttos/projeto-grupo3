@@ -9,11 +9,19 @@ export const getSponsorshipById = async (id) => {
 }
 
 export const createSponsorship = async (data) => {
-    return await axiosPost('/sponsorships', data);
+    return await axiosPost('/sponsorships', data, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
 }
 
 export const updateSponsorship = async (data) => {
-    return await axiosPut('/sponsorships', data);
+    return await axiosPut('/sponsorships', data, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
 }
 
 export const deleteSponsorship = async (id) => {

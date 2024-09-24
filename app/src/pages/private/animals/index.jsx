@@ -8,7 +8,7 @@ import CreateIcon from "../../../assets/icons/create_icon.svg";
 
 import "./styles.scss";
 import Input from "../../../components/input/Input";
-import { getAllAnimals } from "../../../services/api/animals";
+import { createAnimal, deleteAnimal, getAllAnimals, updateAnimal } from "../../../services/api/animals";
 
 function Animals() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,6 +20,9 @@ function Animals() {
     getAllAnimals().then((animals) => {
       setAnimalsList(animals.map((animal) => ({
         ...animal,
+        stageLife: animal.age,
+        castrated: animal.castrated === true ? 'Sim' : 'Não',
+        sponsor: animal.sponsorships?.lenth > 0 ? 'Sim' : 'Não',
         gender: animal.gender.toUpperCase(),
         sector: animal.sector.toUpperCase()
       })))
@@ -33,7 +36,6 @@ function Animals() {
   };
   const [filter, setFilter] = useState(initialFilter);
 
-  // Coluna: title o que será exibido e rowKey pega a propriedade que será exibida
   const columns = [
     {
       title: "ID",
@@ -86,29 +88,79 @@ function Animals() {
     return results;
   };
 
-  // To do: Enviar para o back-end
-  const updateAnimalsList = (animal) => {
+  const updateAnimalsList = async (animal) => {
     let animals = [...animalsList];
     animals[animal.id - 1] = {
       ...animal,
     };
+
+    const formData = new FormData();
+
+    formData.append("id", animal.id);
+    formData.append("species", animal.species);
+    formData.append("name", animal.name);
+    formData.append("gender", animal.gender === 'Macho' ? 'm' : 'f');
+    formData.append("size", animal.size);
+    formData.append("race", animal.race);
+    formData.append("bay", animal.bay);
+    formData.append("sector", animal.sector);
+    formData.append("temperament", animal.temperament);
+    formData.append("status", animal.status);
+    formData.append("age", animal.stageLife);
+    formData.append("castrated", animal.castrated === 'Sim' ? true : false);
+    formData.append("color", animal.color);
+    formData.append("vacine", animal.vacine);
+    formData.append("observation", animal.observation);
+
+    if (animal.image && animal.image !== animal.oldImage) {
+      formData.append("image", animal.image);
+    }
+
+    await updateAnimal(formData)
+      .catch(error => console.log(error));
+
     setAnimalsList(animals);
     setIsModalOpen(false);
   };
 
-  // To do: Enviar para o back-end
-  const deleteAnimalsList = (animal) => {
+  const deleteAnimalsList = async (animal) => {
+    await deleteAnimal(animal.id);
+
     setAnimalsList(animalsList.filter((animals) => animals.id !== animal.id));
     setIsModalOpen(false);
   }
 
-  // To do: Enviar para o back-end
-  const createAnimalsList = (animal) => {
+  const createAnimalsList = async (animal) => {
     let animals = [...animalsList];
     animals.push({
       ...animal,
       id: animalsList.length + 1,
     });
+
+    const formData = new FormData();
+
+    formData.append("species", animal.species);
+    formData.append("name", animal.name);
+    formData.append("gender", animal.gender === 'Macho' ? 'm' : 'f');
+    formData.append("size", animal.size);
+    formData.append("race", animal.race);
+    formData.append("bay", animal.bay);
+    formData.append("sector", animal.sector);
+    formData.append("temperament", animal.temperament);
+    formData.append("status", animal.status);
+    formData.append("age", animal.stageLife);
+    formData.append("castrated", animal.castrated === 'Sim' ? true : false);
+    formData.append("color", animal.color);
+    formData.append("vacine", animal.vacine);
+    formData.append("observation", animal.observation);
+
+    if (animal.image) {
+      formData.append("image", animal.image);
+    }
+
+    await createAnimal(formData)
+      .catch(error => console.log(error));
+
     setAnimalsList(animals);
     setIsModalOpen(false);
   };
@@ -134,8 +186,6 @@ function Animals() {
   const getFilterState = (field) => {
     return filter && filter[field] ? filter[field] : "";
   };
-
-  console.log('>>>> animalsList', animalsList[0])
 
   return (
     <>
