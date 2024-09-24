@@ -143,7 +143,7 @@ function LandingPage() {
 
         <section className="volunteer-section">
           <div className="image-content">
-            <img src={volunteerImg} alt="" />
+            <img className="volunteer-img" src={volunteerImg} alt="" />
           </div>
           <div >
             <h3 className="subtitle">Junte-se a nós</h3>

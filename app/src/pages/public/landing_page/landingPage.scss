@@ -174,7 +174,7 @@ h3 {
 
         .icon-column {
             width: 100%;
-            padding: 10px;
+            padding-top: 20px;
             display: flex;
             flex-direction: column;
 
@@ -225,17 +225,13 @@ h3 {
     }
 }
 
-
-@media (max-width: 768px) {
-
+@media (min-width: 380px) and (max-width: 500px) {
     .hero {
-        background-image: url("../../../assets/images/hero-dog-mobile.png");
+        background-image: url("../../../assets/images/hero-dog-mobile.png") !important;
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
         border-top: 1px solid rgb(191, 189, 189);
-
-        height: 600px;
 
 
         .hero-all-text {
@@ -243,6 +239,28 @@ h3 {
             padding-left: 20px;
         }
 
+    }
+}
+
+
+@media (max-width: 768px) {
+
+    .hero {
+        background-image: url("../../../assets/images/hero-dog-tablet.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        border-top: 1px solid rgb(191, 189, 189);
+
+        .hero-all-text {
+            margin-bottom: 320px;
+            padding-left: 40px;
+        }
+
+    }
+
+    .section-adoption {
+        padding: 20px 0px;
     }
 
     .volunteer-section {
@@ -281,7 +299,7 @@ h3 {
         margin: 20px 15px;
 
 
-        imga {
+        img a {
             flex: 0 0 auto;
             width: 70%;
         }
@@ -289,22 +307,83 @@ h3 {
 
 }
 
-@media (min-width:1000px) {
+@media (min-width: 768px) and (max-width: 999px){
     .hero {
+        background-image: url("../../../assets/images/hero-dog-tablet.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        border-top: 1px solid rgb(191, 189, 189);
 
         .hero-all-text {
-            padding-left: 40px;
+            margin-bottom: 380px;
+            padding-left: 50px;
+        }
+
+    }
+
+    .partner .align-partner-cards {
+        flex-direction: row;
+        align-items: center;
+        justify-content: initial;
+        overflow-x: auto;
+        gap: 20px;
+
+        margin: 20px 15px;
+
+
+        img a {
+            flex: 0 0 auto;
+            width: 70%;
         }
     }
 
+    .sponsor-volunteer {
+        margin-bottom: 40px;
+
+        .sponsor-section {
+        
+                img {
+                    width: 200px;
+                }
+            }
+        
+            .volunteer-section {
+        
+                .volunteer-img {
+                    width: 200px;
+                }
+            }
+
+    }
 }
 
-@media (min-width: 1560px) {
+
+@media (min-width:1000px) {
     .hero {
-        height: 920px;
+        background-image: url("../../../assets/images/hero-dog-desktop.png");
 
         .hero-all-text {
-            padding-left: 260px;
+            padding-left: 220px;
+            margin-bottom: 20px;
         }
     }
+
+    .partner .align-partner-cards {
+        justify-content: center;
+    }
+
+        .sponsor-section {
+    
+            img {
+                width: 400px;
+            }
+        }
+    
+        .volunteer-section {
+    
+            .volunteer-img {
+                width: 400px;
+            }
+        }
 }

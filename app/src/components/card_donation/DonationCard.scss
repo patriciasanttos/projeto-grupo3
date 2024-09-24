@@ -94,3 +94,16 @@
         }
     }
 }
+
+@media (min-width: 769px) and (max-width: 999px) {
+    .donation_card {
+        justify-content: initial;
+        margin: 0px 15px;
+        overflow-x: auto;
+
+        .card {
+            flex: 0 0 auto;
+            width: 40%;
+        }
+    }
+}
