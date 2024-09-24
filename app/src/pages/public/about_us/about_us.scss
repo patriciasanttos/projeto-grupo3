@@ -4,7 +4,7 @@
         background-image: url('../../../assets/images/background.svg');
         background-size: cover;
         background-repeat: no-repeat;
-        background-position: center center; 
+        background-position: center center;
         padding-top: 5%;
 
         .aboutus-main-text {
@@ -12,14 +12,14 @@
             align-items: center;
             justify-content: space-evenly;
             padding-bottom: 4rem;
-            
+
             .text-about {
                 color: #000;
                 width: 35%;
                 font-size: 1.2rem;
                 text-align: center;
             }
-    
+
             .presentation-video {
                 width: 35%;
                 height: 35%;
@@ -32,8 +32,9 @@
         color: var(--title-primary-color);
         font-weight: 700;
         font-size: 1.3rem;
+        margin: 0px;
     }
-    
+
     .team-subtitle {
         color: var(--title-secondary-color);
         font-size: 3rem;
@@ -45,10 +46,10 @@
         background-repeat: no-repeat;
         background-position: center center;
 
-        padding-bottom: 7rem;
-        padding-top: 3rem;
+        padding-bottom: 60px;
+        padding-top: 60px;
 
-        .aboutus-team-cards {
+        .aboutus-team-cards-scroll {
             color: #2D2D33;
 
             padding: 5% 2% 0 10%;
@@ -57,7 +58,7 @@
             display: grid;
             grid-auto-flow: column;
             grid-template-rows: 1fr 1fr;
-            gap: 5rem;
+            gap: 5%;
         }
     }
 }
@@ -69,16 +70,36 @@
                 flex-direction: column;
                 gap: 10px;
                 width: 100%;
-                padding-bottom: 4rem;
+                padding-bottom: 20px;
 
                 .text-about {
                     width: 80%;
                 }
 
-                .presentation-video{
-                    width: 40%;
+                .presentation-video {
+                    width: 70%;
                 }
             }
         }
+
+        .aboutus-section-team {
+            padding-bottom: 40px;
+
+            .aboutus-team-cards {
+                justify-content: initial;
+                margin: 0px 15px;
+                overflow-x: auto;
+
+                .aboutus-team-cards-scroll {
+                    flex: 0 0 auto;
+                    width: 70%;
+                    margin-bottom: 20px;
+                    gap: 10%;
+                }
+            }
+
+        }
+
     }
+
 }
