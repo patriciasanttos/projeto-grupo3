@@ -122,10 +122,14 @@ function Sponsorships() {
       ...sponsor,
       phone: Number(sponsor.phone.replace(/[()\-\s]/g, '')),
     })
-      .catch(error => console.log(error));
-
-    setSponsorsList(sponsors);
-    setIsModalOpen(false);
+      .then(() => {
+        setSponsorsList(sponsors);
+        setIsModalOpen(false);
+      })
+      .catch(({ response }) => {
+        if (response.data.error === 'Animal not found')
+          return alert("Animal não encontrado.");
+      });
   };
 
   const onClickDeleteSponsor = (tutor) => {

@@ -125,10 +125,14 @@ function Adoptions() {
       ...tutor,
       phone: Number(tutor.phone.replace(/[()\-\s]/g, ''))
     })
-      .catch(error => console.log(error));
-
-    setTutorsList(tutors);
-    setIsModalOpen(false);
+      .then(() => {
+        setTutorsList(tutors);
+        setIsModalOpen(false);
+      })
+      .catch(({ response }) => {
+        if (response.data.error === 'Animal not found')
+          return alert("Animal não encontrado.");
+      });
   };
 
   const onClickEditTutor = (tutor) => {
