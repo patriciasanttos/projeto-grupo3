@@ -6,7 +6,7 @@ import NavBar from "../../../components/navbar/NavBar";
 import Footer from "../../../components/footer/Footer";
 import ContentHero from "../../../components/contentHero/ContentHero";
 import CardAnimal from "../../../components/cardAnimal/CardAnimal";
-import imageDog1 from "../../../assets/images/dog1.svg";
+import imageDog1 from "../../../assets/images/landing_page/dog1.svg";
 import FilterSidebar from "../../../components/filterSideBar/FilterSideBar";
 import LoadingPaw from "../../../components/loadingPaw";
 import ModalLPSponsorship from "../../../components/modal/modalLPSponsorship";
@@ -36,9 +36,11 @@ const Adoption = () => {
       const data = (await getAllAnimals()).slice(0, LIMIT_ITEMS);
 
       await data.forEach((animal) => {
-        animals.push({ 
-          ...animal, 
-          image: animal.image ? `data:image/png;base64,${animal.image}` : imageDog1
+        animals.push({
+          ...animal,
+          image: animal.image
+            ? `data:image/png;base64,${animal.image}`
+            : imageDog1,
         });
       });
 
