@@ -3,7 +3,8 @@ import sequelize from "..";
 
 interface AdoptionInfo {
   id: number,
-  name: string,
+  animal_id: number,
+  animal_name: string,
   image: string,
   species: string,
   race?: string,
@@ -16,6 +17,7 @@ interface AdoptionInfo {
   temperament?: string,
   status: string,
   observation?: string,
+  animal_observation?: string,
   animal_created_at?: string,
   tutors_name: string,
   email: string,
@@ -41,7 +43,11 @@ Adoption.init({
       type: DataTypes.STRING,
       allowNull: true
     },
-    name: {
+    animal_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    animal_name: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -86,6 +92,10 @@ Adoption.init({
       allowNull: false
     },
     observation: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    animal_observation: {
       type: DataTypes.TEXT,
       allowNull: true
     },

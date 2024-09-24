@@ -37,6 +37,7 @@ function Sponsorships() {
             phone: sponsorhip.phone,
             animal_name: sponsorhip.Animals[0].name,
             animal_id: sponsorhip.Animals[0].id,
+            observation: sponsorhip.observation,
           });
         });
         

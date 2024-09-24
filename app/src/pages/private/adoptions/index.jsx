@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import AdminNavBar from "../../../components/admin_navbar/AdminNavBar";
 import ModalAdoptionsAdmin from "../../../components/modal/modalAdoptionsAdmin/ModalAdoptionsAdmin";
@@ -8,7 +8,7 @@ import CreateIcon from "../../../assets/icons/create_icon.svg";
 
 import "./styles.scss";
 import Input from "../../../components/input/Input";
-import { createAdoption } from "../../../services/api/adoptions";
+import { createAdoption, deleteAdoption, getAllAdoptions, updateAdoption } from "../../../services/api/adoptions";
 
 function Adoptions() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,51 +22,28 @@ function Adoptions() {
   };
   const [filter, setFilter] = useState(initialFilter);
 
-  // To do: Trazer lista do back-end
-  const [tutorsList, setTutorsList] = useState([
-    {
-      id: 1,
-      name: "Tutor 1",
-      email: "turo1@gmail.com",
-      phoneNumber: "(11) 11111-1111",
-      address: "Rua tutor 1",
-      nameAnimal: "Hector",
-      sex: "Macho",
-      temperament: "Ansioso",
-      castrated: "Sim",
-      healthHistory: "Dúvida",
-      adoptionDate: "13/09/2024",
-      tutorsInfo: "Nada a declarar",
-    },
-    {
-      id: 2,
-      name: "Tutor 2",
-      email: "turo2@gmail.com",
-      phoneNumber: "(22) 22222-2222",
-      address: "Rua tutor 2",
-      nameAnimal: "Júlia",
-      sex: "Fêmea",
-      temperament: "Ansiosa",
-      castrated: "Sim",
-      healthHistory: "Dúvida",
-      adoptionDate: "13/09/2024",
-      tutorsInfo: "Nada a declarar",
-    },
-    {
-      id: 3,
-      name: "Tutor 3",
-      email: "turo3@gmail.com",
-      phoneNumber: "(33) 33333-3333",
-      address: "Rua tutor 3",
-      nameAnimal: "Andressa",
-      sex: "Fêmea",
-      temperament: "Ansiosa",
-      castrated: "Sim",
-      healthHistory: "Dúvida",
-      adoptionDate: "13/09/2024",
-      tutorsInfo: "Nada a declarar",
-    },
-  ]);
+  const [tutorsList, setTutorsList] = useState([]);
+
+  useEffect(() => {
+    getAllAdoptions()
+      .then(async data => {
+        let adoptionsList = [];
+        await data.forEach(adoption => {
+          adoptionsList.push({
+            id: adoption.id,
+            tutors_name: adoption.tutors_name,
+            email: adoption.email,
+            phone: adoption.phone,
+            address: adoption.address,
+            animal_name: adoption.animal_name,
+            animal_id: adoption.animal_id,
+            observation: adoption.observation
+          });
+        });
+
+        setTutorsList(adoptionsList);
+      });
+  }, []);
 
   const columns = [
     {
@@ -75,7 +52,7 @@ function Adoptions() {
     },
     {
       title: "Nome",
-      rowKey: "name",
+      rowKey: "tutors_name",
     },
     {
       title: "E-mail",
@@ -83,7 +60,7 @@ function Adoptions() {
     },
     {
       title: "Celular",
-      rowKey: "phoneNumber",
+      rowKey: "phone",
     },
     {
       title: "Endereço",
@@ -91,7 +68,7 @@ function Adoptions() {
     },
     {
       title: "Adotou",
-      rowKey: "nameAnimal",
+      rowKey: "animal_name",
     },
   ];
 
@@ -112,18 +89,25 @@ function Adoptions() {
     return results;
   };
 
-  // To do: Enviar para o back-end
-  const updateTutorsList = (tutor) => {
+  const updateTutorsList = async (tutor) => {
     let tutors = [...tutorsList];
     tutors[tutor.id - 1] = {
       ...tutor,
     };
+
+    await updateAdoption({
+      ...tutor,
+      phone: Number(tutor.phone.replace(/[()\-\s]/g, ''))
+    })
+      .catch(error => console.log(error));
+
     setTutorsList(tutors);
     setIsModalOpen(false);
   };
 
-  // To do: Enviar para o back-end
-  const deleteTutorsList = (tutor) => {
+  const deleteTutorsList = async (tutor) => {
+    await deleteAdoption(tutor.animal_id)
+
     setTutorsList(
       tutorsList.filter((tutors) => tutors.id !== tutor.id)
   );
@@ -141,10 +125,7 @@ function Adoptions() {
       ...tutor,
       phone: Number(tutor.phone.replace(/[()\-\s]/g, ''))
     })
-      .then(res => console.log(res))
-      .catch(error => {
-        console.log(error);
-      });
+      .catch(error => console.log(error));
 
     setTutorsList(tutors);
     setIsModalOpen(false);
@@ -180,15 +161,15 @@ function Adoptions() {
             <Input
               type="text"
               placeholder="Nome"
-              value={getFilterState("name")}
-              onChange={(e) => setFilter({ ...filter, name: e.target.value })}
+              value={getFilterState("tutors_name")}
+              onChange={(e) => setFilter({ ...filter, tutors_name: e.target.value })}
             />
 
             <Input
               type="text"
               placeholder="Contato"
-              value={getFilterState("phoneNumber")}
-              onChange={(e) => setFilter({ ...filter, phoneNumber: e.target.value })}
+              value={getFilterState("phone")}
+              onChange={(e) => setFilter({ ...filter, phone: e.target.value })}
             />
 
             <Input

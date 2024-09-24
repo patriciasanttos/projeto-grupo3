@@ -7,6 +7,7 @@ interface SponsorshipInfo {
     name: string,
     email: string,
     phone: number,
+    observation: string,
     created_at?: string,
     updated_at?: string,
 }
@@ -33,6 +34,10 @@ Sponsorship.init({
     },
     phone: {
       type: DataTypes.BIGINT,
+      allowNull: true,
+    },
+    observation: {
+      type: DataTypes.TEXT,
       allowNull: true,
     },
     created_at: {

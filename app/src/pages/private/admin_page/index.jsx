@@ -112,9 +112,7 @@ function AdminPage() {
       ...admin,
       phone: Number(admin.phone.replace(/[()\-\s]/g, '')),
     })
-      .catch(error => {
-        console.log(error);
-      });
+      .catch(error => console.log(error));
 
     setAdminsList(admins);
     setIsModalOpen(false);
