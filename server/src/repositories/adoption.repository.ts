@@ -66,8 +66,8 @@ export default {
             // -----Salvar adoção na tabela
             await Adoption.create({
                 ...data,
-                id: animal.id,
-                name: animal.name,
+                animal_id: data.animal_id,
+                animal_name: animal.name,
                 image: animal.image,
                 species: animal.species,
                 race: animal.race,
@@ -79,7 +79,7 @@ export default {
                 gender: animal.gender,
                 temperament: animal.temperament,
                 status: 'Adotado',
-                observation: animal.observation,
+                animal_observation: animal.observation,
                 animal_created_at: animal.created_at,
             });
             await gettedAnimal.destroy();
@@ -92,10 +92,10 @@ export default {
         }
     },
 
-    async updateAdoption({ id, data }: { id: number, data: AdoptionType }): Promise<{ code: number, data?: {} }> {
+    async updateAdoption(data: AdoptionType): Promise<{ code: number, data?: {} }> {
         try {
             //-----Buscar adoção na tabela
-            const adoption = await Adoption.findOne({ where: { id } })
+            const adoption = await Adoption.findOne({ where: { animal_id: data.animal_id } })
             
             if (adoption === null)
                 return {

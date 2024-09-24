@@ -17,7 +17,11 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: true
       },
-      name: {
+      animal_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+      },
+      animal_name: {
         type: DataTypes.STRING,
         allowNull: false
       },
@@ -62,6 +66,10 @@ module.exports = {
         allowNull: false
       },
       observation: {
+        type: DataTypes.TEXT,
+        allowNull: true
+      },
+      animal_observation: {
         type: DataTypes.TEXT,
         allowNull: true
       },
