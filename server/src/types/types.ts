@@ -20,11 +20,11 @@ export type AnimalType = {
 }
 
 export type SponsorshipType = {
-    id: number,
+    id?: number,
     name: string,
     email: string,
     phone: number,
-    animal_id: number,
+    animal_id?: number,
 }
 
 export type AdoptionType = {
