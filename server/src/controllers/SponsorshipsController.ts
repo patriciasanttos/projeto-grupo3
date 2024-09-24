@@ -40,7 +40,7 @@ class SponsorshipsController {
     }
 
     async delete(req: Request, res: Response) {
-        const id = req.params;
+        const { id } = req.params;
 
         const response = await sponsorshipsRepository.deleteSponsorship(Number(id));
 

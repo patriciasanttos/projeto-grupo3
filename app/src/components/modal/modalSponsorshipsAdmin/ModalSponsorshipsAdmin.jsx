@@ -16,15 +16,9 @@ const ModalSponsorshipsAdmin = ({
   const initialFormSponsors = {
     name: "",
     email: "",
-    phoneNumber: "",
-    sponsorDate: "",
-    nameAnimal: "",
-    sex: "",
-    temperament: "",
-    castrated: "",
-    healthHistory: "",
-    adoptionStatus: "",
-    sponsorsInfo: "",
+    phone: "",
+    animal_id: 0,
+    observation: "",
   };
   const [formSponsors, setFormSponsors] = useState(initialFormSponsors);
 
@@ -98,126 +92,42 @@ const ModalSponsorshipsAdmin = ({
         <div className="al-modal-form">
           <IMaskInput
             type="text"
-            name="phoneNumber"
+            name="phone"
             placeholder="Contato"
-            value={getFormState("phoneNumber")}
+            value={getFormState("phone")}
             onAccept={(value, maskRef, e) =>
-              setFormSponsors({ ...formSponsors, phoneNumber: value })
+              setFormSponsors({ ...formSponsors, phone: value })
             }
             mask={"(00) 00000-0000"}
           />
 
           <input
             type="text"
-            name="sponsorDate"
+            name="animal_id"
             id=""
-            placeholder="Data do apadrinhamento"
-            value={getFormState("sponsorDate")}
-            onChange={(e) =>
-              setFormSponsors({ ...formSponsors, sponsorDate: e.target.value })
-            }
-          />
-        </div>
-
-        <div className="al-modal-form">
-          <input
-            type="text"
-            name="nameAnimal"
-            id=""
-            placeholder="Nome do animal"
-            value={getFormState("nameAnimal")}
+            placeholder="ID do animal"
+            readOnly={selectedSponsor ? true : false}
+            value={getFormState("animal_id")}
             onChange={(e) =>
               setFormSponsors({
                 ...formSponsors,
-                nameAnimal: e.target.value,
-              })
-            }
-          />
-
-          <input
-            type="text"
-            name="sex"
-            id=""
-            placeholder="Sexo do animal"
-            value={getFormState("sex")}
-            onChange={(e) =>
-              setFormSponsors({
-                ...formSponsors,
-                sex: e.target.value,
+                animal_id: e.target.value,
               })
             }
           />
         </div>
 
-        <div className="al-modal-form">
-          <input
-            type="text"
-            name="temperament"
-            id=""
-            placeholder="Temperamento do animal"
-            value={getFormState("temperament")}
-            onChange={(e) =>
-              setFormSponsors({
-                ...formSponsors,
-                temperament: e.target.value,
-              })
-            }
-          />
-
-          <input
-            type="text"
-            name="castrated"
-            id=""
-            placeholder="Castrado"
-            value={getFormState("castrated")}
-            onChange={(e) =>
-              setFormSponsors({
-                ...formSponsors,
-                castrated: e.target.value,
-              })
-            }
-          />
-        </div>
-        <div className="al-modal-form">
-          <input
-            type="text"
-            name="healthHistory"
-            id=""
-            placeholder="Histórico de saúde"
-            value={getFormState("healthHistory")}
-            onChange={(e) =>
-              setFormSponsors({
-                ...formSponsors,
-                healthHistory: e.target.value,
-              })
-            }
-          />
-
-          <input
-            type="text"
-            name="adoptionStatus"
-            id=""
-            placeholder="Status de adoção"
-            value={getFormState("adoptionStatus")}
-            onChange={(e) =>
-              setFormSponsors({
-                ...formSponsors,
-                adoptionStatus: e.target.value,
-              })
-            }
-          />
-        </div>
         <textarea
           rows="8"
           cols="10"
-          name="sponsorsInfo"
+          name="observation"
           id=""
           placeholder="Adicione informações importantes sobre o padrinho ou animal"
-          value={getFormState("sponsorsInfo")}
+          value={getFormState("observation")}
           onChange={(e) =>
             setFormSponsors({
               ...formSponsors,
-              sponsorsInfo: e.target.value,
+              observation: e.target.value,
             })
           }
         />

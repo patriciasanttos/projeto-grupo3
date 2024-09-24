@@ -8,7 +8,7 @@ export default {
         try {
             //-----Buscar apadrinhamento na tabela
             const sponsorship = await Sponsorship.findByPk(id, {
-                include: Animal
+                include: [ Animal ]
             });
 
             if (sponsorship === null)
@@ -31,7 +31,9 @@ export default {
     async getAllSponsorships(): Promise<{ code: number, data: {} }> {
         try {
             //-----Buscar apadrinhamentos na tabela
-            const sponsorship = await Sponsorship.findAll();
+            const sponsorship = await Sponsorship.findAll({
+                include: [ Animal ]
+            });
 
             if (sponsorship === null)
                 return {
@@ -75,10 +77,10 @@ export default {
         }
     },
 
-    async updateSponsorship({ id, data }: { id: number, data: SponsorshipType }): Promise<{ code: number, data?: {} }> {
+    async updateSponsorship(data: SponsorshipType): Promise<{ code: number, data?: {} }> {
         try {
             //-----Buscar apadrinhamento na tabela
-            const sponsorship = await Sponsorship.findByPk(id)
+            const sponsorship = await Sponsorship.findByPk(data.id)
             
             if (sponsorship === null)
                 return {
@@ -87,6 +89,9 @@ export default {
                         error: 'Sponsorship not found'
                     }
                 };
+
+            delete data?.id;
+            delete data?.animal_id
 
             await sponsorship.update({ ...data });
 
