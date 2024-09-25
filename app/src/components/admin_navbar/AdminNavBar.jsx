@@ -6,6 +6,7 @@ import sponsorships_icon from "../../assets/icons/navbar_admin/sponsorships_icon
 import adoptions_icon from "../../assets/icons/navbar_admin/adoptions_icon.svg";
 import volunteers_icon from "../../assets/icons/navbar_admin/volunteers_icon.svg";
 import admin_icon from "../../assets/icons/navbar_admin/admin_icon.svg";
+import logout from "../../assets/icons/navbar_admin/logout.svg";
 
 import './styles.scss';
 import { Link } from 'react-router-dom';
@@ -49,13 +50,14 @@ function AdminNavBar({ headerTitle, children }) {
           </Link>
           <Link to="/admin/admin_page">
             <button className="admin-navbar-btn">
-              <img
-                src={admin_icon}
-                alt="Logo"
-              />
+              <img src={admin_icon} alt="Logo" />
               <p>Administrador</p>
             </button>
           </Link>
+          <button className="admin-navbar-btn logout-button">
+            <img src={logout} alt="" />
+            <p>Sair</p>
+          </button>
         </nav>
       </aside>
 
