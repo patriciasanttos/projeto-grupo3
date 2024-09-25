@@ -154,9 +154,10 @@ function Animals() {
     formData.append("vacine", animal.vacine);
     formData.append("observation", animal.observation);
 
-    if (animal.image) {
-      formData.append("image", animal.image);
-    }
+    if (!animal.image)
+      return window.alert('Por favor, selecione uma imagem')
+    
+    formData.append("image", animal.image);
 
     await createAnimal(formData)
       .catch(error => console.log(error));
