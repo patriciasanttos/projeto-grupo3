@@ -14,9 +14,6 @@ import Menu from "../../../components/menu/Menu";
 import { getAllAnimals } from "../../../services/api/animals";
 import Pagination from "../../../components/pagination";
 
-// Estamos limitando para que não exiba muitas páginas e quebre
-const LIMIT_ITEMS = 100;
-
 const Adoption = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedAnimal, setSelectedAnimal] = useState(null);
@@ -33,7 +30,7 @@ const Adoption = () => {
 
   useEffect(() => {
     const getAnimals = async () => {
-      const data = (await getAllAnimals()).slice(0, LIMIT_ITEMS);
+      const data = (await getAllAnimals())
 
       await data.forEach((animal) => {
         animals.push({
