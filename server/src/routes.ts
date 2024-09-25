@@ -49,7 +49,6 @@ router
 router
     .get('/admins', AuthController.getAll)
     .get('/admins/get/:id', AuthController.getById)
-    .get('/admins/verify/:id', AuthController.verifyUser)
     .get('/admins/login', AuthController.login)
     .post('/admins', image.single('image'), AuthController.register)
     .put('/admins', image.single('image'), AuthController.update)

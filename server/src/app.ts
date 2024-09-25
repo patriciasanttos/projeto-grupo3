@@ -1,6 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-import jwt from 'jsonwebtoken';
 import routes from './routes';
 require('dotenv').config();
 
@@ -13,22 +12,6 @@ app
         methods: ['GET', 'POST', 'PUT', 'DELETE']
     }))
     .use(express.json())
-    .use((req, res, next) => {
-        if (req.method === 'GET' && req.url === '/animals' || req.method === 'GET' && req.url === '/admins/login')
-            return next(); 
-
-        const token = req.headers.authorization;
-        if (!token)
-            return res.status(401).json({ message: 'Missing authorization header' });
-
-        try {
-            jwt.verify(token.replace(/['"]/g, ''), String(process.env.JWT_SECRET));
-
-            return next();
-        } catch (error) {
-            return res.status(401).json({ message: 'Invalid token' });
-        }
-    })
     .use(routes);
 
 export default app;

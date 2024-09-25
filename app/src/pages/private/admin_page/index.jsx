@@ -9,11 +9,11 @@ import Input from "../../../components/input/Input";
 
 import "./styles.scss";
 import { createAdmin, deleteAdmin, getAllAdmins, updateAdmin } from "../../../services/api/admins";
-import checkPermissions from "../../../utils/checkPermissions";
-import { useNavigate } from "react-router-dom";
 
 function AdminPage() {
-  const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalAction, setModalAction] = useState(null);
+  const [selectedAdmin, setSelectedAdmin] = useState(null);
 
   const initialFilter = {
     name: null,
@@ -22,26 +22,10 @@ function AdminPage() {
   };
   const [filter, setFilter] = useState(initialFilter);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalAction, setModalAction] = useState(null);
-  const [selectedAdmin, setSelectedAdmin] = useState(null);
-
-  const [ userHasPermission, setUserHasPermission ] = useState(false);
-  const [adminsList, setAdminsList] = useState([]);
+  const [adminsList, setAdminsList] = useState([]); 
 
   useEffect(() => {
-    async function checkUserPermission() {
-      await checkPermissions('admins', navigate)
-        .then(response => {
-          setUserHasPermission(response);
-        })
-    }
-    
-    checkUserPermission();
-  }, []);
-
-  useEffect(() => {
-    getAllAdmins(localStorage.getItem('login'))
+    getAllAdmins()
       .then(data => {
         setAdminsList(data);
       })
@@ -49,6 +33,25 @@ function AdminPage() {
         console.log(error);
       });
   }, []);
+
+  const columns = [
+    {
+      title: "Nome",
+      rowKey: "name",
+    },
+    {
+      title: "E-mail",
+      rowKey: "email",
+    },
+    {
+      title: "Contato",
+      rowKey: "phone",
+    },
+    {
+      title: "Permissão",
+      rowKey: "permissions",
+    },
+  ];
 
   const getFilteredItems = () => {
     let results = [...adminsList];
@@ -78,7 +81,7 @@ function AdminPage() {
     await updateAdmin({
       ...admin,
       phone: Number(admin.phone.replace(/[()\-\s]/g, '')),
-    }, localStorage.getItem('login'))
+    })
       .catch(error => {
         console.log(error);
       });
@@ -88,7 +91,8 @@ function AdminPage() {
   };
 
   const deleteAdminsList = async (admin) => {
-    await deleteAdmin(admin.id, localStorage.getItem('login'))
+    console.log(admin.id)
+    await deleteAdmin(admin.id)
       .catch(error => {
         console.log(error);
       })
@@ -102,12 +106,12 @@ function AdminPage() {
     admins.push({
       ...admin,
       id: adminsList.length + 1,
-    }, localStorage.getItem('login'));
+    });
 
     await createAdmin({
       ...admin,
       phone: Number(admin.phone.replace(/[()\-\s]/g, '')),
-    }, localStorage.getItem('login'))
+    })
       .catch(error => console.log(error));
 
     setAdminsList(admins);
@@ -136,25 +140,6 @@ function AdminPage() {
     return filter && filter[field] ? filter[field] : "";
   };
 
-  const columns = [
-    {
-      title: "Nome",
-      rowKey: "name",
-    },
-    {
-      title: "E-mail",
-      rowKey: "email",
-    },
-    {
-      title: "Contato",
-      rowKey: "phone",
-    },
-    {
-      title: "Permissão",
-      rowKey: "permissions",
-    },
-  ];
-
   return (
     <>
       <AdminNavBar headerTitle="Administrador">
@@ -177,17 +162,15 @@ function AdminPage() {
             />
           </div>
 
-          {userHasPermission && (
-            <div className="add-icon">
-              Adicionar
-              <img
-                className="pointer"
-                src={CreateIcon}
-                onClick={onClickNewAdmin}
-                alt=""
-              />
-            </div>
-          )}
+          <div className="add-icon">
+            Adicionar
+            <img
+              className="pointer"
+              src={CreateIcon}
+              onClick={onClickNewAdmin}
+              alt=""
+            />
+          </div>
         </div>
 
         <div className="admin-list-container">
@@ -196,7 +179,6 @@ function AdminPage() {
             rows={getFilteredItems()}
             onClickEditRow={onClickEditAdmin}
             onClickDeleteRow={onClickDeleteAdmin}
-            userHasPermission={userHasPermission}
           />
         </div>
       </AdminNavBar>
