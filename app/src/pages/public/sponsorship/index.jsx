@@ -13,9 +13,6 @@ import LoadingPaw from "../../../components/loadingPaw";
 import { getAllAnimals } from "../../../services/api/animals";
 import Pagination from "../../../components/pagination";
 
-// Estamos limitando para que não exiba muitas páginas e quebre
-const LIMIT_ITEMS = 100;
-
 function Sponsorship() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedAnimal, setSelectedAnimal] = useState(null);
@@ -25,7 +22,7 @@ function Sponsorship() {
 
   useEffect(() => {
     const getAnimals = async () => {
-      const data = (await getAllAnimals()).slice(0, LIMIT_ITEMS);
+      const data = await getAllAnimals();
       const animalsWithImage = data.map((animal) => ({
         ...animal,
         image: imageDog1,
