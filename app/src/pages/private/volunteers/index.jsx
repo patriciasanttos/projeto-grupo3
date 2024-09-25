@@ -7,19 +7,41 @@ import "./styles.scss";
 import AdminList from "../../../components/admin_list/AdminList";
 import ModalActionsEnum from '../../../utils/ModalActionsEnum'
 import { createVolunteer, deleteVolunteer, getAllVolunteers, updateVolunteer } from "../../../services/api/volunteers";
+import checkPermissions from "../../../utils/checkPermissions";
+import { useNavigate } from "react-router-dom";
 
 function Volunteers() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalAction, setModalAction] = useState(null);
-  const [selectedVolunteer, setSelectedVolunteer] = useState(null);
+  const navigate = useNavigate();
 
-  //Filtro de Pesquisa
   const initialFilter = {
     name: null,
     email: null,
     phone: null
   };
   const [filter, setFilter] = useState(initialFilter);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalAction, setModalAction] = useState(null);
+  const [selectedVolunteer, setSelectedVolunteer] = useState(null);
+
+  const [volunteersList, setVolunteersList] = useState([]);
+  const [ userHasPermission, setUserHasPermission ] = useState(false);
+
+  useEffect(() => {
+    async function checkUserPermission() {
+      await checkPermissions('volunteers', navigate)
+        .then(response => {
+          setUserHasPermission(response);
+        })
+    }
+    
+    checkUserPermission();
+  }, []);
+
+  useEffect(() => {
+    getAllVolunteers()
+      .then(data => setVolunteersList(data));
+  }, []);
 
   const getFilteredItems = () => {
     let results = [...volunteersList];
@@ -41,36 +63,6 @@ function Volunteers() {
   const getFilterState = (field) => {
     return filter && filter[field] ? filter[field] : "";
   };
-
-  const [volunteersList, setVolunteersList] = useState([]);
-
-  useEffect(() => {
-    getAllVolunteers()
-      .then(data => setVolunteersList(data));
-  }, []);
-
-  const columns = [
-    {
-      title: "Nome",
-      rowKey: "name",
-    },
-    {
-      title: "E-mail",
-      rowKey: "email",
-    },
-    {
-      title: "Celular",
-      rowKey: "phone",
-    },
-    {
-      title: "Endereço",
-      rowKey: "address",
-    },
-    {
-      title: "Disponibilidade",
-      rowKey: "availability",
-    },
-  ];
 
   const updateVolunteersList = async (volunteer) => {
     let volunteers = volunteersList.map((volunt) => {
@@ -119,6 +111,29 @@ function Volunteers() {
     setIsModalOpen(false);
   };
 
+  const columns = [
+    {
+      title: "Nome",
+      rowKey: "name",
+    },
+    {
+      title: "E-mail",
+      rowKey: "email",
+    },
+    {
+      title: "Celular",
+      rowKey: "phone",
+    },
+    {
+      title: "Endereço",
+      rowKey: "address",
+    },
+    {
+      title: "Disponibilidade",
+      rowKey: "availability",
+    },
+  ];
+
   const onClickEditVolunteer = (volunteer) => {
     setIsModalOpen(true);
     setSelectedVolunteer(volunteer);
@@ -157,10 +172,12 @@ function Volunteers() {
             onChange={(e) => setFilter({ ...filter, availability: e.target.value })}
             />
           </div>
-          <div className="admin-volunteers-btn">
-            <label htmlFor="">Adicionar</label>
-            <button onClick={onClickNewVolunteer}><img className="pointer" src={createIcon} alt="" /></button>
-          </div>
+          {userHasPermission && (
+            <div className="admin-volunteers-btn">
+              <label htmlFor="">Adicionar</label>
+              <button onClick={onClickNewVolunteer}><img className="pointer" src={createIcon} alt="" /></button>
+            </div>
+          )}
 
         </div>
         <div className="volunteers-list-container">
@@ -169,6 +186,7 @@ function Volunteers() {
             rows={getFilteredItems()}
             onClickEditRow={onClickEditVolunteer}
             onClickDeleteRow={onClickDeleteVolunteer}
+            userHasPermission={userHasPermission}
           />
         </div>
       </AdminNavBar>

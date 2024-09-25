@@ -9,12 +9,36 @@ import CreateIcon from "../../../assets/icons/create_icon.svg";
 import "./styles.scss";
 import Input from "../../../components/input/Input";
 import { createAnimal, deleteAnimal, getAllAnimals, updateAnimal } from "../../../services/api/animals";
+import checkPermissions from "../../../utils/checkPermissions";
+import { useNavigate } from "react-router-dom";
 
 function Animals() {
+  const navigate = useNavigate();
+
+  const initialFilter = {
+    name: null,
+    gender: null,
+    race: null,
+  };
+  const [filter, setFilter] = useState(initialFilter);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalAction, setModalAction] = useState(null);
   const [selectedAnimal, setSelectedAnimal] = useState(null);
+
+  const [ userHasPermission, setUserHasPermission ] = useState(false);
   const [animalsList, setAnimalsList] = useState([]);
+
+  useEffect(() => {
+    async function checkUserPermission() {
+      await checkPermissions('animals', navigate)
+        .then(response => {
+          setUserHasPermission(response);
+        })
+    }
+    
+    checkUserPermission();
+  }, []);
 
   useEffect(() => {
     getAllAnimals().then((animals) => {
@@ -28,48 +52,6 @@ function Animals() {
       })))
     });
   }, []);
-
-  const initialFilter = {
-    name: null,
-    gender: null,
-    race: null,
-  };
-  const [filter, setFilter] = useState(initialFilter);
-
-  const columns = [
-    {
-      title: "ID",
-      rowKey: "id",
-    },
-    {
-      title: "Nome",
-      rowKey: "name",
-    },
-    {
-      title: "Sexo",
-      rowKey: "gender",
-    },
-    {
-      title: "Porte",
-      rowKey: "size",
-    },
-    {
-      title: "Raça",
-      rowKey: "race",
-    },
-    {
-      title: "Setor",
-      rowKey: "sector",
-    },
-    {
-      title: "Padrinho",
-      rowKey: "sponsor",
-    },
-    {
-      title: "Status",
-      rowKey: "status",
-    },
-  ];
 
   const getFilteredItems = () => {
     let results = [...animalsList];
@@ -188,6 +170,45 @@ function Animals() {
     return filter && filter[field] ? filter[field] : "";
   };
 
+  const columns = [
+    {
+      title: "ID",
+      rowKey: "id",
+    },
+    {
+      title: "Nome",
+      rowKey: "name",
+    },
+    {
+      title: "Sexo",
+      rowKey: "gender",
+    },
+    {
+      title: "Porte",
+      rowKey: "size",
+    },
+    {
+      title: "Raça",
+      rowKey: "race",
+    },
+    {
+      title: "Setor",
+      rowKey: "sector",
+    },
+    {
+      title: "Baia",
+      rowKey: "bay",
+    },
+    {
+      title: "Padrinho",
+      rowKey: "sponsor",
+    },
+    {
+      title: "Status",
+      rowKey: "status",
+    },
+  ];
+
   return (
     <>
       <AdminNavBar headerTitle="Animais">
@@ -215,15 +236,17 @@ function Animals() {
             />
           </div>
 
-          <div className="add-icon">
-            Adicionar
-            <img
-              className="pointer"
-              src={CreateIcon}
-              onClick={onClickNewAnimal}
-              alt=""
-            />
-          </div>
+          {userHasPermission && (
+            <div className="add-icon">
+              Adicionar
+              <img
+                className="pointer"
+                src={CreateIcon}
+                onClick={onClickNewAnimal}
+                alt=""
+              />
+            </div>
+          )}
         </div>
 
         <AdminList
@@ -231,6 +254,7 @@ function Animals() {
           rows={getFilteredItems()}
           onClickEditRow={onClickEditAnimal}
           onClickDeleteRow={onClickDeleteAnimal}
+          userHasPermission={userHasPermission}
         />
       </AdminNavBar>
       <ModalAnimalsAdmin
