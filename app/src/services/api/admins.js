@@ -8,6 +8,10 @@ export const getAdminById = async (id) => {
     return await axiosGet(`/admins/get/${id}`);
 }
 
+export const verifyAdmin = async (id) => {
+    return await axiosGet(`/admins/verify/${id}`);
+}
+
 export const loginAdmin = async ({ user, password }) => {
     return await axiosGet(`/admins/login`, {
         headers: {

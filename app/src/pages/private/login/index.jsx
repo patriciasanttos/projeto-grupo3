@@ -1,36 +1,30 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './styles.scss';
 
 import Logo from "../../../assets/images/logo.svg"
 import { loginAdmin } from '../../../services/api/admins';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Admin() {
+  const navigate = useNavigate();
+
   const [ userState, setUserState ] = useState({
     user: '',
     password: ''
   });
-  const [ logged, setLogged ] = useState(false);
-
-  useEffect(() => {
-    if (window.localStorage.getItem('login'))
-      return setLogged(true);
-  }, []);
 
   const login = () => {
     loginAdmin(userState)
       .then(res => {
         window.alert('Logged in: ' + JSON.stringify(res));
         window.localStorage.setItem('login', JSON.stringify(res))
-        return setLogged(true);
+
+        return navigate('/admin/control_panel');
       })
       .catch(error => {
         window.alert(JSON.stringify(error.message));
       });
   }
-
-  if (logged)
-    return <Navigate to='/admin/control_panel' />
 
   return (
     <div className='admin'>
