@@ -27,7 +27,7 @@ function AdminPage() {
   const [selectedAdmin, setSelectedAdmin] = useState(null);
 
   const [ userHasPermission, setUserHasPermission ] = useState(false);
-  const [adminsList, setAdminsList] = useState([]); 
+  const [adminsList, setAdminsList] = useState([]);
 
   useEffect(() => {
     async function checkUserPermission() {
@@ -41,7 +41,7 @@ function AdminPage() {
   }, []);
 
   useEffect(() => {
-    getAllAdmins()
+    getAllAdmins(localStorage.getItem('login'))
       .then(data => {
         setAdminsList(data);
       })
@@ -78,7 +78,7 @@ function AdminPage() {
     await updateAdmin({
       ...admin,
       phone: Number(admin.phone.replace(/[()\-\s]/g, '')),
-    })
+    }, localStorage.getItem('login'))
       .catch(error => {
         console.log(error);
       });
@@ -88,8 +88,7 @@ function AdminPage() {
   };
 
   const deleteAdminsList = async (admin) => {
-    console.log(admin.id)
-    await deleteAdmin(admin.id)
+    await deleteAdmin(admin.id, localStorage.getItem('login'))
       .catch(error => {
         console.log(error);
       })
@@ -103,12 +102,12 @@ function AdminPage() {
     admins.push({
       ...admin,
       id: adminsList.length + 1,
-    });
+    }, localStorage.getItem('login'));
 
     await createAdmin({
       ...admin,
       phone: Number(admin.phone.replace(/[()\-\s]/g, '')),
-    })
+    }, localStorage.getItem('login'))
       .catch(error => console.log(error));
 
     setAdminsList(admins);

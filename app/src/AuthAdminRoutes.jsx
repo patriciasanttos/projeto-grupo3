@@ -14,7 +14,7 @@ const AuthAdminRoutes = () => {
 
     const decodedJwt = jwtDecode(loginCookie)
 
-    verifyAdmin(decodedJwt.userId)
+    verifyAdmin(decodedJwt.userId, localStorage.getItem('login'))
       .then(() => {
         if (location.pathname === '/admin/login' && loginCookie)
           return navigate('/admin/control_panel');

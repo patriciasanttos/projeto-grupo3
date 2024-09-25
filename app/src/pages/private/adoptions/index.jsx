@@ -41,7 +41,7 @@ function Adoptions() {
   }, []);
 
   useEffect(() => {
-    getAllAdoptions()
+    getAllAdoptions(localStorage.getItem('login'))
       .then(async data => {
         let adoptionsList = [];
         await data.forEach(adoption => {
@@ -87,7 +87,7 @@ function Adoptions() {
     await updateAdoption({
       ...tutor,
       phone: Number(tutor.phone.replace(/[()\-\s]/g, ''))
-    })
+    }, localStorage.getItem('login'))
       .catch(error => console.log(error));
 
     setTutorsList(tutors);
@@ -95,7 +95,7 @@ function Adoptions() {
   };
 
   const deleteTutorsList = async (tutor) => {
-    await deleteAdoption(tutor.animal_id)
+    await deleteAdoption(tutor.animal_id, localStorage.getItem('login'))
 
     setTutorsList(
       tutorsList.filter((tutors) => tutors.id !== tutor.id)
@@ -113,7 +113,7 @@ function Adoptions() {
     await createAdoption({
       ...tutor,
       phone: Number(tutor.phone.replace(/[()\-\s]/g, ''))
-    })
+    }, localStorage.getItem('login'))
       .then(() => {
         setTutorsList(tutors);
         setIsModalOpen(false);

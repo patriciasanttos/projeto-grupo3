@@ -39,7 +39,7 @@ function Volunteers() {
   }, []);
 
   useEffect(() => {
-    getAllVolunteers()
+    getAllVolunteers(localStorage.getItem('login'))
       .then(data => setVolunteersList(data));
   }, []);
 
@@ -75,7 +75,7 @@ function Volunteers() {
     if (volunteer.phone)
       volunteer.phone = Number(volunteer.phone.replace(/[()\-\s]/g, ''));
 
-    await updateVolunteer(volunteer)
+    await updateVolunteer(volunteer, localStorage.getItem('login'))
       .catch(error => {
         console.log(error);
       });
@@ -85,7 +85,7 @@ function Volunteers() {
   };
 
   const deleteVolunteersList = async (volunteer) => {
-    await deleteVolunteer(volunteer.id)
+    await deleteVolunteer(volunteer.id, localStorage.getItem('login'))
       .catch(error => {
         console.log(error);
       });
@@ -104,7 +104,7 @@ function Volunteers() {
     await createVolunteer({
       ...volunteer,
       phone: Number(volunteer.phone.replace(/[()\-\s]/g, '')),
-    })
+    }, localStorage.getItem('login'))
       .catch(error => console.log(error));
 
     setVolunteersList(volunteers);

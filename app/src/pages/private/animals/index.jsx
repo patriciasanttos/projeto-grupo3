@@ -98,7 +98,7 @@ function Animals() {
       formData.append("image", animal.image);
     }
 
-    await updateAnimal(formData)
+    await updateAnimal(formData, localStorage.getItem('login'))
       .catch(error => console.log(error));
 
     setAnimalsList(animals);
@@ -106,7 +106,7 @@ function Animals() {
   };
 
   const deleteAnimalsList = async (animal) => {
-    await deleteAnimal(animal.id);
+    await deleteAnimal(animal.id, localStorage.getItem('login'));
 
     setAnimalsList(animalsList.filter((animals) => animals.id !== animal.id));
     setIsModalOpen(false);
@@ -141,7 +141,7 @@ function Animals() {
     
     formData.append("image", animal.image);
 
-    await createAnimal(formData)
+    await createAnimal(formData, localStorage.getItem('login'))
       .catch(error => console.log(error));
 
     setAnimalsList(animals);

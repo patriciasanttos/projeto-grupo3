@@ -43,7 +43,7 @@ function Sponsorships() {
   }, []);
 
   useEffect(() => {
-    getAllSponsorshipships()
+    getAllSponsorshipships(localStorage.getItem('login'))
       .then(async data => {
         let sponsorshipsList = [];
         await data.forEach(sponsorhip => {
@@ -88,7 +88,7 @@ function Sponsorships() {
     await updateSponsorship({
       ...sponsor,
       phone: Number(sponsor.phone.replace(/[()\-\s]/g, '')),
-    })
+    }, localStorage.getItem('login'))
       .catch(error => console.log(error));
 
     setSponsorsList(sponsors);
@@ -96,7 +96,7 @@ function Sponsorships() {
   };
 
   const deleteSponsorsList = async (sponsor) => {
-    await deleteSponsorship(sponsor.id)
+    await deleteSponsorship(sponsor.id, localStorage.getItem('login'))
       .catch(error => console.log(error));
 
     setSponsorsList(
@@ -115,7 +115,7 @@ function Sponsorships() {
     await createSponsorship({
       ...sponsor,
       phone: Number(sponsor.phone.replace(/[()\-\s]/g, '')),
-    })
+    }, localStorage.getItem('login'))
       .then(() => {
         setSponsorsList(sponsors);
         setIsModalOpen(false);

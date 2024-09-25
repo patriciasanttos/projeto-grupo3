@@ -140,10 +140,7 @@ export default {
                     userId: gettedAdmin.dataValues.id,
                     permissions: gettedAdmin.permissions
                 },
-                secret,
-                { 
-                    expiresIn: "1d"
-                }
+                secret
             );
 
             return {
