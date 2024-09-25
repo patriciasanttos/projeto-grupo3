@@ -9,12 +9,13 @@
     .card {
         position: relative;
         width: 18rem;
-        height: 24rem;
+        height: 23rem;
         padding: 20px;
         background-color: #fff;
         text-align: center;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: visible;
     }
 
     .card div {
@@ -27,19 +28,19 @@
 
     .icon-container {
         position: relative;
-        height: 50px;
-    }
+        height: 5%;
+        top: -13%;
 
-    .icon_donation {
-        background-color: var(--background-primary-color);
-        border-radius: 100px;
-        border: 0.5rem solid white;
-        position: absolute;
-        top: -35px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 4rem;
-        padding: 0.7rem;
+        .icon_donation {
+            background-color: var(--background-primary-color);
+            border-radius: 100px;
+            border: 0.4rem solid white;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4rem;
+            padding: 0.7rem;
+        }
     }
 
     .card h2,
@@ -56,6 +57,7 @@
 
     p {
         text-align: center;
+        margin-bottom: 0;
     }
 
     button {
