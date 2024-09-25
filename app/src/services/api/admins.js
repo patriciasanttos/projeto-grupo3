@@ -1,60 +1,38 @@
 import { axiosGet, axiosPost, axiosPut, axiosDelete } from './index';
 
-export const getAllAdmins = async (token) => {
-    return await axiosGet('/admins', {
-        headers: {
-            Authorization: token
-        }
-    });
+export const getAllAdmins = async () => {
+    return await axiosGet('/admins');
 }
 
-export const getAdminById = async (id,  token) => {
-    return await axiosGet(`/admins/get/${id}`, {
-        headers: {
-            'Authorization': token
-        }
-    });
+export const getAdminById = async (id) => {
+    return await axiosGet(`/admins/get/${id}`);
 }
 
-export const verifyAdmin = async (id,  token) => {
-    return await axiosGet(`/admins/verify/${id}`, {
-        headers: {
-            'Authorization': token
-        }
-    });
-}
-
-export const loginAdmin = async ({ user, password },  token) => {
+export const loginAdmin = async ({ user, password }) => {
     return await axiosGet(`/admins/login`, {
         headers: {
             'Authorization': `${user}:${password}`,
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
         }
     });
 }
 
-export const createAdmin = async (data,  token) => {
+export const createAdmin = async (data) => {
     return await axiosPost('/admins', data, {
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': token
         },
     });
 }
 
-export const updateAdmin = async (data,  token) => {
+export const updateAdmin = async (data) => {
     return await axiosPut('/admins', data, {
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': token
         },
     });
 }
 
-export const deleteAdmin = async (id,  token) => {
-    return await axiosDelete(`/admins/${id}`, {
-        headers: {
-            'Authorization': token
-        }
-    });
+export const deleteAdmin = async (id) => {
+    return await axiosDelete(`/admins/${id}`);
 }

@@ -9,11 +9,11 @@ import CreateIcon from "../../../assets/icons/create_icon.svg";
 import "./styles.scss";
 import Input from "../../../components/input/Input";
 import { createAdoption, deleteAdoption, getAllAdoptions, updateAdoption } from "../../../services/api/adoptions";
-import checkPermissions from "../../../utils/checkPermissions";
-import { useNavigate } from "react-router-dom";
 
 function Adoptions() {
-  const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalAction, setModalAction] = useState(null);
+  const [selectedTutor, setSelectedTutor] = useState(null);
 
   const initialFilter = {
     name: null,
@@ -22,26 +22,10 @@ function Adoptions() {
   };
   const [filter, setFilter] = useState(initialFilter);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalAction, setModalAction] = useState(null);
-  const [selectedTutor, setSelectedTutor] = useState(null);
-
-  const [ userHasPermission, setUserHasPermission ] = useState(false);
   const [tutorsList, setTutorsList] = useState([]);
 
   useEffect(() => {
-    async function checkUserPermission() {
-      await checkPermissions('adoptions', navigate)
-        .then(response => {
-          setUserHasPermission(response);
-        })
-    }
-    
-    checkUserPermission();
-  }, []);
-
-  useEffect(() => {
-    getAllAdoptions(localStorage.getItem('login'))
+    getAllAdoptions()
       .then(async data => {
         let adoptionsList = [];
         await data.forEach(adoption => {
@@ -60,6 +44,33 @@ function Adoptions() {
         setTutorsList(adoptionsList);
       });
   }, []);
+
+  const columns = [
+    {
+      title: "ID",
+      rowKey: "id",
+    },
+    {
+      title: "Nome",
+      rowKey: "tutors_name",
+    },
+    {
+      title: "E-mail",
+      rowKey: "email",
+    },
+    {
+      title: "Celular",
+      rowKey: "phone",
+    },
+    {
+      title: "Endereço",
+      rowKey: "address",
+    },
+    {
+      title: "Adotou",
+      rowKey: "animal_name",
+    },
+  ];
 
   const getFilteredItems = () => {
     let results = [...tutorsList];
@@ -87,7 +98,7 @@ function Adoptions() {
     await updateAdoption({
       ...tutor,
       phone: Number(tutor.phone.replace(/[()\-\s]/g, ''))
-    }, localStorage.getItem('login'))
+    })
       .catch(error => console.log(error));
 
     setTutorsList(tutors);
@@ -95,7 +106,7 @@ function Adoptions() {
   };
 
   const deleteTutorsList = async (tutor) => {
-    await deleteAdoption(tutor.animal_id, localStorage.getItem('login'))
+    await deleteAdoption(tutor.animal_id)
 
     setTutorsList(
       tutorsList.filter((tutors) => tutors.id !== tutor.id)
@@ -113,7 +124,7 @@ function Adoptions() {
     await createAdoption({
       ...tutor,
       phone: Number(tutor.phone.replace(/[()\-\s]/g, ''))
-    }, localStorage.getItem('login'))
+    })
       .then(() => {
         setTutorsList(tutors);
         setIsModalOpen(false);
@@ -146,33 +157,6 @@ function Adoptions() {
     return filter && filter[field] ? filter[field] : "";
   };
 
-  const columns = [
-    {
-      title: "ID",
-      rowKey: "id",
-    },
-    {
-      title: "Nome",
-      rowKey: "tutors_name",
-    },
-    {
-      title: "E-mail",
-      rowKey: "email",
-    },
-    {
-      title: "Celular",
-      rowKey: "phone",
-    },
-    {
-      title: "Endereço",
-      rowKey: "address",
-    },
-    {
-      title: "Adotou",
-      rowKey: "animal_name",
-    },
-  ];
-
   return (
     <>
       <AdminNavBar headerTitle="Adoções">
@@ -200,17 +184,15 @@ function Adoptions() {
             />
           </div>
 
-          {userHasPermission && (
-            <div className="add-icon">
-              Adicionar
-              <img
-                className="pointer"
-                src={CreateIcon}
-                onClick={onClickNewTutor}
-                alt=""
-              />
-            </div>
-          )}
+          <div className="add-icon">
+            Adicionar
+            <img
+              className="pointer"
+              src={CreateIcon}
+              onClick={onClickNewTutor}
+              alt=""
+            />
+          </div>
         </div>
         <div className="adoptions-list-container">
           <AdminList
@@ -218,7 +200,6 @@ function Adoptions() {
             rows={getFilteredItems()}
             onClickEditRow={onClickEditTutor}
             onClickDeleteRow={onClickDeleteTutor}
-            userHasPermission={userHasPermission}
           />
         </div>
       </AdminNavBar>

@@ -2,13 +2,12 @@ import {
   Routes,
   Route,
   BrowserRouter,
-  useLocation,
   Navigate,
+  useLocation,
 } from "react-router-dom";
 import { useEffect } from "react";
 
 import { publicPages, privatePages } from "./pages/pages.js";
-import AuthAdminRoutes from "./AuthAdminRoutes.jsx";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -32,15 +31,15 @@ export default function MainRoutes() {
         <Route path="contact" element={<publicPages.Contact />} />
         <Route path="donation" element={<publicPages.Donation />} />
         <Route path="volunteers" element={<publicPages.Volunteers />} />
-        <Route path="admin" element={<AuthAdminRoutes />}>
+        <Route path="admin">
           <Route index element={<Navigate to="/admin/login" />} />
-          <Route path="/admin/login" element={<privatePages.Login />} />
-          <Route path="/admin/control_panel" element={<privatePages.ControlPanel />} />
-          <Route path="/admin/animals" element={<privatePages.Animals />} />
-          <Route path="/admin/sponsorships" element={<privatePages.Sponsorships />} />
-          <Route path="/admin/adoptions" element={<privatePages.Adoptions />} />
-          <Route path="/admin/volunteers" element={<privatePages.Volunteers />} />
-          <Route path="/admin/admin_page" element={<privatePages.Admin />} />
+          <Route path="login" element={<privatePages.Login />} />
+          <Route path="control_panel" element={<privatePages.ControlPanel />} />
+          <Route path="animals" element={<privatePages.Animals />} />
+          <Route path="sponsorships" element={<privatePages.Sponsorships />} />
+          <Route path="adoptions" element={<privatePages.Adoptions />} />
+          <Route path="volunteers" element={<privatePages.Volunteers />} />
+          <Route path="admin_page" element={<privatePages.Admin />} />
         </Route>
       </Routes>
     </BrowserRouter>
