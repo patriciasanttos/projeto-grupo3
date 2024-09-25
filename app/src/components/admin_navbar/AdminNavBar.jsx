@@ -1,4 +1,4 @@
-import React, { Children } from 'react';
+import React, { useState } from 'react';
 
 import logo from '../../assets/images/logo.svg';
 import animals_icon from '../../assets/icons/navbar_admin/animals_icon.svg';
@@ -10,8 +10,11 @@ import logout from "../../assets/icons/navbar_admin/logout.svg";
 
 import './styles.scss';
 import { Link } from 'react-router-dom';
+import LogoutModal from './logoutModal/LogoutModal';
 
 function AdminNavBar({ headerTitle, children }) {
+  const [ logoutModalOpen, setLogoutModalOpen ] = useState(false);
+
   return (
     <div className="admin-page-container">
       <aside className="admin-aside">
@@ -54,7 +57,7 @@ function AdminNavBar({ headerTitle, children }) {
               <p>Administrador</p>
             </button>
           </Link>
-          <button className="admin-navbar-btn logout-button">
+          <button className="admin-navbar-btn logout-button" onClick={() => setLogoutModalOpen(true)}>
             <img src={logout} alt="" />
             <p>Sair</p>
           </button>
@@ -68,6 +71,8 @@ function AdminNavBar({ headerTitle, children }) {
 
         <main className="admin-main-container">{children}</main>
       </div>
+
+      <LogoutModal isOpen={logoutModalOpen} onClose={() => setLogoutModalOpen(false)} />
     </div>
   );
 }

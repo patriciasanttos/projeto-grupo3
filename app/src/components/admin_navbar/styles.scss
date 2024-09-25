@@ -1,4 +1,7 @@
 .admin-page-container {
+    display: flex;
+    justify-content: center;
+
     .admin-aside {
         border: 1px solid var(--background-primary-color);
 
