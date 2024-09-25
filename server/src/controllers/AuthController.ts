@@ -51,6 +51,14 @@ class AutoController {
         res.status(response.code).json(administrator);
     }
 
+    async verifyUser(req: Request, res: Response) {
+        const { id } = req.params;
+
+        const response: any = await adminsRepository.verifyUser(Number(id));
+
+        res.status(response.code).send();
+    }
+
     async login(req: Request, res: Response){
         const { authorization } = req.headers;
         if (!authorization)

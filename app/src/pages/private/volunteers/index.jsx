@@ -7,19 +7,41 @@ import "./styles.scss";
 import AdminList from "../../../components/admin_list/AdminList";
 import ModalActionsEnum from '../../../utils/ModalActionsEnum'
 import { createVolunteer, deleteVolunteer, getAllVolunteers, updateVolunteer } from "../../../services/api/volunteers";
+import checkPermissions from "../../../utils/checkPermissions";
+import { useNavigate } from "react-router-dom";
 
 function Volunteers() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalAction, setModalAction] = useState(null);
-  const [selectedVolunteer, setSelectedVolunteer] = useState(null);
+  const navigate = useNavigate();
 
-  //Filtro de Pesquisa
   const initialFilter = {
     name: null,
     email: null,
     phone: null
   };
   const [filter, setFilter] = useState(initialFilter);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalAction, setModalAction] = useState(null);
+  const [selectedVolunteer, setSelectedVolunteer] = useState(null);
+
+  const [volunteersList, setVolunteersList] = useState([]);
+  const [ userHasPermission, setUserHasPermission ] = useState(false);
+
+  useEffect(() => {
+    async function checkUserPermission() {
+      await checkPermissions('volunteers', navigate)
+        .then(response => {
+          setUserHasPermission(response);
+        })
+    }
+    
+    checkUserPermission();
+  }, []);
+
+  useEffect(() => {
+    getAllVolunteers(localStorage.getItem('login'))
+      .then(data => setVolunteersList(data));
+  }, []);
 
   const getFilteredItems = () => {
     let results = [...volunteersList];
@@ -42,12 +64,52 @@ function Volunteers() {
     return filter && filter[field] ? filter[field] : "";
   };
 
-  const [volunteersList, setVolunteersList] = useState([]);
+  const updateVolunteersList = async (volunteer) => {
+    let volunteers = volunteersList.map((volunt) => {
+      if (volunt.id === volunteer.id)
+        return volunteer;
 
-  useEffect(() => {
-    getAllVolunteers()
-      .then(data => setVolunteersList(data));
-  }, []);
+      return volunt;
+    });
+
+    if (volunteer.phone)
+      volunteer.phone = Number(volunteer.phone.replace(/[()\-\s]/g, ''));
+
+    await updateVolunteer(volunteer, localStorage.getItem('login'))
+      .catch(error => {
+        console.log(error);
+      });
+
+    setVolunteersList(volunteers);
+    setIsModalOpen(false);
+  };
+
+  const deleteVolunteersList = async (volunteer) => {
+    await deleteVolunteer(volunteer.id, localStorage.getItem('login'))
+      .catch(error => {
+        console.log(error);
+      });
+
+    setVolunteersList(volunteersList.filter((volunteers) => volunteers.id !== volunteer.id));
+    setIsModalOpen(false);
+  }
+
+  const createVolunteersList = async (volunteer) => {
+    let volunteers = [...volunteersList];
+    volunteers.push({
+      ...volunteer,
+      id: volunteersList.length + 1,
+    });
+
+    await createVolunteer({
+      ...volunteer,
+      phone: Number(volunteer.phone.replace(/[()\-\s]/g, '')),
+    }, localStorage.getItem('login'))
+      .catch(error => console.log(error));
+
+    setVolunteersList(volunteers);
+    setIsModalOpen(false);
+  };
 
   const columns = [
     {
@@ -71,53 +133,6 @@ function Volunteers() {
       rowKey: "availability",
     },
   ];
-
-  const updateVolunteersList = async (volunteer) => {
-    let volunteers = volunteersList.map((volunt) => {
-      if (volunt.id === volunteer.id)
-        return volunteer;
-
-      return volunt;
-    });
-
-    if (volunteer.phone)
-      volunteer.phone = Number(volunteer.phone.replace(/[()\-\s]/g, ''));
-
-    await updateVolunteer(volunteer)
-      .catch(error => {
-        console.log(error);
-      });
-
-    setVolunteersList(volunteers);
-    setIsModalOpen(false);
-  };
-
-  const deleteVolunteersList = async (volunteer) => {
-    await deleteVolunteer(volunteer.id)
-      .catch(error => {
-        console.log(error);
-      });
-
-    setVolunteersList(volunteersList.filter((volunteers) => volunteers.id !== volunteer.id));
-    setIsModalOpen(false);
-  }
-
-  const createVolunteersList = async (volunteer) => {
-    let volunteers = [...volunteersList];
-    volunteers.push({
-      ...volunteer,
-      id: volunteersList.length + 1,
-    });
-
-    await createVolunteer({
-      ...volunteer,
-      phone: Number(volunteer.phone.replace(/[()\-\s]/g, '')),
-    })
-      .catch(error => console.log(error));
-
-    setVolunteersList(volunteers);
-    setIsModalOpen(false);
-  };
 
   const onClickEditVolunteer = (volunteer) => {
     setIsModalOpen(true);
@@ -157,10 +172,12 @@ function Volunteers() {
             onChange={(e) => setFilter({ ...filter, availability: e.target.value })}
             />
           </div>
-          <div className="admin-volunteers-btn">
-            <label htmlFor="">Adicionar</label>
-            <button onClick={onClickNewVolunteer}><img className="pointer" src={createIcon} alt="" /></button>
-          </div>
+          {userHasPermission && (
+            <div className="admin-volunteers-btn">
+              <label htmlFor="">Adicionar</label>
+              <button onClick={onClickNewVolunteer}><img className="pointer" src={createIcon} alt="" /></button>
+            </div>
+          )}
 
         </div>
         <div className="volunteers-list-container">
@@ -169,6 +186,7 @@ function Volunteers() {
             rows={getFilteredItems()}
             onClickEditRow={onClickEditVolunteer}
             onClickDeleteRow={onClickDeleteVolunteer}
+            userHasPermission={userHasPermission}
           />
         </div>
       </AdminNavBar>
