@@ -15,8 +15,8 @@ function LogoutModal({ isOpen, onClose }) {
     <div className="logout-modal">
       <h2 className='logout-title'>Deseja sair?</h2>
 
-      <button className='logout-btn' onClick={() => logout()}>Sim</button>
-      <button className='logout-btn' onClick={() => onClose()}>Não</button>
+      <button className='logout-btn confirm' onClick={() => logout()}>Sim</button>
+      <button className='logout-btn cancel' onClick={() => onClose()}>Não</button>
     </div>
   );
 }
