@@ -11,6 +11,12 @@ const permissions = {
   volunteers: "Voluntários",
   admins: "Administradores",
   all: "Tudo",
+  1: "Animais",
+  2: "Apadrinhamentos",
+  3: "Adoções",
+  4: "Voluntários",
+  5: "Administradores",
+  6: "Tudo",
 };
 
 function AdminList({
@@ -23,8 +29,11 @@ function AdminList({
 }) {
   const getCell = (value) => {
     if (Array.isArray(value)) {
-      const userPerms = value.map((i) => i.name);
-      return userPerms.map((perm) => permissions[perm]).join(", ");
+      const userPerms = value.map((perm) => {
+        return permissions[perm?.name] || permissions[perm]
+      });
+      
+      return userPerms.join(", ");
     }
 
     return value;

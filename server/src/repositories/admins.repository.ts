@@ -226,9 +226,11 @@ export default {
                     };
     
                 await gettedAdmin.update({ ...userData });
+                const updatedAdmin = await this.getAdminById(data.id)
 
                 return {
-                    code: 200
+                    code: 200,
+                    data: updatedAdmin
                 };
             };
 
@@ -239,8 +241,11 @@ export default {
             if (data.permissions && data.permissions.length > 0)
                 await admin.setPermissions([ ...data.permissions ]);
 
+            const updatedAdmin = await this.getAdminById(data.id)
+
             return {
-                code: 200
+                code: 200,
+                data: updatedAdmin
             };
         } catch (error: any) {
             return serverErrorHandler(error);

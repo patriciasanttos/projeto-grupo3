@@ -12,9 +12,6 @@ export const axiosPost = async (url, data, headers) => {
 
 export const axiosPut = async (url, data, headers) => {
     const res = await axiosClient.put(url, data, headers)
-        .them((req, res) => {
-            console.log('Response: ' + req)
-        });
     return res.data;
 };
 
