@@ -14,9 +14,11 @@ function DonationCard() {
                 <img src={broom} alt="Icone de Limpeza" className="icon_donation"/>
             </div>
             <div> 
-                <h2>Kit de Limpeza</h2>
-                <h3> R$ 15 </h3>
-                <p>Desinfetante à base de amônia quaternária, ideal para a desinfecção das baias de internação. Para manter o ambiente limpo e seguro para os nossos animais!</p>
+                <h2>Kit de<br/> Limpeza</h2><br/>
+                <h3> R$ 25 </h3>
+                <br/>
+                <p>Desinfetante à base de amônia quaternária para desinfecção das baias. Mantenha o ambiente limpo e seguro!</p>
+                <br/>
                 <button>Doe Agora</button> 
             </div>
         </div>
@@ -27,10 +29,11 @@ function DonationCard() {
             </div>
             <div> 
                 <h2>Kit Preventivo <br />de Doenças</h2>
-
+                <br/>
                 <h3> R$ 40 </h3>
-                <p>Vacina para imunizar cães e gatos.</p>
-
+                <br/>
+                <p>Vacina essencial para imunizar e proteger cães e gatos, garantindo a saúde e bem-estar dos nossos animais.</p>
+                <br/>
                 <button>Doe Agora</button> 
             </div>
         </div>
@@ -40,11 +43,11 @@ function DonationCard() {
                 <img src={medicine} alt="seringa" className="icon_donation" />
             </div>
             <div> 
-                <h2>Kit Diária <br />de Internação</h2>
-
-                <h3> R$ 100 </h3>
-                <p>Soro, cateter para acesso, equipo esparadrapo e medicação.</p>
-
+                <h2>Kit Diária <br />de Internação</h2> 
+                <br/>
+                <h3> R$ 100 </h3> <br/>
+                <p>Soro, cateter, equipo, esparadrapo e medicação. Essencial para o cuidado e a recuperação dos animais.</p>
+                <br/>
                 <button>Doe Agora</button> 
             </div>
         </div>
