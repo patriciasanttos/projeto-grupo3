@@ -16,12 +16,10 @@ const AuthAdminRoutes = () => {
 
     verifyAdmin(decodedJwt.userId, localStorage.getItem('login'))
       .then(() => {
-        console.log(location.pathname)
         if ((location.pathname === '/admin/login' || location.pathname === '/admin') && loginCookie)
           return navigate('/admin/control_panel');
       })
       .catch(({ response }) => {
-        console.log('bbb')
         if (response.status === 404)
           return navigate('/admin/login');
       });

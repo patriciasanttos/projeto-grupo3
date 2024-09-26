@@ -17,7 +17,7 @@ app
         if (req.method === 'GET' && req.url === '/animals' || req.method === 'GET' && req.url === '/admins/login')
             return next(); 
 
-        const token = req.headers.authorization;
+        const token = req.headers['authorization'] && req.headers['authorization'].split(' ')[1];
         if (!token)
             return res.status(401).json({ message: 'Missing authorization header' });
 
