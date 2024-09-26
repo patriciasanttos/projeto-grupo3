@@ -66,7 +66,7 @@ function LandingPage() {
             em Juiz de Fora/MG.
           </h1>
           <p className="hero-text">
-            Faça parte dessa missão de amor e esperança!
+          Junte-se a nós nessa missão de amor e esperança!
           </p>
           <div>
             <Link to="/donation">
@@ -129,12 +129,19 @@ function LandingPage() {
       <section className="sponsor-volunteer">
         <section className="sponsor-section">
           <div>
-            <h3 className="subtitle">Com doações você pode apoiar um animal</h3>
+            <h3 className="subtitle">
+              Com suas doações você faz a diferença na vida um animal!
+            </h3>
             <h1 className="title">Apadrinhe</h1>
             <p className="sponsor-text">
-              O padrinho ajuda no bem estar e no cuidado do animal. <br /> Você
-              pode se sentir a vontade para visitá-lo quando quiser.
-              <br /> Contribua mensalmente!
+              Ao se tornar padrinho, você contribui para o bem estar
+              <br />
+              e os cuidados do animal. E o melhor de tudo,
+              <br />você pode visitá-lo sempre que desejar.
+              <br />
+              Contribua mensalmente e 
+              <br /> 
+              faça parte dessa jornada de amor!
             </p>
             <Link to="/sponsorship">
               <button className="btn-sponsor btn">Quero apadrinhar</button>

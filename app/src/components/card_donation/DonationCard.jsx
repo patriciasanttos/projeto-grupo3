@@ -15,10 +15,8 @@ function DonationCard() {
             </div>
             <div> 
                 <h2>Kit de Limpeza</h2>
-
-                <h3> R$ 25 </h3>
-                <p>Desinfetante a base de amônia quaternária para desinfecção das baias da internação.</p>
-
+                <h3> R$ 15 </h3>
+                <p>Desinfetante à base de amônia quaternária, ideal para a desinfecção das baias de internação. Para manter o ambiente limpo e seguro para os nossos animais!</p>
                 <button>Doe Agora</button> 
             </div>
         </div>

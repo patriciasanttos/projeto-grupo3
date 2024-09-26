@@ -4,10 +4,10 @@ import './Menu.scss';
 import { Link } from 'react-router-dom';
 
 const menuItems = [
-  { title: 'Faça uma doação', description: 'Ajude a manter nosso trabalho', buttonText: 'Doar', url: '/donation' },
-  { title: 'Apadrinhe', description: 'Nos ajude a manter os cuidados de um animal', buttonText: 'Apadrinhar', url: '/sponsorship' },
-  { title: 'Adote', description: 'Canditate-se para adoção responsável', buttonText: 'Adotar', url: '/adoption' },
-  { title: 'Seja um voluntário', description: 'Saiba como você pode nos ajudar', buttonText: 'Quero ajudar', url: '/volunteers' }
+  { title: 'Faça uma doação', description: 'Sua contribuição faz a diferença. Descubra como doar!', buttonText: 'Doar', url: '/donation' },
+  { title: 'Apadrinhe um animal', description: 'Ajude a garantir os cuidados dos animais!', buttonText: 'Apadrinhar', url: '/sponsorship' },
+  { title: 'Adote um amigo', description: 'Candidate-se para uma adoção responsável!', buttonText: 'Adotar', url: '/adoption' },
+  { title: 'Seja voluntário', description: 'Você pode por a mão na massa. Descubra como você pode nos ajudar!', buttonText: 'Quero ajudar', url: '/volunteers' }
 ]
 
 function Menu({ currentPage }) {

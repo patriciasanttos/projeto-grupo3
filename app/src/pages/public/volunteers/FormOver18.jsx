@@ -62,16 +62,13 @@ const FormOver18 = () => {
   return (
     <div>
       <p>
-        Pelo presente Termo de Adesão e ciente da Lei n. 9.608/1998 que rege o
-        trabalho voluntário,decido espontaneamente realizar atividade voluntária
-        nesta organização. <br />
-        Declaro, ainda, que estou ciente de que o trabalho não será remunerado e
-        que não configurará vínculo empregatício ou gerará qualquer obrigação de
-        natureza trabalhista, previdenciária ou afim. <br />
-        Declaro, por fim, que estou ciente de que eventuais danos pessoais ou
-        materiais causados no exercício do trabalho voluntário serão de total e
-        integral responsabilidade minha e não serão imputados à esta
-        organização.
+        <b>Termo de Adesão ao Trabalho Voluntário</b>
+        <br />
+        Pelo presente termo, concordo estar ciente da Lei n. 9.608/1998 que rege o trabalho voluntário e decido espontaneamente realizar atividades voluntárias nesta organização.
+        <br />
+        Declaro estar ciente de que o trabalho voluntário não será remunerado e que não configurará vínculo empregatício ou gerará qualquer obrigação de natureza trabalhista, previdenciária ou similar.
+        <br />
+        Além disso, declaro que estou ciente de que eventuais danos pessoais ou materiais causados no exercício do trabalho voluntário serão de total e integral responsabilidade minha e não serão imputados à organização.
       </p>
 
       <form className="volunteers-form" action="">
@@ -107,7 +104,7 @@ const FormOver18 = () => {
           <Dropdown
             defaultValue=""
             placeholder="Setor"
-            onChange={(e) => updateFormOver18('sector', e.target.value )}
+            onChange={(e) => updateFormOver18('sector', e.target.value)}
             error={formOver18Errors.sector}
           >
             <option value="Canil">Canil</option>
@@ -123,7 +120,7 @@ const FormOver18 = () => {
             placeholder="Celular"
             value={formOver18.phoneNumber}
             mask={"(00) 00000-0000"}
-            onChange={(e) => updateFormOver18('phoneNumber', e.target.value )}
+            onChange={(e) => updateFormOver18('phoneNumber', e.target.value)}
             error={formOver18Errors.phoneNumber}
           />
           <Input
@@ -132,7 +129,7 @@ const FormOver18 = () => {
             id=""
             placeholder="Profissão"
             value={formOver18.occupation}
-            onChange={(e) => updateFormOver18('occupation', e.target.value )}
+            onChange={(e) => updateFormOver18('occupation', e.target.value)}
             error={formOver18Errors.occupation}
           />
           <Input
@@ -141,13 +138,13 @@ const FormOver18 = () => {
             id=""
             placeholder="Disponibilidade de horas na semana"
             value={formOver18.availability}
-            onChange={(e) => updateFormOver18('availability', e.target.value )}
+            onChange={(e) => updateFormOver18('availability', e.target.value)}
             error={formOver18Errors.availability}
           />
           <StateSelect
             defaultValue=""
             placeholder="Estado"
-            onChange={(e) => updateFormOver18('state', e.target.value )}
+            onChange={(e) => updateFormOver18('state', e.target.value)}
             error={formOver18Errors.state}
           />
         </div>

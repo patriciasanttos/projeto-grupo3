@@ -38,9 +38,8 @@ function Volunteers() {
       <ContentHero
         title="Seja um voluntário"
         subtitle="Faça a diferença na vida de um animal"
-        text="Voluntariar-se é uma forma incrível de conectar-se com seres que possuem um amor puro e incondicional para oferecer. Além disso,
-           você estará cercado por uma comunidade de pessoas que compartilham o mesmo amor e respeito pelos animais."
-        text2="Não é necessário ter experiência anterior, tudo o que pedimos é um coração aberto e vontade de fazer a diferença. Os animais precisam de você, e cada gesto de amor conta!"
+        text="Voluntariar-se é uma maneira incrível de se conectar com seres que oferecem um amor puro e incondicional. Além disso, você estará rodeado por uma comunidade de pessoas que compartilham o mesmo amor e respeito pelos animais."
+        text2="Não é necessário ter experiência anterior; apenas um coração aberto e a vontade de fazer a diferença são o suficiente. Os animais precisam de você, e cada gesto de amor conta!"
       />
 
       {/* CONTEÚDO PRINCIPAL DA PÁGINA - TAREFAS DO VOLUNTÁRIO */}
@@ -104,17 +103,25 @@ function Volunteers() {
             <div className="icon-text">
               <li>
                 <img src={dogHouse} alt={"Dog House"} />
-                Atenção ao humor do animal, caso ele
+                Respeite o humor do animal! Se ele
                 <br />
-                não tenha interesse em brincar ou em
+                não quiser em brincar ou receber
                 <br />
-                carinho, não o incomode
+                carinho, naõ force a interação.
+                <br />
+                Priorize o bem estar do animal!
+              
               </li>
               <li>
                 <img src={attention} alt={"Attention"} />
-                Os trincos dos canis precisam
+                Os trincos dos canis devem 
                 <br />
                 estar sempre fechados
+                <br />
+                para garantir a segurança dos
+                <br />
+                animais e dos voluntários
+            
               </li>
             </div>
           </ul>
@@ -125,9 +132,11 @@ function Volunteers() {
             <div className="icon-text">
               <li>
                 <img src={volunteers} alt={"Volunteers"} />
-                Nas primeiras visitas, o ideal é ir com
+                Nas primeiras visitas, o ideal é estar 
                 <br />
-                voluntários antigos para ter orientações
+                acompanhado por voluntários antigos 
+                 <br />
+                para receber as devidas orientações
               </li>
               <li>
                 <img src={clock} alt={"Clock"} />
@@ -141,7 +150,9 @@ function Volunteers() {
                 <br />
                 grupo no WhatsApp com os demais
                 <br />
-                voluntários
+                voluntários para se integrar 
+                <br />
+                e receber atualizações.
               </li>
             </div>
           </ul>
