@@ -13,14 +13,15 @@ const AuthAdminRoutes = () => {
       return navigate('/admin/login');
 
     const decodedJwt = jwtDecode(loginCookie)
-    console.log(decodedJwt)
 
     verifyAdmin(decodedJwt.userId, localStorage.getItem('login'))
       .then(() => {
-        if (location.pathname === '/admin/login' && loginCookie)
+        console.log(location.pathname)
+        if ((location.pathname === '/admin/login' || location.pathname === '/admin') && loginCookie)
           return navigate('/admin/control_panel');
       })
       .catch(({ response }) => {
+        console.log('bbb')
         if (response.status === 404)
           return navigate('/admin/login');
       });
