@@ -64,18 +64,13 @@ const FormUnder18 = () => {
   return (
     <div>
       <p>
-        Pela presente Autorização e ciente da Lei n. 9.608/1998 que rege o
-        trabalho voluntário, da Constituição Federal e do Estatuto da Criança e
-        do Adolescente que proíbem o trabalho noturno, perigoso ou insalubre a
-        menores de dezoito anos, autorizo meu filho(a) a realizar atividade
-        voluntária nesta organização.
+        <b>Autorização para Atividade Voluntária de Menor</b>
         <br />
-        Declaro, ainda, que tenho conhecimento e estou de acordo com os
-        objetivos e a metodologia usada nas atividades e estou ciente de que o
-        projeto tem cunho educacional e social. <br />
-        Declaro, por fim, que estou ciente de que o trabalho não será remunerado
-        e que não configurará vínculo empregatício ou gerará qualquer obrigação
-        de natureza trabalhista, previdenciária ou afim.
+        Pelo presente termo, concordo ciente da Lei n. 9.608/1998 que rege o trabalho voluntário, da Constituição Federal e do Estatuto da Criança e do Adolescente que proíbem o trabalho noturno, perigoso ou insalubre para menores de dezoito anos, autorizo meu filho(a) a realizar atividades voluntárias nesta organização.
+        <br />
+        Declaro que tenho conhecimento e estou de acordo com os objetivos e a metodologia utilizadas nas atividades e que entendo que o projeto tem cunho educacional e social.
+        <br />
+        Além disso, declaro que estou ciente de que o trabalho voluntário não será remunerado e que não configurará vínculo empregatício ou gerará qualquer obrigação de natureza trabalhista, previdenciária ou similar.
       </p>
       <form className="volunteers-form" action="">
         <div className="align-form">

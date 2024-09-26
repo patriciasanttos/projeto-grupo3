@@ -20,10 +20,10 @@ function Contact() {
 
       <div className="contact-page-container">
         <ContentHero
-          title="Entre em contato e faça parte dessa causa"
-          subtitle="Juntos podemos fazer a diferença!"
-          text="Você ama os animais e quer ajudar a proporcionar uma vida melhor para eles?"
-          text2="Nossa ONG está comprometida em cuidar e encontrar lares amorosos para animais abandonados. Precisamos do seu apoio!"
+           title ="Entre em contato e faça parte dessa causa" 
+           subtitle="Juntos podemos fazer a diferença!" 
+           text="Você ama os animais e deseja ajudar a proporcionar uma vida melhor para eles?"
+           text2="Nossa ONG está comprometida em cuidar e encontrar lares amorosos para animais abandonados. Precisamos do seu apoio!"    
         />
 
         <main className="contact-page-main">
@@ -67,11 +67,8 @@ function Contact() {
               </div>
 
               <div className="whatsapp-link">
-                <p>Responsável: Elenir da Silva Silveira</p> <br /> <br />
-                <a
-                  className="contact-link"
-                  href="https://api.whatsapp.com/send?phone=553299655493"
-                >
+                <p>Responsável: Elenir da Silva Silveira</p> 
+                <a target='_blanck' href="https://api.whatsapp.com/send?phone=553299655493">
                   <div>
                     <img src={link_icon} alt="Link" />
                     <p>+55 (32) 9965-5493</p>
@@ -88,6 +85,7 @@ function Contact() {
               </div>
 
               <p>ongsjpa@gmail.com</p>
+              <p>voluntariabeatriz@ongsjpa.org</p>
             </div>
 
             <div className="instagram">
@@ -101,10 +99,7 @@ function Contact() {
                 />
               </div>
 
-              <a
-                className="contact-link"
-                href="https://www.instagram.com/ong_sjpa/"
-              >
+              <a target='_blanck' href="https://www.instagram.com/ong_sjpa/">
                 <img src={link_icon} alt="Link" />
                 <p>ong_sjpa</p>
               </a>

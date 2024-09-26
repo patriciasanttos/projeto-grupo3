@@ -47,7 +47,7 @@ function Sponsorship() {
       <ContentHero
         subtitle="Faça a diferença na vida de um animal"
         title="Seja uma madrinha ou padrinho"
-        text="Apadrinhar um dos nossos animais é transformar uma vida. Com sua ajuda, eles recebem alimento, abrigo, cuidados e amor. Mesmo à distância, você faz a diferença e acompanha o impacto do seu apoio."
+        text="Apadrinhar um dos nossos animais é transformar uma vida. Com sua ajuda, eles recebem alimento, abrigo, cuidados e amor. Mesmo à distância, você faz a diferença e pode acompanhar o impacto do seu apoio. Seja parte dessa mudança e ajude a oferecer um futuro melhor para nossos amigos de quatro patas."
       />
 
       {loading ? (

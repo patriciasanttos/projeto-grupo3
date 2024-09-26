@@ -22,10 +22,10 @@ function Donation() {
       <NavBar />
 
       <ContentHero
-        subtitle="Faça a diferença na vida de um animal"
-        title="Faça uma doação"
-        text="Nossa ONG se dedica incansavelmente a cuidar desses animais, proporcionando alimentação, abrigo, cuidados veterinários e, acima de tudo, muito amor. Mas para continuarmos com esse trabalho, precisamos de você. Sua doação, por menor que seja, faz uma diferença imensa na vida desses animais."
-        text2="Junte-se a nós nessa missão. Doe agora e ajude a transformar a vida de um animal abandonado. Eles contam com você!"
+        subtitle="Faça a diferença na vida de um animal" 
+        title="Faça uma doação" 
+        text="Nossa ONG se dedica incansavelmente a cuidar dos animais, oferecendo alimentação, abrigo, cuidados veterinários e, acima de tudo, muito amor. No entanto, para continuarmos esse trabalho essencial, precisamos de você. Sua doação, por menor que seja, faz uma diferença imensa na vida desses animais."
+        text2="JJunte-se a nós nessa missão. Doe agora e ajude a transformar a vida de um animal abandonado. Eles contam com você!"
       />
 
       <section className="section-information">
@@ -38,14 +38,12 @@ function Donation() {
           <div className="ways-to-donate">
             <div className="left">
               <h3>Retirada de Doações</h3>
-              <p>
-                Para retiradas de doações de rações <br />
-                remédios, cobertores e outros itens, <br />
-                entre em contato pelo Whatsapp para agendar
-                <br />
-                <br />
-                Ou você deixar doações com nossos parceiros:
-              </p>
+              <p>Para retiradas de doações de rações <br/> 
+              remédios, cobertores e outros itens, <br/> 
+              entre em contato pelo Whatsapp <br/>
+              para agendar retirada.<br/><br/>
+
+              Ou você deixar doações com nossos parceiros:</p>
               <ul>
                 <li>
                   {" "}
@@ -104,16 +102,12 @@ function Donation() {
               </ul>
               <br />
               <h3>Outras formas de ajudar:</h3>
-              <p>
-                Cada feira de adoção tem custo hoje de <br />
-                R$ 1.500,00 a R$ 2.000,00, pois há gastos com
-                <br />
-                banho nos animais, transporte e funcionários.
-                <br />
-                Caso você tenha um bom espaço de feiras <br />
-                para nos sugerir, mande um e-mail para: <br />
-                ladynegaomimosa@gmail.com
-              </p>
+              <p>Cada feira de adoção tem custo de <br/> 
+              R$ 1.500,00 a R$ 2.000,00, cobrindo despesas <br/> 
+              com banho e transporte dos animais.<br/>
+              Se você conhece um espaço para as feiras <br/>
+              e pode nos ajudar, por favor mande um e-mail <br/>
+              para: ongsjpa@gmail.com</p>
             </div>
 
             <div className="right">
@@ -152,15 +146,8 @@ function Donation() {
         </div>
         <div className="text-call-platform">
           <h3>Doe pelas Plataformas Digitais:</h3>
-        </div>
-        <div className="digital-platform">
-          <a href="https://pagseguro.uol.com.br/" target="blank">
-            <img src={pagseguro} alt="pagseguro" />
-          </a>
-
-          <a href="https://www.paypal.com/br/home" target="blank">
-            <img src={paypal} alt="paypal" />
-          </a>
+          </div>
+          <div className="digital-platform">
 
           <a href="https://picpay.com/" target="blank">
             <img src={picpay} alt="picpay" />
