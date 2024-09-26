@@ -1,6 +1,6 @@
 .logout-modal {
     background-color: #fff;
-    border: solid 3px var(--background-primary-color);
+    border: solid 2px #a84958;
 
     position: absolute;
     align-items: center;
@@ -13,8 +13,8 @@
 
     .logout-title {
         font-size: 1.5rem;
-        color: var(--title-primary-color); 
-    }  
+        color: #a84958;
+    }
 
     .logout-btn {
         background-color: var(--button-primary-color);
@@ -31,7 +31,19 @@
         transition: background-color 0.3s ease-out;
     }
 
-    .logout-btn:hover {
-        background-color: var(--button-hover-color);
+    .confirm {
+        background-color: #a84958;
+    }
+
+    .confirm:hover {
+        background-color: #904953
+    }
+
+    .cancel {
+        background-color: var(--backroung-secondary-color);
+    }
+
+    .cancel:hover {
+        background-color: rgb(59, 55, 55);
     }
 }
