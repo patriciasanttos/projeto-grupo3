@@ -1,26 +1,64 @@
 import "./AdminList.scss";
-import Tooltip from '../tooltip'
+import Tooltip from "../tooltip";
 import EditIcon from "../../assets/icons/edit_icon.svg";
 import DeleteIcon from "../../assets/icons/delete_icon.svg";
+import PopupMenu from "../popupMenu";
 
 const permissions = {
-  animals: 'Animais',
-  sponsorships: 'Apadrinhamentos',
-  adoptions: 'Adoções',
-  volunteers: 'Voluntários',
-  admin: 'Administradores',
-  all: 'Tudo'
-}
+  animals: "Animais",
+  sponsorships: "Apadrinhamentos",
+  adoptions: "Adoções",
+  volunteers: "Voluntários",
+  admin: "Administradores",
+  all: "Tudo",
+};
 
-function AdminList({ columns, rows, onClickEditRow, onClickDeleteRow, userHasPermission }) {
+function AdminList({
+  columns,
+  rows,
+  onClickEditRow,
+  onClickDeleteRow,
+  userHasPermission,
+  popupMenuActions,
+}) {
   const getCell = (value) => {
     if (Array.isArray(value)) {
-      const userPerms = value.map(i => i.name);
-      return userPerms.map(perm => permissions[perm]).join(', ');
+      const userPerms = value.map((i) => i.name);
+      return userPerms.map((perm) => permissions[perm]).join(", ");
     }
-    
-    return value
-  }
+
+    return value;
+  };
+
+  const getActions = (row) => {
+    if (popupMenuActions)
+      return (
+        <td className="flex-row">
+          <PopupMenu menuActions={popupMenuActions} row={row}/>
+        </td>
+      );
+
+    return (
+      <td className="flex-row">
+        <Tooltip text="Editar">
+          <img
+            className="edit-icon"
+            src={EditIcon}
+            alt=""
+            onClick={() => onClickEditRow(row)}
+          />
+        </Tooltip>
+        <Tooltip text="Deletar">
+          <img
+            className="delete-icon"
+            src={DeleteIcon}
+            alt=""
+            onClick={() => onClickDeleteRow(row)}
+          />
+        </Tooltip>
+      </td>
+    );
+  };
 
   return (
     <div className="admin-list-container">
@@ -30,37 +68,16 @@ function AdminList({ columns, rows, onClickEditRow, onClickDeleteRow, userHasPer
             {columns.map((column) => (
               <td key={column.title}>{column.title}</td>
             ))}
-            {userHasPermission && (
-              <td>Ações</td>
-            )}
+            {userHasPermission && <td>Ações</td>}
           </tr>
         </thead>
         <tbody>
           {rows.map((row, index) => (
             <tr key={row.id} className="row">
-              {columns.map((column, i) => ( 
+              {columns.map((column, i) => (
                 <td key={`${index} - ${i}`}>{getCell(row[column.rowKey])}</td>
               ))}
-              {userHasPermission && (
-                <td className="flex-row">
-                  <Tooltip text="Editar">
-                    <img
-                      className="edit-icon"
-                      src={EditIcon}
-                      alt=""
-                      onClick={() => onClickEditRow(row)}
-                    />
-                  </Tooltip>
-                  <Tooltip text="Deletar">
-                    <img
-                      className="delete-icon"
-                      src={DeleteIcon}
-                      alt=""
-                      onClick={() => onClickDeleteRow(row)}
-                    />
-                  </Tooltip>
-                </td>
-              )}
+              {userHasPermission && getActions(row)}
             </tr>
           ))}
         </tbody>
