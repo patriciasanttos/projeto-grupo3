@@ -10,12 +10,11 @@ import CreateIcon from "../../../assets/icons/create_icon.svg";
 
 import "./styles.scss";
 import Input from "../../../components/input/Input";
+import checkPermissions from "../../../utils/checkPermissions";
+import { useNavigate } from "react-router-dom";
 
 function Sponsorships() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalAction, setModalAction] = useState(null);
-  const [selectedSponsor, setSelectedSponsor] = useState(null);
-  const [sponsorsList, setSponsorsList] = useState([]);
+  const navigate = useNavigate();
 
   const initialFilter = {
     name: null,
@@ -25,8 +24,26 @@ function Sponsorships() {
   };
   const [filter, setFilter] = useState(initialFilter);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalAction, setModalAction] = useState(null);
+  const [selectedSponsor, setSelectedSponsor] = useState(null);
+
+  const [ userHasPermission, setUserHasPermission ] = useState(false);
+  const [sponsorsList, setSponsorsList] = useState([]);
+
   useEffect(() => {
-    getAllSponsorshipships()
+    async function checkUserPermission() {
+      await checkPermissions('sponsorships', navigate)
+        .then(response => {
+          setUserHasPermission(response);
+        })
+    }
+    
+    checkUserPermission();
+  }, []);
+
+  useEffect(() => {
+    getAllSponsorshipships(localStorage.getItem('login'))
       .then(async data => {
         let sponsorshipsList = [];
         await data.forEach(sponsorhip => {
@@ -44,29 +61,6 @@ function Sponsorships() {
         setSponsorsList(sponsorshipsList);
       });
   }, []);
-
-  const columns = [
-    {
-      title: "ID",
-      rowKey: "id",
-    },
-    {
-      title: "Nome",
-      rowKey: "name",
-    },
-    {
-      title: "E-mail",
-      rowKey: "email",
-    },
-    {
-      title: "Celular",
-      rowKey: "phone",
-    },
-    {
-      title: "Apadrinhou",
-      rowKey: "animal_name",
-    }
-  ];
 
   const getFilteredItems = () => {
     let results = [...sponsorsList];
@@ -94,7 +88,7 @@ function Sponsorships() {
     await updateSponsorship({
       ...sponsor,
       phone: Number(sponsor.phone.replace(/[()\-\s]/g, '')),
-    })
+    }, localStorage.getItem('login'))
       .catch(error => console.log(error));
 
     setSponsorsList(sponsors);
@@ -102,7 +96,7 @@ function Sponsorships() {
   };
 
   const deleteSponsorsList = async (sponsor) => {
-    await deleteSponsorship(sponsor.id)
+    await deleteSponsorship(sponsor.id, localStorage.getItem('login'))
       .catch(error => console.log(error));
 
     setSponsorsList(
@@ -121,7 +115,7 @@ function Sponsorships() {
     await createSponsorship({
       ...sponsor,
       phone: Number(sponsor.phone.replace(/[()\-\s]/g, '')),
-    })
+    }, localStorage.getItem('login'))
       .then(() => {
         setSponsorsList(sponsors);
         setIsModalOpen(false);
@@ -153,6 +147,29 @@ function Sponsorships() {
   const getFilterState = (field) => {
     return filter && filter[field] ? filter[field] : "";
   };
+
+  const columns = [
+    {
+      title: "ID",
+      rowKey: "id",
+    },
+    {
+      title: "Nome",
+      rowKey: "name",
+    },
+    {
+      title: "E-mail",
+      rowKey: "email",
+    },
+    {
+      title: "Celular",
+      rowKey: "phone",
+    },
+    {
+      title: "Apadrinhou",
+      rowKey: "animal_name",
+    }
+  ];
 
   return (
     <>
@@ -188,15 +205,17 @@ function Sponsorships() {
             />
           </div>
 
-          <div className="add-icon">
-            Adicionar
-            <img
-              className="pointer"
-              src={CreateIcon}
-              onClick={onClickNewSponsor}
-              alt=""
-            />
-          </div>
+          {userHasPermission && (
+            <div className="add-icon">
+              Adicionar
+              <img
+                className="pointer"
+                src={CreateIcon}
+                onClick={onClickNewSponsor}
+                alt=""
+              />
+            </div>
+          )}
         </div>
 
         <div className="sponsorship-list-container">
@@ -205,6 +224,7 @@ function Sponsorships() {
             rows={getFilteredItems()}
             onClickEditRow={onClickEditSponsor}
             onClickDeleteRow={onClickDeleteSponsor}
+            userHasPermission={userHasPermission}
           />
         </div>
       </AdminNavBar>

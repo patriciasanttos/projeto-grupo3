@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react'
-import './Pagination.scss'
+import { useState, useEffect } from "react";
+import "./Pagination.scss";
 
 const Pagination = ({ listItems, onPaginate }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(9);
   const totalPages = Math.ceil(listItems.length / itemsPerPage);
+  const isMultiplePages = totalPages > 5;
 
   const paginate = (items, currentPage, itemsPerPage) => {
     const start = (currentPage - 1) * itemsPerPage;
@@ -13,8 +14,8 @@ const Pagination = ({ listItems, onPaginate }) => {
   };
 
   useEffect(() => {
-    onPaginate(paginate(listItems, currentPage, itemsPerPage))
-  }, [currentPage])
+    onPaginate(paginate(listItems, currentPage, itemsPerPage));
+  }, [currentPage]);
 
   useEffect(() => {
     const updateItemsPerPage = () => {
@@ -39,6 +40,14 @@ const Pagination = ({ listItems, onPaginate }) => {
     setCurrentPage(pageNumber);
   };
 
+  const handleFirstPage = () => {
+    setCurrentPage(1);
+  };
+
+  const handleLastPage = () => {
+    setCurrentPage(totalPages);
+  };
+
   const handlePreviousPage = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
@@ -47,18 +56,84 @@ const Pagination = ({ listItems, onPaginate }) => {
     setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
   };
 
+  const getVisiblePages = () => {
+    if (isMultiplePages) {
+      const selectedPage = currentPage - 1;
+
+      const isFirstPage = currentPage === 1;
+      const isSecondPage = currentPage === 2;
+      const isLastPage = currentPage === totalPages;
+      const isPenultimatePage = currentPage === totalPages - 1;
+
+      if (isFirstPage)
+        return [
+          selectedPage,
+          selectedPage + 1,
+          selectedPage + 2,
+          selectedPage + 3,
+          selectedPage + 4,
+        ];
+
+      if (isSecondPage)
+        return [
+          selectedPage - 1,
+          selectedPage,
+          selectedPage + 1,
+          selectedPage + 2,
+          selectedPage + 3,
+        ];
+
+      if (isPenultimatePage)
+        return [
+          selectedPage - 3,
+          selectedPage - 2,
+          selectedPage - 1,
+          selectedPage,
+          selectedPage + 1,
+        ];
+
+      if (isLastPage)
+        return [
+          selectedPage - 4,
+          selectedPage - 3,
+          selectedPage - 2,
+          selectedPage - 1,
+          selectedPage,
+        ];
+
+      return [
+        selectedPage - 2,
+        selectedPage - 1,
+        selectedPage,
+        selectedPage + 1,
+        selectedPage + 2,
+      ];
+    } else {
+      return Array.from(Array(totalPages).keys());
+    }
+  };
+
   return (
     <>
       {listItems.length > itemsPerPage ? (
         <div className="pagination">
+          {isMultiplePages && (
+            <button
+              onClick={handleFirstPage}
+              disabled={currentPage === 1}
+              className="arrow-button"
+            >
+              {`<<`}
+            </button>
+          )}
           <button
             onClick={handlePreviousPage}
             disabled={currentPage === 1}
             className="arrow-button"
           >
-            &laquo;
+            {`<`}
           </button>
-          {Array.from({ length: totalPages }, (_, index) => (
+          {getVisiblePages().map((index) => (
             <button
               key={index + 1}
               onClick={() => handlePageChange(index + 1)}
@@ -72,8 +147,17 @@ const Pagination = ({ listItems, onPaginate }) => {
             disabled={currentPage === totalPages}
             className="arrow-button"
           >
-            &raquo;
+            {`>`}
           </button>
+          {isMultiplePages && (
+            <button
+              onClick={handleLastPage}
+              disabled={currentPage === totalPages}
+              className="arrow-button"
+            >
+              {`>>`}
+            </button>
+          )}
         </div>
       ) : (
         <div className="pagination">

@@ -1,29 +1,43 @@
 import { axiosGet, axiosPost, axiosPut, axiosDelete } from './index';
 
-export const getAllSponsorshipships = async () => {
-    return await axiosGet('/sponsorships');
+export const getAllSponsorshipships = async (token) => {
+    return await axiosGet('/sponsorships', {
+        headers: {
+            'Authorization': token
+        }
+    });
 }
 
-export const getSponsorshipById = async (id) => {
-    return await axiosGet(`/sponsorships/${id}`);
+export const getSponsorshipById = async (id, token) => {
+    return await axiosGet(`/sponsorships/${id}`, {
+        headers: {
+            'Authorization': token
+        }
+    });
 }
 
-export const createSponsorship = async (data) => {
+export const createSponsorship = async (data, token) => {
     return await axiosPost('/sponsorships', data, {
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': token
         },
     });
 }
 
-export const updateSponsorship = async (data) => {
+export const updateSponsorship = async (data, token) => {
     return await axiosPut('/sponsorships', data, {
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': token
         },
     });
 }
 
-export const deleteSponsorship = async (id) => {
-    return await axiosDelete(`/sponsorships/${id}`);
+export const deleteSponsorship = async (id, token) => {
+    return await axiosDelete(`/sponsorships/${id}`, {
+        headers: {
+            'Authorization': token
+        }
+    });
 }

@@ -1,0 +1,37 @@
+.logout-modal {
+    background-color: #fff;
+    border: solid 3px var(--background-primary-color);
+
+    position: absolute;
+    align-items: center;
+    text-align: center;
+    margin-top: 18%;
+
+    width: 28%;
+    height: 20%;
+    border-radius: 15px;
+
+    .logout-title {
+        font-size: 1.5rem;
+        color: var(--title-primary-color); 
+    }  
+
+    .logout-btn {
+        background-color: var(--button-primary-color);
+        border: none;
+        color: #fff;
+        font-size: 1rem;
+
+        width: 30%;
+        height: 30%;
+        border-radius: 5px;
+        margin: 5%;
+
+        cursor: pointer;
+        transition: background-color 0.3s ease-out;
+    }
+
+    .logout-btn:hover {
+        background-color: var(--button-hover-color);
+    }
+}

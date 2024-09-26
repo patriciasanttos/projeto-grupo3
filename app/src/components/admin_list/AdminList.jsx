@@ -12,7 +12,7 @@ const permissions = {
   all: 'Tudo'
 }
 
-function AdminList({ columns, rows, onClickEditRow, onClickDeleteRow }) {
+function AdminList({ columns, rows, onClickEditRow, onClickDeleteRow, userHasPermission }) {
   const getCell = (value) => {
     if (Array.isArray(value)) {
       const userPerms = value.map(i => i.name);
@@ -30,7 +30,9 @@ function AdminList({ columns, rows, onClickEditRow, onClickDeleteRow }) {
             {columns.map((column) => (
               <td key={column.title}>{column.title}</td>
             ))}
-            <td>Ações</td>
+            {userHasPermission && (
+              <td>Ações</td>
+            )}
           </tr>
         </thead>
         <tbody>
@@ -39,24 +41,26 @@ function AdminList({ columns, rows, onClickEditRow, onClickDeleteRow }) {
               {columns.map((column, i) => ( 
                 <td key={`${index} - ${i}`}>{getCell(row[column.rowKey])}</td>
               ))}
-              <td className="flex-row">
-                <Tooltip text="Editar">
-                  <img
-                    className="edit-icon"
-                    src={EditIcon}
-                    alt=""
-                    onClick={() => onClickEditRow(row)}
-                  />
-                </Tooltip>
-                <Tooltip text="Deletar">
-                  <img
-                    className="delete-icon"
-                    src={DeleteIcon}
-                    alt=""
-                    onClick={() => onClickDeleteRow(row)}
-                  />
-                </Tooltip>
-              </td>
+              {userHasPermission && (
+                <td className="flex-row">
+                  <Tooltip text="Editar">
+                    <img
+                      className="edit-icon"
+                      src={EditIcon}
+                      alt=""
+                      onClick={() => onClickEditRow(row)}
+                    />
+                  </Tooltip>
+                  <Tooltip text="Deletar">
+                    <img
+                      className="delete-icon"
+                      src={DeleteIcon}
+                      alt=""
+                      onClick={() => onClickDeleteRow(row)}
+                    />
+                  </Tooltip>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>
