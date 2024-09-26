@@ -18,12 +18,10 @@ const AuthAdminRoutes = () => {
       .then(() => {
         if (location.pathname === '/admin/login' && loginCookie)
           return navigate('/admin/control_panel');
-        
       })
       .catch(({ response }) => {
         if (response.status === 404)
           return navigate('/admin/login');
-        
       });
   }, []);
 
