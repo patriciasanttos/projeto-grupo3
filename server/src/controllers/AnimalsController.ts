@@ -13,7 +13,7 @@ class AnimalController {
         const animals = Object.entries(response.data).map((animal: any[]) => {
             let image: Buffer;
             let base64Image;
-            if (animal[1].dataValues.image) {
+            if (animal[1].dataValues?.image) {
                 image = fs.readFileSync(path.join(__dirname, '..', 'assets', 'images', 'animals', animal[1].dataValues.image));
 
                 if (image)
