@@ -134,7 +134,6 @@ const ModalAdmin = ({
           <input
             type="text"
             name="password"
-            id=""
             placeholder="Senha"
             value={getFormState("password")}
             onChange={(e) =>
@@ -147,7 +146,7 @@ const ModalAdmin = ({
           <p>Selecionar níveis:</p>
           <div className="list-checkbox-container">
             {listLevelOption.map((item, index) => (
-              <div className="checkbox">
+              <div className="checkbox" key={index}>
                 <input
                   type="checkbox"
                   name={item.id}
@@ -164,7 +163,6 @@ const ModalAdmin = ({
           rows="8"
           cols="10"
           name="observation"
-          id=""
           placeholder="Adicione informações importantes"
           value={getFormState("observation")}
           onChange={(e) =>
