@@ -3,7 +3,7 @@ import { axiosGet, axiosPost, axiosPut, axiosDelete } from './index';
 export const getAllAdoptions = async (token) => {
     return await axiosGet('/adoptions', {
         headers: {
-            'Authorization': token
+            'Authorization': `Bearer ${token}`
         }
     });
 }
@@ -11,7 +11,7 @@ export const getAllAdoptions = async (token) => {
 export const getAdoptionById = async (id, token) => {
     return await axiosGet(`/adoptions/${id}`, {
         headers: {
-            'Authorization': token
+            'Authorization': `Bearer ${token}`
         }
     });
 }
@@ -20,7 +20,7 @@ export const createAdoption = async (data, token) => {
     return await axiosPost('/adoptions', data, {
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': token
+            'Authorization': `Bearer ${token}`
         },
     });
 }
@@ -29,13 +29,15 @@ export const updateAdoption = async (data, token) => {
     return await axiosPut('/adoptions', data, {
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': token
+            'Authorization': `Bearer ${token}`
         },
     });
 }
 
 export const deleteAdoption = async (id, token) => {
     return await axiosDelete(`/adoptions/${id}`, {
-
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
     });
 }

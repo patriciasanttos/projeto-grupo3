@@ -4,6 +4,21 @@ import { IMaskInput } from "react-imask";
 import ModalActionsEnum from "../../../utils/ModalActionsEnum";
 import ModalDeleteConfirm from "../modalDeleteConfirm/ModalDeleteConfirm";
 
+const permissions = {
+  animals: "Animais",
+  sponsorships: "Apadrinhamentos",
+  adoptions: "Adoções",
+  volunteers: "Voluntários",
+  admins: "Administradores",
+  all: "Tudo",
+  1: "Animais",
+  2: "Apadrinhamentos",
+  3: "Adoções",
+  4: "Voluntários",
+  5: "Administradores",
+  6: "Tudo",
+}
+
 const ModalAdmin = ({
   isOpen,
   modalAction,
@@ -23,18 +38,19 @@ const ModalAdmin = ({
   };
   const [formAdmins, setFormAdmins] = useState(initialFormAdmins);
 
-  const listLevelOption = [
-    { id: 1, name: "Animais" },
-    { id: 2, name: "Apadrinhamentos" },
-    { id: 3, name: "Adoções" },
-    { id: 4, name: "Voluntários" },
-    { id: 5, name: "Administradores" },
-    { id: 6, name: "Tudo" },
-  ];
+  const listLevelOption = {
+    animals: "Animais",
+    sponsorships: "Apadrinhamentos",
+    adoptions: "Adoções",
+    volunteers: "Voluntários",
+    admins: "Administradores",
+    all: "Tudo",
+  };
 
   useEffect(() => {
     const getAdminPerms = (admin) => {
-      const adminPerms = admin.permissions.map(perm => perm.id);
+      const adminPerms = admin.permissions.map(perm => perm?.id || listLevelOption[perm]);
+
       return adminPerms;
     }
 
@@ -134,7 +150,6 @@ const ModalAdmin = ({
           <input
             type="text"
             name="password"
-            id=""
             placeholder="Senha"
             value={getFormState("password")}
             onChange={(e) =>
@@ -146,17 +161,22 @@ const ModalAdmin = ({
         <div>
           <p>Selecionar níveis:</p>
           <div className="list-checkbox-container">
-            {listLevelOption.map((item, index) => (
-              <div className="checkbox">
-                <input
-                  type="checkbox"
-                  name={item.id}
-                  onChange={(e) => onChangeCheckbox(e.target.checked, item.id)}
-                  checked={formAdmins?.permissions.indexOf(item.id) !== -1 ? "checked" : ""}
-                />
-                <label for={item.id}>{item.name}</label>
-              </div>
-            ))}
+            {Object.entries(listLevelOption).map(([ key, permissionName ], index) => {
+              const permId = Number(Object.keys(listLevelOption).indexOf(key) + 1);
+              const isChecked = formAdmins.permissions.includes(permId)
+              
+              return (
+                <div className="checkbox" key={index}>
+                  <input
+                    type="checkbox"
+                    name={permissionName}
+                    onChange={(e) => onChangeCheckbox(e.target.checked, permId)}
+                    checked={isChecked}
+                  />
+                  <label htmlFor={permId}>{permissionName}</label>
+                </div>
+              )
+            })}
           </div>
         </div>
 
@@ -164,7 +184,6 @@ const ModalAdmin = ({
           rows="8"
           cols="10"
           name="observation"
-          id=""
           placeholder="Adicione informações importantes"
           value={getFormState("observation")}
           onChange={(e) =>

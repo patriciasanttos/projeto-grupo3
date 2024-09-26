@@ -13,7 +13,7 @@ export default async function checkPermissions(page, navigate) {
     const loginCookie = localStorage.getItem('login');
     if (!loginCookie)
         return navigate('/admin/login');
-    
+
     const decodedJwt = jwtDecode(loginCookie);
 
     let userHasPermission = false;
