@@ -160,6 +160,14 @@ function Animals() {
     setModalAction(ModalActionsEnum.DELETE)
   };
 
+  const onClickAdoptAnimal = (animal) => {
+    alert(`Abrir modal de adoção com o animal: \n\n${JSON.stringify(animal)}`)
+  };
+
+  const onClickSponsorAnimal = (animal) => {
+    alert(`Abrir modal de apadrinhamento com o animal: \n\n${JSON.stringify(animal)}`)
+  };
+
   const onClickNewAnimal = () => {
     setIsModalOpen(true);
     setSelectedAnimal(null);
@@ -252,9 +260,13 @@ function Animals() {
         <AdminList
           columns={columns}
           rows={getFilteredItems()}
-          onClickEditRow={onClickEditAnimal}
-          onClickDeleteRow={onClickDeleteAnimal}
           userHasPermission={userHasPermission}
+          popupMenuActions={[
+            { text: 'Editar', onClick: onClickEditAnimal },
+            { text: 'Deletar', onClick: onClickDeleteAnimal },
+            { text: 'Adotar', onClick: onClickAdoptAnimal },
+            { text: 'Apadrinhar', onClick: onClickSponsorAnimal },
+          ]}
         />
       </AdminNavBar>
       <ModalAnimalsAdmin
