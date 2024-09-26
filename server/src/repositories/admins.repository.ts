@@ -76,6 +76,27 @@ export default {
         }
     },
 
+    async verifyUser(id: number): Promise<{ code: number, data?: {} }> {
+        try {
+            //-----Buscar administrador na tabela
+            const gettedAdmin = await Admin.findByPk(id);
+
+            if (gettedAdmin === null)
+                return {
+                    code: 404,
+                    data: {
+                        error: 'Administrator not found'
+                    }
+                };
+
+            return {
+                code: 200
+            };
+        } catch (error: any) {
+            return serverErrorHandler(error);
+        }
+    },
+
     async login({ user, password }: { user: string, password: string }): Promise<{ code: number, data: {} }> {
         try {
             //-----Buscar administrador na tabela
@@ -85,6 +106,12 @@ export default {
                     { name: user },
                     { email: user }
                   ]
+                },
+                include: {
+                    model: Permission,
+                    as: 'permissions',
+                    attributes: ['id', 'name'],
+                    through: { attributes: [] }
                 }
             });
 
@@ -109,13 +136,11 @@ export default {
 
             const secret: string = process.env.JWT_SECRET || '';
             const token = jwt.sign(
-                { 
-                    userId: gettedAdmin.dataValues.id
+                {
+                    userId: gettedAdmin.dataValues.id,
+                    permissions: gettedAdmin.permissions
                 },
-                secret,
-                { 
-                    expiresIn: "1d"
-                }
+                secret
             );
 
             return {
