@@ -1,38 +1,60 @@
 import { axiosGet, axiosPost, axiosPut, axiosDelete } from './index';
 
-export const getAllAdmins = async () => {
-    return await axiosGet('/admins');
-}
-
-export const getAdminById = async (id) => {
-    return await axiosGet(`/admins/get/${id}`);
-}
-
-export const loginAdmin = async ({ user, password }) => {
-    return await axiosGet(`/admins/login`, {
+export const getAllAdmins = async (token) => {
+    return await axiosGet('/admins', {
         headers: {
-            'Authorization': `${user}:${password}`,
-            'Content-Type': 'application/json'
+            Authorization: token
         }
     });
 }
 
-export const createAdmin = async (data) => {
+export const getAdminById = async (id,  token) => {
+    return await axiosGet(`/admins/get/${id}`, {
+        headers: {
+            'Authorization': token
+        }
+    });
+}
+
+export const verifyAdmin = async (id,  token) => {
+    return await axiosGet(`/admins/verify/${id}`, {
+        headers: {
+            'Authorization': token
+        }
+    });
+}
+
+export const loginAdmin = async ({ user, password },  token) => {
+    return await axiosGet(`/admins/login`, {
+        headers: {
+            'Authorization': `${user}:${password}`,
+            'Content-Type': 'application/json',
+        }
+    });
+}
+
+export const createAdmin = async (data,  token) => {
     return await axiosPost('/admins', data, {
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': token
         },
     });
 }
 
-export const updateAdmin = async (data) => {
+export const updateAdmin = async (data,  token) => {
     return await axiosPut('/admins', data, {
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': token
         },
     });
 }
 
-export const deleteAdmin = async (id) => {
-    return await axiosDelete(`/admins/${id}`);
+export const deleteAdmin = async (id,  token) => {
+    return await axiosDelete(`/admins/${id}`, {
+        headers: {
+            'Authorization': token
+        }
+    });
 }
