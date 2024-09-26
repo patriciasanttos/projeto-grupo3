@@ -11,6 +11,7 @@ import "./styles.scss";
 import { createAdmin, deleteAdmin, getAllAdmins, updateAdmin } from "../../../services/api/admins";
 import checkPermissions from "../../../utils/checkPermissions";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 function AdminPage() {
   const navigate = useNavigate();
@@ -72,21 +73,22 @@ function AdminPage() {
       ...admin,
       phone: Number(admin.phone.replace(/[()\-\s]/g, '')),
     }, localStorage.getItem('login'))
-      .then(({ code, data }) => {
-        if (code === 200) {
-          let admins = adminsList.map((adm) => {
-            if (adm.id === data.id)
-              return {
-                ...admin,
-                permissions: data.permissions
-              };
+      .then(res => {
+        localStorage.setItem('login', JSON.stringify(res))
+        const cookies = jwtDecode(res);
 
-            return adm;
-          })
+        let admins = adminsList.map((adm) => {
+          if (adm.id === res.id)
+            return {
+              ...admin,
+              permissions: cookies.permission
+            };
 
-          setAdminsList(admins);
-          setIsModalOpen(false);
-        };
+          return adm;
+        })
+
+        setAdminsList(admins);
+        setIsModalOpen(false);
       })
       .catch(error => {
         console.log(error);
