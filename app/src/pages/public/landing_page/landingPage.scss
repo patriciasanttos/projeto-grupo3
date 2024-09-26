@@ -297,13 +297,14 @@ h3 {
         justify-content: initial;
         overflow-x: auto;
         gap: 20px;
+        flex-direction: column;
 
         margin: 20px 15px;
 
 
         img a {
             flex: 0 0 auto;
-            width: 70%;
+            width: 30%;
         }
     }
 
@@ -332,11 +333,12 @@ h3 {
         gap: 20px;
 
         margin: 20px 15px;
+        flex-direction: column;
 
 
         img a {
             flex: 0 0 auto;
-            width: 70%;
+            width: 30%;
         }
     }
 

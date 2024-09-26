@@ -8,8 +8,8 @@
 
     .card {
         position: relative;
-        width: 18rem;
-        height: 23rem;
+        width: 17rem;
+        height: 26rem;
         padding: 20px;
         background-color: #fff;
         text-align: center;
@@ -50,14 +50,17 @@
     }
 
     h2 {
-        font-size: 25px;
-        font-weight: 900;
+        font-size: 1rem;
+        font-weight: 800;
         text-align: center;
+        padding-top: 0rem;
     }
 
     p {
         text-align: center;
         margin-bottom: 0;
+        padding-bottom: 2rem;
+        padding-top: 0.5rem;
     }
 
     button {
@@ -70,10 +73,12 @@
         color: #fff;
         font-size: 1.3rem;
         font-weight: 600;
+        margin-top: 10rem ;
 
         width: 50%;
         height: 3rem;
         border-radius: 5px;
+        
 
         cursor: pointer;
         transition: background-color 0.3s ease;
@@ -89,10 +94,12 @@
         justify-content:initial;
         margin: 0px 15px;
         overflow-x: auto;
+        flex-direction: column;
 
         .card {
             flex: 0 0 auto;
-            width: 70%;
+            width: 60%;
+            margin: 10px 0;
         }
     }
 }
@@ -102,10 +109,12 @@
         justify-content: initial;
         margin: 0px 15px;
         overflow-x: auto;
+        flex-direction: column;
 
         .card {
             flex: 0 0 auto;
-            width: 40%;
+            width: 60%;
+            margin: 10px 0;
         }
     }
 }
