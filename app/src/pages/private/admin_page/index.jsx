@@ -93,7 +93,10 @@ function AdminPage() {
         console.log(error);
       })
 
-    setAdminsList(adminsList.filter((admins) => admins.id !== admin.id));
+    setAdminsList(adminsList.filter((admins) => {
+      console.log(admin)
+      return admins.id !== admin.id
+    }));
     setIsModalOpen(false);
   };
 

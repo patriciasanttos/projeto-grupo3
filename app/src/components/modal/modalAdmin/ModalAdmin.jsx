@@ -153,7 +153,7 @@ const ModalAdmin = ({
                   onChange={(e) => onChangeCheckbox(e.target.checked, item.id)}
                   checked={formAdmins?.permissions.indexOf(item.id) !== -1 ? "checked" : ""}
                 />
-                <label for={item.id}>{item.name}</label>
+                <label htmlFor={item.id}>{item.name}</label>
               </div>
             ))}
           </div>

@@ -9,7 +9,7 @@ const permissions = {
   sponsorships: "Apadrinhamentos",
   adoptions: "Adoções",
   volunteers: "Voluntários",
-  admin: "Administradores",
+  admins: "Administradores",
   all: "Tudo",
 };
 
@@ -79,7 +79,7 @@ function AdminList({
               ))}
               {userHasPermission && getActions(row)}
             </tr>
-          ))}
+            ))}
         </tbody>
       </table>
       {(!rows || (rows && rows.length === 0)) && (
