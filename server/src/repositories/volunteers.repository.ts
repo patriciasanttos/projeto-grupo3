@@ -49,6 +49,28 @@ export default {
         }
     },
 
+    async getAllVolunteersForms(): Promise<{ code: number, data: {} }> {
+        try {
+            //-----Buscar voluntários na tabela
+            const volunteers = await VolunteerForm.findAll();
+
+            if (volunteers === null)
+                return {
+                    code: 404,
+                    data: {
+                        error: 'No volunteers forms found'
+                    }
+                };
+
+            return {
+                code: 200,
+                data: volunteers
+            };
+        } catch (error: any) {
+            return serverErrorHandler(error);
+        }
+    },
+
     async createVolunteer(data: VolunteerType): Promise<{ code: number, data?: {} }> {
         try {
             const volunteerExistis = await Volunteer.findOne({
@@ -91,7 +113,6 @@ export default {
             return serverErrorHandler(error);
         }
     },
-
 
     async updateVolunteer(data: VolunteerType): Promise<{ code: number, data?: {} }> {
         try {

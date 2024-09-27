@@ -38,8 +38,9 @@ router
 
 //-----Volunteers routes
 router
-    .get('/volunteers', VolunteersController.getAll)
-    .get('/volunteers/:id', VolunteersController.getById)
+    .get('/volunteers/get', VolunteersController.getAll)
+    .get('/volunteers/forms', VolunteersController.getAllForms)
+    .get('/volunteers/get/:id', VolunteersController.getById)
     .post('/volunteers', image.single('image'), VolunteersController.create)
     .post('/volunteers/form', VolunteersController.createForm)
     .put('/volunteers', image.single('image'), VolunteersController.update)

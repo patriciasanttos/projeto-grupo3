@@ -41,12 +41,10 @@ VolunteerForm.init({
   email: {
     type: DataTypes.TEXT,
     allowNull: false,
-    unique: true
   },
   phone: {
     type: DataTypes.BIGINT,
     allowNull: true,
-    unique: true
   },
   address: {
     type: DataTypes.TEXT,

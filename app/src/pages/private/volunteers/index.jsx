@@ -10,6 +10,7 @@ import {
   createVolunteer,
   deleteVolunteer,
   getAllVolunteers,
+  getAllVolunteersForms,
   updateVolunteer,
 } from "../../../services/api/volunteers";
 import checkPermissions from "../../../utils/checkPermissions";
@@ -31,6 +32,7 @@ function Volunteers() {
   const [selectedVolunteer, setSelectedVolunteer] = useState(null);
 
   const [volunteersList, setVolunteersList] = useState([]);
+  const [volunteersFormsList, setVolunteersFormsList] = useState([]);
   const [userHasPermission, setUserHasPermission] = useState(false);
 
   const [isFormViewSelected, setIsFormViewSelected] = useState(false);
@@ -49,23 +51,46 @@ function Volunteers() {
     getAllVolunteers(localStorage.getItem("login")).then((data) =>
       setVolunteersList(data)
     );
+
+    getAllVolunteersForms(localStorage.getItem("login")).then((data) => 
+      setVolunteersFormsList(data)
+    );
   }, []);
 
-  const getFilteredItems = () => {
-    let results = [...volunteersList];
+  const getFilteredItems = (type) => {
+    if (type === "volunteers") {
+      let results = [...volunteersList];
 
-    Object.keys(filter).forEach((filterName) => {
-      if (filter[filterName]) {
-        results = results.filter(
-          (item) =>
-            item[filterName]
-              .toLowerCase()
-              .indexOf(filter[filterName].toLowerCase()) !== -1
-        );
-      }
-    });
+      Object.keys(filter).forEach((filterName) => {
+        if (filter[filterName]) {
+          results = results.filter(
+            (item) =>
+              item[filterName]
+                .toLowerCase()
+                .indexOf(filter[filterName].toLowerCase()) !== -1
+          );
+        }
+      });
+  
+      return results;
+    }
 
-    return results;
+    if (type === "forms") {
+      let results = [...volunteersFormsList];
+
+      Object.keys(filter).forEach((filterName) => {
+        if (filter[filterName]) {
+          results = results.filter(
+            (item) =>
+              item[filterName]
+                .toLowerCase()
+                .indexOf(filter[filterName].toLowerCase()) !== -1
+          );
+        }
+      });
+
+      return results;
+    }
   };
 
   const getFilterState = (field) => {
@@ -224,7 +249,7 @@ function Volunteers() {
           {isFormViewSelected ? (
             <AdminList
               columns={columns}
-              rows={getFilteredItems()}
+              rows={getFilteredItems('forms')}
               onClickEditRow={onClickEditVolunteer}
               onClickDeleteRow={onClickDeleteVolunteer}
               userHasPermission={userHasPermission}
@@ -232,7 +257,7 @@ function Volunteers() {
           ) : (
             <AdminList
               columns={columns}
-              rows={getFilteredItems()}
+              rows={getFilteredItems('volunteers')}
               onClickEditRow={onClickEditVolunteer}
               onClickDeleteRow={onClickDeleteVolunteer}
               userHasPermission={userHasPermission}

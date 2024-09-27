@@ -33,7 +33,7 @@ const ModalVolunteers = ({
   useEffect(() => {
     setFormVolunteers({
       ...selectedVolunteer,
-      startDate: new Date(selectedVolunteer.created_at).toLocaleDateString()
+      startDate: new Date(selectedVolunteer?.created_at).toLocaleDateString() 
     });
   }, [selectedVolunteer, isOpen]);
 
