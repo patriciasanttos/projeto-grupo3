@@ -178,13 +178,13 @@ function Volunteers() {
       <AdminNavBar headerTitle="Voluntários">
         <section className="btn-show-form-container">
           <div>
-            <button className="btn-show-form" onClick={requested}>
-              Requisitados
+            <button className="btn-show-form" onClick={created}>
+              Voluntários
             </button>
           </div>
           <div>
-            <button className="btn-show-form" onClick={created}>
-              Criados
+            <button className="btn-show-form" onClick={requested}>
+              Formulários
             </button>
           </div>
         </section>
@@ -222,16 +222,13 @@ function Volunteers() {
         </div>
         <div className="volunteers-list-container">
           {isFormViewSelected ? (
-            <div>
-              Tabela de formulário
-              <AdminList
-                columns={columns}
-                rows={getFilteredItems()}
-                onClickEditRow={onClickEditVolunteer}
-                onClickDeleteRow={onClickDeleteVolunteer}
-                userHasPermission={userHasPermission}
-              />
-            </div>
+            <AdminList
+              columns={columns}
+              rows={getFilteredItems()}
+              onClickEditRow={onClickEditVolunteer}
+              onClickDeleteRow={onClickDeleteVolunteer}
+              userHasPermission={userHasPermission}
+            />
           ) : (
             <AdminList
               columns={columns}
