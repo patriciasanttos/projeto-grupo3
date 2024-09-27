@@ -3,6 +3,7 @@ import Tooltip from "../tooltip";
 import EditIcon from "../../assets/icons/edit_icon.svg";
 import DeleteIcon from "../../assets/icons/delete_icon.svg";
 import PopupMenu from "../popupMenu";
+import ActionsForm from "../actionsForm/ActionsForm";
 
 const permissions = {
   animals: "Animais",
@@ -26,6 +27,7 @@ function AdminList({
   onClickDeleteRow,
   userHasPermission,
   popupMenuActions,
+  isFormActions
 }) {
   const getCell = (value) => {
     if (Array.isArray(value)) {
@@ -40,12 +42,17 @@ function AdminList({
   };
 
   const getActions = (row) => {
-    if (popupMenuActions)
+    if (popupMenuActions) 
       return (
         <td className="flex-row">
           <PopupMenu menuActions={popupMenuActions} row={row}/>
         </td>
       );
+
+      if (isFormActions)
+        return (
+          <ActionsForm/>
+      )
 
     return (
       <td className="flex-row">

@@ -253,6 +253,7 @@ function Volunteers() {
               onClickEditRow={onClickEditVolunteer}
               onClickDeleteRow={onClickDeleteVolunteer}
               userHasPermission={userHasPermission}
+              isFormActions={true}
             />
           ) : (
             <AdminList
