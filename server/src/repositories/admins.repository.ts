@@ -241,11 +241,24 @@ export default {
             if (data.permissions && data.permissions.length > 0)
                 await admin.setPermissions([ ...data.permissions ]);
 
-            const updatedAdmin = await this.getAdminById(data.id)
+            const updatedAdmin = await Admin.findByPk(data.id, {
+                include: {
+                    model: Permission,
+                    as: 'permissions',
+                    attributes: ['id', 'name'],
+                    through: { attributes: [] }
+                }
+            });
+
+            const secret: string = process.env.JWT_SECRET || '';
+            const token = jwt.sign({
+                userId: updatedAdmin?.dataValues.id,
+                permissions: updatedAdmin?.permissions 
+            }, secret);
 
             return {
                 code: 200,
-                data: updatedAdmin
+                data: token
             };
         } catch (error: any) {
             return serverErrorHandler(error);
