@@ -83,6 +83,17 @@ class VolunteersController {
         return res.status(response.code).json(response.data);
     }
 
+    async createForm(req: Request, res: Response) {
+        const data = req.body;
+
+        if (Object.keys(data).length === 0 || data.name === undefined || data.email === undefined || data.phone === undefined || data.availability === undefined)
+            return res.status(400).json({ error: 'Invalid body request' });
+
+        const response = await volunteerRepository.createVolunteerForm(data);
+
+        return res.status(response.code).json(response.data);
+    }
+
     async update(req: Request, res: Response) {
         const data = req.body;
 

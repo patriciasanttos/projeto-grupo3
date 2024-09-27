@@ -49,6 +49,7 @@ export type VolunteerType = {
     study_schedule?: string,
     profession?: string,
     sector: string,
+    state: string,
     observation?: string,
     created_at?: string,
     updated_at?: string,

@@ -2,6 +2,7 @@ import { Op } from "sequelize";
 import Volunteer from "../database/models/Volunteer";
 import { VolunteerType } from "../types/types";
 import serverErrorHandler from "../utils/serverErrorHandler";
+import VolunteerForm from "../database/models/VolunteerForm";
 
 export default {
     async getVolunteerById(id: number): Promise<{ code: number, data: {} }> {
@@ -77,6 +78,20 @@ export default {
             return serverErrorHandler(error);
         }
     },
+
+    async createVolunteerForm(data: VolunteerType): Promise<{ code: number, data?: {} }> {
+        try {
+            // -----Salvar voluntário na tabela
+            await VolunteerForm.create({ ...data });
+
+            return {
+                code: 201
+            };
+        } catch (error: any) {
+            return serverErrorHandler(error);
+        }
+    },
+
 
     async updateVolunteer(data: VolunteerType): Promise<{ code: number, data?: {} }> {
         try {

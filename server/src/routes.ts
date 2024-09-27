@@ -41,11 +41,11 @@ router
     .get('/volunteers', VolunteersController.getAll)
     .get('/volunteers/:id', VolunteersController.getById)
     .post('/volunteers', image.single('image'), VolunteersController.create)
+    .post('/volunteers/form', VolunteersController.createForm)
     .put('/volunteers', image.single('image'), VolunteersController.update)
     .delete('/volunteers/:id', VolunteersController.delete);
 
-
-    //-----Admins routes
+//-----Admins routes
 router
     .get('/admins', AuthController.getAll)
     .get('/admins/get/:id', AuthController.getById)
