@@ -4,6 +4,7 @@ import "./Styles.scss";
 
 import Modal from "..";
 import Button from "../../button";
+import { createSponsorshipForm } from "../../../services/api/sponsorships";
 
 function ModalLPSponsorship({
   isOpen,
@@ -12,28 +13,41 @@ function ModalLPSponsorship({
   showForm,
   selectedAnimal,
 }) {
-  const onClickModalButton = () => {
-    if (showForm) {
-      // To do enviar para o back-end
-    }
-    // else {
-    //   window.open("https://0lh2dmk5.forms.app/formulario-de-adocao-da-sjpa", "_blank");
-    // }
-  };
-
   const [formSponsor, setFormSponsor] = useState({
     name: "",
     email: "",
-    phoneNumber: "",
+    phone: "",
   });
 
   const [formAdoption, setFormAdoption] = useState({
     name: "",
     address: "",
     email: "",
-    phoneNumber: "",
+    phone: "",
     cpf: "",
   });
+
+  const onClickModalButton = async () => {
+    if (showForm) {
+      await createSponsorshipForm({ 
+        ...formSponsor, 
+        phone: Number(formSponsor.phone.replace(/[()\-\s]/g, "")), 
+        animal_id: selectedAnimal.id 
+      })
+        .then(() => {
+          alert("Formulário enviado com sucesso!");
+          onModalClose();
+          setFormSponsor({
+            name: "",
+            email: "",
+            phone: "",
+          });
+        }).catch(error => console.log(error));
+    }
+    // else {
+    //   window.open("https://0lh2dmk5.forms.app/formulario-de-adocao-da-sjpa", "_blank");
+    // }
+  };
 
   return (
     <Modal isOpen={isOpen} onModalClose={onModalClose} title={title}>
@@ -110,14 +124,14 @@ function ModalLPSponsorship({
                 />
                 <IMaskInput
                   type="text"
-                  name="phoneNumber"
+                  name="phone"
                   id=""
                   placeholder="Celular"
-                  value={formSponsor.phoneNumber}
+                  value={formSponsor.phone}
                   onAccept={(value, maskRef, e) =>
                     setFormSponsor({
                       ...formSponsor,
-                      phoneNumber: e.target.value,
+                      phone: e?.target.value,
                     })
                   }
                   mask={"(00) 00000-0000"}
@@ -179,9 +193,9 @@ function ModalLPSponsorship({
                 />
                 <IMaskInput
                   mask={"(00) 00000-0000"}
-                  value={formAdoption.phoneNumber}
+                  value={formAdoption.phone}
                   onAccept={(value) =>
-                    setFormAdoption({ ...formAdoption, phoneNumber: value })
+                    setFormAdoption({ ...formAdoption, phone: value })
                   }
                   placeholder="Celular"
                 />
