@@ -13,13 +13,9 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
-      image: {
-        type: DataTypes.STRING,
-        allowNull: true
-      },
       name: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       responsible_name: {
         type: DataTypes.STRING,
@@ -27,13 +23,11 @@ module.exports = {
       },
       email: {
         type: DataTypes.TEXT,
-        allowNull: false,
-        unique: true
+        allowNull: false
       },
       phone: {
         type: DataTypes.BIGINT,
-        allowNull: true,
-        unique: true
+        allowNull: true
       },
       address: {
         type: DataTypes.TEXT,
@@ -41,23 +35,27 @@ module.exports = {
       },
       availability: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       study_schedule: {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      sector: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
       profession: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
+      },
+      sector: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      state: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       observation: {
         type: DataTypes.TEXT,
-        allowNull: true
+        allowNull: true,
       },
       created_at: {
         type: DataTypes.DATE,

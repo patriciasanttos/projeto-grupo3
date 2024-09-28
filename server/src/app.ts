@@ -16,7 +16,7 @@ app
     .use((req, res, next) => {
         if (
             req.method === 'GET' && req.url === '/animals' 
-            || req.method === 'POST' && req.url === '/volunteers/form'
+            || req.method === 'POST' && req.url === '/volunteers/forms'
             || req.method === 'GET' && req.url === '/admins/login'
         )
             return next();

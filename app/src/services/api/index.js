@@ -1,7 +1,7 @@
 import axiosClient from '../axiosClient';
 
 export const axiosGet = async (url, headers) => {
-    const res = await axiosClient.get(url, headers,);
+    const res = await axiosClient.get(url, headers);
     return res.data;
 };
 

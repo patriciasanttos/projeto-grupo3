@@ -100,6 +100,28 @@ class VolunteersController {
         return res.status(response.code).json(response.data);
     }
 
+    async acceptForm(req: Request, res: Response) {
+        const { id } = req.params;
+
+        if (!id)
+            return res.status(400).json({ error: 'Invalid id' });
+
+        const response = await volunteersRepository.acceptVolunteerForm(Number(id));
+
+        return res.status(response.code).json(response.data);
+    }
+
+    async denyForm(req: Request, res: Response) {
+        const { id } = req.params;
+
+        if (!id)
+            return res.status(400).json({ error: 'Invalid id' });
+
+        const response = await volunteersRepository.denyVolunteerForm(Number(id));
+
+        return res.status(response.code).json(response.data);
+    }
+
     async update(req: Request, res: Response) {
         const data = req.body;
 

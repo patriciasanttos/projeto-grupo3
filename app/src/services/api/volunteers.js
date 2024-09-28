@@ -1,15 +1,8 @@
 import { axiosGet, axiosPost, axiosPut, axiosDelete } from './index';
 
+//-----Volunteers
 export const getAllVolunteers = async (token) => {
     return await axiosGet('/volunteers/get', {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    });
-}
-
-export const getAllVolunteersForms = async (token) => {
-    return await axiosGet('/volunteers/forms', {
         headers: {
             'Authorization': `Bearer ${token}`
         }
@@ -33,14 +26,6 @@ export const createVolunteer = async (data, token) => {
     });
 }
 
-export const createVolunteerForm = async (data) => {
-    return await axiosPost('/volunteers/form', data, {
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
-}
-
 export const updateVolunteer = async (data, token) => {
     return await axiosPut('/volunteers', data, {
         headers: {
@@ -55,5 +40,38 @@ export const deleteVolunteer = async (id, token) => {
         headers: {
             'Authorization': `Bearer ${token}`
         }
+    });
+}
+
+//-----Volunteers forms
+export const getAllVolunteersForms = async (token) => {
+    return await axiosGet('/volunteers/forms', {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+}
+
+export const createVolunteerForm = async (data) => {
+    return await axiosPost('/volunteers/forms', data, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+}
+
+export const acceptVolunteerForm = async (id, token) => {
+    return await axiosGet(`/volunteers/forms/accept/${id}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
+    });
+}
+
+export const denyVolunteerForm = async (id, token) => {
+    return await axiosDelete(`/volunteers/forms/deny/${id}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        },
     });
 }

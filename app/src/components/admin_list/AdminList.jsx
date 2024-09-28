@@ -45,13 +45,13 @@ function AdminList({
     if (popupMenuActions) 
       return (
         <td className="flex-row">
-          <PopupMenu menuActions={popupMenuActions} row={row}/>
+          <PopupMenu menuActions={popupMenuActions} row={row} />
         </td>
       );
 
       if (isFormActions)
         return (
-          <ActionsForm/>
+          <ActionsForm selectedVolunteer={row} />
       )
 
     return (

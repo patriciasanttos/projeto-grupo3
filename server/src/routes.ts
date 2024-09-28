@@ -39,12 +39,15 @@ router
 //-----Volunteers routes
 router
     .get('/volunteers/get', VolunteersController.getAll)
-    .get('/volunteers/forms', VolunteersController.getAllForms)
     .get('/volunteers/get/:id', VolunteersController.getById)
     .post('/volunteers', image.single('image'), VolunteersController.create)
-    .post('/volunteers/form', VolunteersController.createForm)
     .put('/volunteers', image.single('image'), VolunteersController.update)
-    .delete('/volunteers/:id', VolunteersController.delete);
+    .delete('/volunteers/:id', VolunteersController.delete)
+
+    .get('/volunteers/forms', VolunteersController.getAllForms)
+    .post('/volunteers/forms', VolunteersController.createForm)
+    .get('/volunteers/forms/accept/:id', VolunteersController.acceptForm)
+    .delete('/volunteers/forms/deny/:id', VolunteersController.denyForm);
 
 //-----Admins routes
 router
