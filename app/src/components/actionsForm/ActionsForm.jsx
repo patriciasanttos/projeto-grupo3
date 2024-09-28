@@ -10,13 +10,11 @@ const ActionsForm = ({ selectedItem, accept, deny }) => {
       selectedItem.id,
       localStorage.getItem("login")
     )
-      .then(onAcceptForm)
       .catch((error) => console.log(error));
   };
 
   const denyForm = async () => {
     await deny(selectedItem.id, localStorage.getItem("login"))
-      .then(() => {})
       .catch((error) => console.log(error));
   };
 
