@@ -16,6 +16,7 @@ import {
 import checkPermissions from "../../../utils/checkPermissions";
 import { useNavigate } from "react-router-dom";
 import Input from "../../../components/input/Input";
+import LoadingPaw from "../../../components/loadingPaw";
 
 function Volunteers() {
   const navigate = useNavigate();
@@ -26,6 +27,10 @@ function Volunteers() {
     phone: null,
   };
   const [filter, setFilter] = useState(initialFilter);
+
+  const [loading, setLoading] = useState(true);
+  const [loadingFormList, setLoadingFormList] = useState(true);
+  const isLoading = loading || loadingFormList
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalAction, setModalAction] = useState(null);
@@ -48,13 +53,17 @@ function Volunteers() {
   }, []);
 
   useEffect(() => {
-    getAllVolunteers(localStorage.getItem("login")).then((data) =>
-      setVolunteersList(data)
-    );
+    setLoading(true);
+    getAllVolunteers(localStorage.getItem("login")).then((data) => {
+      setVolunteersList(data);
+      setLoading(false);
+    });
 
-    getAllVolunteersForms(localStorage.getItem("login")).then((data) => 
-      setVolunteersFormsList(data)
-    );
+    setLoadingFormList(true);
+    getAllVolunteersForms(localStorage.getItem("login")).then((data) => {
+      setVolunteersFormsList(data);
+      setLoadingFormList(false);
+    });
   }, []);
 
   const getFilteredItems = (type) => {
@@ -71,7 +80,7 @@ function Volunteers() {
           );
         }
       });
-  
+
       return results;
     }
 
@@ -140,6 +149,7 @@ function Volunteers() {
     await createVolunteer(
       {
         ...volunteer,
+        state: "created",
         phone: Number(volunteer.phone.replace(/[()\-\s]/g, "")),
       },
       localStorage.getItem("login")
@@ -195,24 +205,11 @@ function Volunteers() {
 
   const created = () => {
     setIsFormViewSelected(false);
-
   };
 
   return (
     <>
       <AdminNavBar headerTitle="Voluntários">
-        <section className="btn-show-form-container">
-          <div>
-            <button className="btn-show-form" onClick={created}>
-              Voluntários
-            </button>
-          </div>
-          <div>
-            <button className="btn-show-form" onClick={requested}>
-              Formulários
-            </button>
-          </div>
-        </section>
         <div className="admin-volunteers-input">
           <div className="filters">
             <Input
@@ -245,20 +242,48 @@ function Volunteers() {
             </div>
           )}
         </div>
+
         <div className="volunteers-list-container">
-          {isFormViewSelected ? (
+          <section className="btn-show-form-container">
+            <div>
+              <button
+                className={`btn-show-form ${
+                  isFormViewSelected ? "" : "btn-show-form-active"
+                }`}
+                onClick={created}
+              >
+                Voluntários
+              </button>
+            </div>
+            <div>
+              <button
+                className={`btn-show-form ${
+                  isFormViewSelected ? "btn-show-form-active" : ""
+                }`}
+                onClick={requested}
+              >
+                Formulários
+              </button>
+            </div>
+          </section>
+
+          {isLoading && <LoadingPaw />}
+
+          {!isLoading && isFormViewSelected && (
             <AdminList
               columns={columns}
-              rows={getFilteredItems('forms')}
+              rows={getFilteredItems("forms")}
               onClickEditRow={onClickEditVolunteer}
               onClickDeleteRow={onClickDeleteVolunteer}
               userHasPermission={userHasPermission}
               isFormActions={true}
             />
-          ) : (
+          )}
+
+          {!isLoading && !isFormViewSelected && (
             <AdminList
               columns={columns}
-              rows={getFilteredItems('volunteers')}
+              rows={getFilteredItems("volunteers")}
               onClickEditRow={onClickEditVolunteer}
               onClickDeleteRow={onClickDeleteVolunteer}
               userHasPermission={userHasPermission}

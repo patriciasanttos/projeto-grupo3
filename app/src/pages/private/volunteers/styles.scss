@@ -1,15 +1,16 @@
 .volunteers-list-container {
     max-height: 70vh;
-    overflow-y: scroll;
+    border: 1px solid var(--background-primary-color);
+    border-radius: 12px;
 }
 
 .btn-show-form-container {
     display: flex;
     flex-direction: row;
     justify-content: left;
-    gap: 20px;
     text-align: center;
     align-items: center;
+    margin-bottom: 10px;
 
     .btn-show-form {
         background-color: white;
@@ -20,15 +21,18 @@
         cursor: pointer;
         transition: background-color 0.3s ease;
         font-size: 1rem;
-        margin-top: 10px;
-        margin-left: 25%;
+    }
+
+    .btn-show-form-active {
+        @extend .btn-show-form;
+        background-color: var(--background-primary-color);
+        color: white;
     }
 
     .btn-show-form:hover {
         background-color: var(--background-primary-color);
         color: white;
     }
-
 }
 
 .admin-volunteers-input {
