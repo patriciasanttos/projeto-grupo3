@@ -28,8 +28,7 @@ function AdminList({
   userHasPermission,
   popupMenuActions,
   isFormActions,
-  onAcceptForm,
-  onRejectForm
+  formActionsFunction
 }) {
   const getCell = (value) => {
     if (Array.isArray(value)) {
@@ -53,11 +52,7 @@ function AdminList({
 
       if (isFormActions)
         return (
-          <ActionsForm 
-            selectedVolunteer={row} 
-            onAcceptForm={onAcceptForm}
-            onRejectForm={onRejectForm}
-          />
+          <ActionsForm selectedItem={row} accept={formActionsFunction.accept} deny={formActionsFunction.deny} />
       )
 
     return (
