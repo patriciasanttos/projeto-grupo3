@@ -4,17 +4,23 @@ import Tooltip from "../tooltip";
 
 import "./ActionsForm.scss";
 
-const ActionsForm = ({ selectedItem, accept, deny }) => {
+const ActionsForm = ({ selectedItem, accept, deny, refresh }) => {
   const acceptForm = async () => {
     await accept(
       selectedItem.id,
       localStorage.getItem("login")
     )
+      .then(() => {
+        refresh();
+      })
       .catch((error) => console.log(error));
   };
 
   const denyForm = async () => {
     await deny(selectedItem.id, localStorage.getItem("login"))
+      .then(() => {
+        refresh();
+      })
       .catch((error) => console.log(error));
   };
 

@@ -52,7 +52,12 @@ function AdminList({
 
       if (isFormActions)
         return (
-          <ActionsForm selectedItem={row} accept={formActionsFunction.accept} deny={formActionsFunction.deny} />
+          <ActionsForm 
+            selectedItem={row} 
+            accept={formActionsFunction.accept} 
+            deny={formActionsFunction.deny} 
+            refresh={formActionsFunction.refresh}
+          />
       )
 
     return (
