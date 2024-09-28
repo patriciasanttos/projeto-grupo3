@@ -4,6 +4,7 @@ import Tooltip from "../tooltip";
 
 import "./ActionsForm.scss";
 
+
 const ActionsForm = ({ selectedItem, accept, deny }) => {
   const acceptForm = async () => {
     await accept(
