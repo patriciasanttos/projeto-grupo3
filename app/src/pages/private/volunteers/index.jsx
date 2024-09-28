@@ -278,7 +278,11 @@ function Volunteers() {
               userHasPermission={userHasPermission}
               onClickDeleteRow={onClickDeleteVolunteer}
               isFormActions={true}
-              formActionsFunction={{ accept: acceptVolunteerForm, deny: denyVolunteerForm }}
+              formActionsFunction={{ 
+                accept: acceptVolunteerForm, 
+                deny: denyVolunteerForm, 
+                refresh: refreshAllVolunteersList 
+              }}
             />
           )}
 
