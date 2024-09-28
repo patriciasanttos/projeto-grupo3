@@ -6,6 +6,7 @@ import volunteersRepository from '../repositories/volunteers.repository';
 import genFileName from '../utils/genFileName';
 
 class VolunteersController {
+    //-----Volunteers
     async getAll(req: Request, res: Response) {
         const response = await volunteersRepository.getAllVolunteers();
 
@@ -27,12 +28,6 @@ class VolunteersController {
         })
 
         res.status(response.code).json(volunteers);
-    }
-
-    async getAllForms(req: Request, res: Response) {
-        const response = await volunteersRepository.getAllVolunteersForms();
-
-        res.status(response.code).json(response.data);
     }
 
     async getById(req: Request, res: Response) {
@@ -89,10 +84,36 @@ class VolunteersController {
         return res.status(response.code).json(response.data);
     }
 
+    async update(req: Request, res: Response) {
+        const data = req.body;
+
+        if (Object.keys(data).length === 0)
+            return res.status(400).json({ error: 'Invalid body request' });
+
+        const response = await volunteersRepository.updateVolunteer(data);
+
+        return res.status(response.code).json(response.data);
+    }
+
+    async delete(req: Request, res: Response) {
+        const { id } = req.params;
+
+        const response = await volunteersRepository.deleteVolunteer(Number(id));
+
+        return res.status(response.code).json(response.data);
+    }
+
+    //-----Volunteers forms
+    async getAllForms(req: Request, res: Response) {
+        const response = await volunteersRepository.getAllVolunteersForms();
+
+        res.status(response.code).json(response.data);
+    }
+    
     async createForm(req: Request, res: Response) {
         const data = req.body;
 
-        if (Object.keys(data).length === 0 || data.name === undefined || data.email === undefined || data.phone === undefined || data.availability === undefined)
+        if (data.name === undefined || data.email === undefined || data.phone === undefined || data.availability === undefined)
             return res.status(400).json({ error: 'Invalid body request' });
 
         const response = await volunteersRepository.createVolunteerForm(data);
@@ -118,25 +139,6 @@ class VolunteersController {
             return res.status(400).json({ error: 'Invalid id' });
 
         const response = await volunteersRepository.denyVolunteerForm(Number(id));
-
-        return res.status(response.code).json(response.data);
-    }
-
-    async update(req: Request, res: Response) {
-        const data = req.body;
-
-        if (Object.keys(data).length === 0)
-            return res.status(400).json({ error: 'Invalid body request' });
-
-        const response = await volunteersRepository.updateVolunteer(data);
-
-        return res.status(response.code).json(response.data);
-    }
-
-    async delete(req: Request, res: Response) {
-        const { id } = req.params;
-
-        const response = await volunteersRepository.deleteVolunteer(Number(id));
 
         return res.status(response.code).json(response.data);
     }

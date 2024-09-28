@@ -7,7 +7,7 @@ interface SponsorshipInfo {
     name: string,
     email: string,
     phone: number,
-    observation: string,
+    observation?: string,
     created_at?: string,
     updated_at?: string,
 }

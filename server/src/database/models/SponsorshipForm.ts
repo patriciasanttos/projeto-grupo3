@@ -6,7 +6,6 @@ interface SponsorshipFormInfo {
     name: string,
     email: string,
     phone: number,
-    address: string,
     created_at?: string,
     updated_at?: string,
 }
@@ -34,10 +33,6 @@ SponsorshipForm.init({
   phone: {
     type: DataTypes.BIGINT,
     allowNull: false,
-  },
-  address: {
-    type: DataTypes.TEXT,
-    allowNull: false
   },
   created_at: {
     type: DataTypes.DATE,
