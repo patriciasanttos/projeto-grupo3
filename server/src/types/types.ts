@@ -27,6 +27,14 @@ export type SponsorshipType = {
     animal_id?: number,
 }
 
+export type SponsorshipFormType = {
+    id?: number,
+    name: string,
+    email: string,
+    phone: number,
+    animal_id: number,
+}
+
 export type AdoptionType = {
     animal_id: number,
     tutors_name: string,
@@ -49,6 +57,7 @@ export type VolunteerType = {
     study_schedule?: string,
     profession?: string,
     sector: string,
+    state: string,
     observation?: string,
     created_at?: string,
     updated_at?: string,

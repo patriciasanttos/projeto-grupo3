@@ -4,7 +4,14 @@ import AdminNavBar from "../../../components/admin_navbar/AdminNavBar";
 import ModalSponsorshipsAdmin from "../../../components/modal/modalSponsorshipsAdmin/ModalSponsorshipsAdmin";
 import AdminList from "../../../components/admin_list/AdminList";
 import ModalActionsEnum from "../../../utils/ModalActionsEnum";
-import { createSponsorship, deleteSponsorship, getAllSponsorshipships, updateSponsorship } from "../../../services/api/sponsorships";
+import {
+  createSponsorship,
+  deleteSponsorship,
+  getAllSponsorshipships,
+  updateSponsorship,
+} from "../../../services/api/sponsorships";
+import { getAllAnimals } from "../../../services/api/animals";
+import LoadingPaw from "../../../components/loadingPaw";
 
 import CreateIcon from "../../../assets/icons/create_icon.svg";
 
@@ -24,42 +31,61 @@ function Sponsorships() {
   };
   const [filter, setFilter] = useState(initialFilter);
 
+  const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalAction, setModalAction] = useState(null);
   const [selectedSponsor, setSelectedSponsor] = useState(null);
 
-  const [ userHasPermission, setUserHasPermission ] = useState(false);
+  const [userHasPermission, setUserHasPermission] = useState(false);
   const [sponsorsList, setSponsorsList] = useState([]);
+  const [animalsList, setAnimalsList] = useState([]);
 
   useEffect(() => {
     async function checkUserPermission() {
-      await checkPermissions('sponsorships', navigate)
-        .then(response => {
-          setUserHasPermission(response);
-        })
+      await checkPermissions("sponsorships", navigate).then((response) => {
+        setUserHasPermission(response);
+      });
     }
-    
+
     checkUserPermission();
   }, []);
 
-  useEffect(() => {
-    getAllSponsorshipships(localStorage.getItem('login'))
-      .then(async data => {
-        let sponsorshipsList = [];
-        await data.forEach(sponsorhip => {
-          sponsorshipsList.push({
-            id: sponsorhip.id,
-            name: sponsorhip.name,
-            email: sponsorhip.email,
-            phone: sponsorhip.phone,
-            animal_name: sponsorhip.Animals[0].name,
-            animal_id: sponsorhip.Animals[0].id,
-            observation: sponsorhip.observation,
-          });
+  const refreshSponsorshipships = () => {
+    setLoading(true);
+    getAllSponsorshipships(localStorage.getItem("login")).then(async (data) => {
+      let sponsorshipsList = [];
+      await data.forEach((sponsorhip) => {
+        sponsorshipsList.push({
+          id: sponsorhip.id,
+          name: sponsorhip.name,
+          email: sponsorhip.email,
+          phone: sponsorhip.phone,
+          animal_name: sponsorhip.Animals[0].name,
+          animal_id: sponsorhip.Animals[0].id,
+          observation: sponsorhip.observation,
         });
-        
-        setSponsorsList(sponsorshipsList);
       });
+
+      setSponsorsList(sponsorshipsList);
+      setLoading(false);
+    });
+  };
+
+  useEffect(() => {
+    refreshSponsorshipships();
+
+    getAllAnimals().then((animals) => {
+      setAnimalsList(
+        animals.map((animal) => ({
+          ...animal,
+          stageLife: animal.age,
+          castrated: animal.castrated === true ? "Sim" : "Não",
+          sponsor: animal.sponsorships?.lenth > 0 ? "Sim" : "Não",
+          gender: animal.gender.toUpperCase(),
+          sector: animal.sector.toUpperCase(),
+        }))
+      );
+    });
   }, []);
 
   const getFilteredItems = () => {
@@ -80,24 +106,22 @@ function Sponsorships() {
   };
 
   const updateSponsorsList = async (sponsor) => {
-    let sponsors = [...sponsorsList];
-    sponsors[sponsor.id - 1] = {
-      ...sponsor,
-    };
+    await updateSponsorship(
+      {
+        ...sponsor,
+        phone: Number(sponsor.phone.replace(/[()\-\s]/g, "")),
+      },
+      localStorage.getItem("login")
+    ).catch((error) => console.log(error));
 
-    await updateSponsorship({
-      ...sponsor,
-      phone: Number(sponsor.phone.replace(/[()\-\s]/g, '')),
-    }, localStorage.getItem('login'))
-      .catch(error => console.log(error));
-
-    setSponsorsList(sponsors);
     setIsModalOpen(false);
+    refreshSponsorshipships();
   };
 
   const deleteSponsorsList = async (sponsor) => {
-    await deleteSponsorship(sponsor.id, localStorage.getItem('login'))
-      .catch(error => console.log(error));
+    await deleteSponsorship(sponsor.id, localStorage.getItem("login")).catch(
+      (error) => console.log(error)
+    );
 
     setSponsorsList(
       sponsorsList.filter((sponsors) => sponsors.id !== sponsor.id)
@@ -106,22 +130,19 @@ function Sponsorships() {
   };
 
   const createSponsorsList = async (sponsor) => {
-    let sponsors = [...sponsorsList];
-    sponsors.push({
-      ...sponsor,
-      id: sponsorsList.length + 1,
-    });
-
-    await createSponsorship({
-      ...sponsor,
-      phone: Number(sponsor.phone.replace(/[()\-\s]/g, '')),
-    }, localStorage.getItem('login'))
+    await createSponsorship(
+      {
+        ...sponsor,
+        phone: Number(sponsor.phone.replace(/[()\-\s]/g, "")),
+      },
+      localStorage.getItem("login")
+    )
       .then(() => {
-        setSponsorsList(sponsors);
         setIsModalOpen(false);
+        refreshSponsorshipships();
       })
       .catch(({ response }) => {
-        if (response.data.error === 'Animal not found')
+        if (response.data.error === "Animal not found")
           return alert("Animal não encontrado.");
       });
   };
@@ -168,7 +189,7 @@ function Sponsorships() {
     {
       title: "Apadrinhou",
       rowKey: "animal_name",
-    }
+    },
   ];
 
   return (
@@ -201,7 +222,9 @@ function Sponsorships() {
               type="text"
               placeholder="Apadrinhou"
               value={getFilterState("animal_name")}
-              onChange={(e) => setFilter({ ...filter, animal_name: e.target.value })}
+              onChange={(e) =>
+                setFilter({ ...filter, animal_name: e.target.value })
+              }
             />
           </div>
 
@@ -219,13 +242,17 @@ function Sponsorships() {
         </div>
 
         <div className="sponsorship-list-container">
-          <AdminList
-            columns={columns}
-            rows={getFilteredItems()}
-            onClickEditRow={onClickEditSponsor}
-            onClickDeleteRow={onClickDeleteSponsor}
-            userHasPermission={userHasPermission}
-          />
+          {loading ? (
+            <LoadingPaw />
+          ) : (
+            <AdminList
+              columns={columns}
+              rows={getFilteredItems()}
+              onClickEditRow={onClickEditSponsor}
+              onClickDeleteRow={onClickDeleteSponsor}
+              userHasPermission={userHasPermission}
+            />
+          )}
         </div>
       </AdminNavBar>
       <ModalSponsorshipsAdmin
@@ -236,6 +263,7 @@ function Sponsorships() {
         updateSponsorsList={updateSponsorsList}
         createSponsorsList={createSponsorsList}
         deleteSponsorsList={deleteSponsorsList}
+        animalsList={animalsList}
       />
     </>
   );

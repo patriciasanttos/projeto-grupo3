@@ -1,9 +1,11 @@
 import Sponsorship from "../database/models/Sponsorship";
-import { SponsorshipType } from "../types/types";
+import { SponsorshipFormType, SponsorshipType } from "../types/types";
 import serverErrorHandler from "../utils/serverErrorHandler";
 import { Animal } from "../database/models/index";
+import SponsorshipForm from "../database/models/SponsorshipForm";
 
 export default {
+    //-----Sponsorships
     async getSponsorshipById(id: number): Promise<{ code: number, data: {} }> {
         try {
             //-----Buscar apadrinhamento na tabela
@@ -65,6 +67,7 @@ export default {
                     }
                 };
 
+            delete data?.animal_id;
             // -----Salvar apadrinhamento na tabela
             const sponsorship = await Sponsorship.create({ ...data });
             await gettedAnimal.addSponsorship(sponsorship);
@@ -125,5 +128,83 @@ export default {
         } catch (error: any) {
             return serverErrorHandler(error);
         }
-    }
+    },
+
+    //-----Sponsorships forms
+    async getAllSponsorshipsForms(): Promise<{ code: number, data: {} }> {
+        try {
+            //-----Buscar formulários na tabela
+            const sponsorships = await SponsorshipForm.findAll();
+
+            if (sponsorships === null)
+                return {
+                    code: 404,
+                    data: {
+                        error: 'No sponsorship forms found'
+                    }
+                };
+
+            return {
+                code: 200,
+                data: sponsorships
+            };
+        } catch (error: any) {
+            return serverErrorHandler(error);
+        }
+    },
+
+    async createSponsorshipForm(data: SponsorshipFormType): Promise<{ code: number, data?: {} }> {
+        try {
+            // -----Salvar formulário na tabela
+            await SponsorshipForm.create({ ...data });
+
+            return {
+                code: 201
+            };
+        } catch (error: any) {
+            return serverErrorHandler(error);
+        }
+    },
+
+    async acceptSponsorshipForm(id: number): Promise<{ code: number, data?: {} }> {
+        try {
+            // -----Buscar formulário na tabela
+            const form = await SponsorshipForm.findByPk(id);
+            
+            if (!form)
+                return {
+                    code: 404,
+                    data: {
+                        error: 'Sponsorship form not found'
+                    }
+                }
+
+            const sponsorship = { ...form.dataValues }
+            delete sponsorship.id;
+
+            await this.createSponsorship(sponsorship);
+            await form.destroy();
+
+            return {
+                code: 200
+            };
+        } catch (error: any) {
+            return serverErrorHandler(error);
+        }
+    },
+
+    async denySponsorshipForm(id: number): Promise<{ code: number, data?: {} }> {
+        try {
+            // -----Buscar formulário na tabela
+            const form = await SponsorshipForm.findByPk(id);
+
+            await form?.destroy();
+
+            return {
+                code: 200
+            };
+        } catch (error: any) {
+            return serverErrorHandler(error);
+        }
+    },
 };

@@ -5,13 +5,14 @@ import Dropdown from "../../../components/dropdown";
 
 import StateSelect from "./StateSelectComponent/StateSelect";
 import isEmailValid from '../../../utils/isEmailValid'
+import { createVolunteerForm } from '../../../services/api/volunteers';
 
 const FormOver18 = () => {
   const formOver18Initial = {
     name: "",
-    phoneNumber: "",
+    phone: "",
     email: "",
-    occupation: "",
+    profession: "",
     address: "",
     availability: "",
     sector: "",
@@ -43,11 +44,18 @@ const FormOver18 = () => {
     return isValid;
   };
 
-  const onClickSubmitOver18 = () => {
+  const onClickSubmitOver18 = async() => {
     const isValid = validateFormOver18();
 
     if (isValid) {
-      alert(JSON.stringify(formOver18));
+      await createVolunteerForm({
+        ...formOver18,
+        phone: Number(formOver18.phone.replace(/[()\-\s]/g, '')),
+      })
+        .then(() => {
+          alert("Formulário enviado com sucesso!");
+        })
+        .catch(error => console.log(error));
     }
   };
 
@@ -118,19 +126,19 @@ const FormOver18 = () => {
             name="Celular"
             id=""
             placeholder="Celular"
-            value={formOver18.phoneNumber}
+            value={formOver18.phone}
             mask={"(00) 00000-0000"}
-            onChange={(e) => updateFormOver18('phoneNumber', e.target.value)}
-            error={formOver18Errors.phoneNumber}
+            onChange={(e) => updateFormOver18('phone', e.target.value)}
+            error={formOver18Errors.phone}
           />
           <Input
             type="text"
             name="Profissão"
             id=""
             placeholder="Profissão"
-            value={formOver18.occupation}
-            onChange={(e) => updateFormOver18('occupation', e.target.value)}
-            error={formOver18Errors.occupation}
+            value={formOver18.profession}
+            onChange={(e) => updateFormOver18('profession', e.target.value)}
+            error={formOver18Errors.profession}
           />
           <Input
             type="number"

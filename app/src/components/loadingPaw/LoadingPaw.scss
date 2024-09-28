@@ -3,7 +3,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-
+    color: #5BB656 !important;
     margin: 10px 0px 40px 0px;
 
     .loader {
@@ -14,7 +14,7 @@
         font-size: 50px;
         width: 1em;
         height: 3em;
-        color: #5BB656;
+        color: #5BB656 !important;
     
         .paw {
             width: 1em;

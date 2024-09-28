@@ -30,22 +30,31 @@ router
     
 //-----Sponsorships routes
 router
-    .get('/sponsorships', SponsorshipsController.getAll)
-    .get('/sponsorships/:id', SponsorshipsController.getById)
+    .get('/sponsorships/get', SponsorshipsController.getAll)
+    .get('/sponsorships/get/:id', SponsorshipsController.getById)
     .post('/sponsorships', SponsorshipsController.create)
     .put('/sponsorships', SponsorshipsController.update)
-    .delete('/sponsorships/:id', SponsorshipsController.delete);
+    .delete('/sponsorships/:id', SponsorshipsController.delete)
+
+    .get('/sponsorships/forms', SponsorshipsController.getAllForms)
+    .post('/sponsorships/forms', SponsorshipsController.createForm)
+    .get('/sponsorships/forms/accept/:id', SponsorshipsController.acceptForm)
+    .delete('/sponsorships/forms/deny/:id', SponsorshipsController.denyForm);
 
 //-----Volunteers routes
 router
-    .get('/volunteers', VolunteersController.getAll)
-    .get('/volunteers/:id', VolunteersController.getById)
+    .get('/volunteers/get', VolunteersController.getAll)
+    .get('/volunteers/get/:id', VolunteersController.getById)
     .post('/volunteers', image.single('image'), VolunteersController.create)
     .put('/volunteers', image.single('image'), VolunteersController.update)
-    .delete('/volunteers/:id', VolunteersController.delete);
+    .delete('/volunteers/:id', VolunteersController.delete)
 
+    .get('/volunteers/forms', VolunteersController.getAllForms)
+    .post('/volunteers/forms', VolunteersController.createForm)
+    .get('/volunteers/forms/accept/:id', VolunteersController.acceptForm)
+    .delete('/volunteers/forms/deny/:id', VolunteersController.denyForm);
 
-    //-----Admins routes
+//-----Admins routes
 router
     .get('/admins', AuthController.getAll)
     .get('/admins/get/:id', AuthController.getById)

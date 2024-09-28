@@ -14,8 +14,13 @@ app
     }))
     .use(express.json())
     .use((req, res, next) => {
-        if (req.method === 'GET' && req.url === '/animals' || req.method === 'GET' && req.url === '/admins/login')
-            return next(); 
+        if (
+            req.method === 'GET' && req.url === '/animals' 
+            || req.method === 'POST' && req.url === '/volunteers/forms'
+            || req.method === 'POST' && req.url === '/sponsorships/forms'
+            || req.method === 'GET' && req.url === '/admins/login'
+        )
+            return next();
 
         const token = req.headers['authorization'] && req.headers['authorization'].split(' ')[1];
         if (!token)

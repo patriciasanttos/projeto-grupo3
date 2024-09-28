@@ -5,6 +5,7 @@ import ModalAdoptionsAdmin from "../../../components/modal/modalAdoptionsAdmin/M
 import AdminList from "../../../components/admin_list/AdminList";
 import ModalActionsEnum from "../../../utils/ModalActionsEnum";
 import CreateIcon from "../../../assets/icons/create_icon.svg";
+import LoadingPaw from "../../../components/loadingPaw";
 
 import "./styles.scss";
 import Input from "../../../components/input/Input";
@@ -22,6 +23,7 @@ function Adoptions() {
   };
   const [filter, setFilter] = useState(initialFilter);
 
+  const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalAction, setModalAction] = useState(null);
   const [selectedTutor, setSelectedTutor] = useState(null);
@@ -41,6 +43,7 @@ function Adoptions() {
   }, []);
 
   useEffect(() => {
+    setLoading(true);
     getAllAdoptions(localStorage.getItem('login'))
       .then(async data => {
         let adoptionsList = [];
@@ -58,6 +61,7 @@ function Adoptions() {
         });
 
         setTutorsList(adoptionsList);
+        setLoading(false);
       });
   }, []);
 
@@ -176,13 +180,15 @@ function Adoptions() {
   return (
     <>
       <AdminNavBar headerTitle="Adoções">
-      <div className="tutor-filter-container">
+        <div className="tutor-filter-container">
           <div className="filters">
             <Input
               type="text"
               placeholder="Nome"
               value={getFilterState("tutors_name")}
-              onChange={(e) => setFilter({ ...filter, tutors_name: e.target.value })}
+              onChange={(e) =>
+                setFilter({ ...filter, tutors_name: e.target.value })
+              }
             />
 
             <Input
@@ -196,7 +202,9 @@ function Adoptions() {
               type="text"
               placeholder="Endereço"
               value={getFilterState("address")}
-              onChange={(e) => setFilter({ ...filter, address: e.target.value })}
+              onChange={(e) =>
+                setFilter({ ...filter, address: e.target.value })
+              }
             />
           </div>
 
@@ -213,13 +221,17 @@ function Adoptions() {
           )}
         </div>
         <div className="adoptions-list-container">
-          <AdminList
-            columns={columns}
-            rows={getFilteredItems()}
-            onClickEditRow={onClickEditTutor}
-            onClickDeleteRow={onClickDeleteTutor}
-            userHasPermission={userHasPermission}
-          />
+          {loading ? (
+            <LoadingPaw />
+          ) : (
+            <AdminList
+              columns={columns}
+              rows={getFilteredItems()}
+              onClickEditRow={onClickEditTutor}
+              onClickDeleteRow={onClickDeleteTutor}
+              userHasPermission={userHasPermission}
+            />
+          )}
         </div>
       </AdminNavBar>
 
