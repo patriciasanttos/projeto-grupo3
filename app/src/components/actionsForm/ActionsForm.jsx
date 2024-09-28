@@ -9,7 +9,7 @@ import {
 
 import "./ActionsForm.scss";
 
-const ActionsForm = (selectedVolunteer) => {
+const ActionsForm = ({ selectedVolunteer }) => {
   const acceptForm = async () => {
     await acceptVolunteerForm(
       selectedVolunteer.id,
