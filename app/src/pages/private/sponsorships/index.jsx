@@ -5,8 +5,10 @@ import ModalSponsorshipsAdmin from "../../../components/modal/modalSponsorshipsA
 import AdminList from "../../../components/admin_list/AdminList";
 import ModalActionsEnum from "../../../utils/ModalActionsEnum";
 import {
+  acceptSponsorshipForm,
   createSponsorship,
   deleteSponsorship,
+  denySponsorshipForm,
   getAllSponsorshipsForms,
   getAllSponsorshipships,
   updateSponsorship,
@@ -336,6 +338,7 @@ function Sponsorships() {
               onClickDeleteRow={onClickDeleteSponsor}
               userHasPermission={userHasPermission}
               isFormActions={true}
+              formActionsFunction={{ accept: acceptSponsorshipForm, deny: denySponsorshipForm }}
             />
           )}
 

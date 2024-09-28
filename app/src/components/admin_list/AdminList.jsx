@@ -27,7 +27,8 @@ function AdminList({
   onClickDeleteRow,
   userHasPermission,
   popupMenuActions,
-  isFormActions
+  isFormActions,
+  formActionsFunction
 }) {
   const getCell = (value) => {
     if (Array.isArray(value)) {
@@ -51,7 +52,7 @@ function AdminList({
 
       if (isFormActions)
         return (
-          <ActionsForm selectedVolunteer={row} />
+          <ActionsForm selectedItem={row} accept={formActionsFunction.accept} deny={formActionsFunction.deny} />
       )
 
     return (

@@ -2,17 +2,12 @@ import Accept from "../../assets/icons/accept-icon.svg";
 import Deny from "../../assets/icons/deny-icon.svg";
 import Tooltip from "../tooltip";
 
-import {
-  acceptVolunteerForm,
-  denyVolunteerForm,
-} from "../../services/api/volunteers";
-
 import "./ActionsForm.scss";
 
-const ActionsForm = (selectedVolunteer) => {
+const ActionsForm = ({ selectedItem, accept, deny }) => {
   const acceptForm = async () => {
-    await acceptVolunteerForm(
-      selectedVolunteer.id,
+    await accept(
+      selectedItem.id,
       localStorage.getItem("login")
     )
       .then(() => {})
@@ -20,7 +15,7 @@ const ActionsForm = (selectedVolunteer) => {
   };
 
   const denyForm = async () => {
-    await denyVolunteerForm(selectedVolunteer.id, localStorage.getItem("login"))
+    await deny(selectedItem.id, localStorage.getItem("login"))
       .then(() => {})
       .catch((error) => console.log(error));
   };
