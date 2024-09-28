@@ -1,6 +1,6 @@
 import './Dropdown.scss'
 
-const Dropdown = ({ onChange, children, defaultValue, placeholder, error }) => {
+const Dropdown = ({ onChange, children, defaultValue, placeholder, error, value }) => {
   const getClass = () => {
     if (error) return "dropdown dropdown-error";
 
@@ -10,7 +10,7 @@ const Dropdown = ({ onChange, children, defaultValue, placeholder, error }) => {
   const message = error ? `${placeholder} (${error})` : placeholder;
 
   return (
-    <select defaultValue={defaultValue} onChange={onChange} className={getClass()}>
+    <select value={value} defaultValue={defaultValue} onChange={onChange} className={getClass()}>
       <option value="" disabled>
         {message}
       </option>

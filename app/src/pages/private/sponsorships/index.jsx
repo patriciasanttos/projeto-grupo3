@@ -5,6 +5,7 @@ import ModalSponsorshipsAdmin from "../../../components/modal/modalSponsorshipsA
 import AdminList from "../../../components/admin_list/AdminList";
 import ModalActionsEnum from "../../../utils/ModalActionsEnum";
 import { createSponsorship, deleteSponsorship, getAllSponsorshipships, updateSponsorship } from "../../../services/api/sponsorships";
+import { getAllAnimals } from "../../../services/api/animals";
 
 import CreateIcon from "../../../assets/icons/create_icon.svg";
 
@@ -30,6 +31,7 @@ function Sponsorships() {
 
   const [ userHasPermission, setUserHasPermission ] = useState(false);
   const [sponsorsList, setSponsorsList] = useState([]);
+  const [animalsList, setAnimalsList] = useState([]);
 
   useEffect(() => {
     async function checkUserPermission() {
@@ -42,7 +44,7 @@ function Sponsorships() {
     checkUserPermission();
   }, []);
 
-  useEffect(() => {
+  const refreshSponsorshipships = () => {
     getAllSponsorshipships(localStorage.getItem('login'))
       .then(async data => {
         let sponsorshipsList = [];
@@ -60,6 +62,21 @@ function Sponsorships() {
         
         setSponsorsList(sponsorshipsList);
       });
+  }
+
+  useEffect(() => {
+    refreshSponsorshipships()
+
+    getAllAnimals().then((animals) => {
+      setAnimalsList(animals.map((animal) => ({
+        ...animal,
+        stageLife: animal.age,
+        castrated: animal.castrated === true ? 'Sim' : 'Não',
+        sponsor: animal.sponsorships?.lenth > 0 ? 'Sim' : 'Não',
+        gender: animal.gender.toUpperCase(),
+        sector: animal.sector.toUpperCase()
+      })))
+    });
   }, []);
 
   const getFilteredItems = () => {
@@ -80,19 +97,14 @@ function Sponsorships() {
   };
 
   const updateSponsorsList = async (sponsor) => {
-    let sponsors = [...sponsorsList];
-    sponsors[sponsor.id - 1] = {
-      ...sponsor,
-    };
-
     await updateSponsorship({
       ...sponsor,
       phone: Number(sponsor.phone.replace(/[()\-\s]/g, '')),
     }, localStorage.getItem('login'))
       .catch(error => console.log(error));
 
-    setSponsorsList(sponsors);
     setIsModalOpen(false);
+    refreshSponsorshipships()
   };
 
   const deleteSponsorsList = async (sponsor) => {
@@ -106,19 +118,13 @@ function Sponsorships() {
   };
 
   const createSponsorsList = async (sponsor) => {
-    let sponsors = [...sponsorsList];
-    sponsors.push({
-      ...sponsor,
-      id: sponsorsList.length + 1,
-    });
-
     await createSponsorship({
       ...sponsor,
       phone: Number(sponsor.phone.replace(/[()\-\s]/g, '')),
     }, localStorage.getItem('login'))
       .then(() => {
-        setSponsorsList(sponsors);
         setIsModalOpen(false);
+        refreshSponsorshipships()
       })
       .catch(({ response }) => {
         if (response.data.error === 'Animal not found')
@@ -236,6 +242,7 @@ function Sponsorships() {
         updateSponsorsList={updateSponsorsList}
         createSponsorsList={createSponsorsList}
         deleteSponsorsList={deleteSponsorsList}
+        animalsList={animalsList}
       />
     </>
   );
