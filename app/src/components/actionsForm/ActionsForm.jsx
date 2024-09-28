@@ -9,19 +9,23 @@ import {
 
 import "./ActionsForm.scss";
 
-const ActionsForm = ({ selectedVolunteer }) => {
+const ActionsForm = ({ 
+  selectedVolunteer,
+  onAcceptForm,
+  onRejectForm
+}) => {
   const acceptForm = async () => {
     await acceptVolunteerForm(
       selectedVolunteer.id,
       localStorage.getItem("login")
     )
-      .then(() => {})
+      .then(onAcceptForm)
       .catch((error) => console.log(error));
   };
 
   const denyForm = async () => {
     await denyVolunteerForm(selectedVolunteer.id, localStorage.getItem("login"))
-      .then(() => {})
+      .then(onRejectForm)
       .catch((error) => console.log(error));
   };
 

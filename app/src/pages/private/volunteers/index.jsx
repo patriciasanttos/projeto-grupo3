@@ -30,7 +30,7 @@ function Volunteers() {
 
   const [loading, setLoading] = useState(true);
   const [loadingFormList, setLoadingFormList] = useState(true);
-  const isLoading = loading || loadingFormList
+  const isLoading = loading || loadingFormList;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalAction, setModalAction] = useState(null);
@@ -52,18 +52,31 @@ function Volunteers() {
     checkUserPermission();
   }, []);
 
-  useEffect(() => {
+  
+  const refreshVolunteersList = () => {
     setLoading(true);
     getAllVolunteers(localStorage.getItem("login")).then((data) => {
       setVolunteersList(data);
       setLoading(false);
     });
+  };
 
+  const refreshVolunteersFormList = () => {
     setLoadingFormList(true);
     getAllVolunteersForms(localStorage.getItem("login")).then((data) => {
       setVolunteersFormsList(data);
       setLoadingFormList(false);
     });
+  };
+
+  const refreshAllVolunteersList = () => {
+    refreshVolunteersList()
+    refreshVolunteersFormList()
+  }
+
+  useEffect(() => {
+    refreshVolunteersList();
+    refreshVolunteersFormList();
   }, []);
 
   const getFilteredItems = (type) => {
@@ -107,12 +120,6 @@ function Volunteers() {
   };
 
   const updateVolunteersList = async (volunteer) => {
-    let volunteers = volunteersList.map((volunt) => {
-      if (volunt.id === volunteer.id) return volunteer;
-
-      return volunt;
-    });
-
     if (volunteer.phone)
       volunteer.phone = Number(volunteer.phone.replace(/[()\-\s]/g, ""));
 
@@ -122,8 +129,8 @@ function Volunteers() {
       }
     );
 
-    setVolunteersList(volunteers);
     setIsModalOpen(false);
+    refreshVolunteersList();
   };
 
   const deleteVolunteersList = async (volunteer) => {
@@ -133,19 +140,11 @@ function Volunteers() {
       }
     );
 
-    setVolunteersList(
-      volunteersList.filter((volunteers) => volunteers.id !== volunteer.id)
-    );
     setIsModalOpen(false);
+    refreshVolunteersList();
   };
 
   const createVolunteersList = async (volunteer) => {
-    let volunteers = [...volunteersList];
-    volunteers.push({
-      ...volunteer,
-      id: volunteersList.length + 1,
-    });
-
     await createVolunteer(
       {
         ...volunteer,
@@ -155,8 +154,8 @@ function Volunteers() {
       localStorage.getItem("login")
     ).catch((error) => console.log(error));
 
-    setVolunteersList(volunteers);
     setIsModalOpen(false);
+    refreshVolunteersList();
   };
 
   const columns = [
@@ -273,10 +272,11 @@ function Volunteers() {
             <AdminList
               columns={columns}
               rows={getFilteredItems("forms")}
-              onClickEditRow={onClickEditVolunteer}
-              onClickDeleteRow={onClickDeleteVolunteer}
               userHasPermission={userHasPermission}
+              onClickDeleteRow={onClickDeleteVolunteer}
               isFormActions={true}
+              onAcceptForm={refreshAllVolunteersList}
+              onRejectForm={refreshAllVolunteersList}
             />
           )}
 
