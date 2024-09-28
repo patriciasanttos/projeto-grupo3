@@ -10,7 +10,7 @@ const Dropdown = ({ onChange, children, defaultValue, placeholder, error, value 
   const message = error ? `${placeholder} (${error})` : placeholder;
 
   return (
-    <select value={value} defaultValue={defaultValue} onChange={onChange} className={getClass()}>
+    <select defaultValue={defaultValue} onChange={onChange} className={getClass()}>
       <option value="" disabled>
         {message}
       </option>

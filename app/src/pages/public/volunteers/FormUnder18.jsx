@@ -18,6 +18,7 @@ const FormUnder18 = () => {
     availability: "",
     sector: "",
     state: "",
+    profession: ""
   };
 
   const [formUnder18, setFormUnder18] = useState(formUnder18Initial);
@@ -129,6 +130,7 @@ const FormUnder18 = () => {
             <option value="Gatil">Gatil</option>
             <option value="Limpeza">Limpeza</option>
           </Dropdown>
+         
         </div>
         <div className="align-form">
           <Input
@@ -164,6 +166,15 @@ const FormUnder18 = () => {
             placeholder="Estado"
             onChange={(e) => updateFormUnder18("state", e.target.value)}
             error={formUnder18Errors.state}
+          />
+           <Input
+            type="text"
+            name="Ocupação"
+            id=""
+            placeholder="Ocupação"
+            value={formUnder18.profession}
+            onChange={(e) => updateFormUnder18("profession", e.target.value)}
+            error={formUnder18Errors.profession}
           />
         </div>
       </form>
