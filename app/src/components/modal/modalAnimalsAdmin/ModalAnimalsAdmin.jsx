@@ -33,7 +33,7 @@ const ModalAnimalsAdmin = ({
       observation: "",
     };
   }, []);
-  const [formAnimals, setFormAnimals] = useState(initialFormAnimals);
+  const [formAnimals, setFormAnimals] = useState();
 
   const listSpeciesOption = [
     { id: "Cão", name: "Cão" },
@@ -69,11 +69,16 @@ const ModalAnimalsAdmin = ({
   ];
 
   useEffect(() => {
-    setFormAnimals({
-      ...selectedAnimal,
-      oldImage: selectedAnimal?.image
-    });
-  }, [selectedAnimal, isOpen]);
+    if (selectedAnimal) {
+        setFormAnimals({
+            ...selectedAnimal,
+            oldImage: selectedAnimal?.image || null,
+        });
+    } else {
+        setFormAnimals(initialFormAnimals);
+    }
+  }, [selectedAnimal, isOpen, initialFormAnimals]);
+
 
   const onClickSave = () => {
     if (selectedAnimal) {
