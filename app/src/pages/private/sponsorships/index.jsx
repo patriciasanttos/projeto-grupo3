@@ -7,6 +7,7 @@ import ModalActionsEnum from "../../../utils/ModalActionsEnum";
 import {
   createSponsorship,
   deleteSponsorship,
+  getAllSponsorshipsForms,
   getAllSponsorshipships,
   updateSponsorship,
 } from "../../../services/api/sponsorships";
@@ -34,10 +35,13 @@ function Sponsorships() {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalAction, setModalAction] = useState(null);
+  const [isFormViewSelected, setIsFormViewSelected] = useState(false);
+
   const [selectedSponsor, setSelectedSponsor] = useState(null);
 
   const [userHasPermission, setUserHasPermission] = useState(false);
   const [sponsorsList, setSponsorsList] = useState([]);
+  const [sponsorsFormsList, setSponsorsFormsList] = useState([]);
   const [animalsList, setAnimalsList] = useState([]);
 
   useEffect(() => {
@@ -50,59 +54,107 @@ function Sponsorships() {
     checkUserPermission();
   }, []);
 
-  const refreshSponsorshipships = () => {
-    setLoading(true);
-    getAllSponsorshipships(localStorage.getItem("login")).then(async (data) => {
-      let sponsorshipsList = [];
-      await data.forEach((sponsorhip) => {
-        sponsorshipsList.push({
-          id: sponsorhip.id,
-          name: sponsorhip.name,
-          email: sponsorhip.email,
-          phone: sponsorhip.phone,
-          animal_name: sponsorhip.Animals[0].name,
-          animal_id: sponsorhip.Animals[0].id,
-          observation: sponsorhip.observation,
-        });
-      });
+  const loadAnimals = async () => {
+    await getAllAnimals()
+      .then(async (animals) => {
+        const gettedAnimalsList = animals.map((animal) => ({
+          id: animal.id,
+          name: animal.name
+        }));
 
-      setSponsorsList(sponsorshipsList);
-      setLoading(false);
-    });
+        setAnimalsList(gettedAnimalsList);
+        loadForms(gettedAnimalsList)
+      });
+  }
+
+  const loadForms = async (animals) => {
+    await getAllSponsorshipsForms(localStorage.getItem("login"))
+      .then(async data => {
+        const sponsorshipsFormList = []
+        await data.forEach(form => {
+          const animal = animals.filter(animal => animal.id === form.animal_id)[0];
+
+          return sponsorshipsFormList.push({
+            id: form.id,
+            name: form.name,
+            email: form.email,
+            phone: form.phone,
+            animal_name: animal.name,
+            animal_id: animal.id
+          });
+        });
+
+        return setSponsorsFormsList(sponsorshipsFormList);
+      })
+      .catch(error => console.log(error))
+  }
+
+  const refreshSponsorshipships = async () => {
+    setLoading(true);
+
+    await loadAnimals()
+      .then(async () => {
+        await getAllSponsorshipships(localStorage.getItem("login"))
+          .then(async (data) => {
+            let sponsorshipsList = [];
+            await data.forEach((sponsorhip) => {
+              sponsorshipsList.push({
+                id: sponsorhip.id,
+                name: sponsorhip.name,
+                email: sponsorhip.email,
+                phone: sponsorhip.phone,
+                animal_name: sponsorhip.Animals[0].name,
+                animal_id: sponsorhip.Animals[0].id,
+                observation: sponsorhip.observation,
+              });
+            });
+  
+            setSponsorsList(sponsorshipsList);
+          })
+          .catch(error => console.log(error));
+      })
+
+    return setLoading(false);
   };
 
   useEffect(() => {
     refreshSponsorshipships();
-
-    getAllAnimals().then((animals) => {
-      setAnimalsList(
-        animals.map((animal) => ({
-          ...animal,
-          stageLife: animal.age,
-          castrated: animal.castrated === true ? "Sim" : "Não",
-          sponsor: animal.sponsorships?.lenth > 0 ? "Sim" : "Não",
-          gender: animal.gender.toUpperCase(),
-          sector: animal.sector.toUpperCase(),
-        }))
-      );
-    });
   }, []);
 
-  const getFilteredItems = () => {
-    let results = [...sponsorsList];
+  const getFilteredItems = (type) => {
+    if (type === "sponsorships") {
+      let results = [...sponsorsList];
 
-    Object.keys(filter).forEach((filterName) => {
-      if (filter[filterName]) {
-        results = results.filter(
-          (item) =>
-            item[filterName]
-              .toLowerCase()
-              .indexOf(filter[filterName].toLowerCase()) !== -1
-        );
-      }
-    });
+      Object.keys(filter).forEach((filterName) => {
+        if (filter[filterName]) {
+          results = results.filter(
+            (item) =>
+              item[filterName]
+                .toLowerCase()
+                .indexOf(filter[filterName].toLowerCase()) !== -1
+          );
+        }
+      });
+  
+      return results;
+    }
 
-    return results;
+    if (type === "forms") {
+      let results = [...sponsorsFormsList];
+
+      Object.keys(filter).forEach((filterName) => {
+        if (filter[filterName]) {
+          results = results.filter(
+            (item) =>
+              item[filterName]
+                .toLowerCase()
+                .indexOf(filter[filterName].toLowerCase()) !== -1
+          );
+        }
+      });
+  
+      return results;
+    }
   };
 
   const updateSponsorsList = async (sponsor) => {
@@ -167,6 +219,14 @@ function Sponsorships() {
 
   const getFilterState = (field) => {
     return filter && filter[field] ? filter[field] : "";
+  };
+
+  const requested = () => {
+    setIsFormViewSelected(true);
+  };
+
+  const created = () => {
+    setIsFormViewSelected(false);
   };
 
   const columns = [
@@ -242,18 +302,52 @@ function Sponsorships() {
         </div>
 
         <div className="sponsorship-list-container">
-          {loading ? (
-            <LoadingPaw />
-          ) : (
+          <section className="btn-show-form-container">
+              <div>
+                <button
+                  className={`btn-show-form ${
+                    isFormViewSelected ? "" : "btn-show-form-active"
+                  }`}
+                  onClick={created}
+                >
+                  Voluntários
+                </button>
+              </div>
+              <div>
+                <button
+                  className={`btn-show-form ${
+                    isFormViewSelected ? "btn-show-form-active" : ""
+                  }`}
+                  onClick={requested}
+                >
+                  Formulários
+                </button>
+              </div>
+            </section>
+          </div>
+
+          {loading && <LoadingPaw /> } 
+
+          {!loading && isFormViewSelected && (
             <AdminList
               columns={columns}
-              rows={getFilteredItems()}
+              rows={getFilteredItems('forms')}
+              onClickEditRow={onClickEditSponsor}
+              onClickDeleteRow={onClickDeleteSponsor}
+              userHasPermission={userHasPermission}
+              isFormActions={true}
+            />
+          )}
+
+          {!loading && !isFormViewSelected && (
+            <AdminList
+              columns={columns}
+              rows={getFilteredItems('sponsorships')}
               onClickEditRow={onClickEditSponsor}
               onClickDeleteRow={onClickDeleteSponsor}
               userHasPermission={userHasPermission}
             />
           )}
-        </div>
       </AdminNavBar>
       <ModalSponsorshipsAdmin
         isOpen={isModalOpen}

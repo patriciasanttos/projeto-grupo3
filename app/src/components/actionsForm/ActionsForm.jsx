@@ -26,7 +26,7 @@ const ActionsForm = (selectedVolunteer) => {
   };
 
   return (
-    <section className="actions-form-container">
+    <td className="actions-form-container">
       <div>
         <Tooltip text="Aprovar">
           <button className="btn-actions-form" onClick={acceptForm}>
@@ -41,7 +41,7 @@ const ActionsForm = (selectedVolunteer) => {
           </button>
         </Tooltip>
       </div>
-    </section>
+    </td>
   );
 };
 
