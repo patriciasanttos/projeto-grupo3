@@ -116,7 +116,7 @@ const ModalSponsorshipsAdmin = ({
           >
             {
               animalsList.map((animal) => (
-                <option value={animal.id}>{animal.id}: {animal.name}</option>
+                <option key={animal.id} value={animal.id}>{animal.id}: {animal.name}</option>
               ))
             }
           </Dropdown>

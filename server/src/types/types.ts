@@ -27,6 +27,14 @@ export type SponsorshipType = {
     animal_id?: number,
 }
 
+export type SponsorshipFormType = {
+    id?: number,
+    name: string,
+    email: string,
+    phone: number,
+    animal_id: number,
+}
+
 export type AdoptionType = {
     animal_id: number,
     tutors_name: string,
