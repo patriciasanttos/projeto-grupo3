@@ -5,13 +5,14 @@ import Dropdown from "../../../components/dropdown";
 
 import StateSelect from "./StateSelectComponent/StateSelect";
 import isEmailValid from '../../../utils/isEmailValid'
+import { createVolunteerForm } from "../../../services/api/volunteers";
 
 const FormUnder18 = () => {
   const formUnder18Initial = {
-    responsibleName: "",
-    phoneNumber: "",
-    minorsName: "",
-    periodStudy: "",
+    name: "",
+    responsible_name: "",
+    phone: "",
+    study_schedule: "",
     email: "",
     address: "",
     availability: "",
@@ -20,8 +21,7 @@ const FormUnder18 = () => {
   };
 
   const [formUnder18, setFormUnder18] = useState(formUnder18Initial);
-  const [formUnder18Errors, setFormUnder18Errors] =
-    useState(formUnder18Initial);
+  const [formUnder18Errors, setFormUnder18Errors] = useState(formUnder18Initial);
 
   const validateFormUnder18 = () => {
     let isValid = true;
@@ -45,11 +45,18 @@ const FormUnder18 = () => {
     return isValid;
   };
 
-  const onClickSubmitUnder18 = () => {
+  const onClickSubmitUnder18 = async () => {
     const isValid = validateFormUnder18();
 
     if (isValid) {
-      alert(JSON.stringify(formUnder18));
+      await createVolunteerForm({
+        ...formUnder18,
+        phone: Number(formUnder18.phone.replace(/[()\-\s]/g, '')),
+      })
+        .then(() => {
+          alert("Formulário enviado com sucesso!");
+        })
+        .catch(error => console.log(error));
     }
   };
 
@@ -79,20 +86,20 @@ const FormUnder18 = () => {
             name="Nome Responsável"
             id=""
             placeholder="Nome do responsável"
-            value={formUnder18.responsibleName}
+            value={formUnder18.responsible_name}
             onChange={(e) =>
-              updateFormUnder18("responsibleName", e.target.value)
+              updateFormUnder18("responsible_name", e.target.value)
             }
-            error={formUnder18Errors.responsibleName}
+            error={formUnder18Errors.responsible_name}
           />
           <Input
             type="text"
             name="Nome do menor"
+            value={formUnder18.name}
             id=""
             placeholder="Nome do menor"
-            value={formUnder18.minorsName}
-            onChange={(e) => updateFormUnder18("minorsName", e.target.value)}
-            error={formUnder18Errors.minorsName}
+            onChange={(e) => updateFormUnder18("name", e.target.value)}
+            error={formUnder18Errors.name}
           />
           <Input
             type="text"
@@ -129,19 +136,19 @@ const FormUnder18 = () => {
             name="Celular"
             id=""
             placeholder="Celular"
-            value={formUnder18.phoneNumber}
+            value={formUnder18.phone}
             mask={"(00) 00000-0000"}
-            onChange={(e) => updateFormUnder18("phoneNumber", e.target.value)}
-            error={formUnder18Errors.phoneNumber}
+            onChange={(e) => updateFormUnder18("phone", e.target.value)}
+            error={formUnder18Errors.phone}
           />
           <Input
             type="text"
             name="Período aula"
             id=""
             placeholder="Período que estuda"
-            value={formUnder18.periodStudy}
-            onChange={(e) => updateFormUnder18("periodStudy", e.target.value)}
-            error={formUnder18Errors.periodStudy}
+            value={formUnder18.study_schedule}
+            onChange={(e) => updateFormUnder18("study_schedule", e.target.value)}
+            error={formUnder18Errors.study_schedule}
           />
           <Input
             type="number"

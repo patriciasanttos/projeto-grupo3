@@ -10,11 +10,13 @@ import {
   createVolunteer,
   deleteVolunteer,
   getAllVolunteers,
+  getAllVolunteersForms,
   updateVolunteer,
 } from "../../../services/api/volunteers";
 import checkPermissions from "../../../utils/checkPermissions";
 import { useNavigate } from "react-router-dom";
 import Input from "../../../components/input/Input";
+import LoadingPaw from "../../../components/loadingPaw";
 
 function Volunteers() {
   const navigate = useNavigate();
@@ -26,11 +28,16 @@ function Volunteers() {
   };
   const [filter, setFilter] = useState(initialFilter);
 
+  const [loading, setLoading] = useState(true);
+  const [loadingFormList, setLoadingFormList] = useState(true);
+  const isLoading = loading || loadingFormList
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalAction, setModalAction] = useState(null);
   const [selectedVolunteer, setSelectedVolunteer] = useState(null);
 
   const [volunteersList, setVolunteersList] = useState([]);
+  const [volunteersFormsList, setVolunteersFormsList] = useState([]);
   const [userHasPermission, setUserHasPermission] = useState(false);
 
   const [isFormViewSelected, setIsFormViewSelected] = useState(false);
@@ -46,26 +53,53 @@ function Volunteers() {
   }, []);
 
   useEffect(() => {
-    getAllVolunteers(localStorage.getItem("login")).then((data) =>
-      setVolunteersList(data)
-    );
-  }, []);
-
-  const getFilteredItems = () => {
-    let results = [...volunteersList];
-
-    Object.keys(filter).forEach((filterName) => {
-      if (filter[filterName]) {
-        results = results.filter(
-          (item) =>
-            item[filterName]
-              .toLowerCase()
-              .indexOf(filter[filterName].toLowerCase()) !== -1
-        );
-      }
+    setLoading(true);
+    getAllVolunteers(localStorage.getItem("login")).then((data) => {
+      setVolunteersList(data);
+      setLoading(false);
     });
 
-    return results;
+    setLoadingFormList(true);
+    getAllVolunteersForms(localStorage.getItem("login")).then((data) => {
+      setVolunteersFormsList(data);
+      setLoadingFormList(false);
+    });
+  }, []);
+
+  const getFilteredItems = (type) => {
+    if (type === "volunteers") {
+      let results = [...volunteersList];
+
+      Object.keys(filter).forEach((filterName) => {
+        if (filter[filterName]) {
+          results = results.filter(
+            (item) =>
+              item[filterName]
+                .toLowerCase()
+                .indexOf(filter[filterName].toLowerCase()) !== -1
+          );
+        }
+      });
+
+      return results;
+    }
+
+    if (type === "forms") {
+      let results = [...volunteersFormsList];
+
+      Object.keys(filter).forEach((filterName) => {
+        if (filter[filterName]) {
+          results = results.filter(
+            (item) =>
+              item[filterName]
+                .toLowerCase()
+                .indexOf(filter[filterName].toLowerCase()) !== -1
+          );
+        }
+      });
+
+      return results;
+    }
   };
 
   const getFilterState = (field) => {
@@ -115,6 +149,7 @@ function Volunteers() {
     await createVolunteer(
       {
         ...volunteer,
+        state: "created",
         phone: Number(volunteer.phone.replace(/[()\-\s]/g, "")),
       },
       localStorage.getItem("login")
@@ -170,24 +205,11 @@ function Volunteers() {
 
   const created = () => {
     setIsFormViewSelected(false);
-
   };
 
   return (
     <>
       <AdminNavBar headerTitle="Voluntários">
-        <section className="btn-show-form-container">
-          <div>
-            <button className="btn-show-form" onClick={requested}>
-              Requisitados
-            </button>
-          </div>
-          <div>
-            <button className="btn-show-form" onClick={created}>
-              Criados
-            </button>
-          </div>
-        </section>
         <div className="admin-volunteers-input">
           <div className="filters">
             <Input
@@ -220,22 +242,48 @@ function Volunteers() {
             </div>
           )}
         </div>
+
         <div className="volunteers-list-container">
-          {isFormViewSelected ? (
+          <section className="btn-show-form-container">
             <div>
-              Tabela de formulário
-              <AdminList
-                columns={columns}
-                rows={getFilteredItems()}
-                onClickEditRow={onClickEditVolunteer}
-                onClickDeleteRow={onClickDeleteVolunteer}
-                userHasPermission={userHasPermission}
-              />
+              <button
+                className={`btn-show-form ${
+                  isFormViewSelected ? "" : "btn-show-form-active"
+                }`}
+                onClick={created}
+              >
+                Voluntários
+              </button>
             </div>
-          ) : (
+            <div>
+              <button
+                className={`btn-show-form ${
+                  isFormViewSelected ? "btn-show-form-active" : ""
+                }`}
+                onClick={requested}
+              >
+                Formulários
+              </button>
+            </div>
+          </section>
+
+          {isLoading && <LoadingPaw />}
+
+          {!isLoading && isFormViewSelected && (
             <AdminList
               columns={columns}
-              rows={getFilteredItems()}
+              rows={getFilteredItems("forms")}
+              onClickEditRow={onClickEditVolunteer}
+              onClickDeleteRow={onClickDeleteVolunteer}
+              userHasPermission={userHasPermission}
+              isFormActions={true}
+            />
+          )}
+
+          {!isLoading && !isFormViewSelected && (
+            <AdminList
+              columns={columns}
+              rows={getFilteredItems("volunteers")}
               onClickEditRow={onClickEditVolunteer}
               onClickDeleteRow={onClickDeleteVolunteer}
               userHasPermission={userHasPermission}

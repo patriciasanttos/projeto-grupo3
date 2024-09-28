@@ -1,0 +1,19 @@
+.actions-form-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    .btn-actions-form {
+        background-color:transparent;
+        border: none;
+        cursor: pointer;
+
+        img {
+            width: 30px;
+        }
+    }
+
+    .btn-actions-form:hover {
+        transform:scaleY(1.1)
+    }
+}

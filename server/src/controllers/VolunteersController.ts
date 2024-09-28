@@ -2,12 +2,12 @@ import { Request, Response } from 'express';
 import fs from 'fs';
 import path from 'path';
 
-import volunteerRepository from '../repositories/volunteer.repository';
+import volunteersRepository from '../repositories/volunteers.repository';
 import genFileName from '../utils/genFileName';
 
 class VolunteersController {
     async getAll(req: Request, res: Response) {
-        const response: any = await volunteerRepository.getAllVolunteers();
+        const response = await volunteersRepository.getAllVolunteers();
 
         const volunteers = Object.entries(response.data).map((volunteer: any[]) => {
 
@@ -29,10 +29,16 @@ class VolunteersController {
         res.status(response.code).json(volunteers);
     }
 
+    async getAllForms(req: Request, res: Response) {
+        const response = await volunteersRepository.getAllVolunteersForms();
+
+        res.status(response.code).json(response.data);
+    }
+
     async getById(req: Request, res: Response) {
         const { id } = req.params;
 
-        const response: any = await volunteerRepository.getVolunteerById(Number(id));
+        const response: any = await volunteersRepository.getVolunteerById(Number(id));
 
         let image: Buffer;
         let base64Image;
@@ -63,7 +69,7 @@ class VolunteersController {
         if (Object.keys(data).length === 0 || data.name === undefined || data.email === undefined || data.phone === undefined || data.availability === undefined)
             return res.status(400).json({ error: 'Invalid body request' });
 
-        const response = await volunteerRepository.createVolunteer(data);
+        const response = await volunteersRepository.createVolunteer(data);
 
         if (response.code === 201) {
             //-----Salvar imagem na API
@@ -83,13 +89,46 @@ class VolunteersController {
         return res.status(response.code).json(response.data);
     }
 
+    async createForm(req: Request, res: Response) {
+        const data = req.body;
+
+        if (Object.keys(data).length === 0 || data.name === undefined || data.email === undefined || data.phone === undefined || data.availability === undefined)
+            return res.status(400).json({ error: 'Invalid body request' });
+
+        const response = await volunteersRepository.createVolunteerForm(data);
+
+        return res.status(response.code).json(response.data);
+    }
+
+    async acceptForm(req: Request, res: Response) {
+        const { id } = req.params;
+
+        if (!id)
+            return res.status(400).json({ error: 'Invalid id' });
+
+        const response = await volunteersRepository.acceptVolunteerForm(Number(id));
+
+        return res.status(response.code).json(response.data);
+    }
+
+    async denyForm(req: Request, res: Response) {
+        const { id } = req.params;
+
+        if (!id)
+            return res.status(400).json({ error: 'Invalid id' });
+
+        const response = await volunteersRepository.denyVolunteerForm(Number(id));
+
+        return res.status(response.code).json(response.data);
+    }
+
     async update(req: Request, res: Response) {
         const data = req.body;
 
         if (Object.keys(data).length === 0)
             return res.status(400).json({ error: 'Invalid body request' });
 
-        const response = await volunteerRepository.updateVolunteer(data);
+        const response = await volunteersRepository.updateVolunteer(data);
 
         return res.status(response.code).json(response.data);
     }
@@ -97,7 +136,7 @@ class VolunteersController {
     async delete(req: Request, res: Response) {
         const { id } = req.params;
 
-        const response = await volunteerRepository.deleteVolunteer(Number(id));
+        const response = await volunteersRepository.deleteVolunteer(Number(id));
 
         return res.status(response.code).json(response.data);
     }

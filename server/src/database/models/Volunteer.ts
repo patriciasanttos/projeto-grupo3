@@ -3,7 +3,6 @@ import sequelize from "..";
 
 interface VolunteerInfo {
     id: number,
-    image?: string,
     name: string,
     responsible_name?: string,
     email: string,
@@ -13,6 +12,7 @@ interface VolunteerInfo {
     study_schedule?: string,
     profession?: string,
     sector: string,
+    state: string,
     observation?: string,
     created_at?: string,
     updated_at?: string,
@@ -30,10 +30,6 @@ Volunteer.init({
       primaryKey: true,
       autoIncrement: true,
     },
-    image: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -44,13 +40,11 @@ Volunteer.init({
     },
     email: {
       type: DataTypes.TEXT,
-      allowNull: false,
-      unique: true
+      allowNull: false
     },
     phone: {
       type: DataTypes.BIGINT,
-      allowNull: true,
-      unique: true
+      allowNull: true
     },
     address: {
       type: DataTypes.TEXT,
@@ -72,9 +66,13 @@ Volunteer.init({
       type: DataTypes.STRING,
       allowNull: false,
     },
+    state: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     observation: {
       type: DataTypes.TEXT,
-      allowNull: false,
+      allowNull: true,
     },
     created_at: {
       type: DataTypes.DATE,

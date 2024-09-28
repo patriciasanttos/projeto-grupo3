@@ -24,6 +24,7 @@ const ModalVolunteers = ({
       study_schedule: "",
       availability: "",
       sector: "",
+      startDate: "",
       observation: "",
     };
   }, []);
@@ -32,6 +33,9 @@ const ModalVolunteers = ({
   useEffect(() => {
     setFormVolunteers({
       ...selectedVolunteer,
+      startDate: selectedVolunteer
+        ? new Date(selectedVolunteer?.created_at).toLocaleDateString() 
+        : new Date().toLocaleDateString()
     });
   }, [selectedVolunteer, isOpen]);
 
@@ -199,6 +203,7 @@ const ModalVolunteers = ({
             name="startDate"
             id=""
             placeholder="Data de início"
+            readOnly
             value={getFormState("startDate")}
           />
         </div>

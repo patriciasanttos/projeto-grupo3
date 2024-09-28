@@ -3,7 +3,6 @@ import "./LoadingPaw.scss";
 const LoadingPaw = () => {
   return (
     <div className="loading-container">
-      loading...
       <svg id="svg-sprite">
         <symbol id="paw" viewBox="0 0 249 209.32">
           <ellipse

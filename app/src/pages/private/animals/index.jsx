@@ -6,6 +6,7 @@ import AdminList from "../../../components/admin_list/AdminList";
 import ModalAnimalsAdmin from "../../../components/modal/modalAnimalsAdmin/ModalAnimalsAdmin";
 import ModalActionsEnum from "../../../utils/ModalActionsEnum";
 import CreateIcon from "../../../assets/icons/create_icon.svg";
+import LoadingPaw from "../../../components/loadingPaw";
 
 import Input from "../../../components/input/Input";
 import { createAnimal, deleteAnimal, getAllAnimals, updateAnimal } from "../../../services/api/animals";
@@ -23,6 +24,7 @@ function Animals() {
   };
   const [filter, setFilter] = useState(initialFilter);
 
+  const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalAction, setModalAction] = useState(null);
   const [selectedAnimal, setSelectedAnimal] = useState(null);
@@ -42,6 +44,7 @@ function Animals() {
   }, []);
 
   useEffect(() => {
+    setLoading(true);
     getAllAnimals().then((animals) => {
       setAnimalsList(animals.map((animal) => ({
         ...animal,
@@ -51,6 +54,7 @@ function Animals() {
         gender: animal.gender.toUpperCase(),
         sector: animal.sector.toUpperCase()
       })))
+      setLoading(false);
     });
   }, []);
 
@@ -258,17 +262,21 @@ function Animals() {
           )}
         </div>
 
-        <AdminList
-          columns={columns}
-          rows={getFilteredItems()}
-          userHasPermission={userHasPermission}
-          popupMenuActions={[
-            { text: 'Editar', onClick: onClickEditAnimal },
-            { text: 'Deletar', onClick: onClickDeleteAnimal },
-            { text: 'Adotar', onClick: onClickAdoptAnimal },
-            { text: 'Apadrinhar', onClick: onClickSponsorAnimal },
-          ]}
-        />
+        {loading ? (
+          <LoadingPaw />
+        ) : (
+          <AdminList
+            columns={columns}
+            rows={getFilteredItems()}
+            userHasPermission={userHasPermission}
+            popupMenuActions={[
+              { text: "Editar", onClick: onClickEditAnimal },
+              { text: "Deletar", onClick: onClickDeleteAnimal },
+              { text: "Adotar", onClick: onClickAdoptAnimal },
+              { text: "Apadrinhar", onClick: onClickSponsorAnimal },
+            ]}
+          />
+        )}
       </AdminNavBar>
       <ModalAnimalsAdmin
         isOpen={isModalOpen}
