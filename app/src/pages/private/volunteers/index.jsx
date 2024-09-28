@@ -12,11 +12,14 @@ import {
   getAllVolunteers,
   getAllVolunteersForms,
   updateVolunteer,
+  acceptVolunteerForm,
+  denyVolunteerForm
 } from "../../../services/api/volunteers";
 import checkPermissions from "../../../utils/checkPermissions";
 import { useNavigate } from "react-router-dom";
 import Input from "../../../components/input/Input";
 import LoadingPaw from "../../../components/loadingPaw";
+
 
 function Volunteers() {
   const navigate = useNavigate();
@@ -277,6 +280,7 @@ function Volunteers() {
               onClickDeleteRow={onClickDeleteVolunteer}
               userHasPermission={userHasPermission}
               isFormActions={true}
+              formActionsFunction={{ accept: acceptVolunteerForm, deny: denyVolunteerForm }}
             />
           )}
 
