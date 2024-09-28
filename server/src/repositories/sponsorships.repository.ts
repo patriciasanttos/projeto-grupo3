@@ -1,5 +1,5 @@
 import Sponsorship from "../database/models/Sponsorship";
-import { SponsorshipType } from "../types/types";
+import { SponsorshipFormType, SponsorshipType } from "../types/types";
 import serverErrorHandler from "../utils/serverErrorHandler";
 import { Animal } from "../database/models/index";
 import SponsorshipForm from "../database/models/SponsorshipForm";
@@ -67,6 +67,7 @@ export default {
                     }
                 };
 
+            delete data?.animal_id;
             // -----Salvar apadrinhamento na tabela
             const sponsorship = await Sponsorship.create({ ...data });
             await gettedAnimal.addSponsorship(sponsorship);
@@ -152,7 +153,7 @@ export default {
         }
     },
 
-    async createSponsorshipForm(data: SponsorshipType): Promise<{ code: number, data?: {} }> {
+    async createSponsorshipForm(data: SponsorshipFormType): Promise<{ code: number, data?: {} }> {
         try {
             // -----Salvar formulário na tabela
             await SponsorshipForm.create({ ...data });
@@ -178,7 +179,10 @@ export default {
                     }
                 }
 
-            await this.createSponsorship(form.dataValues);
+            const sponsorship = { ...form.dataValues }
+            delete sponsorship.id;
+
+            await this.createSponsorship(sponsorship);
             await form.destroy();
 
             return {

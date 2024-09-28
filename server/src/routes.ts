@@ -30,8 +30,8 @@ router
     
 //-----Sponsorships routes
 router
-    .get('/sponsorships', SponsorshipsController.getAll)
-    .get('/sponsorships/:id', SponsorshipsController.getById)
+    .get('/sponsorships/get', SponsorshipsController.getAll)
+    .get('/sponsorships/get/:id', SponsorshipsController.getById)
     .post('/sponsorships', SponsorshipsController.create)
     .put('/sponsorships', SponsorshipsController.update)
     .delete('/sponsorships/:id', SponsorshipsController.delete)

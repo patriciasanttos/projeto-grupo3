@@ -25,6 +25,10 @@ module.exports = {
         type: DataTypes.BIGINT,
         allowNull: false,
       },
+      animal_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       created_at: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW

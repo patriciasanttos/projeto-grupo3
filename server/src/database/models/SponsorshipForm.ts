@@ -2,10 +2,11 @@ import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "..";
 
 interface SponsorshipFormInfo {
-    id: number,
+    id?: number,
     name: string,
     email: string,
     phone: number,
+    animal_id: number,
     created_at?: string,
     updated_at?: string,
 }
@@ -32,6 +33,10 @@ SponsorshipForm.init({
   },
   phone: {
     type: DataTypes.BIGINT,
+    allowNull: false,
+  },
+  animal_id: {
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   created_at: {
