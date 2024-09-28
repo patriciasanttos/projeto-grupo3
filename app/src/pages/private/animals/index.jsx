@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import AdminNavBar from "../../../components/admin_navbar/AdminNavBar";
 import AdminList from "../../../components/admin_list/AdminList";
@@ -6,11 +7,11 @@ import ModalAnimalsAdmin from "../../../components/modal/modalAnimalsAdmin/Modal
 import ModalActionsEnum from "../../../utils/ModalActionsEnum";
 import CreateIcon from "../../../assets/icons/create_icon.svg";
 
-import "./styles.scss";
 import Input from "../../../components/input/Input";
 import { createAnimal, deleteAnimal, getAllAnimals, updateAnimal } from "../../../services/api/animals";
 import checkPermissions from "../../../utils/checkPermissions";
-import { useNavigate } from "react-router-dom";
+
+import "./styles.scss";
 
 function Animals() {
   const navigate = useNavigate();
@@ -274,6 +275,7 @@ function Animals() {
         modalAction={modalAction}
         onModalClose={() => setIsModalOpen(false)}
         selectedAnimal={selectedAnimal}
+        animalsList={animalsList}
         updateAnimalsList={updateAnimalsList}
         createAnimalsList={createAnimalsList}
         deleteAnimalsList={deleteAnimalsList}
