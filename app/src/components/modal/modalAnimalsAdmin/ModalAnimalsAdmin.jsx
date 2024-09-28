@@ -2,12 +2,15 @@ import { useEffect, useState, useMemo } from "react";
 import Modal from "../index";
 import ModalActionsEnum from '../../../utils/ModalActionsEnum'
 import ModalDeleteConfirm from "../modalDeleteConfirm/ModalDeleteConfirm";
+import ModalAnimalExists from "../modalAnimalExists/ModalAnimalExists";
+import { checkAnimalExists } from "../../../utils/checkAnimalExists";
 
 const ModalAnimalsAdmin = ({
   isOpen,
   modalAction,
   onModalClose,
   selectedAnimal,
+  animalsList,
   updateAnimalsList,
   createAnimalsList,
   deleteAnimalsList,
@@ -34,6 +37,9 @@ const ModalAnimalsAdmin = ({
     };
   }, []);
   const [formAnimals, setFormAnimals] = useState();
+
+  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
+  const [animalToConfirm, setAnimalToConfirm] = useState(0);
 
   const listSpeciesOption = [
     { id: "Cão", name: "Cão" },
@@ -80,12 +86,16 @@ const ModalAnimalsAdmin = ({
   }, [selectedAnimal, isOpen, initialFormAnimals]);
 
 
-  const onClickSave = () => {
+  const onClickSave = async () => {
     if (selectedAnimal) {
-      updateAnimalsList(formAnimals);
-    } else {
-      createAnimalsList(formAnimals);
+      return updateAnimalsList(formAnimals);
     }
+
+    const animalExists = await checkAnimalExists(formAnimals, animalsList, setAnimalToConfirm) 
+    if (animalExists)
+      return setIsConfirmationModalOpen(true)
+
+    return createAnimalsList(formAnimals);
   };
 
   const onClickModalClose = () => {
@@ -370,6 +380,17 @@ const ModalAnimalsAdmin = ({
           Cancelar
         </button>
       </div>
+
+      {isConfirmationModalOpen && (
+        <ModalAnimalExists
+          animalId={animalToConfirm}
+          onConfirm={() => {
+            setIsConfirmationModalOpen(false)
+            createAnimalsList(formAnimals)
+          }}
+          onClose={() => setIsConfirmationModalOpen(false)}
+        />
+      )}
     </Modal>
   );
 };

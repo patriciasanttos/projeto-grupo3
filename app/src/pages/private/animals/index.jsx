@@ -12,8 +12,6 @@ import { createAnimal, deleteAnimal, getAllAnimals, updateAnimal } from "../../.
 import checkPermissions from "../../../utils/checkPermissions";
 
 import "./styles.scss";
-import AnimalExistsModal from "../../../components/modal/modalAnimalExists/ModalAnimalExists";
-import ModalAnimalExists from "../../../components/modal/modalAnimalExists/ModalAnimalExists";
 
 function Animals() {
   const navigate = useNavigate();
@@ -28,9 +26,6 @@ function Animals() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalAction, setModalAction] = useState(null);
   const [selectedAnimal, setSelectedAnimal] = useState(null);
-
-  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
-  const [animalToConfirm, setAnimalToConfirm] = useState(null);
 
   const [ userHasPermission, setUserHasPermission ] = useState(false);
   const [animalsList, setAnimalsList] = useState([]);
@@ -76,34 +71,6 @@ function Animals() {
     return results;
   };
 
-  const checkAnimalExists = async (animal) => {
-    let fieldCount = 0;
-    let existentAnimalId;
-    animalsList.forEach(animalInList => {
-      if (fieldCount >= 3)
-        return;
-
-      Object.entries(animalInList).forEach(([ key, value ]) => {
-        if (animal[key] && animal[key] === value)
-          return fieldCount++;
-      })
-      
-      if (fieldCount >= 3) {
-        return existentAnimalId = animalInList.id;
-      }
-
-      fieldCount = 0;
-    })
-    
-    if (existentAnimalId) {
-      setAnimalToConfirm(existentAnimalId);
-      setIsConfirmationModalOpen(true);
-      return true;
-    }
-
-    return false;
-  }
-
   const updateAnimalsList = async (animal) => {
     let animals = [...animalsList];
     animals[animal.id - 1] = {
@@ -147,46 +114,39 @@ function Animals() {
   }
 
   const createAnimalsList = async (animal) => {
-    const animalExistsConfirmation = await checkAnimalExists(animal);
+    let animals = [...animalsList];
+    animals.push({
+      ...animal,
+      id: animalsList.length + 1,
+    });
 
-    if (!animalExistsConfirmation) {
-      let animals = [...animalsList];
-      animals.push({
-        ...animal,
-        id: animalsList.length + 1,
-      });
-  
-      console.log(animal)
+    const formData = new FormData();
 
-      const formData = new FormData();
-  
-      formData.append("species", animal.species);
-      formData.append("name", animal.name);
-      formData.append("gender", animal.gender === 'Macho' ? 'm' : 'f');
-      formData.append("size", animal.size);
-      formData.append("race", animal.race);
-      formData.append("bay", animal.bay);
-      formData.append("sector", animal.sector);
-      formData.append("temperament", animal.temperament);
-      formData.append("status", animal.status);
-      formData.append("age", animal.stageLife);
-      formData.append("castrated", animal.castrated === 'Sim' ? true : false);
-      formData.append("color", animal.color);
-      formData.append("vacine", animal.vacine);
-      formData.append("observation", animal.observation);
-  
-      console.log(animal)
-      if (!animal.image)
-        return window.alert('Por favor, selecione uma imagem')
-      
-      formData.append("image", animal.image);
-  
-      await createAnimal(formData, localStorage.getItem('login'))
-        .catch(error => console.log(error));
-  
-      setAnimalsList(animals);
-      setIsModalOpen(false);
-    }
+    formData.append("species", animal.species);
+    formData.append("name", animal.name);
+    formData.append("gender", animal.gender === 'Macho' ? 'm' : 'f');
+    formData.append("size", animal.size);
+    formData.append("race", animal.race);
+    formData.append("bay", animal.bay);
+    formData.append("sector", animal.sector);
+    formData.append("temperament", animal.temperament);
+    formData.append("status", animal.status);
+    formData.append("age", animal.stageLife);
+    formData.append("castrated", animal.castrated === 'Sim' ? true : false);
+    formData.append("color", animal.color);
+    formData.append("vacine", animal.vacine);
+    formData.append("observation", animal.observation);
+
+    if (!animal.image)
+      return window.alert('Por favor, selecione uma imagem')
+    
+    formData.append("image", animal.image);
+
+    await createAnimal(formData, localStorage.getItem('login'))
+      .catch(error => console.log(error));
+
+    setAnimalsList(animals);
+    setIsModalOpen(false);
   };
 
   const onClickEditAnimal = (animal) => {
@@ -315,20 +275,11 @@ function Animals() {
         modalAction={modalAction}
         onModalClose={() => setIsModalOpen(false)}
         selectedAnimal={selectedAnimal}
+        animalsList={animalsList}
         updateAnimalsList={updateAnimalsList}
         createAnimalsList={createAnimalsList}
         deleteAnimalsList={deleteAnimalsList}
       />
-      {isConfirmationModalOpen && (
-        <ModalAnimalExists
-          animalId={animalToConfirm}
-          onConfirm={() => {
-            setIsConfirmationModalOpen(false);
-            createAnimalsList(animalToConfirm);
-          }}
-          onClose={() => setIsConfirmationModalOpen(false)}
-        />
-      )}
     </>
   );
 }
