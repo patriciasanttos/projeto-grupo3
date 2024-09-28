@@ -1,10 +1,9 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { IMaskInput } from "react-imask";
 import "./Styles.scss";
 
-import Modal from "../../../components/modal";
-import Button from "../../../components/button";
-
+import Modal from "..";
+import Button from "../../button";
 
 function ModalLPSponsorship({
   isOpen,
@@ -16,19 +15,25 @@ function ModalLPSponsorship({
   const onClickModalButton = () => {
     if (showForm) {
       // To do enviar para o back-end
-    } else {
-      window.open("https://0lh2dmk5.forms.app/formulario-de-adocao-da-sjpa", "_blank");
     }
-  }
+    // else {
+    //   window.open("https://0lh2dmk5.forms.app/formulario-de-adocao-da-sjpa", "_blank");
+    // }
+  };
 
-  const [formSponsor, setFormSponsor] = useState(
-    {
-      name: "",
-      address: "",
-      email: "",
-      phoneNumber: "",
-    }
-  )
+  const [formSponsor, setFormSponsor] = useState({
+    name: "",
+    email: "",
+    phoneNumber: "",
+  });
+
+  const [formAdoption, setFormAdoption] = useState({
+    name: "",
+    address: "",
+    email: "",
+    phoneNumber: "",
+    cpf: "",
+  });
 
   return (
     <Modal isOpen={isOpen} onModalClose={onModalClose} title={title}>
@@ -66,7 +71,6 @@ function ModalLPSponsorship({
             <img className="animal" src={selectedAnimal?.image} alt="animal" />
           </div>
         </section>
-
         <div className="history">
           <h3>História</h3>
           <p>
@@ -79,8 +83,7 @@ function ModalLPSponsorship({
             Tenetur!
           </p>
         </div>
-
-        {showForm && (
+        {showForm ? (
           <div className="containerForm">
             <div className="forms">
               <h2>Preencha o formulário</h2>
@@ -93,16 +96,6 @@ function ModalLPSponsorship({
                   type="text"
                   placeholder="Nome Completo *"
                   aria-label="Nome Completo"
-                  required
-                />
-                <input
-                  value={formSponsor.address}
-                  onChange={(e) =>
-                    setFormSponsor({ ...formSponsor, address: e.target.value })
-                  }
-                  type="text"
-                  placeholder="Endereço Completo *"
-                  aria-label="Endereço Completo"
                   required
                 />
                 <input
@@ -132,15 +125,74 @@ function ModalLPSponsorship({
               </form>
             </div>
 
-            <div className="info-sponsor">
+            <div className="info-sponsor-adoption">
               <p>
                 Manteremos contato para enviar informações sobre o seu afilhado
                 de quatro patas
               </p>
             </div>
           </div>
-        )}
+        ) : (
+          <div className="containerForm">
+            <div className="forms">
+              <h2>Preencha o formulário</h2>
+              <form>
+                <input
+                  value={formAdoption.name}
+                  onChange={(e) =>
+                    setFormAdoption({ ...formAdoption, name: e.target.value })
+                  }
+                  type="text"
+                  placeholder="Nome Completo *"
+                  required
+                />
 
+                <IMaskInput
+                  mask={"000.000.000-00"}
+                  value={formAdoption.cpf}
+                  onAccept={(value) =>
+                    setFormAdoption({ ...formAdoption, cpf: value })
+                  }
+                  placeholder="CPF"
+                />
+
+                <input
+                  value={formAdoption.address}
+                  onChange={(e) =>
+                    setFormAdoption({
+                      ...formAdoption,
+                      address: e.target.value,
+                    })
+                  }
+                  type="text"
+                  placeholder="Endereço Completo *"
+                  required
+                />
+                <input
+                  value={formAdoption.email}
+                  onChange={(e) =>
+                    setFormAdoption({ ...formAdoption, email: e.target.value })
+                  }
+                  type="email"
+                  placeholder="E-mail *"
+                  required
+                />
+                <IMaskInput
+                  mask={"(00) 00000-0000"}
+                  value={formAdoption.phoneNumber}
+                  onAccept={(value) =>
+                    setFormAdoption({ ...formAdoption, phoneNumber: value })
+                  }
+                  placeholder="Celular"
+                />
+              </form>
+            </div>
+
+            <div className="info-sponsor-adoption">
+              <p>Vamos entrar em contato para informações sobre a adoção</p>
+            </div>
+          </div>
+        )}
         <div className="btnSubmit">
           <Button type="submit" onClick={onClickModalButton}>
             {showForm ? "Quero apadrinhar" : "Quero adotar"}
