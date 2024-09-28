@@ -34,7 +34,12 @@ router
     .get('/sponsorships/:id', SponsorshipsController.getById)
     .post('/sponsorships', SponsorshipsController.create)
     .put('/sponsorships', SponsorshipsController.update)
-    .delete('/sponsorships/:id', SponsorshipsController.delete);
+    .delete('/sponsorships/:id', SponsorshipsController.delete)
+
+    .get('/sponsorships/forms', SponsorshipsController.getAllForms)
+    .post('/sponsorships/forms', SponsorshipsController.createForm)
+    .get('/sponsorships/forms/accept/:id', SponsorshipsController.acceptForm)
+    .delete('/sponsorships/forms/deny/:id', SponsorshipsController.denyForm);
 
 //-----Volunteers routes
 router
