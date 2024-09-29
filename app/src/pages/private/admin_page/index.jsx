@@ -37,6 +37,8 @@ function AdminPage() {
   const [userHasPermission, setUserHasPermission] = useState(false);
   const [adminsList, setAdminsList] = useState([]);
 
+  const hasTotalPermission = jwtDecode(localStorage.getItem('login')).permissions.filter(perm => perm.id === 6).length;
+
   useEffect(() => {
     async function checkUserPermission() {
       await checkPermissions("admins", navigate).then((response) => {
@@ -230,8 +232,8 @@ function AdminPage() {
             <AdminList
               columns={columns}
               rows={getFilteredItems()}
-              onClickEditRow={onClickEditAdmin}
-              onClickDeleteRow={onClickDeleteAdmin}
+              onClickEditRow={ hasTotalPermission ? onClickEditAdmin : null}
+              onClickDeleteRow={ hasTotalPermission ? onClickDeleteAdmin : null}
               userHasPermission={userHasPermission}
             />
           )}
