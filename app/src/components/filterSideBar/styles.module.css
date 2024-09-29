@@ -5,6 +5,7 @@
 .filterSidebar {
   color: black;
   max-width: 500px;
+  margin-top: 80px;
 }
 
 .filterGroup {
@@ -48,12 +49,21 @@
 }
 
 @media (max-width: 768px) {
+  .filterWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
   .filterToggle {
     display: block; 
   }
 
   .filterSidebar {
     display: none; 
+    margin-top: 0px;
   }
 
   .filterSidebar.visible {
