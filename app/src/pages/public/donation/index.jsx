@@ -8,7 +8,8 @@ import './donation.css';
 import DonationCard from '../../../components/card_donation/DonationCard';
 import ContentHero from '../../../components/contentHero/ContentHero';
 
-import qrcode from "../../../assets/images/donation/qrcodecaixa.svg";
+import qrcodeCaixa from "../../../assets/images/donation/qrcodecaixa.svg";
+import qrcodePicPay from "../../../assets/images/donation/qrcode_picpay.svg";
 import picpay from "../../../assets/images/donation/picpay.svg";
 
 
@@ -20,8 +21,8 @@ function Donation() {
       <NavBar />
 
       <ContentHero
-        subtitle="Faça a diferença na vida de um animal" 
-        title="Faça uma doação" 
+        subtitle="Faça a diferença na vida de um animal"
+        title="Faça uma doação"
         text="Nossa ONG se dedica incansavelmente a cuidar dos animais, oferecendo alimentação, abrigo, cuidados veterinários e, acima de tudo, muito amor. No entanto, para continuarmos esse trabalho essencial, precisamos de você. Sua doação, por menor que seja, faz uma diferença imensa na vida desses animais."
         text2="Junte-se a nós nessa missão. Doe agora e ajude a transformar a vida de um animal abandonado. Eles contam com você!"
       />
@@ -36,12 +37,15 @@ function Donation() {
           <div className="ways-to-donate">
             <div className="left">
               <h3>Retirada de Doações</h3>
-              <p>Para retiradas de doações de rações <br/> 
-              remédios, cobertores e outros itens, <br/> 
-              entre em contato pelo Whatsapp <br/>
-              para agendar retirada.<br/><br/>
-
-              Ou você deixar doações com nossos parceiros:</p>
+              <p>
+                Para retiradas de doações de rações <br />
+                remédios, cobertores e outros itens, <br />
+                entre em contato pelo Whatsapp <br />
+                para agendar retirada.
+                <br />
+                <br />
+                Ou você deixar doações com nossos parceiros:
+              </p>
               <ul>
                 <li>
                   <a
@@ -90,17 +94,22 @@ function Donation() {
               </ul>
               <br />
               <h3>Outras formas de ajudar:</h3>
-              <p>Cada feira de adoção tem custo de <br/> 
-              R$ 1.500,00 a R$ 2.000,00, cobrindo despesas <br/> 
-              com banho e transporte dos animais.<br/>
-              Se você conhece um espaço para as feiras <br/>
-              e pode nos ajudar, por favor mande um e-mail <br/>
-              para: ongsjpa@gmail.com</p>
+              <p>
+                Cada feira de adoção tem custo de <br />
+                R$ 1.500,00 a R$ 2.000,00, cobrindo despesas <br />
+                com banho e transporte dos animais.
+                <br />
+                Se você conhece um espaço para as feiras <br />
+                e pode nos ajudar, por favor mande um e-mail <br />
+                para: ongsjpa@gmail.com
+              </p>
             </div>
 
             <div className="right">
-              <h3>Pix</h3>
-              <img src={qrcode} alt="qrcode" />
+              <h3>Pix Caixa</h3>
+              <img src={qrcodeCaixa} alt="qrcode" />
+              <h3>Pix PicPay</h3>
+              <img src={qrcodePicPay} alt="qrcode" />
               <p>CNPJ: 20.460. 556/0001-78</p> <br />
               <h3>Depósito ou Transferência:</h3>
               <h4>Banco do Brasil</h4>
@@ -134,9 +143,8 @@ function Donation() {
         </div>
         <div className="text-call-platform">
           <h3>Doe pelas Plataformas Digitais:</h3>
-          </div>
-          <div className="digital-platform">
-
+        </div>
+        <div className="digital-platform">
           <a href="https://picpay.com/" target="blank">
             <img src={picpay} alt="picpay" />
           </a>
