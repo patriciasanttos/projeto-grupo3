@@ -5,7 +5,7 @@ import ContentTitles from '../../../components/contentTitles/ContentTitles';
 import Menu from '../../../components/menu/Menu';
 import Footer from '../../../components/footer/Footer';
 
-import video_image from '../../../assets/images/video_image.svg'
+import about_video from "../../../assets/videos/about_us_ong.mp4";
 import joao_image from '../../../assets/images/joao.svg'
 
 import './about_us.scss';
@@ -21,12 +21,25 @@ function AboutUs() {
           <ContentTitles title="ONG SJPA" subtitle="Conheça a nossa história" />
 
           <div className="aboutus-main-text">
-            <img className="presentation-video" src={video_image} alt="Vídeo" />
+            <video
+              className="presentation-video"
+              src={about_video}
+              controls
+              type="video/mp4"
+              alt="Vídeo"
+            />
 
-            <p className='text-about'>
-            Há mais de 36 anos, a SJPA surgiu com a missão de salvar animais que seriam sacrificados, oferecendo a eles segurança, cuidado e amor. Nosso abrigo se transformou em um lar para centenas de cães e gatos abandonados, onde eles podem se recuperar e encontrar dignidade.
+            <p className="text-about">
+              Há mais de 36 anos, a SJPA surgiu com a missão de salvar animais
+              que seriam sacrificados, oferecendo a eles segurança, cuidado e
+              amor. Nosso abrigo se transformou em um lar para centenas de cães
+              e gatos abandonados, onde eles podem se recuperar e encontrar
+              dignidade.
               <br />
-              Hoje, cuidamos de cerca de 450 animais, todos com histórias marcadas pela dor, mas também pela esperança. Sem apoio governamental, dependemos da generosidade de pessoas como você para continuar nossa missão.
+              Hoje, cuidamos de cerca de 450 animais, todos com histórias
+              marcadas pela dor, mas também pela esperança. Sem apoio
+              governamental, dependemos da generosidade de pessoas como você
+              para continuar nossa missão.
             </p>
           </div>
         </main>
