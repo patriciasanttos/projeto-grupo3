@@ -39,7 +39,7 @@ function Volunteers() {
         title="Seja um voluntário"
         subtitle="Faça a diferença na vida de um animal"
         text="Voluntariar-se é uma maneira incrível de se conectar com seres que oferecem um amor puro e incondicional. Além disso, você estará rodeado por uma comunidade de pessoas que compartilham o mesmo amor e respeito pelos animais."
-        text2="Não é necessário ter experiência anterior; apenas um coração aberto e a vontade de fazer a diferença são o suficiente. Os animais precisam de você, e cada gesto de amor conta!"
+        text2="Não é necessário ter experiência anterior, apenas um coração aberto e a vontade de fazer a diferença são o suficiente. Os animais precisam de você e cada gesto de amor conta!"
       />
 
       {/* CONTEÚDO PRINCIPAL DA PÁGINA - TAREFAS DO VOLUNTÁRIO */}
