@@ -9,8 +9,6 @@ import DonationCard from '../../../components/card_donation/DonationCard';
 import ContentHero from '../../../components/contentHero/ContentHero';
 
 import qrcode from "../../../assets/images/donation/qrcodecaixa.svg";
-import pagseguro from "../../../assets/images/donation/pagseguro.svg";
-import paypal from '../../../assets/images/donation/paypal.svg'
 import picpay from "../../../assets/images/donation/picpay.svg";
 
 
@@ -46,52 +44,42 @@ function Donation() {
               Ou você deixar doações com nossos parceiros:</p>
               <ul>
                 <li>
-                  {" "}
                   <a
                     href="https://www.instagram.com/arcapetstorejf/"
                     target="blank"
                   >
-                    {" "}
                     Arca Petstore - Bandeirantes e Santa Terezinha{" "}
                   </a>
                 </li>
                 <li>
-                  {" "}
                   <a href="https://g.co/kgs/wxo1zJQ" target="blank">
                     Agropecuária Calé{" "}
                   </a>
                 </li>
                 <li>
-                  {" "}
                   <a
                     href="https://maps.app.goo.gl/1xcogVdo4fr3R142A"
                     target="blank"
                   >
-                    {" "}
                     Toca dos Bichos{" "}
                   </a>
                 </li>
                 <li>
-                  {" "}
                   <a href="https://g.co/kgs/BWLZPxE" target="blank">
                     Agrotela
                   </a>
                 </li>
                 <li>
-                  {" "}
                   <a href="https://g.co/kgs/dDhNDuV" target="blank">
                     Veterinária Juiz de Fora
                   </a>
                 </li>
                 <li>
-                  {" "}
                   <a href="https://g.co/kgs/cdnjZzi" target="blank">
-                    {" "}
                     Cão Dágua
                   </a>
                 </li>
                 <li>
-                  {" "}
                   <a
                     href="https://www.google.com/search?rlz=1C1GCEA_enBR1114BR1114&sca_esv=5629ad944f1312b7&cs=0&output=search&tbm=lcl&kgmid=%2Fg%2F11gfd30tqh&q=Benrural&shndl=30&shem=lrnole%2Clsde%2Cvslcca&source=sh%2Fx%2Floc%2Fact%2Fm1%2F1&kgs=d4c7ff74c1f4c91f"
                     target="blank"
