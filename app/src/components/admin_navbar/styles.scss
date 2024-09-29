@@ -114,3 +114,19 @@
         }
     }
 }
+
+.menu-logout {
+    color: black;
+    text-align: left;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    cursor: pointer;
+}
+
+.menu-logout:hover {
+    color: black;
+    background: #eee;
+}
