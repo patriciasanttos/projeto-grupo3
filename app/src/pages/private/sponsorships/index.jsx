@@ -60,8 +60,8 @@ function Sponsorships() {
     await getAllAnimals()
       .then(async (animals) => {
         const gettedAnimalsList = animals.map((animal) => ({
-          id: animal.id,
-          name: animal.name
+            id: animal.id,
+            name: animal.name
         }));
 
         setAnimalsList(gettedAnimalsList);
@@ -290,7 +290,7 @@ function Sponsorships() {
             />
           </div>
 
-          {userHasPermission && (
+          {userHasPermission && !isFormViewSelected && (
             <div className="add-icon">
               Adicionar
               <img
@@ -304,7 +304,7 @@ function Sponsorships() {
         </div>
 
         <div className="sponsorship-list-container">
-          <section className="btn-show-form-container">
+            <section className="btn-show-form-container">
               <div>
                 <button
                   className={`btn-show-form ${
@@ -326,31 +326,31 @@ function Sponsorships() {
                 </button>
               </div>
             </section>
-          </div>
 
-          {loading && <LoadingPaw /> } 
+            {loading && <LoadingPaw /> } 
 
-          {!loading && isFormViewSelected && (
-            <AdminList
-              columns={columns}
-              rows={getFilteredItems('forms')}
-              onClickEditRow={onClickEditSponsor}
-              onClickDeleteRow={onClickDeleteSponsor}
-              userHasPermission={userHasPermission}
-              isFormActions={true}
-              formActionsFunction={{ accept: acceptSponsorshipForm, deny: denySponsorshipForm }}
-            />
-          )}
+            {!loading && isFormViewSelected && (
+              <AdminList
+                columns={columns}
+                rows={getFilteredItems('forms')}
+                onClickEditRow={onClickEditSponsor}
+                onClickDeleteRow={onClickDeleteSponsor}
+                userHasPermission={userHasPermission}
+                isFormActions={true}
+                formActionsFunction={{ accept: acceptSponsorshipForm, deny: denySponsorshipForm }}
+              />
+            )}
 
-          {!loading && !isFormViewSelected && (
-            <AdminList
-              columns={columns}
-              rows={getFilteredItems('sponsorships')}
-              onClickEditRow={onClickEditSponsor}
-              onClickDeleteRow={onClickDeleteSponsor}
-              userHasPermission={userHasPermission}
-            />
-          )}
+            {!loading && !isFormViewSelected && (
+              <AdminList
+                columns={columns}
+                rows={getFilteredItems('sponsorships')}
+                onClickEditRow={onClickEditSponsor}
+                onClickDeleteRow={onClickDeleteSponsor}
+                userHasPermission={userHasPermission}
+              />
+            )}
+        </div>
       </AdminNavBar>
       <ModalSponsorshipsAdmin
         isOpen={isModalOpen}

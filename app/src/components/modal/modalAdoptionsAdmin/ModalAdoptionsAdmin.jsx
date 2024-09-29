@@ -3,6 +3,7 @@ import Modal from "../index";
 import { IMaskInput } from "react-imask";
 import ModalActionsEnum from '../../../utils/ModalActionsEnum'
 import ModalDeleteConfirm from "../modalDeleteConfirm/ModalDeleteConfirm";
+import Dropdown from "../../dropdown";
 
 const ModalAdoptionsAdmin = ({
   isOpen,
@@ -12,6 +13,7 @@ const ModalAdoptionsAdmin = ({
   updateTutorsList,
   createTutorsList,
   deleteTutorsList,
+  animalsList
 }) => {
   const initialFormTutors = {
     tutors_name: "",
@@ -115,18 +117,35 @@ const ModalAdoptionsAdmin = ({
         <div className="al-modal-form">
           <input
             type="text"
-            name="animal_id"
+            name="cpf"
             id=""
-            placeholder="ID do animal"
-            readOnly={selectedTutor ? true : false}
-            value={getFormState("animal_id")}
+            placeholder="CPF"
+            value={getFormState("cpf")}
             onChange={(e) =>
               setFormTutors({
                 ...formTutors,
-                animal_id: e.target.value,
+                cpf: e.target.value,
               })
             }
           />
+
+          <Dropdown
+            defaultValue=""
+            placeholder="Animal"
+            name="animal_id"
+            readOnly={selectedTutor ? true : false}
+            value={getFormState("animal_id")}
+            onChange={(e) => setFormTutors({
+              ...formTutors,
+              animal_id: e.target.value,
+            })}
+          >
+            {
+              animalsList.map((animal) => (
+                <option key={animal.id} value={animal.id}>{animal.id}: {animal.name}</option>
+              ))
+            }
+          </Dropdown>
         </div>
 
         <textarea

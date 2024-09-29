@@ -22,11 +22,16 @@ router
 
 //-----Adoptions routes
 router
-    .get('/adoptions', AdoptionsController.getAll)
-    .get('/adoptions/:id', AdoptionsController.getById)
+    .get('/adoptions/get', AdoptionsController.getAll)
+    .get('/adoptions/get/:id', AdoptionsController.getById)
     .post('/adoptions', AdoptionsController.create)
     .put('/adoptions', AdoptionsController.update)
-    .delete('/adoptions/:id', AdoptionsController.delete);
+    .delete('/adoptions/:id', AdoptionsController.delete)
+
+    .get('/adoptions/forms', AdoptionsController.getAllForms)
+    .post('/adoptions/forms', AdoptionsController.createForm)
+    .get('/adoptions/forms/accept/:id', AdoptionsController.acceptForm)
+    .delete('/adoptions/forms/deny/:id', AdoptionsController.denyForm);
     
 //-----Sponsorships routes
 router

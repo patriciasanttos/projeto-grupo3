@@ -23,6 +23,7 @@ interface AdoptionInfo {
   email: string,
   phone: number,
   address: string,
+  cpf: number,
   created_at?: string,
   updated_at?: string,
 }
@@ -117,6 +118,10 @@ Adoption.init({
     },
     address: {
       type: DataTypes.TEXT,
+      allowNull: false
+    },
+    cpf: {
+      type: DataTypes.BIGINT,
       allowNull: false
     },
     created_at: {

@@ -235,7 +235,7 @@ function Volunteers() {
               }
             />
           </div>
-          {userHasPermission && (
+          {userHasPermission && !isFormViewSelected && (
             <div className="admin-volunteers-btn">
               <label htmlFor="">Adicionar</label>
               <button onClick={onClickNewVolunteer}>
