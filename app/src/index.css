@@ -29,6 +29,7 @@ html, body {
     display: flex;
     flex-direction: row;
     min-height: 100vh;
+    overflow: hidden;
 
     div {
         color: #000;
