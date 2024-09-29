@@ -44,7 +44,7 @@ export const deleteAdoption = async (id, token) => {
 }
 
 //-----Adoptions form
-export const getAllSAdoptionForms = async (token) => {
+export const getAllAdoptionForms = async (token) => {
     return await axiosGet('/adoptions/forms', {
         headers: {
             'Authorization': `Bearer ${token}`

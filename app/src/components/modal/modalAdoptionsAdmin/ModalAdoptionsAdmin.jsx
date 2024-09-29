@@ -115,6 +115,20 @@ const ModalAdoptionsAdmin = ({
         <div className="al-modal-form">
           <input
             type="text"
+            name="cpf"
+            id=""
+            placeholder="CPF"
+            value={getFormState("cpf")}
+            onChange={(e) =>
+              setFormTutors({
+                ...formTutors,
+                cpf: e.target.value,
+              })
+            }
+          />
+
+          <input
+            type="text"
             name="animal_id"
             id=""
             placeholder="ID do animal"

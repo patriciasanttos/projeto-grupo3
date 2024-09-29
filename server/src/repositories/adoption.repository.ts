@@ -65,7 +65,6 @@ export default {
 
             const animal = gettedAnimal.dataValues;
 
-            delete data?.animal_id;
             // -----Salvar adoção na tabela
             await Adoption.create({
                 ...data,
@@ -194,8 +193,47 @@ export default {
             const adoption = { ...form.dataValues }
             delete adoption.id;
 
-            await this.createAdoption(adoption);
+            
+            const gettedAnimal = await Animal.findByPk(form.dataValues.animal_id);
+
+            if (gettedAnimal === null)
+                return {
+                    code: 404,
+                    data: {
+                        error: 'Animal not found'
+                    }
+                };
+
+            const animal = gettedAnimal.dataValues;
+
+            const formData = { ...form.dataValues }
+            delete formData.id;
+            // -----Salvar adoção na tabela
+            await Adoption.create({
+                ...formData,
+                animal_id: animal.id,
+                animal_name: animal.name,
+                image: animal.image,
+                species: animal.species,
+                race: animal.race,
+                size: animal.size,
+                color: animal.color,
+                vacine: animal.vacine,
+                castrated: animal.castrated,
+                age: animal.age,
+                gender: animal.gender,
+                temperament: animal.temperament,
+                status: 'Adotado',
+                animal_observation: animal.observation,
+                animal_created_at: animal.created_at,
+            });
+            await gettedAnimal.destroy();
             await form.destroy();
+
+            const allForms = await AdoptionsForm.findAll({ where: { animal_id: animal.id } });
+            allForms.forEach(async formInDb => {
+                await formInDb.destroy();
+            })
 
             return {
                 code: 200

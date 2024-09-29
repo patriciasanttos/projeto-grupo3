@@ -55,13 +55,13 @@ function ModalLPSponsorship({
       .then(() => {
         alert("Formulário enviado com sucesso!");
         onModalClose();
-        // setFormAdoption({
-        //   tutors_name: "",
-        //   address: "",
-        //   email: "",
-        //   phone: "",
-        //   cpf: "",
-        // });
+        setFormAdoption({
+          tutors_name: "",
+          address: "",
+          email: "",
+          phone: "",
+          cpf: "",
+        });
       }).catch(error => console.log(error));
   };
 

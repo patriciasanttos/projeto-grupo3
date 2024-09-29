@@ -104,10 +104,7 @@ const Adoption = () => {
               setFiltersState={setFilters}
             />
 
-            <div
-              className="card-container"
-              onClick={() => console.log(filters)}
-            >
+            <div className="card-container">
               {paginatedAnimals.map((animal) => (
                 <CardAnimal
                   onClickButton={onClickCardAnimal}

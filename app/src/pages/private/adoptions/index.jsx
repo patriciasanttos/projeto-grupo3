@@ -9,9 +9,10 @@ import LoadingPaw from "../../../components/loadingPaw";
 
 import "./styles.scss";
 import Input from "../../../components/input/Input";
-import { createAdoption, deleteAdoption, getAllAdoptions, updateAdoption } from "../../../services/api/adoptions";
+import { createAdoption, deleteAdoption, getAllAdoptions, getAllAdoptionForms, updateAdoption, acceptAdoptionForm, denyAdoptionForm } from "../../../services/api/adoptions";
 import checkPermissions from "../../../utils/checkPermissions";
 import { useNavigate } from "react-router-dom";
+import { getAllAnimals } from "../../../services/api/animals";
 
 function Adoptions() {
   const navigate = useNavigate();
@@ -26,10 +27,15 @@ function Adoptions() {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalAction, setModalAction] = useState(null);
-  const [selectedTutor, setSelectedTutor] = useState(null);
+  const [isFormViewSelected, setIsFormViewSelected] = useState(false);
 
+
+  const [selectedTutor, setSelectedTutor] = useState(null);
+  
   const [ userHasPermission, setUserHasPermission ] = useState(false);
   const [tutorsList, setTutorsList] = useState([]);
+  const [tutorFormsList, setTutorFormsList] = useState([]);
+  const [animalsList, setAnimalsList] = useState([]);
 
   useEffect(() => {
     async function checkUserPermission() {
@@ -42,44 +48,109 @@ function Adoptions() {
     checkUserPermission();
   }, []);
 
-  useEffect(() => {
-    setLoading(true);
-    getAllAdoptions(localStorage.getItem('login'))
+  const loadAnimals = async () => {
+    await getAllAnimals()
+      .then(async (animals) => {
+        const gettedAnimalsList = animals.map((animal) => ({
+          id: animal.id,
+          name: animal.name
+        }));
+
+        setAnimalsList(gettedAnimalsList);
+        loadForms(gettedAnimalsList)
+      });
+  }
+
+  const loadForms = async (animals) => {
+    await getAllAdoptionForms(localStorage.getItem('login'))
       .then(async data => {
-        let adoptionsList = [];
-        await data.forEach(adoption => {
-          adoptionsList.push({
-            id: adoption.id,
-            tutors_name: adoption.tutors_name,
-            email: adoption.email,
-            phone: adoption.phone,
-            address: adoption.address,
-            animal_name: adoption.animal_name,
-            animal_id: adoption.animal_id,
-            observation: adoption.observation
+        let adoptionFormsList = [];
+        await data.forEach(form => {
+          const animal = animals.filter(animal => animal.id === form.animal_id)[0];
+
+          console.log(animal)
+          adoptionFormsList.push({
+            id: form.id,
+            tutors_name: form.tutors_name,
+            email: form.email,
+            phone: form.phone,
+            address: form.address,
+            cpf: form.cpf,
+            animal_name: animal?.name,
+            animal_id: animal?.id,
           });
         });
 
-        setTutorsList(adoptionsList);
-        setLoading(false);
+        setTutorFormsList(adoptionFormsList);
       });
+  }
+
+  const loadContent = async () => {
+    await loadAnimals()
+      .then(async () => {
+        await getAllAdoptions(localStorage.getItem('login'))
+        .then(async data => {
+          let adoptionsList = [];
+          await data.forEach(adoption => {
+            adoptionsList.push({
+              id: adoption.id,
+              tutors_name: adoption.tutors_name,
+              email: adoption.email,
+              phone: adoption.phone,
+              address: adoption.address,
+              cpf: adoption.cpf,
+              animal_name: adoption.animal_name,
+              animal_id: adoption.animal_id,
+              observation: adoption.observation
+            });
+          });
+  
+          setTutorsList(adoptionsList);
+        });
+      })
+
+    return setLoading(false);
+  }
+
+  useEffect(() => {
+    setLoading(true);
+    loadContent();
   }, []);
 
-  const getFilteredItems = () => {
-    let results = [...tutorsList];
+  const getFilteredItems = (type) => {
+    if (type === 'adoptions') {
+      let results = [...tutorsList];
 
-    Object.keys(filter).forEach((filterName) => {
-      if (filter[filterName]) {
-        results = results.filter(
-          (item) =>
-            item[filterName]
-              .toLowerCase()
-              .indexOf(filter[filterName].toLowerCase()) !== -1
-        );
-      }
-    });
+      Object.keys(filter).forEach((filterName) => {
+        if (filter[filterName]) {
+          results = results.filter(
+            (item) =>
+              item[filterName]
+                .toLowerCase()
+                .indexOf(filter[filterName].toLowerCase()) !== -1
+          );
+        }
+      });
+  
+      return results;
+    }
 
-    return results;
+    if (type === 'forms') {
+      let results = [...tutorFormsList];
+
+      Object.keys(filter).forEach((filterName) => {
+        if (filter[filterName]) {
+          results = results.filter(
+            (item) =>
+              item[filterName]
+                .toLowerCase()
+                .indexOf(filter[filterName].toLowerCase()) !== -1
+          );
+        }
+      });
+  
+      return results;
+    }
   };
 
   const updateTutorsList = async (tutor) => {
@@ -103,7 +174,7 @@ function Adoptions() {
 
     setTutorsList(
       tutorsList.filter((tutors) => tutors.id !== tutor.id)
-  );
+    );
     setIsModalOpen(false);
   };
 
@@ -177,6 +248,14 @@ function Adoptions() {
     },
   ];
 
+  const requested = () => {
+    setIsFormViewSelected(true);
+  };
+
+  const created = () => {
+    setIsFormViewSelected(false);
+  };
+
   return (
     <>
       <AdminNavBar headerTitle="Adoções">
@@ -208,7 +287,7 @@ function Adoptions() {
             />
           </div>
 
-          {userHasPermission && (
+          {userHasPermission && !isFormViewSelected && (
             <div className="add-icon">
               Adicionar
               <img
@@ -221,12 +300,51 @@ function Adoptions() {
           )}
         </div>
         <div className="adoptions-list-container">
-          {loading ? (
-            <LoadingPaw />
-          ) : (
+          <section className="btn-show-form-container">
+            <div>
+              <button
+                className={`btn-show-form ${
+                  isFormViewSelected ? "" : "btn-show-form-active"
+                }`}
+                onClick={created}
+              >
+                Adoções
+              </button>
+            </div>
+            <div>
+              <button
+                className={`btn-show-form ${
+                  isFormViewSelected ? "btn-show-form-active" : ""
+                }`}
+                onClick={requested}
+              >
+                Formulários
+              </button>
+            </div>
+          </section>
+
+          {loading && <LoadingPaw /> } 
+
+          {!loading && isFormViewSelected && (
             <AdminList
               columns={columns}
-              rows={getFilteredItems()}
+              rows={getFilteredItems('forms')}
+              onClickEditRow={onClickEditTutor}
+              onClickDeleteRow={onClickDeleteTutor}
+              userHasPermission={userHasPermission}
+              isFormActions={true}
+              formActionsFunction={{ 
+                accept: acceptAdoptionForm, 
+                deny: denyAdoptionForm,
+                refresh: loadContent
+              }}
+            />
+          )}
+
+          {!loading && !isFormViewSelected && (
+            <AdminList
+              columns={columns}
+              rows={getFilteredItems('adoptions')}
               onClickEditRow={onClickEditTutor}
               onClickDeleteRow={onClickDeleteTutor}
               userHasPermission={userHasPermission}
