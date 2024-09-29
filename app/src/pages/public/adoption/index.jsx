@@ -49,26 +49,16 @@ const Adoption = () => {
     getAnimals();
   }, []);
 
-  useEffect(() => {
-    const results = animals.filter((animal) => {
+  const getFilteredAnimals = (items) => {
+    const results = items.filter((animal) => {
       return Object.entries(filters).every(([key, value]) => {
         if (value === "") return true;
 
         if (key === "gender" && animal.gender === animal.gender.toLowerCase())
           value = value.toLowerCase();
 
-        if (key === "age") {
-          switch (value) {
-            case "Filhote":
-              return animal.age === "Filhote";
-            case "Adulto":
-              return animal.age === "Adulto";
-            case "Idoso":
-              return animal.age === "Idoso";
-            default:
-              return true;
-          }
-        }
+        if (key === "age" && animal.age === animal.age.toLowerCase())
+          value = value.toLowerCase();
 
         if (value.includes("/")) return value.includes(String(animal[key]));
 
@@ -76,7 +66,11 @@ const Adoption = () => {
       });
     });
 
-    return setFilteredAnimals(results.length > 0 ? results : []);
+    return results.length > 0 ? results : [];
+  }
+  
+  useEffect(() => {
+    setFilteredAnimals(getFilteredAnimals(animals));
   }, [filters]);
 
   const onClickCardAnimal = (animal) => {
