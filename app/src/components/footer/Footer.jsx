@@ -6,7 +6,7 @@ import './Footer.scss';
 import logo from '../../assets/images/logo.svg';
 import email from '../../assets/icons/footer/email.svg';
 import instagram from "../../assets/icons/footer/instagram.svg";
-import facebook from "../../assets/icons/footer/facebook.svg";
+import youtube from "../../assets/icons/footer/youtube.svg";
 import location from "../../assets/icons/footer/location.svg";
 
 function Footer() {
@@ -83,8 +83,8 @@ function Footer() {
             </a>
           </li>
           <li>
-            <a target="blank" rel="noreferrer" href="">
-              <img src={facebook} alt="Facebook" />
+            <a target="blank" rel="noreferrer" href="https://www.youtube.com/@SJPAjf">
+              <img src={youtube} alt="Youtube" />
             </a>
           </li>
           <li>
