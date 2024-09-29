@@ -20,10 +20,10 @@ function Contact() {
 
       <div className="contact-page-container">
         <ContentHero
-           title ="Entre em contato e faça parte dessa causa" 
-           subtitle="Juntos podemos fazer a diferença!" 
-           text="Você ama os animais e deseja ajudar a proporcionar uma vida melhor para eles?"
-           text2="Nossa ONG está comprometida em cuidar e encontrar lares amorosos para animais abandonados. Precisamos do seu apoio!"    
+          title="Entre em contato e faça parte dessa causa"
+          subtitle="Juntos podemos fazer a diferença!"
+          text="Você ama os animais e deseja ajudar a proporcionar uma vida melhor para eles?"
+          text2="Nossa ONG está comprometida em cuidar e encontrar lares amorosos para animais abandonados. Precisamos do seu apoio!"
         />
 
         <main className="contact-page-main">
@@ -67,8 +67,11 @@ function Contact() {
               </div>
 
               <div className="whatsapp-link">
-                <p>Responsável: Elenir da Silva Silveira</p> 
-                <a target='_blanck' href="https://api.whatsapp.com/send?phone=553299655493">
+                <p>Responsável: Elenir da Silva Silveira</p>
+                <a
+                  target="_blanck"
+                  href="https://api.whatsapp.com/send?phone=553299655493"
+                >
                   <div>
                     <img src={link_icon} alt="Link" />
                     <p>+55 (32) 9965-5493</p>
@@ -99,7 +102,7 @@ function Contact() {
                 />
               </div>
 
-              <a target='_blanck' href="https://www.instagram.com/ong_sjpa/">
+              <a target="_blanck" href="https://www.instagram.com/ong_sjpa/">
                 <img src={link_icon} alt="Link" />
                 <p>ong_sjpa</p>
               </a>
@@ -116,10 +119,8 @@ function Contact() {
               </summary>
               <div>
                 <p>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Odio, nulla veniam? Non odit qui magni inventore quo deserunt
-                  eius labore iusto rem culpa, dignissimos eum. Asperiores
-                  reiciendis dolore perferendis iure.
+                  Sim , mas normalmente pedimos sempre por um táxi cão
+                  solidário.
                 </p>
               </div>
             </details>
@@ -127,12 +128,7 @@ function Contact() {
             <details>
               <summary>Posso adotar mais de um animal?</summary>
               <div>
-                <p>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Odio, nulla veniam? Non odit qui magni inventore quo deserunt
-                  eius labore iusto rem culpa, dignissimos eum. Asperiores
-                  reiciendis dolore perferendis iure.
-                </p>
+                <p>Sim, claro.</p>
               </div>
             </details>
 
@@ -140,10 +136,8 @@ function Contact() {
               <summary>Apenas pessoas de Juiz de Fora podem adotar?</summary>
               <div>
                 <p>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Odio, nulla veniam? Non odit qui magni inventore quo deserunt
-                  eius labore iusto rem culpa, dignissimos eum. Asperiores
-                  reiciendis dolore perferendis iure.
+                  Não, pode ser de qualquer lugar mas se não puder buscar o
+                  animal, deverá custear a ida do animal até o local.
                 </p>
               </div>
             </details>
@@ -152,10 +146,20 @@ function Contact() {
               <summary>Como posso ser um patrocinador?</summary>
               <div>
                 <p>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Odio, nulla veniam? Non odit qui magni inventore quo deserunt
-                  eius labore iusto rem culpa, dignissimos eum. Asperiores
-                  reiciendis dolore perferendis iure.
+                  Patrocinadores fazem doações mensais de um determinado valor
+                  ou produtos, exemplo: mil reais para gastar na loja ou 100
+                  sacos de rações para filhotes.
+                </p>
+              </div>
+            </details>
+
+            <details>
+              <summary>Recebemos ajuda do governo?</summary>
+              <div>
+                <p>
+                  A ong é particular, de tempos em tempos recebemos verbas de
+                  vereadores ou do governo, mas nada definitivo e sempre para
+                  algo específico (como compra de ração ou castração).
                 </p>
               </div>
             </details>
