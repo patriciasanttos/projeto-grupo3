@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 
 import logo from '../../assets/images/logo.svg';
 import animals_icon from '../../assets/icons/navbar_admin/animals_icon.svg';
@@ -7,13 +9,13 @@ import adoptions_icon from "../../assets/icons/navbar_admin/adoptions_icon.svg";
 import volunteers_icon from "../../assets/icons/navbar_admin/volunteers_icon.svg";
 import admin_icon from "../../assets/icons/navbar_admin/admin_icon.svg";
 import logout from "../../assets/icons/navbar_admin/logout.svg";
+import LogoutModal from './logoutModal/LogoutModal';
 
 import './styles.scss';
-import { Link } from 'react-router-dom';
-import LogoutModal from './logoutModal/LogoutModal';
 
 function AdminNavBar({ headerTitle, children }) {
   const [ logoutModalOpen, setLogoutModalOpen ] = useState(false);
+  const userCookie = jwtDecode(localStorage.getItem('login'));
 
   return (
     <div className="admin-page-container">
@@ -67,6 +69,8 @@ function AdminNavBar({ headerTitle, children }) {
       <div className="admin-page-content">
         <header className="admin-header">
           <h1>{headerTitle}</h1>
+
+          <p className='admin-header-username' >{userCookie.name}</p>
         </header>
 
         <main className="admin-main-container">{children}</main>

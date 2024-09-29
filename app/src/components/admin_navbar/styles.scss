@@ -61,6 +61,21 @@
     .admin-page-content {
         width: calc(100% - 155px);
 
+        .admin-header {
+            display: flex;
+            flex-direction: row;
+            position: relative;
+            
+            .admin-header-username {
+                position: absolute;
+                right: 3%;
+
+                color: #fff;
+                font-size: 17pt;
+                font-weight: 600;
+            }
+        }
+
         .admin-main-container {
             padding: 20px;
         }
