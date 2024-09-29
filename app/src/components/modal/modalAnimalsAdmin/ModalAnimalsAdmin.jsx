@@ -38,6 +38,17 @@ const ModalAnimalsAdmin = ({
   }, []);
   const [formAnimals, setFormAnimals] = useState();
 
+  const [ emptyInput, setEmptyInput ] = useState({
+    species: false,
+    name: false,
+    image: false,
+    gender: false,
+    size: false,
+    sector: false,
+    bay: false,
+    status: false,
+  });
+
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
   const [animalToConfirm, setAnimalToConfirm] = useState(0);
 
@@ -87,6 +98,55 @@ const ModalAnimalsAdmin = ({
 
 
   const onClickSave = async () => {
+    setEmptyInput({
+      species: false,
+      name: false,
+      image: false,
+      gender: false,
+      size: false,
+      sector: false,
+      bay: false,
+      status: false,
+    });
+
+    let hasError = false;
+
+    if (!formAnimals.name) {
+      setEmptyInput(prev => ({ ...prev, name: true }));
+      hasError = true;
+    }
+    if (!formAnimals.species) {
+      setEmptyInput(prev => ({ ...prev, species: true }));
+      hasError = true;
+    }
+    if (!formAnimals.image) {
+      setEmptyInput(prev => ({ ...prev, image: true }));
+      hasError = true;
+    }
+    if (!formAnimals.gender) {
+      setEmptyInput(prev => ({ ...prev, gender: true }));
+      hasError = true;
+    }
+    if (!formAnimals.size) {
+      setEmptyInput(prev => ({ ...prev, size: true }));
+      hasError = true;
+    }
+    if (!formAnimals.sector) {
+      setEmptyInput(prev => ({ ...prev, sector: true }));
+      hasError = true;
+    }
+    if (!formAnimals.bay) {
+      setEmptyInput(prev => ({ ...prev, bay: true }));
+      hasError = true;
+    }
+    if (!formAnimals.status) {
+      setEmptyInput(prev => ({ ...prev, status: true }));
+      hasError = true;
+    }
+
+    if (hasError) 
+      return;
+
     if (selectedAnimal) {
       return updateAnimalsList(formAnimals);
     }
@@ -144,6 +204,7 @@ const ModalAnimalsAdmin = ({
             onChange={(e) =>
               setFormAnimals({ ...formAnimals, name: e.target.value })
             }
+            className={emptyInput.name ? 'input-required' : ''}
           />
 
           <input 
@@ -153,6 +214,7 @@ const ModalAnimalsAdmin = ({
             onChange={(e) => 
               setFormAnimals({ ...formAnimals, image: e.target.files[0] })
             }
+            className={emptyInput.image ? 'input-required' : ''}
           />
         </div>
 
@@ -163,6 +225,7 @@ const ModalAnimalsAdmin = ({
             onChange={(e) => {
               setFormAnimals({ ...formAnimals, gender: e.target.value });
             }}
+            className={emptyInput.gender ? 'input-required' : ''}
           >
             <option value="" disabled>
               Sexo
@@ -180,6 +243,7 @@ const ModalAnimalsAdmin = ({
             onChange={(e) =>
               setFormAnimals({ ...formAnimals, size: e.target.value })
             }
+            className={emptyInput.size ? 'input-required' : ''}
           >
             <option value="" disabled>
               Porte
@@ -238,6 +302,7 @@ const ModalAnimalsAdmin = ({
                 sector: e.target.value,
               })
             }
+            className={emptyInput.sector ? 'input-required' : ''}
           />
 
           <input
@@ -252,6 +317,7 @@ const ModalAnimalsAdmin = ({
                 bay: e.target.value,
               })
             }
+            className={emptyInput.bay ? 'input-required' : ''}
           />
         </div>
 
@@ -329,6 +395,7 @@ const ModalAnimalsAdmin = ({
             onChange={(e) =>
               setFormAnimals({ ...formAnimals, status: e.target.value })
             }
+            className={emptyInput.status ? 'input-required' : ''}
           >
             <option value="" disabled>
               Status
@@ -346,6 +413,7 @@ const ModalAnimalsAdmin = ({
             onChange={(e) => {
               setFormAnimals({ ...formAnimals, species: e.target.value });
             }}
+            className={emptyInput.species ? 'input-required' : ''}
           >
             <option value="" disabled>
               Espécie

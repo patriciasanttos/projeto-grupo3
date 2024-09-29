@@ -26,6 +26,16 @@ const ModalAdoptionsAdmin = ({
   };
   const [formTutors, setFormTutors] = useState(initialFormTutors);
 
+  const [ emptyInput, setEmptyInput ] = useState({
+    tutors_name: false,
+    email: false,
+    phone: false,
+    address: false,
+    cpf: false,
+    animal_id: false,
+    observation: false,
+  });
+
   useEffect(() => {
     setFormTutors({
       ...selectedTutor,
@@ -33,6 +43,47 @@ const ModalAdoptionsAdmin = ({
   }, [selectedTutor, isOpen]);
 
   const onClickSave = () => {
+    setEmptyInput({
+      tutors_name: false,
+      email: false,
+      phone: false,
+      address: false,
+      cpf: false,
+      animal_id: false,
+    });
+
+    let hasError = false;
+
+    if (!formTutors.tutors_name) {
+      setEmptyInput(prev => ({ ...prev, tutors_name: true }));
+      hasError = true;
+    }
+    if (!formTutors.email) {
+      setEmptyInput(prev => ({ ...prev, email: true }));
+      hasError = true;
+    }
+    if (!formTutors.phone) {
+      setEmptyInput(prev => ({ ...prev, phone: true }));
+      hasError = true;
+    }
+    if (!formTutors.address) {
+      setEmptyInput(prev => ({ ...prev, address: true }));
+      hasError = true;
+    }
+    if (!formTutors.cpf) {
+      setEmptyInput(prev => ({ ...prev, cpf: true }));
+      hasError = true;
+    }
+    if (!formTutors.animal_id) {
+      setEmptyInput(prev => ({ ...prev, animal_id: true }));
+      hasError = true;
+    }
+
+    console.log(formTutors.animal_id)
+
+    if (hasError) 
+      return;
+
     if (selectedTutor) {
       updateTutorsList(formTutors);
     } else {
@@ -41,6 +92,15 @@ const ModalAdoptionsAdmin = ({
   };
 
   const onClickModalClose = () => {
+    setEmptyInput({
+      tutors_name: false,
+      email: false,
+      phone: false,
+      address: false,
+      cpf: false,
+      animal_id: false,
+    });
+
     onModalClose();
     setFormTutors(initialFormTutors);
   };
@@ -80,6 +140,7 @@ const ModalAdoptionsAdmin = ({
             onChange={(e) =>
               setFormTutors({ ...formTutors, tutors_name: e.target.value })
             }
+            className={emptyInput.tutors_name ? 'input-required' : ''}
           />
           <input
             type="text"
@@ -89,6 +150,7 @@ const ModalAdoptionsAdmin = ({
             onChange={(e) =>
               setFormTutors({ ...formTutors, email: e.target.value })
             }
+            className={emptyInput.email ? 'input-required' : ''}
           />
         </div>
         <div className="al-modal-form">
@@ -101,6 +163,7 @@ const ModalAdoptionsAdmin = ({
               setFormTutors({ ...formTutors, phone: value })
             }
             mask={"(00) 00000-0000"}
+            className={emptyInput.phone ? 'input-required' : ''}
           />
 
           <input
@@ -112,6 +175,7 @@ const ModalAdoptionsAdmin = ({
             onChange={(e) =>
               setFormTutors({ ...formTutors, address: e.target.value })
             }
+            className={emptyInput.address ? 'input-required' : ''}
           />
         </div>
 
@@ -123,6 +187,7 @@ const ModalAdoptionsAdmin = ({
               setFormTutors({ ...formTutors, cpf: value })
             }
             placeholder="CPF"
+            className={emptyInput.cpf ? 'input-required' : ''}
           />
 
           <Dropdown
@@ -135,6 +200,7 @@ const ModalAdoptionsAdmin = ({
               ...formTutors,
               animal_id: e.target.value,
             })}
+            className={emptyInput.animal_id ? 'input-required' : ''}
           >
             {
               animalsList.map((animal) => (
