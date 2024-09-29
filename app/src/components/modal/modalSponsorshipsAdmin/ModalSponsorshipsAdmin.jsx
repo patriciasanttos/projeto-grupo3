@@ -24,6 +24,14 @@ const ModalSponsorshipsAdmin = ({
   };
   const [formSponsors, setFormSponsors] = useState(initialFormSponsors);
 
+  const [ emptyInput, setEmptyInput ] = useState({
+    name: false,
+    email: false,
+    phone: false,
+    animal_id: false,
+    observation: false,
+  });
+
   useEffect(() => {
     setFormSponsors({
       ...selectedSponsor,
@@ -31,6 +39,35 @@ const ModalSponsorshipsAdmin = ({
   }, [selectedSponsor, isOpen]);
 
   const onClickSave = () => {
+    setEmptyInput({
+      name: false,
+      email: false,
+      phone: false,
+      animal_id: false,
+    });
+
+    let hasError = false;
+
+    if (!formSponsors.name) {
+      setEmptyInput(prev => ({ ...prev, name: true }));
+      hasError = true;
+    }
+    if (!formSponsors.email) {
+      setEmptyInput(prev => ({ ...prev, email: true }));
+      hasError = true;
+    }
+    if (!formSponsors.phone) {
+      setEmptyInput(prev => ({ ...prev, phone: true }));
+      hasError = true;
+    }
+    if (!formSponsors.animal_id) {
+      setEmptyInput(prev => ({ ...prev, animal_id: true }));
+      hasError = true;
+    }
+
+    if (hasError) 
+      return;
+
     if (selectedSponsor) {
       updateSponsorsList(formSponsors);
     } else {
@@ -80,6 +117,7 @@ const ModalSponsorshipsAdmin = ({
             onChange={(e) =>
               setFormSponsors({ ...formSponsors, name: e.target.value })
             }
+            className={emptyInput.name ? 'input-required' : ''}
           />
           <input
             type="text"
@@ -89,6 +127,7 @@ const ModalSponsorshipsAdmin = ({
             onChange={(e) =>
               setFormSponsors({ ...formSponsors, email: e.target.value })
             }
+            className={emptyInput.email ? 'input-required' : ''}
           />
         </div>
         <div className="al-modal-form">
@@ -101,6 +140,7 @@ const ModalSponsorshipsAdmin = ({
               setFormSponsors({ ...formSponsors, phone: value })
             }
             mask={"(00) 00000-0000"}
+            className={emptyInput.phone ? 'input-required' : ''}
           />
 
           <Dropdown
@@ -113,6 +153,7 @@ const ModalSponsorshipsAdmin = ({
               ...formSponsors,
               animal_id: e.target.value,
             })}
+            className={emptyInput.animal_id ? 'input-required' : ''}
           >
             {
               animalsList.map((animal) => (

@@ -79,8 +79,6 @@ const ModalAdoptionsAdmin = ({
       hasError = true;
     }
 
-    console.log(formTutors.animal_id)
-
     if (hasError) 
       return;
 
