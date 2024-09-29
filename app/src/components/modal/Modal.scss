@@ -157,6 +157,14 @@
             outline-color: #32732f;
         }
 
+        .input-required {
+            border: 1px solid red !important;
+        }
+
+        .input-permissions-required {
+            color: red;
+        }
+
         .btnSubmit {
             display: flex;
             justify-content: center;

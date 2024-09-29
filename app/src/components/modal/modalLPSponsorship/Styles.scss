@@ -76,8 +76,19 @@
             width: 50%;
         }
 
-        input {
-            height: 10px;
+        .modal-input-container {
+            display: flex;
+            align-items: center;
+
+            input {
+                margin-right: 10px;
+                height: 10px;
+            }
+    
+            .error-message {
+                color: red;
+                font-size: 10pt;
+            }
         }
     }
 

@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-import Input from "../../../components/input";
 import Dropdown from "../../../components/dropdown";
 
 import StateSelect from "./StateSelectComponent/StateSelect";
@@ -23,6 +22,18 @@ const FormUnder18 = () => {
 
   const [formUnder18, setFormUnder18] = useState(formUnder18Initial);
   const [formUnder18Errors, setFormUnder18Errors] = useState(formUnder18Initial);
+  const [ emptyInput, setEmptyInput ] = useState({
+    name: false,
+    responsible_name: false,
+    phone: false,
+    study_schedule: false,
+    email: false,
+    address: false,
+    availability: false,
+    sector: false,
+    state: false,
+    profession: false
+  });
 
   const validateFormUnder18 = () => {
     let isValid = true;
@@ -47,6 +58,65 @@ const FormUnder18 = () => {
   };
 
   const onClickSubmitUnder18 = async () => {
+    setEmptyInput({
+      name: false,
+      responsible_name: false,
+      phone: false,
+      study_schedule: false,
+      email: false,
+      address: false,
+      availability: false,
+      sector: false,
+      state: false,
+      profession: false
+    });
+
+    let hasError = false;
+
+    if (!formUnder18.name) {
+      setEmptyInput(prev => ({ ...prev, name: true }));
+      hasError = true;
+    }
+    if (!formUnder18.responsible_name) {
+      setEmptyInput(prev => ({ ...prev, responsible_name: true }));
+      hasError = true;
+    }
+    if (!formUnder18.email) {
+      setEmptyInput(prev => ({ ...prev, email: true }));
+      hasError = true;
+    }
+    if (!formUnder18.phone) {
+      setEmptyInput(prev => ({ ...prev, phone: true }));
+      hasError = true;
+    }
+    if (!formUnder18.address) {
+      setEmptyInput(prev => ({ ...prev, address: true }));
+      hasError = true;
+    }
+    if (!formUnder18.availability) {
+      setEmptyInput(prev => ({ ...prev, availability: true }));
+      hasError = true;
+    }
+    if (!formUnder18.study_schedule) {
+      setEmptyInput(prev => ({ ...prev, study_schedule: true }));
+      hasError = true;
+    }
+    if (!formUnder18.profession) {
+      setEmptyInput(prev => ({ ...prev, profession: true }));
+      hasError = true;
+    }
+    if (!formUnder18.sector) {
+      setEmptyInput(prev => ({ ...prev, sector: true }));
+      hasError = true;
+    }
+    if (!formUnder18.state) {
+      setEmptyInput(prev => ({ ...prev, state: true }));
+      hasError = true;
+    }
+
+    if (hasError) 
+      return;
+
     const isValid = validateFormUnder18();
 
     if (isValid) {
@@ -82,7 +152,7 @@ const FormUnder18 = () => {
       </p>
       <form className="volunteers-form" action="">
         <div className="align-form">
-          <Input
+          <input
             type="text"
             name="Nome Responsável"
             id=""
@@ -92,8 +162,9 @@ const FormUnder18 = () => {
               updateFormUnder18("responsible_name", e.target.value)
             }
             error={formUnder18Errors.responsible_name}
+            className={emptyInput.responsible_name ? 'input-required' : ''}
           />
-          <Input
+          <input
             type="text"
             name="Nome do menor"
             value={formUnder18.name}
@@ -101,8 +172,10 @@ const FormUnder18 = () => {
             placeholder="Nome do menor"
             onChange={(e) => updateFormUnder18("name", e.target.value)}
             error={formUnder18Errors.name}
+            className={emptyInput.name ? 'input-required' : ''}
           />
-          <Input
+
+          <input
             type="text"
             name="E-mail"
             id=""
@@ -110,8 +183,10 @@ const FormUnder18 = () => {
             value={formUnder18.email}
             onChange={(e) => updateFormUnder18("email", e.target.value)}
             error={formUnder18Errors.email}
+            className={emptyInput.email ? 'input-required' : ''}
           />
-          <Input
+
+          <input
             type="text"
             name="Endereço"
             id=""
@@ -119,12 +194,15 @@ const FormUnder18 = () => {
             value={formUnder18.address}
             onChange={(e) => updateFormUnder18("address", e.target.value)}
             error={formUnder18Errors.address}
+            className={emptyInput.address ? 'input-required' : ''}
           />
+
           <Dropdown
             defaultValue=""
             placeholder="Setor"
             onChange={(e) => updateFormUnder18("sector", e.target.value)}
             error={formUnder18Errors.sector}
+            className={emptyInput.sector ? 'input-required' : ''}
           >
             <option value="Canil">Canil</option>
             <option value="Gatil">Gatil</option>
@@ -133,7 +211,7 @@ const FormUnder18 = () => {
          
         </div>
         <div className="align-form">
-          <Input
+          <input
             type="text"
             name="Celular"
             id=""
@@ -142,8 +220,10 @@ const FormUnder18 = () => {
             mask={"(00) 00000-0000"}
             onChange={(e) => updateFormUnder18("phone", e.target.value)}
             error={formUnder18Errors.phone}
+            className={emptyInput.phone ? 'input-required' : ''}
           />
-          <Input
+
+          <input
             type="text"
             name="Período aula"
             id=""
@@ -151,8 +231,10 @@ const FormUnder18 = () => {
             value={formUnder18.study_schedule}
             onChange={(e) => updateFormUnder18("study_schedule", e.target.value)}
             error={formUnder18Errors.study_schedule}
+            className={emptyInput.study_schedule ? 'input-required' : ''}
           />
-          <Input
+
+          <input
             type="number"
             name="Disponibilidade"
             id=""
@@ -160,14 +242,18 @@ const FormUnder18 = () => {
             value={formUnder18.availability}
             onChange={(e) => updateFormUnder18("availability", e.target.value)}
             error={formUnder18Errors.availability}
+            className={emptyInput.availability ? 'input-required' : ''}
           />
+
           <StateSelect
             defaultValue=""
             placeholder="Estado"
             onChange={(e) => updateFormUnder18("state", e.target.value)}
             error={formUnder18Errors.state}
+            className={emptyInput.state ? 'input-required' : ''}
           />
-           <Input
+
+          <input
             type="text"
             name="Ocupação"
             id=""
@@ -175,6 +261,7 @@ const FormUnder18 = () => {
             value={formUnder18.profession}
             onChange={(e) => updateFormUnder18("profession", e.target.value)}
             error={formUnder18Errors.profession}
+            className={emptyInput.profession ? 'input-required' : ''}
           />
         </div>
       </form>

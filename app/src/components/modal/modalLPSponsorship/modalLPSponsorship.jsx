@@ -28,8 +28,47 @@ function ModalLPSponsorship({
     cpf: "",
   });
 
+  const [ errorMessages, setErrorMessages ] = useState({
+    sponsor: {
+      name: "",
+      email: "",
+      phone: "",
+    },
+    
+    adoption: {
+      tutors_name: "",
+      address: "",
+      email: "",
+      phone: "",
+      cpf: "",
+    },
+  });
+
   const onClickModalButton = async () => {
+    setErrorMessages({
+      sponsor: { name: "", email: "", phone: "" },
+      adoption: { tutors_name: "", address: "", email: "", phone: "", cpf: "" },
+    });
+
     if (showForm) {
+      let hasSponsorError = false;
+
+      if (!formSponsor.name) {
+        setErrorMessages(prev => ({ ...prev, sponsor: { ...prev.sponsor, name: "Campo obrigatório!" } }));
+        hasSponsorError = true;
+      }
+      if (!formSponsor.email) {
+        setErrorMessages(prev => ({ ...prev, sponsor: { ...prev.sponsor, email: "Campo obrigatório!" } }));
+        hasSponsorError = true;
+      }
+      if (!formSponsor.phone) {
+        setErrorMessages(prev => ({ ...prev, sponsor: { ...prev.sponsor, phone: "Campo obrigatório!" } }));
+        hasSponsorError = true;
+      }
+
+      if (hasSponsorError) 
+        return;
+
       return await createSponsorshipForm({ 
         ...formSponsor, 
         phone: Number(formSponsor.phone.replace(/[()\-\s]/g, "")), 
@@ -45,6 +84,32 @@ function ModalLPSponsorship({
           });
         }).catch(error => console.log(error));
     }
+    
+    let hasAdoptionError = false;
+
+    if (!formAdoption.tutors_name) {
+      setErrorMessages((prev) => ({ ...prev, adoption: { ...prev.adoption, tutors_name: "Campo obrigatório!" } }));
+      hasAdoptionError = true;
+    }
+    if (!formAdoption.address) {
+      setErrorMessages((prev) => ({ ...prev, adoption: { ...prev.adoption, address: "Campo obrigatório!" } }));
+      hasAdoptionError = true;
+    }
+    if (!formAdoption.email) {
+      setErrorMessages((prev) => ({ ...prev, adoption: { ...prev.adoption, email: "Campo obrigatório!" } }));
+      hasAdoptionError = true;
+    }
+    if (!formAdoption.phone) {
+      setErrorMessages((prev) => ({ ...prev, adoption: { ...prev.adoption, phone: "Campo obrigatório!" } }));
+      hasAdoptionError = true;
+    }
+    if (!formAdoption.cpf) {
+      setErrorMessages((prev) => ({ ...prev, adoption: { ...prev.adoption, cpf: "Campo obrigatório!" } }));
+      hasAdoptionError = true;
+    }
+
+    if (hasAdoptionError) 
+      return;
     
     await createAdoptionForm({
       ...formAdoption,
@@ -118,40 +183,57 @@ function ModalLPSponsorship({
             <div className="forms">
               <h2>Preencha o formulário</h2>
               <form action="" method="">
-                <input
-                  value={formSponsor.name}
-                  onChange={(e) =>
-                    setFormSponsor({ ...formSponsor, name: e.target.value })
-                  }
-                  type="text"
-                  placeholder="Nome Completo *"
-                  aria-label="Nome Completo"
-                  required
-                />
-                <input
-                  value={formSponsor.email}
-                  onChange={(e) =>
-                    setFormSponsor({ ...formSponsor, email: e.target.value })
-                  }
-                  type="email"
-                  placeholder="E-mail *"
-                  aria-label="E-mail"
-                  required
-                />
-                <IMaskInput
-                  type="text"
-                  name="phone"
-                  id=""
-                  placeholder="Celular"
-                  value={formSponsor.phone}
-                  onAccept={(value, maskRef, e) =>
-                    setFormSponsor({
-                      ...formSponsor,
-                      phone: e?.target.value,
-                    })
-                  }
-                  mask={"(00) 00000-0000"}
-                />
+                <div className="modal-input-container">
+                  <input
+                    value={formSponsor.name}
+                    onChange={(e) =>
+                      setFormSponsor({ ...formSponsor, name: e.target.value })
+                    }
+                    type="text"
+                    placeholder="Nome Completo *"
+                    aria-label="Nome Completo"
+                    required
+                  />
+                  {errorMessages.sponsor.name && (
+                    <span className="error-message">{errorMessages.sponsor.name}</span>
+                  )}
+                </div>
+
+                <div className="modal-input-container">
+                  <input
+                    value={formSponsor.email}
+                    onChange={(e) =>
+                      setFormSponsor({ ...formSponsor, email: e.target.value })
+                    }
+                    type="email"
+                    placeholder="E-mail *"
+                    aria-label="E-mail"
+                    required
+                  />
+                  {errorMessages.sponsor.email && (
+                    <span className="error-message">{errorMessages.sponsor.email}</span>
+                  )}
+                </div>
+
+                <div className="modal-input-container">
+                  <IMaskInput
+                    type="text"
+                    name="phone"
+                    id=""
+                    placeholder="Celular"
+                    value={formSponsor.phone}
+                    onAccept={(value, maskRef, e) =>
+                      setFormSponsor({
+                        ...formSponsor,
+                        phone: e?.target.value,
+                      })
+                    }
+                    mask={"(00) 00000-0000"}
+                  />
+                  {errorMessages.sponsor.phone && (
+                    <span className="error-message">{errorMessages.sponsor.phone}</span>
+                  )}
+                </div>
               </form>
             </div>
 
@@ -167,54 +249,81 @@ function ModalLPSponsorship({
             <div className="forms">
               <h2>Preencha o formulário</h2>
               <form>
-                <input
-                  value={formAdoption.tutors_name}
-                  onChange={(e) =>
-                    setFormAdoption({ ...formAdoption, tutors_name: e.target.value })
-                  }
-                  type="text"
-                  placeholder="Nome Completo *"
-                  required
-                />
+                <div className="modal-input-container">
+                  <input
+                    value={formAdoption.tutors_name}
+                    onChange={(e) =>
+                      setFormAdoption({ ...formAdoption, tutors_name: e.target.value })
+                    }
+                    type="text"
+                    placeholder="Nome Completo *"
+                    required
+                  />
+                  {errorMessages.adoption.tutors_name && (
+                    <span className="error-message">{errorMessages.adoption.tutors_name}</span>
+                  )}
+                </div>
 
-                <IMaskInput
-                  mask={"000.000.000-00"}
-                  value={formAdoption.cpf}
-                  onAccept={(value) =>
-                    setFormAdoption({ ...formAdoption, cpf: value })
-                  }
-                  placeholder="CPF"
-                />
+                <div className="modal-input-container">
+                  <IMaskInput
+                    mask={"000.000.000-00"}
+                    value={formAdoption.cpf}
+                    onAccept={(value) =>
+                      setFormAdoption({ ...formAdoption, cpf: value })
+                    }
+                    placeholder="CPF"
+                  />
+                  {errorMessages.adoption.cpf && (
+                    <span className="error-message">{errorMessages.adoption.cpf}</span>
+                  )}
+                </div>
 
-                <input
-                  value={formAdoption.address}
-                  onChange={(e) =>
-                    setFormAdoption({
-                      ...formAdoption,
-                      address: e.target.value,
-                    })
-                  }
-                  type="text"
-                  placeholder="Endereço Completo *"
-                  required
-                />
-                <input
-                  value={formAdoption.email}
-                  onChange={(e) =>
-                    setFormAdoption({ ...formAdoption, email: e.target.value })
-                  }
-                  type="email"
-                  placeholder="E-mail *"
-                  required
-                />
-                <IMaskInput
-                  mask={"(00) 00000-0000"}
-                  value={formAdoption.phone}
-                  onAccept={(value) =>
-                    setFormAdoption({ ...formAdoption, phone: value })
-                  }
-                  placeholder="Celular"
-                />
+                <div className="modal-input-container">
+                  <input
+                    value={formAdoption.address}
+                    onChange={(e) =>
+                      setFormAdoption({
+                        ...formAdoption,
+                        address: e.target.value,
+                      })
+                    }
+                    type="text"
+                    placeholder="Endereço Completo *"
+                    required
+                  />
+                  {errorMessages.adoption.address && (
+                    <span className="error-message">{errorMessages.adoption.address}</span>
+                  )}
+                </div>
+
+                <div className="modal-input-container">
+                  <input
+                    value={formAdoption.email}
+                    onChange={(e) =>
+                      setFormAdoption({ ...formAdoption, email: e.target.value })
+                    }
+                    type="email"
+                    placeholder="E-mail *"
+                    required
+                  />
+                  {errorMessages.adoption.email && (
+                    <span className="error-message">{errorMessages.adoption.email}</span>
+                  )}
+                </div>
+
+                <div className="modal-input-container">
+                  <IMaskInput
+                    mask={"(00) 00000-0000"}
+                    value={formAdoption.phone}
+                    onAccept={(value) =>
+                      setFormAdoption({ ...formAdoption, phone: value })
+                    }
+                    placeholder="Celular"
+                  />
+                  {errorMessages.adoption.phone && (
+                    <span className="error-message">{errorMessages.adoption.phone}</span>
+                  )}
+                </div>
               </form>
             </div>
 
