@@ -67,15 +67,13 @@ function Adoptions() {
         let adoptionFormsList = [];
         await data.forEach(form => {
           const animal = animals.filter(animal => animal.id === form.animal_id)[0];
-
-          console.log(animal)
           adoptionFormsList.push({
             id: form.id,
             tutors_name: form.tutors_name,
             email: form.email,
             phone: form.phone.length === 11
-            ? `(${form.phone.slice(0, 2)}) ${form.phone.slice(2, 7)}-${form.phone.slice(7)}`
-            : `(${form.phone.slice(0, 2)}) ${form.phone.slice(2, 6)}-${form.phone.slice(6)}`,
+              ? `(${form.phone.slice(0, 2)}) ${form.phone.slice(2, 7)}-${form.phone.slice(7)}`
+              : `(${form.phone.slice(0, 2)}) ${form.phone.slice(2, 6)}-${form.phone.slice(6)}`,
             address: form.address,
             cpf: form.cpf,
             animal_name: animal?.name,
