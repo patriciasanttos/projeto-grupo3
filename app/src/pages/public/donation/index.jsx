@@ -25,7 +25,7 @@ function Donation() {
         subtitle="Faça a diferença na vida de um animal" 
         title="Faça uma doação" 
         text="Nossa ONG se dedica incansavelmente a cuidar dos animais, oferecendo alimentação, abrigo, cuidados veterinários e, acima de tudo, muito amor. No entanto, para continuarmos esse trabalho essencial, precisamos de você. Sua doação, por menor que seja, faz uma diferença imensa na vida desses animais."
-        text2="JJunte-se a nós nessa missão. Doe agora e ajude a transformar a vida de um animal abandonado. Eles contam com você!"
+        text2="Junte-se a nós nessa missão. Doe agora e ajude a transformar a vida de um animal abandonado. Eles contam com você!"
       />
 
       <section className="section-information">
@@ -123,7 +123,7 @@ function Donation() {
                 <br />
                 Conta: 22534-7
               </p>
-              <h4>Caixa Econôica</h4>
+              <h4>Caixa Econômica</h4>
               <p>
                 Conta poupança
                 <br />

@@ -6,59 +6,52 @@
     text-align: center;
     padding-top: 3rem;
 }
-    .call-title {
-        color: #26A59E;
-        font-weight: 900;
-        font-size: 1.2rem;
-        margin: 0;
-        padding: 0 20px 0 20px;
-        margin-top: 4rem;
-    }
 
-    .call-subtitle {
-        color: #5BB656;
-        font-weight: 800;
-        font-size: 3rem;
-        margin: 0;
-        padding: 0 10px 0 10px;
-    }
-
-    .call-text {
-        color: black;
-        font-size: 1.5rem;
-            }
-
-    .call-text-1 {
-        padding: 50px 40px 0 40px;
-
-    }
-
-    .call-text-2 {
-        padding: 20px 40px 10px 40px;
-
-    }
-
-
-
-.section-information{
-    background-image: url('../../../assets/images/backgrounds/bg-white-paw.svg');
-    
+.call-title {
+    color: #26A59E;
+    font-weight: 900;
+    font-size: 1.2rem;
+    margin: 0;
+    padding: 0 20px 0 20px;
+    margin-top: 4rem;
 }
 
-.ways-to-donate{
+.call-subtitle {
+    color: #5BB656;
+    font-weight: 800;
+    font-size: 3rem;
+    margin: 0;
+    padding: 0 10px 0 10px;
+}
 
+.call-text {
+    color: black;
+    font-size: 1.5rem;
+}
+
+.call-text-1 {
+    padding: 50px 40px 0 40px;
+}
+
+.call-text-2 {
+    padding: 20px 40px 10px 40px;
+
+}
+
+.section-information {
+    background-image: url('../../../assets/images/backgrounds/bg-white-paw.svg');
+}
+
+.ways-to-donate {
     display: flex;
     justify-content: space-around;
     margin-bottom: 3rem;
-        
 }
 
 .left {
     flex: 5;
     text-align: left;
     margin-left: 12.3rem;
-
-
 }
 
 .right {
@@ -67,122 +60,118 @@
 }
 
 .right h4 {
-     color: var(--background-primary-color);
-     padding: 0rem;
-     margin: 0rem;
-     font-size: 18px;
-     text-align: left;
+    color: var(--background-primary-color);
+    padding: 0rem;
+    margin: 0rem;
+    font-size: 18px;
+    text-align: left;
 
 }
 
 .ways-to-donate h3 {
     color: var(--background-primary-color);
     text-align: left;
-    
+
 
 }
 
-.right p{
+.right p {
     margin-top: 0rem;
 }
 
 .left a {
     text-decoration: none;
-    
+
 }
 
-.letf a:hover{
+.letf a:hover {
     color: rgb(116, 114, 114);
 }
 
-.text-call-platform h3{
+.text-call-platform h3 {
     color: var(--background-primary-color);
 }
 
 
-.digital-platform{
+.digital-platform {
     display: flex;
     justify-content: space-around;
     margin-bottom: 5rem;
     margin-top: 2rem;
 }
 
-.digital-platform img{
+.digital-platform img {
     width: 15rem;
-  
 }
 
 .section-information p {
     color: black;
-  
 }
 
 .left ul {
-    
     color: black;
-    display: block;        
+    display: block;
 }
 
 li {
-    display: block;   
-    color: black;     
+    display: block;
+    color: black;
 }
 
-.left a{
+.left a {
     color: black;
 }
 
 @media (max-width: 975px) {
 
-.page_container p{
-    font-size: 1rem;
-
-}
-
-.page_container h3{
-    font-size: 1rem;
-}
-
-.page_container h1{
-    font-size: 2rem;
-}
-
-.ways-to-donate{
-    flex-direction: column;
-    align-items: center;
-    
+    .page_container p {
+        font-size: 1rem;
     }
-.ways-to-donate p, a{
-    font-size: 0.9rem;
-    align-items: center;
-}
 
-.left {
+    .page_container h3 {
+        font-size: 1rem;
+    }
+
+    .page_container h1 {
+        font-size: 2rem;
+    }
+
+    .ways-to-donate {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .ways-to-donate p,
+    a {
+        font-size: 0.9rem;
+        align-items: center;
+    }
+
+    .left {
         margin-left: 1rem;
-        
+
         text-align: center;
-        
     }
 
-.right {
-    text-align: center;
-   
-}
-.ways-to-donate h3{
-    text-align: center;
-}
+    .right {
+        text-align: center;
+    }
 
-.right h4{
-    text-align: center;
-    font-size: 1rem;
-}
+    .ways-to-donate h3 {
+        text-align: center;
+    }
 
-.digital-platform{
-    flex-direction: column;
-    align-items: center;
-}
+    .right h4 {
+        text-align: center;
+        font-size: 1rem;
+    }
 
-.digital-platform img {
-    margin: 1rem;
-}
+    .digital-platform {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .digital-platform img {
+        margin: 1rem;
+    }
 }
