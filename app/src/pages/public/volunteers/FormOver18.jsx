@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-import Input from "../../../components/input";
 import Dropdown from "../../../components/dropdown";
 
 import StateSelect from "./StateSelectComponent/StateSelect";
@@ -21,6 +20,16 @@ const FormOver18 = () => {
 
   const [formOver18, setFormOver18] = useState(formOver18Initial);
   const [formOver18Errors, setFormOver18Errors] = useState(formOver18Initial);
+  const [ empityInput, setEmpityInput ] = useState({
+    name: false,
+    phone: false,
+    email: false,
+    profession: false,
+    address: false,
+    availability: false,
+    sector: false,
+    state: false,
+  });
 
   const validateFormOver18 = () => {
     let isValid = true;
@@ -45,6 +54,55 @@ const FormOver18 = () => {
   };
 
   const onClickSubmitOver18 = async() => {
+    setEmpityInput({
+      name: false,
+      phone: false,
+      email: false,
+      profession: false,
+      address: false,
+      availability: false,
+      sector: false,
+      state: false,
+    });
+
+    let hasError = false;
+
+    if (!formOver18.name) {
+      setEmpityInput(prev => ({ ...prev, name: true }));
+      hasError = true;
+    }
+    if (!formOver18.email) {
+      setEmpityInput(prev => ({ ...prev, email: true }));
+      hasError = true;
+    }
+    if (!formOver18.phone) {
+      setEmpityInput(prev => ({ ...prev, phone: true }));
+      hasError = true;
+    }
+    if (!formOver18.address) {
+      setEmpityInput(prev => ({ ...prev, address: true }));
+      hasError = true;
+    }
+    if (!formOver18.availability) {
+      setEmpityInput(prev => ({ ...prev, availability: true }));
+      hasError = true;
+    }
+    if (!formOver18.profession) {
+      setEmpityInput(prev => ({ ...prev, profession: true }));
+      hasError = true;
+    }
+    if (!formOver18.sector) {
+      setEmpityInput(prev => ({ ...prev, sector: true }));
+      hasError = true;
+    }
+    if (!formOver18.state) {
+      setEmpityInput(prev => ({ ...prev, state: true }));
+      hasError = true;
+    }
+
+    if (hasError) 
+      return;
+
     const isValid = validateFormOver18();
 
     if (isValid) {
@@ -81,47 +139,47 @@ const FormOver18 = () => {
 
       <form className="volunteers-form" action="">
         <div className="align-form">
-          <Input
-            type="text"
-            name="Nome"
-            placeholder="Nome completo"
-            value={formOver18.name}
-            onChange={(e) => updateFormOver18("name", e.target.value)}
-            error={formOver18Errors.name}
-          />
+        <input
+          type="text"
+          name="Nome"
+          placeholder="Nome completo"
+          value={formOver18.name}
+          onChange={(e) => updateFormOver18("name", e.target.value)}
+          className={empityInput.name ? 'input-required' : ''}
+        />
 
-          <Input
-            type="text"
-            name="E-mail"
-            placeholder="E-mail"
-            value={formOver18.email}
-            onChange={(e) => updateFormOver18("email", e.target.value)}
-            error={formOver18Errors.email}
-          />
+        <input
+          type="text"
+          name="E-mail"
+          placeholder="E-mail"
+          value={formOver18.email}
+          onChange={(e) => updateFormOver18("email", e.target.value)}
+          className={empityInput.email ? 'input-required' : ''}
+        />
 
-          <Input
-            type="text"
-            name="Endereço"
-            id=""
-            placeholder="Endereço completo"
-            value={formOver18.address}
-            onChange={(e) => updateFormOver18("address", e.target.value)}
-            error={formOver18Errors.address}
-          />
+        <input
+          type="text"
+          name="Endereço"
+          id=""
+          placeholder="Endereço completo"
+          value={formOver18.address}
+          onChange={(e) => updateFormOver18("address", e.target.value)}
+          className={empityInput.address ? 'input-required' : ''}
+        />
 
-          <Dropdown
-            defaultValue=""
-            placeholder="Setor"
-            onChange={(e) => updateFormOver18('sector', e.target.value)}
-            error={formOver18Errors.sector}
-          >
-            <option value="Canil">Canil</option>
-            <option value="Gatil">Gatil</option>
-            <option value="Limpeza">Limpeza</option>
-          </Dropdown>
+        <Dropdown
+          defaultValue=""
+          placeholder="Setor"
+          onChange={(e) => updateFormOver18('sector', e.target.value)}
+          className={empityInput.sector ? 'input-required' : ''}
+        >
+          <option value="Canil">Canil</option>
+          <option value="Gatil">Gatil</option>
+          <option value="Limpeza">Limpeza</option>
+        </Dropdown>
         </div>
         <div className="align-form">
-          <Input
+          <input
             type="text"
             name="Celular"
             id=""
@@ -129,34 +187,38 @@ const FormOver18 = () => {
             value={formOver18.phone}
             mask={"(00) 00000-0000"}
             onChange={(e) => updateFormOver18('phone', e.target.value)}
-            error={formOver18Errors.phone}
+            className={empityInput.phone ? 'input-required' : ''}
           />
-          <Input
+
+          <input
             type="text"
             name="Profissão"
             id=""
             placeholder="Profissão"
             value={formOver18.profession}
             onChange={(e) => updateFormOver18('profession', e.target.value)}
-            error={formOver18Errors.profession}
+            className={empityInput.profession ? 'input-required' : ''}
           />
-          <Input
+
+          <input
             type="number"
             name="Disponibilidade"
             id=""
             placeholder="Disponibilidade de horas na semana"
             value={formOver18.availability}
             onChange={(e) => updateFormOver18('availability', e.target.value)}
-            error={formOver18Errors.availability}
+            className={empityInput.availability ? 'input-required' : ''}
           />
+
           <StateSelect
             defaultValue=""
             placeholder="Estado"
             onChange={(e) => updateFormOver18('state', e.target.value)}
-            error={formOver18Errors.state}
+            className={empityInput.state ? 'input-required' : ''}
           />
         </div>
       </form>
+
       <button onClick={onClickSubmitOver18}>Enviar</button>
     </div>
   );
