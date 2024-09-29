@@ -18,6 +18,10 @@ const Pagination = ({ listItems, onPaginate }) => {
   }, [currentPage]);
 
   useEffect(() => {
+    onPaginate(paginate(listItems, currentPage, itemsPerPage));
+  }, [listItems]);
+
+  useEffect(() => {
     const updateItemsPerPage = () => {
       if (window.innerWidth <= 768) {
         setItemsPerPage(6);

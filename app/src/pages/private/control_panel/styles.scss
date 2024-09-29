@@ -12,22 +12,31 @@
     }
 }
 
-.admin-main-container {
-    height: 80%;
-    text-align: left;
-    padding: 80px;
-}
-.admin-main-container h2{
-    font-size: 30px;
-    margin-bottom: 40px;
-}
-.admin-main-container h3{
-    color: #46A441;
-    text-align: left;
-    font-size: 35px;
-    font-weight: normal;
-}
-.admin-main-container p{
-    font-size: 25px;
-    margin-bottom: 65px;
+.admin-control-panel {
+    max-height: 100vh;
+
+    .control-panel-username {
+        text-align: center;
+        margin: 0 0 3% 0;
+
+        font-weight: 600;
+        font-size: 25pt;
+    }
+
+    .control-panel-title {
+        font-size: 20pt;
+    }
+
+    .control-panel-about-page-title {
+        color: var(--title-secondary-color);
+        font-size: 18pt;
+        
+        text-align: left;
+    }
+
+    .control-panel-about-page-info {
+        font-size: 15pt;
+
+        margin-bottom: 5%;
+    }
 }

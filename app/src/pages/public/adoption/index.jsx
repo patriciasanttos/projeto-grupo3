@@ -13,6 +13,7 @@ import ModalLPSponsorship from "../../../components/modal/modalLPSponsorship";
 import Menu from "../../../components/menu/Menu";
 import { getAllAnimals } from "../../../services/api/animals";
 import Pagination from "../../../components/pagination";
+import useResponsive from "../../../hooks/useResponsive";
 
 const Adoption = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,10 +28,11 @@ const Adoption = () => {
     age: "",
     size: "",
   });
+  const { isMobile } = useResponsive();
 
   useEffect(() => {
     const getAnimals = async () => {
-      const data = (await getAllAnimals())
+      const data = await getAllAnimals();
 
       await data.forEach((animal) => {
         animals.push({
@@ -49,26 +51,16 @@ const Adoption = () => {
     getAnimals();
   }, []);
 
-  useEffect(() => {
-    const results = animals.filter((animal) => {
+  const getFilteredAnimals = (items) => {
+    const results = items.filter((animal) => {
       return Object.entries(filters).every(([key, value]) => {
         if (value === "") return true;
 
         if (key === "gender" && animal.gender === animal.gender.toLowerCase())
           value = value.toLowerCase();
 
-        if (key === "age") {
-          switch (value) {
-            case "Filhote":
-              return animal.age === "Filhote";
-            case "Adulto":
-              return animal.age === "Adulto";
-            case "Idoso":
-              return animal.age === "Idoso";
-            default:
-              return true;
-          }
-        }
+        if (key === "age" && animal.age === animal.age.toLowerCase())
+          value = value.toLowerCase();
 
         if (value.includes("/")) return value.includes(String(animal[key]));
 
@@ -76,7 +68,11 @@ const Adoption = () => {
       });
     });
 
-    return setFilteredAnimals(results.length > 0 ? results : []);
+    return results.length > 0 ? results : [];
+  }
+  
+  useEffect(() => {
+    setFilteredAnimals(getFilteredAnimals(animals));
   }, [filters]);
 
   const onClickCardAnimal = (animal) => {
@@ -97,44 +93,56 @@ const Adoption = () => {
         <LoadingPaw />
       ) : (
         <div className="content-container">
-          <p className="text">Conheça alguns de nossos animais</p>
           <div className="photo-gallery">
-            <FilterSidebar
-              filtersState={filters}
-              setFiltersState={setFilters}
-            />
+            {!isMobile && (
+              <FilterSidebar
+                filtersState={filters}
+                setFiltersState={setFilters}
+              />
+            )}
 
-            <div className="card-container">
-              {paginatedAnimals.map((animal) => (
-                <CardAnimal
-                  onClickButton={onClickCardAnimal}
-                  animal={animal}
-                  key={animals.indexOf(animal)}
-                  image={animal.image}
-                  name={
-                    animal.name.charAt(0).toUpperCase() +
-                    animal.name.slice(1).toLowerCase()
-                  }
-                  gender={
-                    ["m", "M"].includes(animal.gender) ? "Macho" : "Fêmea"
-                  }
-                  race={
-                    animal.race === "srd"
-                      ? "Sem raça definida"
-                      : `${animal.race.charAt(0).toUpperCase()}${animal.race
-                          .slice(1)
-                          .toLowerCase()}`
-                  }
-                  age={animal.age}
+            <div>
+              <p className="text">Conheça alguns de nossos animais</p>
+
+              {isMobile && (
+                <FilterSidebar
+                  filtersState={filters}
+                  setFiltersState={setFilters}
                 />
-              ))}
+              )}
+
+              <div className="card-container">
+                {paginatedAnimals.map((animal) => (
+                  <CardAnimal
+                    onClickButton={onClickCardAnimal}
+                    animal={animal}
+                    key={animals.indexOf(animal)}
+                    image={animal.image}
+                    name={
+                      animal.name.charAt(0).toUpperCase() +
+                      animal.name.slice(1).toLowerCase()
+                    }
+                    gender={
+                      ["m", "M"].includes(animal.gender) ? "Macho" : "Fêmea"
+                    }
+                    race={
+                      animal.race === "srd"
+                        ? "Sem raça definida"
+                        : `${animal.race.charAt(0).toUpperCase()}${animal.race
+                            .slice(1)
+                            .toLowerCase()}`
+                    }
+                    age={animal.age}
+                  />
+                ))}
+              </div>
+
+              <Pagination
+                listItems={filteredAnimals}
+                onPaginate={(items) => setPaginatedAnimals(items)}
+              />
             </div>
           </div>
-
-          <Pagination
-            listItems={filteredAnimals}
-            onPaginate={(items) => setPaginatedAnimals(items)}
-          />
         </div>
       )}
 
