@@ -47,9 +47,8 @@ function AdminPage() {
     checkUserPermission();
   }, []);
 
-  useEffect(() => {
-    setLoading(true);
-    getAllAdmins(localStorage.getItem("login"))
+  const loadAdmins = async () => {
+    await getAllAdmins(localStorage.getItem("login"))
       .then((data) => {
         setAdminsList(data.map(admin => ({
           ...admin,
@@ -63,6 +62,11 @@ function AdminPage() {
         console.log(error);
         setLoading(false);
       });
+  }
+
+  useEffect(() => {
+    setLoading(true);
+    loadAdmins();
   }, []);
 
   const getFilteredItems = () => {
@@ -83,6 +87,8 @@ function AdminPage() {
   };
 
   const updateAdminsList = async (admin) => {
+    const oldCookie = jwtDecode(localStorage.getItem('login'));
+    
     await updateAdmin(
       {
         ...admin,
@@ -90,26 +96,15 @@ function AdminPage() {
       },
       localStorage.getItem("login")
     )
-      .then((res) => {
-        localStorage.setItem("login", JSON.stringify(res));
-        const cookies = jwtDecode(res);
-
-        let admins = adminsList.map((adm) => {
-          if (adm.id === res.id)
-            return {
-              ...admin,
-              permissions: cookies.permission,
-            };
-
-          return adm;
-        });
-
-        setAdminsList(admins);
-        setIsModalOpen(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      .then(async jwt => {
+        if (admin.id === oldCookie.id) {
+          localStorage.setItem("login", JSON.stringify(jwt));
+        }
+  
+          await loadAdmins();
+          return setIsModalOpen(false);
+        })
+        .catch(error => console.log(error));
   };
 
   const deleteAdminsList = async (admin) => {
@@ -119,7 +114,7 @@ function AdminPage() {
       }
     );
 
-    setAdminsList(adminsList.filter((admins) => admins.id !== admin.id));
+    await loadAdmins();
     setIsModalOpen(false);
   };
 
@@ -139,10 +134,17 @@ function AdminPage() {
         phone: Number(admin.phone.replace(/[()\-\s]/g, "")),
       },
       localStorage.getItem("login")
-    ).catch((error) => console.log(error));
+    )
+      .then(async () => { 
+        await loadAdmins()
+        setIsModalOpen(false);
+      })
+      .catch(error => {
+        if (error.status === 409)
+          return window.alert('Este administrador já está adicionado')
 
-    setAdminsList(admins);
-    setIsModalOpen(false);
+        console.log(error)
+      });
   };
 
   const onClickDeleteAdmin = (admin) => {

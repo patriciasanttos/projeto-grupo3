@@ -87,8 +87,8 @@ function AdminList({
       <table className="admin-list">
         <thead>
           <tr className="header">
-            {columns.map((column) => (
-              <td key={column.title}>{column.title}</td>
+            {columns.map((column, index) => (
+              <td key={`${column.title} - ${index}`}>{column.title}</td>
             ))}
             {userHasPermission && <td>Ações</td>}
           </tr>
