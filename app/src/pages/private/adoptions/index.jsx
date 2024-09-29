@@ -67,13 +67,13 @@ function Adoptions() {
         let adoptionFormsList = [];
         await data.forEach(form => {
           const animal = animals.filter(animal => animal.id === form.animal_id)[0];
-
-          console.log(animal)
           adoptionFormsList.push({
             id: form.id,
             tutors_name: form.tutors_name,
             email: form.email,
-            phone: form.phone,
+            phone: form.phone.length === 11
+              ? `(${form.phone.slice(0, 2)}) ${form.phone.slice(2, 7)}-${form.phone.slice(7)}`
+              : `(${form.phone.slice(0, 2)}) ${form.phone.slice(2, 6)}-${form.phone.slice(6)}`,
             address: form.address,
             cpf: form.cpf,
             animal_name: animal?.name,
@@ -89,24 +89,26 @@ function Adoptions() {
     await loadAnimals()
       .then(async () => {
         await getAllAdoptions(localStorage.getItem('login'))
-        .then(async data => {
-          let adoptionsList = [];
-          await data.forEach(adoption => {
-            adoptionsList.push({
-              id: adoption.id,
-              tutors_name: adoption.tutors_name,
-              email: adoption.email,
-              phone: adoption.phone,
-              address: adoption.address,
-              cpf: adoption.cpf,
-              animal_name: adoption.animal_name,
-              animal_id: adoption.animal_id,
-              observation: adoption.observation
+          .then(async data => {
+            let adoptionsList = [];
+            await data.forEach(adoption => {
+              adoptionsList.push({
+                id: adoption.id,
+                tutors_name: adoption.tutors_name,
+                email: adoption.email,
+                phone: adoption.phone.length === 11
+                ? `(${adoption.phone.slice(0, 2)}) ${adoption.phone.slice(2, 7)}-${adoption.phone.slice(7)}`
+                : `(${adoption.phone.slice(0, 2)}) ${adoption.phone.slice(2, 6)}-${adoption.phone.slice(6)}`,
+                address: adoption.address,
+                cpf: adoption.cpf,
+                animal_name: adoption.animal_name,
+                animal_id: adoption.animal_id,
+                observation: adoption.observation
+              });
             });
-          });
   
-          setTutorsList(adoptionsList);
-        });
+            setTutorsList(adoptionsList);
+          });
       })
 
     return setLoading(false);
@@ -161,7 +163,8 @@ function Adoptions() {
 
     await updateAdoption({
       ...tutor,
-      phone: Number(tutor.phone.replace(/[()\-\s]/g, ''))
+      phone: Number(tutor.phone.replace(/[()\-\s]/g, '')),
+      cpf: Number(tutor.cpf.replace(/[-.]/g, '')),
     }, localStorage.getItem('login'))
       .catch(error => console.log(error));
 
@@ -180,14 +183,17 @@ function Adoptions() {
 
   const createTutorsList = async (tutor) => {
     let tutors = [...tutorsList];
+    const ids = tutors.map(i => i.id)
+
     tutors.push({
       ...tutor,
-      id: tutorsList.length + 1,
+      id: tutors.length ? Math.max(...ids) + 1 : 1
     });
 
     await createAdoption({
       ...tutor,
-      phone: Number(tutor.phone.replace(/[()\-\s]/g, ''))
+      phone: Number(tutor.phone.replace(/[()\-\s]/g, '')),
+      cpf: Number(tutor.cpf.replace(/[-.]/g, '')),
     }, localStorage.getItem('login'))
       .then(() => {
         setTutorsList(tutors);

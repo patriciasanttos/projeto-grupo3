@@ -80,7 +80,9 @@ function Sponsorships() {
             id: form.id,
             name: form.name,
             email: form.email,
-            phone: form.phone,
+            phone: form.phone.length === 11
+            ? `(${form.phone.slice(0, 2)}) ${form.phone.slice(2, 7)}-${form.phone.slice(7)}`
+            : `(${form.phone.slice(0, 2)}) ${form.phone.slice(2, 6)}-${form.phone.slice(6)}`,
             animal_name: animal.name,
             animal_id: animal.id
           });
@@ -104,7 +106,9 @@ function Sponsorships() {
                 id: sponsorhip.id,
                 name: sponsorhip.name,
                 email: sponsorhip.email,
-                phone: sponsorhip.phone,
+                phone: sponsorhip.phone.length === 11
+                ? `(${sponsorhip.phone.slice(0, 2)}) ${sponsorhip.phone.slice(2, 7)}-${sponsorhip.phone.slice(7)}`
+                : `(${sponsorhip.phone.slice(0, 2)}) ${sponsorhip.phone.slice(2, 6)}-${sponsorhip.phone.slice(6)}`,
                 animal_name: sponsorhip.Animals[0].name,
                 animal_id: sponsorhip.Animals[0].id,
                 observation: sponsorhip.observation,

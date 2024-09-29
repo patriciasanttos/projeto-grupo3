@@ -59,7 +59,12 @@ function Volunteers() {
   const refreshVolunteersList = () => {
     setLoading(true);
     getAllVolunteers(localStorage.getItem("login")).then((data) => {
-      setVolunteersList(data);
+      setVolunteersList(data.map(volunteer => ({
+        ...volunteer,
+        phone: volunteer.phone.length === 11
+          ? `(${volunteer.phone.slice(0, 2)}) ${volunteer.phone.slice(2, 7)}-${volunteer.phone.slice(7)}`
+          : `(${volunteer.phone.slice(0, 2)}) ${volunteer.phone.slice(2, 6)}-${volunteer.phone.slice(6)}`,
+      })));
       setLoading(false);
     });
   };
@@ -67,7 +72,12 @@ function Volunteers() {
   const refreshVolunteersFormList = () => {
     setLoadingFormList(true);
     getAllVolunteersForms(localStorage.getItem("login")).then((data) => {
-      setVolunteersFormsList(data);
+      setVolunteersFormsList(data.map(form => ({
+        ...form,
+        phone: form.phone.length === 11
+          ? `(${form.phone.slice(0, 2)}) ${form.phone.slice(2, 7)}-${form.phone.slice(7)}`
+          : `(${form.phone.slice(0, 2)}) ${form.phone.slice(2, 6)}-${form.phone.slice(6)}`,
+      })));
       setLoadingFormList(false);
     });
   };
