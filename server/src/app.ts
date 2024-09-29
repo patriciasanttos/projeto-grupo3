@@ -18,6 +18,7 @@ app
             req.method === 'GET' && req.url === '/animals' 
             || req.method === 'POST' && req.url === '/volunteers/forms'
             || req.method === 'POST' && req.url === '/sponsorships/forms'
+            || req.method === 'POST' && req.url === '/adoptions/forms'
             || req.method === 'GET' && req.url === '/admins/login'
         )
             return next();
