@@ -138,6 +138,7 @@ export default {
             const token = jwt.sign(
                 {
                     userId: gettedAdmin.dataValues.id,
+                    name: gettedAdmin?.dataValues.name,
                     permissions: gettedAdmin.permissions
                 },
                 secret
@@ -253,6 +254,7 @@ export default {
             const secret: string = process.env.JWT_SECRET || '';
             const token = jwt.sign({
                 userId: updatedAdmin?.dataValues.id,
+                name: updatedAdmin?.dataValues.name,
                 permissions: updatedAdmin?.permissions 
             }, secret);
 

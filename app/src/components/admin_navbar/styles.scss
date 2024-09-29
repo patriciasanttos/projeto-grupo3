@@ -16,7 +16,7 @@
             height: 80%;
 
             margin-top: 18%;
-            margin-bottom: 10%;
+            margin-bottom: 40%;
         }
 
         .admin-nav {
@@ -46,20 +46,68 @@
                 border-bottom: 1px solid var(--background-primary-color);
             }
         }
-
-        .logout-button {
-            margin-top: 20px;
-
-            img {
-                width: 40%;
-                height: 40%;
-                margin-left: 10px;
-            }
-        }
     }
 
     .admin-page-content {
         width: calc(100% - 155px);
+
+        .admin-header {
+            display: flex;
+            flex-direction: row;
+            position: relative;
+            
+            .admin-header-user-container {
+                position: absolute;
+                right: 3%;
+
+                .admin-header-user-btn {
+                    background: none;
+                    border: none;
+
+                    color: #fff;
+                    font-size: 17pt;
+                    font-weight: 600;
+
+                    display: flex;
+                    align-items: center;
+                    gap: 5%;
+
+                    cursor: pointer;
+                }
+
+                .admin-header-menu-dropdown {
+                    position: absolute;
+                    right: 0;
+                    top: 100%;
+                    z-index: 1;
+
+                    background-color: white;
+                    border: 1px solid #ccc;
+                    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+                    
+                    width: 100%;
+                    height: 120%;
+
+                    .admin-header-logout-btn {
+                        width: 100%;
+                        height: 100%;
+                        
+                        border: none;
+                        font-size: 18pt;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-evenly;
+
+                        cursor: pointer;
+                        transition: background-color 0.3s ease-in-out;
+                    }
+
+                    .admin-header-logout-btn:hover {
+                        background-color: #e3e2e2;
+                    }
+                }
+            }
+        }
 
         .admin-main-container {
             padding: 20px;
