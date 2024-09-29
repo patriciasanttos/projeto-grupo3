@@ -109,8 +109,8 @@ function Sponsorships() {
                 phone: sponsorhip.phone.length === 11
                 ? `(${sponsorhip.phone.slice(0, 2)}) ${sponsorhip.phone.slice(2, 7)}-${sponsorhip.phone.slice(7)}`
                 : `(${sponsorhip.phone.slice(0, 2)}) ${sponsorhip.phone.slice(2, 6)}-${sponsorhip.phone.slice(6)}`,
-                animal_name: sponsorhip.Animals[0].name,
-                animal_id: sponsorhip.Animals[0].id,
+                animal_name: sponsorhip.Animals[0]?.name,
+                animal_id: sponsorhip.Animals[0]?.id,
                 observation: sponsorhip.observation,
               });
             });
