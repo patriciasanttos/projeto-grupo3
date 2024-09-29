@@ -5,7 +5,7 @@ const { DataTypes } = require("sequelize");
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('volunteers-forms', {
+    await queryInterface.createTable('adoptions-forms', {
       id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -16,10 +16,6 @@ module.exports = {
       name: {
         type: DataTypes.STRING,
         allowNull: false
-      },
-      responsible_name: {
-        type: DataTypes.STRING,
-        allowNull: true
       },
       email: {
         type: DataTypes.TEXT,
@@ -33,23 +29,11 @@ module.exports = {
         type: DataTypes.TEXT,
         allowNull: false
       },
-      availability: {
-        type: DataTypes.STRING,
+      cpf: {
+        type: DataTypes.BIGINT,
         allowNull: false,
       },
-      study_schedule: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      sector: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      state: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      profession: {
+      animal_id: {
         type: DataTypes.STRING,
         allowNull: true,
       },
@@ -65,6 +49,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('volunteers-forms');
+    await queryInterface.dropTable('adoptions-forms');
   }
 };

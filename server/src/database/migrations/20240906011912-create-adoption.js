@@ -93,6 +93,10 @@ module.exports = {
         type: DataTypes.TEXT,
         allowNull: false
       },
+      cpf: {
+        type: DataTypes.BIGINT,
+        allowNull: false
+      },
       created_at: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW
