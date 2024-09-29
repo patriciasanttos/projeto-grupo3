@@ -2,13 +2,13 @@ import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "..";
 
 interface AdoptionsFormInfo {
-    id: number,
-    name: string,
+    id?: number,
+    tutors_name: string,
     email: string,
     phone: number,
     address: string,
-    cpf: string,
-    animal_id: string,
+    cpf: number,
+    animal_id: number,
     observation?: string,
     created_at?: string,
     updated_at?: string,
@@ -26,7 +26,7 @@ AdoptionsForm.init({
     primaryKey: true,
     autoIncrement: true,
   },
-  name: {
+  tutors_name: {
     type: DataTypes.STRING,
     allowNull: false
   },
@@ -47,7 +47,7 @@ AdoptionsForm.init({
     allowNull: false,
   },
   animal_id: {
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
     allowNull: true,
   },
   created_at: {

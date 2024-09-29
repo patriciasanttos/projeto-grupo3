@@ -13,7 +13,7 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
-      name: {
+      tutors_name: {
         type: DataTypes.STRING,
         allowNull: false
       },
@@ -34,7 +34,7 @@ module.exports = {
         allowNull: false,
       },
       animal_id: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
       created_at: {

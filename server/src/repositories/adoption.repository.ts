@@ -1,9 +1,11 @@
 import { Animal } from "../database/models";
 import Adoption from "../database/models/Adoption";
-import { AdoptionType } from "../types/types";
+import AdoptionsForm from "../database/models/AdoptionForm";
+import { AdoptionFormType, AdoptionType } from "../types/types";
 import serverErrorHandler from "../utils/serverErrorHandler";
 
 export default {
+    //-----Adoptions
     async getAdoptionById(id: number): Promise<{ code: number, data: {} }> {
         try {
             //-----Buscar adoção na tabela
@@ -63,10 +65,11 @@ export default {
 
             const animal = gettedAnimal.dataValues;
 
+            delete data?.animal_id;
             // -----Salvar adoção na tabela
             await Adoption.create({
                 ...data,
-                animal_id: data.animal_id,
+                animal_id: animal.id,
                 animal_name: animal.name,
                 image: animal.image,
                 species: animal.species,
@@ -137,5 +140,83 @@ export default {
         } catch (error: any) {
             return serverErrorHandler(error);
         }
-    }
+    },
+
+    //-----Adoptions forms
+    async getAllAdoptionsForms(): Promise<{ code: number, data: {} }> {
+        try {
+            //-----Buscar formulários na tabela
+            const adoptions = await AdoptionsForm.findAll();
+
+            if (adoptions === null)
+                return {
+                    code: 404,
+                    data: {
+                        error: 'No adoptions forms found'
+                    }
+                };
+
+            return {
+                code: 200,
+                data: adoptions
+            };
+        } catch (error: any) {
+            return serverErrorHandler(error);
+        }
+    },
+
+    async createAdoptionForm(data: AdoptionFormType): Promise<{ code: number, data?: {} }> {
+        try {
+            // -----Salvar formulário na tabela
+            await AdoptionsForm.create({ ...data });
+
+            return {
+                code: 201
+            };
+        } catch (error: any) {
+            return serverErrorHandler(error);
+        }
+    },
+
+    async acceptAdoptionForm(id: number): Promise<{ code: number, data?: {} }> {
+        try {
+            // -----Buscar formulário na tabela
+            const form = await AdoptionsForm.findByPk(id);
+            
+            if (!form)
+                return {
+                    code: 404,
+                    data: {
+                        error: 'Adoption form not found'
+                    }
+                }
+
+            const adoption = { ...form.dataValues }
+            delete adoption.id;
+
+            await this.createAdoption(adoption);
+            await form.destroy();
+
+            return {
+                code: 200
+            };
+        } catch (error: any) {
+            return serverErrorHandler(error);
+        }
+    },
+
+    async denyAdoptionForm(id: number): Promise<{ code: number, data?: {} }> {
+        try {
+            // -----Buscar formulário na tabela
+            const form = await AdoptionsForm.findByPk(id);
+
+            await form?.destroy();
+
+            return {
+                code: 200
+            };
+        } catch (error: any) {
+            return serverErrorHandler(error);
+        }
+    },
 };
