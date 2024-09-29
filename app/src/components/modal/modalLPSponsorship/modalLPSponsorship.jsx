@@ -5,6 +5,7 @@ import "./Styles.scss";
 import Modal from "..";
 import Button from "../../button";
 import { createSponsorshipForm } from "../../../services/api/sponsorships";
+import { createAdoptionForm } from "../../../services/api/adoptions";
 
 function ModalLPSponsorship({
   isOpen,
@@ -20,7 +21,7 @@ function ModalLPSponsorship({
   });
 
   const [formAdoption, setFormAdoption] = useState({
-    name: "",
+    tutors_name: "",
     address: "",
     email: "",
     phone: "",
@@ -29,7 +30,7 @@ function ModalLPSponsorship({
 
   const onClickModalButton = async () => {
     if (showForm) {
-      await createSponsorshipForm({ 
+      return await createSponsorshipForm({ 
         ...formSponsor, 
         phone: Number(formSponsor.phone.replace(/[()\-\s]/g, "")), 
         animal_id: selectedAnimal.id 
@@ -38,15 +39,30 @@ function ModalLPSponsorship({
           alert("Formulário enviado com sucesso!");
           onModalClose();
           setFormSponsor({
-            name: "",
+            tutors_name: "",
             email: "",
             phone: "",
           });
         }).catch(error => console.log(error));
     }
-    // else {
-    //   window.open("https://0lh2dmk5.forms.app/formulario-de-adocao-da-sjpa", "_blank");
-    // }
+    
+    await createAdoptionForm({
+      ...formAdoption,
+      phone: Number(formAdoption.phone.replace(/[()\-\s]/g, "")),
+      cpf: Number(formAdoption.cpf.replace(/[-.]/g, '')),
+      animal_id: selectedAnimal.id
+    })
+      .then(() => {
+        alert("Formulário enviado com sucesso!");
+        onModalClose();
+        setFormAdoption({
+          tutors_name: "",
+          address: "",
+          email: "",
+          phone: "",
+          cpf: "",
+        });
+      }).catch(error => console.log(error));
   };
 
   return (
@@ -152,9 +168,9 @@ function ModalLPSponsorship({
               <h2>Preencha o formulário</h2>
               <form>
                 <input
-                  value={formAdoption.name}
+                  value={formAdoption.tutors_name}
                   onChange={(e) =>
-                    setFormAdoption({ ...formAdoption, name: e.target.value })
+                    setFormAdoption({ ...formAdoption, tutors_name: e.target.value })
                   }
                   type="text"
                   placeholder="Nome Completo *"

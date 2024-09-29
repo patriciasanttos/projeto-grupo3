@@ -91,7 +91,7 @@ const Adoption = () => {
       <ContentHero
         subtitle="Faça a diferença na vida de um animal"
         title="Adote um companheiro"
-        text="Adotar um animal é um gesto de amor que transforma vidas — a sua e a deles. Na nossa ONG, cães e gatos esperam por um lar onde possam dar e receber carinho. Cada um traz consigo uma história de superação e o desejo profundo de ser amado. Ao adotar, você não só muda a vida de um animal, mas também abre espaço para que outros possam ser resgatados e cuidados. Faça parte desse ciclo de amor e compaixão."
+        text="Adotar um animal é um gesto de amor que transforma vidas: a sua e a deles. Na nossa ONG, cães e gatos esperam por um lar onde possam dar e receber carinho. Cada um traz consigo uma história de superação e o desejo profundo de ser amado. Ao adotar, você não só muda a vida de um animal, mas também abre espaço para que outros possam ser resgatados e cuidados. Faça parte desse ciclo de amor e compaixão."
       />
       {loading ? (
         <LoadingPaw />
@@ -104,10 +104,7 @@ const Adoption = () => {
               setFiltersState={setFilters}
             />
 
-            <div
-              className="card-container"
-              onClick={() => console.log(filters)}
-            >
+            <div className="card-container">
               {paginatedAnimals.map((animal) => (
                 <CardAnimal
                   onClickButton={onClickCardAnimal}

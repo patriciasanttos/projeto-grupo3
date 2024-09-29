@@ -36,7 +36,7 @@ function Contact() {
               width="500"
               height="300"
               loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
+              referrerPolicy="no-referrer-when-downgrade"
               title="Maps"
             ></iframe>
 

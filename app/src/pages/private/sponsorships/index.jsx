@@ -60,8 +60,8 @@ function Sponsorships() {
     await getAllAnimals()
       .then(async (animals) => {
         const gettedAnimalsList = animals.map((animal) => ({
-          id: animal.id,
-          name: animal.name
+            id: animal.id,
+            name: animal.name
         }));
 
         setAnimalsList(gettedAnimalsList);
@@ -80,7 +80,9 @@ function Sponsorships() {
             id: form.id,
             name: form.name,
             email: form.email,
-            phone: form.phone,
+            phone: form.phone.length === 11
+            ? `(${form.phone.slice(0, 2)}) ${form.phone.slice(2, 7)}-${form.phone.slice(7)}`
+            : `(${form.phone.slice(0, 2)}) ${form.phone.slice(2, 6)}-${form.phone.slice(6)}`,
             animal_name: animal.name,
             animal_id: animal.id
           });
@@ -104,9 +106,11 @@ function Sponsorships() {
                 id: sponsorhip.id,
                 name: sponsorhip.name,
                 email: sponsorhip.email,
-                phone: sponsorhip.phone,
-                animal_name: sponsorhip.Animals[0].name,
-                animal_id: sponsorhip.Animals[0].id,
+                phone: sponsorhip.phone.length === 11
+                ? `(${sponsorhip.phone.slice(0, 2)}) ${sponsorhip.phone.slice(2, 7)}-${sponsorhip.phone.slice(7)}`
+                : `(${sponsorhip.phone.slice(0, 2)}) ${sponsorhip.phone.slice(2, 6)}-${sponsorhip.phone.slice(6)}`,
+                animal_name: sponsorhip.Animals[0]?.name,
+                animal_id: sponsorhip.Animals[0]?.id,
                 observation: sponsorhip.observation,
               });
             });
@@ -290,7 +294,7 @@ function Sponsorships() {
             />
           </div>
 
-          {userHasPermission && (
+          {userHasPermission && !isFormViewSelected && (
             <div className="add-icon">
               Adicionar
               <img
@@ -304,7 +308,7 @@ function Sponsorships() {
         </div>
 
         <div className="sponsorship-list-container">
-          <section className="btn-show-form-container">
+            <section className="btn-show-form-container">
               <div>
                 <button
                   className={`btn-show-form ${
@@ -326,31 +330,31 @@ function Sponsorships() {
                 </button>
               </div>
             </section>
-          </div>
 
-          {loading && <LoadingPaw /> } 
+            {loading && <LoadingPaw /> } 
 
-          {!loading && isFormViewSelected && (
-            <AdminList
-              columns={columns}
-              rows={getFilteredItems('forms')}
-              onClickEditRow={onClickEditSponsor}
-              onClickDeleteRow={onClickDeleteSponsor}
-              userHasPermission={userHasPermission}
-              isFormActions={true}
-              formActionsFunction={{ accept: acceptSponsorshipForm, deny: denySponsorshipForm }}
-            />
-          )}
+            {!loading && isFormViewSelected && (
+              <AdminList
+                columns={columns}
+                rows={getFilteredItems('forms')}
+                onClickEditRow={onClickEditSponsor}
+                onClickDeleteRow={onClickDeleteSponsor}
+                userHasPermission={userHasPermission}
+                isFormActions={true}
+                formActionsFunction={{ accept: acceptSponsorshipForm, deny: denySponsorshipForm }}
+              />
+            )}
 
-          {!loading && !isFormViewSelected && (
-            <AdminList
-              columns={columns}
-              rows={getFilteredItems('sponsorships')}
-              onClickEditRow={onClickEditSponsor}
-              onClickDeleteRow={onClickDeleteSponsor}
-              userHasPermission={userHasPermission}
-            />
-          )}
+            {!loading && !isFormViewSelected && (
+              <AdminList
+                columns={columns}
+                rows={getFilteredItems('sponsorships')}
+                onClickEditRow={onClickEditSponsor}
+                onClickDeleteRow={onClickDeleteSponsor}
+                userHasPermission={userHasPermission}
+              />
+            )}
+        </div>
       </AdminNavBar>
       <ModalSponsorshipsAdmin
         isOpen={isModalOpen}

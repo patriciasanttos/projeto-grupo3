@@ -3,6 +3,7 @@ import Modal from "../index";
 import { IMaskInput } from "react-imask";
 import ModalActionsEnum from '../../../utils/ModalActionsEnum'
 import ModalDeleteConfirm from "../modalDeleteConfirm/ModalDeleteConfirm";
+import Dropdown from "../../dropdown";
 
 const ModalAdoptionsAdmin = ({
   isOpen,
@@ -12,12 +13,14 @@ const ModalAdoptionsAdmin = ({
   updateTutorsList,
   createTutorsList,
   deleteTutorsList,
+  animalsList
 }) => {
   const initialFormTutors = {
     tutors_name: "",
     email: "",
     phone: "",
     address: "",
+    cpf: "",
     animal_id: "",
     observation: "",
   };
@@ -73,7 +76,7 @@ const ModalAdoptionsAdmin = ({
             type="text"
             name="name"
             placeholder="Nome do Tutor"
-            value={getFormState("tutors_name")}tutors_name
+            value={getFormState("tutors_name")}
             onChange={(e) =>
               setFormTutors({ ...formTutors, tutors_name: e.target.value })
             }
@@ -113,20 +116,32 @@ const ModalAdoptionsAdmin = ({
         </div>
 
         <div className="al-modal-form">
-          <input
-            type="text"
+          <IMaskInput
+            mask={"000.000.000-00"}
+            value={formTutors.cpf}
+            onAccept={(value) =>
+              setFormTutors({ ...formTutors, cpf: value })
+            }
+            placeholder="CPF"
+          />
+
+          <Dropdown
+            defaultValue=""
+            placeholder="Animal"
             name="animal_id"
-            id=""
-            placeholder="ID do animal"
             readOnly={selectedTutor ? true : false}
             value={getFormState("animal_id")}
-            onChange={(e) =>
-              setFormTutors({
-                ...formTutors,
-                animal_id: e.target.value,
-              })
+            onChange={(e) => setFormTutors({
+              ...formTutors,
+              animal_id: e.target.value,
+            })}
+          >
+            {
+              animalsList.map((animal) => (
+                <option key={animal.id} value={animal.id}>{animal.id}: {animal.name}</option>
+              ))
             }
-          />
+          </Dropdown>
         </div>
 
         <textarea

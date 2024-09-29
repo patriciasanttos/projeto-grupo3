@@ -51,7 +51,12 @@ function AdminPage() {
     setLoading(true);
     getAllAdmins(localStorage.getItem("login"))
       .then((data) => {
-        setAdminsList(data);
+        setAdminsList(data.map(admin => ({
+          ...admin,
+          phone: admin.phone.length === 11
+            ? `(${admin.phone.slice(0, 2)}) ${admin.phone.slice(2, 7)}-${admin.phone.slice(7)}`
+            : `(${admin.phone.slice(0, 2)}) ${admin.phone.slice(2, 6)}-${admin.phone.slice(6)}`
+        })));
         setLoading(false);
       })
       .catch((error) => {
