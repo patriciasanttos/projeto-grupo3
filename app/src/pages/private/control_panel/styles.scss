@@ -12,22 +12,28 @@
     }
 }
 
+.control-panel-username {
+    text-align: center;
+    margin: 0;
+    font-weight: 600;
+}
+
 .admin-main-container {
     height: 80%;
     text-align: left;
     padding: 80px;
 }
-.admin-main-container h2{
+.admin-main-container h2 {
     font-size: 30px;
     margin-bottom: 40px;
 }
-.admin-main-container h3{
+.admin-main-container h3 {
     color: #46A441;
     text-align: left;
     font-size: 35px;
     font-weight: normal;
 }
-.admin-main-container p{
+.admin-main-container p {
     font-size: 25px;
     margin-bottom: 65px;
 }
