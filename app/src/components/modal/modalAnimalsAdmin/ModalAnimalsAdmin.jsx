@@ -159,6 +159,13 @@ const ModalAnimalsAdmin = ({
   };
 
   const onClickModalClose = () => {
+    setEmptyInput({
+      name: false,
+      email: false,
+      phone: false,
+      animal_id: false,
+    });
+
     onModalClose();
     setFormAnimals(initialFormAnimals);
   };

@@ -109,6 +109,13 @@ const ModalAdmin = ({
   };
 
   const onClickDelete = () => {
+    setEmptyInput({
+      name: false,
+      email: false,
+      phone: false,
+      animal_id: false,
+    });
+
     if (selectedAdmin) {
       deleteAdminsList(formAdmins);
     }
