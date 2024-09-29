@@ -22,11 +22,6 @@ function AdminNavBar({ headerTitle, children }) {
 
   const openMenu = () => {
     setMenuIsOpen(!menuIsOpen);
-    console.log('a')
-  };
-
-  const logout = () => {
-    console.log('Logout');
   };
 
   return (
