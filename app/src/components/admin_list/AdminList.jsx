@@ -63,11 +63,11 @@ function AdminList({
 
       return (
         ( //-----If admin has full permission, but the admin on the line is another admin with full permission
-          row.permissions.filter(perm => perm.id === 6)[0] &&
+          row.permissions?.filter(perm => perm.id === 6)[0] &&
           row.id === jwtDecode(localStorage.getItem('login')).userId
         ) ||
         //-----If admin has full permission, but the admin on the line not
-        (!row.permissions.filter(perm => perm.id === 6)[0])
+        (!row.permissions?.filter(perm => perm.id === 6)[0])
       ) && (
         <td className="flex-row">
           <Tooltip text="Editar">
