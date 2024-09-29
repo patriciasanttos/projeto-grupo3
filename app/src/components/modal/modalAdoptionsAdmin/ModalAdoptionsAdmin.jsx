@@ -20,6 +20,7 @@ const ModalAdoptionsAdmin = ({
     email: "",
     phone: "",
     address: "",
+    cpf: "",
     animal_id: "",
     observation: "",
   };
@@ -75,7 +76,7 @@ const ModalAdoptionsAdmin = ({
             type="text"
             name="name"
             placeholder="Nome do Tutor"
-            value={getFormState("tutors_name")}tutors_name
+            value={getFormState("tutors_name")}
             onChange={(e) =>
               setFormTutors({ ...formTutors, tutors_name: e.target.value })
             }
@@ -115,18 +116,13 @@ const ModalAdoptionsAdmin = ({
         </div>
 
         <div className="al-modal-form">
-          <input
-            type="text"
-            name="cpf"
-            id=""
-            placeholder="CPF"
-            value={getFormState("cpf")}
-            onChange={(e) =>
-              setFormTutors({
-                ...formTutors,
-                cpf: e.target.value,
-              })
+          <IMaskInput
+            mask={"000.000.000-00"}
+            value={formTutors.cpf}
+            onAccept={(value) =>
+              setFormTutors({ ...formTutors, cpf: value })
             }
+            placeholder="CPF"
           />
 
           <Dropdown

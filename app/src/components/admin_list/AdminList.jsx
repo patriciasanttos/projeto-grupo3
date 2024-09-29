@@ -94,14 +94,16 @@ function AdminList({
           </tr>
         </thead>
         <tbody>
-          {rows.map((row, index) => (
-            <tr key={row.id} className="row">
+          {rows.map((row, index) => {
+            return (
+              <tr key={row.id} className="row">
               {columns.map((column, i) => (
                 <td key={`${index} - ${i}`}>{getCell(row[column.rowKey])}</td>
               ))}
               {userHasPermission && getActions(row)}
             </tr>
-            ))}
+            )
+          })}
         </tbody>
       </table>
       {(!rows || (rows && rows.length === 0)) && (
