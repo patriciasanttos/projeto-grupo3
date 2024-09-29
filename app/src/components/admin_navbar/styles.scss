@@ -1,6 +1,7 @@
 .admin-page-container {
     display: flex;
     justify-content: center;
+    max-height: 100vh;
 
     .admin-aside {
         border: 1px solid var(--background-primary-color);
@@ -36,8 +37,8 @@
                 transition: border-bottom 0.3s ease;
 
                 img {
-                    width: 50%;
-                    height: 50%;
+                    width: 3rem;
+                    height: 3rem;
                 }
             }
 

@@ -10,7 +10,7 @@ function DonationCard() {
   return (
     <section className="donation_card">
         <div className="card">
-            <div class="icon-container">
+            <div className="icon-container">
                 <img src={broom} alt="Icone de Limpeza" className="icon_donation"/>
             </div>
             <div> 
@@ -24,7 +24,7 @@ function DonationCard() {
         </div>
 
         <div className="card">
-            <div class="icon-container">
+            <div className="icon-container">
                 <img src={med_kit} alt="kit medico" className="icon_donation" />
             </div>
             <div> 
@@ -39,7 +39,7 @@ function DonationCard() {
         </div>
 
         <div className="card">
-            <div class="icon-container">
+            <div className="icon-container">
                 <img src={medicine} alt="seringa" className="icon_donation" />
             </div>
             <div> 
