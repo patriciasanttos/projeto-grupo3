@@ -1,12 +1,3 @@
-.section-call {
-    background-image: url('../../../assets/images/backgrounds/bg-gray-paw.svg');
-    background-size: cover;
-    background-repeat: no-repeat;
-
-    text-align: center;
-    padding-top: 3rem;
-}
-
 .call-title {
     color: #26A59E;
     font-weight: 900;
@@ -44,19 +35,8 @@
 
 .ways-to-donate {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     margin-bottom: 3rem;
-}
-
-.left {
-    flex: 5;
-    text-align: left;
-    margin-left: 12.3rem;
-}
-
-.right {
-    flex: 5;
-    text-align: left;
 }
 
 .right h4 {
@@ -148,8 +128,6 @@ li {
     }
 
     .left {
-        margin-left: 1rem;
-
         text-align: center;
     }
 

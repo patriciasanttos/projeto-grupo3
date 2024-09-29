@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 
 import logo from '../../assets/images/logo.svg';
 import animals_icon from '../../assets/icons/navbar_admin/animals_icon.svg';
@@ -6,14 +8,26 @@ import sponsorships_icon from "../../assets/icons/navbar_admin/sponsorships_icon
 import adoptions_icon from "../../assets/icons/navbar_admin/adoptions_icon.svg";
 import volunteers_icon from "../../assets/icons/navbar_admin/volunteers_icon.svg";
 import admin_icon from "../../assets/icons/navbar_admin/admin_icon.svg";
-import logout from "../../assets/icons/navbar_admin/logout.svg";
+import logoutIcon from "../../assets/icons/navbar_admin/logout.svg";
+import user_icon from "../../assets/icons/navbar_admin/user_icon.svg";
+
+import LogoutModal from './logoutModal/LogoutModal';
 
 import './styles.scss';
-import { Link } from 'react-router-dom';
-import LogoutModal from './logoutModal/LogoutModal';
 
 function AdminNavBar({ headerTitle, children }) {
   const [ logoutModalOpen, setLogoutModalOpen ] = useState(false);
+  const [ menuIsOpen, setMenuIsOpen ] = useState(false);
+  const userCookie = jwtDecode(localStorage.getItem('login'));
+
+  const openMenu = () => {
+    setMenuIsOpen(!menuIsOpen);
+    console.log('a')
+  };
+
+  const logout = () => {
+    console.log('Logout');
+  };
 
   return (
     <div className="admin-page-container">
@@ -57,16 +71,26 @@ function AdminNavBar({ headerTitle, children }) {
               <p>Administrador</p>
             </button>
           </Link>
-          <button className="admin-navbar-btn logout-button" onClick={() => setLogoutModalOpen(true)}>
-            <img src={logout} alt="" />
-            <p>Sair</p>
-          </button>
         </nav>
       </aside>
 
       <div className="admin-page-content">
         <header className="admin-header">
           <h1>{headerTitle}</h1>
+
+          <div className="admin-header-user-container">
+            <button onClick={openMenu} className='admin-header-user-btn'>
+              {userCookie.name} <img src={user_icon} alt="User Icon" />
+            </button>
+
+            {menuIsOpen && (
+              <div className="admin-header-menu-dropdown">
+                <button onClick={() => setLogoutModalOpen(true)} className="admin-header-logout-btn">
+                  Sair <img src={logoutIcon} alt="" />
+                </button>
+              </div>
+            )}
+          </div>
         </header>
 
         <main className="admin-main-container">{children}</main>
