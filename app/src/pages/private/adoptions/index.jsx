@@ -361,6 +361,7 @@ function Adoptions() {
         updateTutorsList={updateTutorsList}
         createTutorsList={createTutorsList}
         deleteTutorsList={deleteTutorsList}
+        animalsList={animalsList}
       />
     </>
   );
