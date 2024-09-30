@@ -182,8 +182,8 @@ function Volunteers() {
       rowKey: "name",
     },
     {
-      title: "E-mail",
-      rowKey: "email",
+      title: "Setor",
+      rowKey: "sector",
     },
     {
       title: "Celular",
