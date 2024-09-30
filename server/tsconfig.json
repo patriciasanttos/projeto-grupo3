@@ -12,6 +12,7 @@
     "skipLibCheck": true,
     "moduleResolution": "Node16",
     "outDir": "./dist",
+    "rootDir": "./src",
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
   },

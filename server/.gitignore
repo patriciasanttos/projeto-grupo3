@@ -5,3 +5,4 @@ yarn.lock
 /src/assets/images/animals/*
 
 .env
+dist
