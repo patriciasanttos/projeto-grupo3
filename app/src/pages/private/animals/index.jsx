@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 import AdminNavBar from "../../../components/admin_navbar/AdminNavBar";
 import AdminList from "../../../components/admin_list/AdminList";
@@ -104,7 +105,10 @@ function Animals() {
     }
 
     await updateAnimal(formData, localStorage.getItem('login'))
-      .catch(error => console.log(error));
+      .catch((error) =>{ 
+        console.log(error)
+        toast.error("Erro ao atualizar. Tente novamente.");
+      });
 
     setAnimalsList(animals);
     setIsModalOpen(false);
@@ -142,12 +146,15 @@ function Animals() {
     formData.append("observation", animal.observation);
 
     if (!animal.image)
-      return window.alert('Por favor, selecione uma imagem')
+      return toast.info('Por favor, selecione uma imagem')
     
     formData.append("image", animal.image);
 
     await createAnimal(formData, localStorage.getItem('login'))
-      .catch(error => console.log(error));
+      .catch((error) =>{ 
+        console.log(error)
+        toast.error("Erro ao adicionar. Tente novamente.");
+      });
 
     setAnimalsList(animals);
     setIsModalOpen(false);

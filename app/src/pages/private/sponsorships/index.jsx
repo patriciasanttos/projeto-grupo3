@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 
 import AdminNavBar from "../../../components/admin_navbar/AdminNavBar";
 import ModalSponsorshipsAdmin from "../../../components/modal/modalSponsorshipsAdmin/ModalSponsorshipsAdmin";
@@ -57,68 +58,88 @@ function Sponsorships() {
   }, []);
 
   const loadAnimals = async () => {
-    await getAllAnimals()
-      .then(async (animals) => {
-        const gettedAnimalsList = animals.map((animal) => ({
-            id: animal.id,
-            name: animal.name
-        }));
+    await getAllAnimals().then(async (animals) => {
+      const gettedAnimalsList = animals.map((animal) => ({
+        id: animal.id,
+        name: animal.name,
+      }));
 
-        setAnimalsList(gettedAnimalsList);
-        loadForms(gettedAnimalsList)
-      });
-  }
+      setAnimalsList(gettedAnimalsList);
+      loadForms(gettedAnimalsList);
+    });
+  };
 
   const loadForms = async (animals) => {
     await getAllSponsorshipsForms(localStorage.getItem("login"))
-      .then(async data => {
-        const sponsorshipsFormList = []
-        await data.forEach(form => {
-          const animal = animals.filter(animal => animal.id === form.animal_id)[0];
+      .then(async (data) => {
+        const sponsorshipsFormList = [];
+        await data.forEach((form) => {
+          const animal = animals.filter(
+            (animal) => animal.id === form.animal_id
+          )[0];
 
           return sponsorshipsFormList.push({
             id: form.id,
             name: form.name,
             email: form.email,
-            phone: form.phone.length === 11
-            ? `(${form.phone.slice(0, 2)}) ${form.phone.slice(2, 7)}-${form.phone.slice(7)}`
-            : `(${form.phone.slice(0, 2)}) ${form.phone.slice(2, 6)}-${form.phone.slice(6)}`,
+            phone:
+              form.phone.length === 11
+                ? `(${form.phone.slice(0, 2)}) ${form.phone.slice(
+                    2,
+                    7
+                  )}-${form.phone.slice(7)}`
+                : `(${form.phone.slice(0, 2)}) ${form.phone.slice(
+                    2,
+                    6
+                  )}-${form.phone.slice(6)}`,
             animal_name: animal.name,
-            animal_id: animal.id
+            animal_id: animal.id,
           });
         });
 
         return setSponsorsFormsList(sponsorshipsFormList);
       })
-      .catch(error => console.log(error))
-  }
+      .catch((error) => {
+        console.log(error);
+        toast.error("Erro ao carregar. Tente novamente.");
+      });
+  };
 
   const refreshSponsorshipships = async () => {
     setLoading(true);
 
-    await loadAnimals()
-      .then(async () => {
-        await getAllSponsorshipships(localStorage.getItem("login"))
-          .then(async (data) => {
-            let sponsorshipsList = [];
-            await data.forEach((sponsorhip) => {
-              sponsorshipsList.push({
-                id: sponsorhip.id,
-                name: sponsorhip.name,
-                email: sponsorhip.email,
-                phone: sponsorhip.phone.length === 11
-                ? `(${sponsorhip.phone.slice(0, 2)}) ${sponsorhip.phone.slice(2, 7)}-${sponsorhip.phone.slice(7)}`
-                : `(${sponsorhip.phone.slice(0, 2)}) ${sponsorhip.phone.slice(2, 6)}-${sponsorhip.phone.slice(6)}`,
-                animal_name: sponsorhip.Animals[0]?.name,
-                animal_id: sponsorhip.Animals[0]?.id,
-                observation: sponsorhip.observation,
-              });
+    await loadAnimals().then(async () => {
+      await getAllSponsorshipships(localStorage.getItem("login"))
+        .then(async (data) => {
+          let sponsorshipsList = [];
+          await data.forEach((sponsorhip) => {
+            sponsorshipsList.push({
+              id: sponsorhip.id,
+              name: sponsorhip.name,
+              email: sponsorhip.email,
+              phone:
+                sponsorhip.phone.length === 11
+                  ? `(${sponsorhip.phone.slice(0, 2)}) ${sponsorhip.phone.slice(
+                      2,
+                      7
+                    )}-${sponsorhip.phone.slice(7)}`
+                  : `(${sponsorhip.phone.slice(0, 2)}) ${sponsorhip.phone.slice(
+                      2,
+                      6
+                    )}-${sponsorhip.phone.slice(6)}`,
+              animal_name: sponsorhip.Animals[0]?.name,
+              animal_id: sponsorhip.Animals[0]?.id,
+              observation: sponsorhip.observation,
             });
-  
-            setSponsorsList(sponsorshipsList);
-          })
-          .catch(error => console.log(error));
-      })
+          });
+
+          setSponsorsList(sponsorshipsList);
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error("Erro ao carregar. Tente novamente.");
+        });
+    });
 
     return setLoading(false);
   };
@@ -141,7 +162,7 @@ function Sponsorships() {
           );
         }
       });
-  
+
       return results;
     }
 
@@ -158,7 +179,7 @@ function Sponsorships() {
           );
         }
       });
-  
+
       return results;
     }
   };
@@ -170,21 +191,33 @@ function Sponsorships() {
         phone: Number(sponsor.phone.replace(/[()\-\s]/g, "")),
       },
       localStorage.getItem("login")
-    ).catch((error) => console.log(error));
+    )
+      .then(() => {
+        setIsModalOpen(false);
+        refreshSponsorshipships();
 
-    setIsModalOpen(false);
-    refreshSponsorshipships();
+        toast.success("Atualizado com sucesso!");
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Erro ao atualizar. Tente novamente.");
+      });
   };
 
   const deleteSponsorsList = async (sponsor) => {
-    await deleteSponsorship(sponsor.id, localStorage.getItem("login")).catch(
-      (error) => console.log(error)
-    );
+    deleteSponsorship(sponsor.id, localStorage.getItem("login"))
+      .then(() => {
+        toast.success("Apagado com sucesso!");
 
-    setSponsorsList(
-      sponsorsList.filter((sponsors) => sponsors.id !== sponsor.id)
-    );
-    setIsModalOpen(false);
+        setSponsorsList(
+          sponsorsList.filter((sponsors) => sponsors.id !== sponsor.id)
+        );
+        setIsModalOpen(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Erro ao apagar. Tente novamente.");
+      });
   };
 
   const createSponsorsList = async (sponsor) => {
@@ -198,10 +231,12 @@ function Sponsorships() {
       .then(() => {
         setIsModalOpen(false);
         refreshSponsorshipships();
+
+        toast.success("Criado com sucesso!");
       })
       .catch(({ response }) => {
         if (response.data.error === "Animal not found")
-          return alert("Animal não encontrado.");
+          return toast.error("Animal não encontrado.");
       });
   };
 
@@ -308,52 +343,55 @@ function Sponsorships() {
         </div>
 
         <div className="sponsorship-list-container">
-            <section className="btn-show-form-container">
-              <div>
-                <button
-                  className={`btn-show-form ${
-                    isFormViewSelected ? "" : "btn-show-form-active"
-                  }`}
-                  onClick={created}
-                >
-                  Voluntários
-                </button>
-              </div>
-              <div>
-                <button
-                  className={`btn-show-form ${
-                    isFormViewSelected ? "btn-show-form-active" : ""
-                  }`}
-                  onClick={requested}
-                >
-                  Formulários
-                </button>
-              </div>
-            </section>
+          <section className="btn-show-form-container">
+            <div>
+              <button
+                className={`btn-show-form ${
+                  isFormViewSelected ? "" : "btn-show-form-active"
+                }`}
+                onClick={created}
+              >
+                Apadrinhamentos
+              </button>
+            </div>
+            <div>
+              <button
+                className={`btn-show-form ${
+                  isFormViewSelected ? "btn-show-form-active" : ""
+                }`}
+                onClick={requested}
+              >
+                Formulários
+              </button>
+            </div>
+          </section>
 
-            {loading && <LoadingPaw /> } 
+          {loading && <LoadingPaw />}
 
-            {!loading && isFormViewSelected && (
-              <AdminList
-                columns={columns}
-                rows={getFilteredItems('forms')}
-                onClickEditRow={onClickEditSponsor}
-                onClickDeleteRow={onClickDeleteSponsor}
-                userHasPermission={userHasPermission}
-                isFormActions={true}
-                formActionsFunction={{ accept: acceptSponsorshipForm, deny: denySponsorshipForm }}
-              />
-            )}
+          {!loading && isFormViewSelected && (
+            <AdminList
+              columns={columns}
+              rows={getFilteredItems("forms")}
+              onClickEditRow={onClickEditSponsor}
+              onClickDeleteRow={onClickDeleteSponsor}
+              userHasPermission={userHasPermission}
+              isFormActions={true}
+              formActionsFunction={{
+                accept: acceptSponsorshipForm,
+                deny: denySponsorshipForm,
+              }}
+            />
+          )}
 
-            {!loading && !isFormViewSelected && (
-              <AdminList
-                columns={columns}
-                rows={getFilteredItems('sponsorships')}
-                onClickEditRow={onClickEditSponsor}
-                onClickDeleteRow={onClickDeleteSponsor}
-                userHasPermission={userHasPermission}
-              />
-            )}
+          {!loading && !isFormViewSelected && (
+            <AdminList
+              columns={columns}
+              rows={getFilteredItems("sponsorships")}
+              onClickEditRow={onClickEditSponsor}
+              onClickDeleteRow={onClickDeleteSponsor}
+              userHasPermission={userHasPermission}
+            />
+          )}
         </div>
       </AdminNavBar>
       <ModalSponsorshipsAdmin

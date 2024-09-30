@@ -1,12 +1,16 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
+import { IMaskInput } from "react-imask";
 
 import Dropdown from "../../../components/dropdown";
-
 import StateSelect from "./StateSelectComponent/StateSelect";
 import isEmailValid from '../../../utils/isEmailValid'
 import { createVolunteerForm } from '../../../services/api/volunteers';
+import Button from "../../../components/button";
 
 const FormOver18 = () => {
+  const [loading, setLoading] = useState(false)
+  
   const formOver18Initial = {
     name: "",
     phone: "",
@@ -106,14 +110,22 @@ const FormOver18 = () => {
     const isValid = validateFormOver18();
 
     if (isValid) {
+      setLoading(true);
+      
       await createVolunteerForm({
         ...formOver18,
         phone: Number(formOver18.phone.replace(/[()\-\s]/g, '')),
       })
         .then(() => {
-          alert("Formulário enviado com sucesso!");
+          setLoading(false);
+          toast.success("Formulário enviado com sucesso!");
+          setFormOver18(formOver18Initial)
         })
-        .catch(error => console.log(error));
+        .catch(error => {
+          setLoading(false);
+          toast.error("Erro ao enviar formulário. Tente novamente.");
+          console.log(error)
+        });
     }
   };
 
@@ -176,10 +188,20 @@ const FormOver18 = () => {
           <option value="Canil">Canil</option>
           <option value="Gatil">Gatil</option>
           <option value="Limpeza">Limpeza</option>
+          <option value="Divulgação">Divulgação</option>
+          <option value="Social Mídia">Social Mídia</option>
+          <option value="Administrador">Administrador(a)</option>
+          <option value="Advogado">Advogado(a)</option>
+          <option value="Veterinário">Veterinário(a)</option>
+          <option value="Marketing">Marketing</option>
+          <option value="Design Gráfico">Design Gráfico</option>
+          <option value="Produtor">Produtor(a)</option>
+          <option value="Artesãos">Artesãos</option>
+          <option value="Economista">Economista</option>
         </Dropdown>
         </div>
         <div className="align-form">
-          <input
+          <IMaskInput
             type="text"
             name="Celular"
             id=""
@@ -219,7 +241,9 @@ const FormOver18 = () => {
         </div>
       </form>
 
-      <button onClick={onClickSubmitOver18}>Enviar</button>
+      <div className="flex-row">
+        <Button loading={loading} onClick={onClickSubmitOver18}>Enviar</Button>
+      </div>
     </div>
   );
 };

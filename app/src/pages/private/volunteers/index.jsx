@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { toast } from 'react-toastify';
+
 import createIcon from "../../../assets/icons/create_icon.svg";
 import AdminNavBar from "../../../components/admin_navbar/AdminNavBar";
 import ModalVolunteers from "../../../components/modal/modalVolunteersAdmin/ModalVolunteers";
@@ -139,6 +141,7 @@ function Volunteers() {
     await updateVolunteer(volunteer, localStorage.getItem("login")).catch(
       (error) => {
         console.log(error);
+        toast.error("Erro ao atualizar. Tente novamente.");
       }
     );
 
@@ -150,6 +153,7 @@ function Volunteers() {
     await deleteVolunteer(volunteer.id, localStorage.getItem("login")).catch(
       (error) => {
         console.log(error);
+        toast.error("Erro ao apagar. Tente novamente.");
       }
     );
 
@@ -165,7 +169,10 @@ function Volunteers() {
         phone: Number(volunteer.phone.replace(/[()\-\s]/g, "")),
       },
       localStorage.getItem("login")
-    ).catch((error) => console.log(error));
+    ).catch((error) =>{ 
+      console.log(error)
+      toast.error("Erro ao salvar. Tente novamente.");
+    });
 
     setIsModalOpen(false);
     refreshVolunteersList();

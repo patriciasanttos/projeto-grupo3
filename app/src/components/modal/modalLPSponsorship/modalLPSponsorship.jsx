@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { IMaskInput } from "react-imask";
+import { toast } from 'react-toastify';
 import "./Styles.scss";
 
 import Modal from "..";
@@ -14,6 +15,8 @@ function ModalLPSponsorship({
   showForm,
   selectedAnimal,
 }) {
+  const [loading, setLoading] = useState(false);
+
   const [formSponsor, setFormSponsor] = useState({
     name: "",
     email: "",
@@ -69,20 +72,27 @@ function ModalLPSponsorship({
       if (hasSponsorError) 
         return;
 
+      setLoading(true);
+      
       return await createSponsorshipForm({ 
         ...formSponsor, 
         phone: Number(formSponsor.phone.replace(/[()\-\s]/g, "")), 
         animal_id: selectedAnimal.id 
       })
         .then(() => {
-          alert("Formulário enviado com sucesso!");
+          setLoading(false);
+          toast.success("Formulário enviado com sucesso!");
           onModalClose();
           setFormSponsor({
             tutors_name: "",
             email: "",
             phone: "",
           });
-        }).catch(error => console.log(error));
+        }).catch(error => {
+          console.log(error)
+          setLoading(false);
+          toast.error("Erro ao enviar formulário. Tente novamente.");
+        });
     }
     
     let hasAdoptionError = false;
@@ -118,7 +128,8 @@ function ModalLPSponsorship({
       animal_id: selectedAnimal.id
     })
       .then(() => {
-        alert("Formulário enviado com sucesso!");
+        setLoading(false);
+        toast.success("Formulário enviado com sucesso!");
         onModalClose();
         setFormAdoption({
           tutors_name: "",
@@ -127,7 +138,11 @@ function ModalLPSponsorship({
           phone: "",
           cpf: "",
         });
-      }).catch(error => console.log(error));
+      }).catch(error => {
+        console.log(error)
+        setLoading(false);
+        toast.error("Erro ao enviar formulário. Tente novamente.");
+      });
   };
 
   return (
@@ -333,7 +348,7 @@ function ModalLPSponsorship({
           </div>
         )}
         <div className="btnSubmit">
-          <Button type="submit" onClick={onClickModalButton}>
+          <Button loading={loading} type="submit" onClick={onClickModalButton}>
             {showForm ? "Quero apadrinhar" : "Quero adotar"}
           </Button>
         </div>

@@ -175,25 +175,6 @@
             border-radius: 5px;
             cursor: pointer;
         }
-
-        button {
-            border-style: none;
-            background-color: var(--button-primary-color);
-            color: #fff;
-            font-size: 1.3rem;
-            font-weight: 600;
-
-            width: 100px;
-            height: 2.5rem;
-            border-radius: 5px;
-
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: var(--button-hover-color);
-        }
     }
 
     @media (max-width: 768px) {
