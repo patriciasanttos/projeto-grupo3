@@ -410,7 +410,7 @@ Esta é a documentação da API para o sistema de gerenciamento de uma ONG, que 
 
 ### **Admins**
 
-- **GET /admins**
+- **GET /admins/get**
   - Retorna todos os administradores.
   - **Exemplo de respostas:**
     ```json
