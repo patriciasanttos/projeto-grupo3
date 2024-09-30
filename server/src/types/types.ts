@@ -58,9 +58,8 @@ export type AdoptionFormType = {
     tutors_name: string,
     email: string,
     phone: number,
-    adderss: string,
-    cpf: number,
     address: string,
+    cpf: number,
     created_at?: string,
     updated_at?: string,
 }

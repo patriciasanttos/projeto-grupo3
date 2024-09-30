@@ -14,7 +14,7 @@ const router = Router();
 
 //-----Animals routes
 router
-    .get('/animals', AnimalsController.getAll)
+    .get('/animals/get', AnimalsController.getAll)
     .get('/animals/:id', AnimalsController.getById)
     .post('/animals', image.single('image'), AnimalsController.create)
     .put('/animals', image.single('image'), AnimalsController.update)
@@ -61,7 +61,7 @@ router
 
 //-----Admins routes
 router
-    .get('/admins', AuthController.getAll)
+    .get('/admins/get', AuthController.getAll)
     .get('/admins/get/:id', AuthController.getById)
     .get('/admins/verify/:id', AuthController.verifyUser)
     .get('/admins/login', AuthController.login)

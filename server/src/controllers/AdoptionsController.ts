@@ -2,6 +2,15 @@ import { Request, Response } from 'express';
 
 import adoptionRepository from '../repositories/adoption.repository';
 
+const requestedProps = [
+    "tutors_name",
+    "email",
+    "phone",
+    "address",
+    "cpf",
+    "animal_id"
+]
+
 class AdoptionsController {
     //-----Adoptions
     async getAll(req: Request, res: Response) {
@@ -20,11 +29,32 @@ class AdoptionsController {
 
     async create(req: Request, res: Response) {
         const data = req.body;
+        
+        if (!data)
+            return res.status(400).json({ message: 'Invalid body request' });
 
-        if (Object.keys(data).length === 0 || data.tutors_name === undefined || data.email === undefined || data.phone === undefined || data.address === undefined || data.animal_id === undefined)
-            return res.status(400).json({ error: 'Invalid body request' });
+        requestedProps.forEach(prop => {
+            if (!data[prop])
+                return res.status(400).json({ message: `Missing ${prop} property in the body request` });
+        });
 
-        const response = await adoptionRepository.createAdoption(data);
+        const { tutors_name, email, phone, address, cpf, animal_id }: {
+            tutors_name: string,
+            email: string,
+            phone: number,
+            address: string,
+            cpf: number
+            animal_id: number,
+        } = { ...data };
+
+        const response = await adoptionRepository.createAdoption({
+            tutors_name,
+            email,
+            phone,
+            address,
+            cpf,
+            animal_id
+        });
 
         return res.status(response.code).json(response.data);
     }
@@ -32,8 +62,11 @@ class AdoptionsController {
     async update(req: Request, res: Response) {
         const data = req.body;
 
-        if (Object.keys(data).length === 0)
-            return res.status(400).json({ error: 'Invalid body request' });
+        if (!data)
+            return res.status(400).json({ message: 'Invalid body request' });
+
+        if (!data.animal_id)
+            return res.status(400).json({ message: 'Missing animal_id property in the body request' });
 
         const response = await adoptionRepository.updateAdoption(data);
 
@@ -58,23 +91,37 @@ class AdoptionsController {
     async createForm(req: Request, res: Response) {
         const data = req.body;
 
-        if (
-            data.tutors_name === undefined || data.email === undefined ||
-            data.phone === undefined || data.address === undefined ||
-            data.cpf === undefined || data.animal_id === undefined
-        )
-            return res.status(400).json({ error: 'Invalid body request' });
+        if (!data)
+            return res.status(400).json({ message: 'Invalid body request' });
 
-        const response = await adoptionRepository.createAdoptionForm(data);
+        requestedProps.forEach(prop => {
+            if (!data[prop])
+                return res.status(400).json({ message: `Missing ${prop} property in the body request` });
+        });
+
+        const { tutors_name, email, phone, address, cpf, animal_id }: {
+            tutors_name: string,
+            email: string,
+            phone: number,
+            address: string,
+            cpf: number
+            animal_id: number,
+        } = { ...data };
+
+        const response = await adoptionRepository.createAdoptionForm({
+            tutors_name,
+            email,
+            phone,
+            address,
+            cpf,
+            animal_id
+        });
 
         return res.status(response.code).json(response.data);
     }
 
     async acceptForm(req: Request, res: Response) {
         const { id } = req.params;
-
-        if (!id)
-            return res.status(400).json({ error: 'Invalid id' });
 
         const response = await adoptionRepository.acceptAdoptionForm(Number(id));
 
@@ -83,9 +130,6 @@ class AdoptionsController {
 
     async denyForm(req: Request, res: Response) {
         const { id } = req.params;
-
-        if (!id)
-            return res.status(400).json({ error: 'Invalid id' });
 
         const response = await adoptionRepository.denyAdoptionForm(Number(id));
 

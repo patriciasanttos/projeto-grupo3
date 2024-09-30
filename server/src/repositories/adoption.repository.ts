@@ -8,14 +8,14 @@ export default {
     //-----Adoptions
     async getAdoptionById(id: number): Promise<{ code: number, data: {} }> {
         try {
-            //-----Buscar adoção na tabela
+            //-----Search adoption in the table
             const adoption = await Adoption.findByPk(id);
 
             if (adoption === null)
                 return {
                     code: 404,
                     data: {
-                        error: 'Adoption not found'
+                        message: 'Adoption not found'
                     }
                 };
             
@@ -30,16 +30,8 @@ export default {
 
     async getAllAdoptions(): Promise<{ code: number, data: {} }> {
         try {
-            //-----Buscar adoções na tabela
+            //-----Search adoption in the table
             const adoption = await Adoption.findAll();
-
-            if (adoption === null)
-                return {
-                    code: 404,
-                    data: {
-                        error: 'No adoptions found'
-                    }
-                };
 
             return {
                 code: 200,
@@ -52,20 +44,20 @@ export default {
 
     async createAdoption(data: AdoptionType): Promise<{ code: number, data?: {} }> {
         try {
-            //-----Buscar animal na tabela
+            //-----Search animal in the table
             const gettedAnimal = await Animal.findByPk(data.animal_id);
 
             if (gettedAnimal === null)
                 return {
                     code: 404,
                     data: {
-                        error: 'Animal not found'
+                        message: 'Animal not found'
                     }
                 };
 
             const animal = gettedAnimal.dataValues;
 
-            // -----Salvar adoção na tabela
+            // -----Save adoption in the table
             await Adoption.create({
                 ...data,
                 animal_id: animal.id,
@@ -96,18 +88,21 @@ export default {
 
     async updateAdoption(data: AdoptionType): Promise<{ code: number, data?: {} }> {
         try {
-            //-----Buscar adoção na tabela
+            //-----Search adoption in the table
             const adoption = await Adoption.findOne({ where: { animal_id: data.animal_id } })
             
             if (adoption === null)
                 return {
                     code: 404,
                     data: {
-                        error: 'Adoption not found'
+                        message: 'Adoption not found'
                     }
                 };
 
-            await adoption.update({ ...data });
+            const updatedData = { ...data };
+            delete updatedData.animal_id;
+
+            await adoption.update({ ...updatedData });
 
             return {
                 code: 200
@@ -119,14 +114,14 @@ export default {
     
     async deleteAdoption(id: number): Promise<{ code: number, data?: {} }> {
         try {
-            //-----Buscar adoção na tabela
+            //-----Search adoption in the table
             const adoption = await Adoption.findOne({ where: { id } });
             
             if (adoption === null)
                 return {
                     code: 404,
                     data: {
-                        error: 'Adoption not found'
+                        message: 'Adoption not found'
                     }
                 };
                 
@@ -144,16 +139,8 @@ export default {
     //-----Adoptions forms
     async getAllAdoptionsForms(): Promise<{ code: number, data: {} }> {
         try {
-            //-----Buscar formulários na tabela
+            //-----Search form in the table
             const adoptions = await AdoptionsForm.findAll();
-
-            if (adoptions === null)
-                return {
-                    code: 404,
-                    data: {
-                        error: 'No adoptions forms found'
-                    }
-                };
 
             return {
                 code: 200,
@@ -166,7 +153,7 @@ export default {
 
     async createAdoptionForm(data: AdoptionFormType): Promise<{ code: number, data?: {} }> {
         try {
-            // -----Salvar formulário na tabela
+            // -----Save form in the table
             await AdoptionsForm.create({ ...data });
 
             return {
@@ -179,20 +166,19 @@ export default {
 
     async acceptAdoptionForm(id: number): Promise<{ code: number, data?: {} }> {
         try {
-            // -----Buscar formulário na tabela
+            // -----Search form in the table
             const form = await AdoptionsForm.findByPk(id);
             
             if (!form)
                 return {
                     code: 404,
                     data: {
-                        error: 'Adoption form not found'
+                        message: 'Adoption form not found'
                     }
                 }
 
             const adoption = { ...form.dataValues }
             delete adoption.id;
-
             
             const gettedAnimal = await Animal.findByPk(form.dataValues.animal_id);
 
@@ -200,7 +186,7 @@ export default {
                 return {
                     code: 404,
                     data: {
-                        error: 'Animal not found'
+                        message: 'Animal not found'
                     }
                 };
 
@@ -208,7 +194,8 @@ export default {
 
             const formData = { ...form.dataValues }
             delete formData.id;
-            // -----Salvar adoção na tabela
+
+            // -----Save adoption in the table
             await Adoption.create({
                 ...formData,
                 animal_id: animal.id,
@@ -245,7 +232,7 @@ export default {
 
     async denyAdoptionForm(id: number): Promise<{ code: number, data?: {} }> {
         try {
-            // -----Buscar formulário na tabela
+            // -----Search form in the table
             const form = await AdoptionsForm.findByPk(id);
 
             await form?.destroy();
