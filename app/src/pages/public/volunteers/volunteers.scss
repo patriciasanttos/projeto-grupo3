@@ -42,9 +42,7 @@
         .section-text-1 {
             padding-top: 5%;
             text-align: center;
-
         }
-
     }
 
     .main-volunteers {
@@ -149,19 +147,23 @@
             flex-direction: column;
             padding-top: 3%;
             margin-bottom: 2%;
-        }
 
-        .volunteers-form input {
-            margin-bottom: 5%;
-            padding: 3%;
-            width: 25vw;
-
-            border: 1px solid var(--background-primary-color);
-            border-radius: 5px;
-        }
-
-        .volunteers-form input:focus {
-            outline: none;
+            input {
+                margin-bottom: 5%;
+                padding: 3%;
+                width: 25vw;
+    
+                border: 1px solid var(--background-primary-color);
+                border-radius: 5px;
+            }
+    
+            input:focus {
+                outline: none;
+            }
+    
+            .input-required {
+                border: 1px solid red;
+            }
         }
 
         .volunteers-form select {
@@ -172,25 +174,6 @@
             border: 1px solid var(--background-primary-color);
             border-radius: 5px;
             cursor: pointer;
-        }
-
-        button {
-            border-style: none;
-            background-color: var(--button-primary-color);
-            color: #fff;
-            font-size: 1.3rem;
-            font-weight: 600;
-
-            width: 100px;
-            height: 2.5rem;
-            border-radius: 5px;
-
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: var(--button-hover-color);
         }
     }
 

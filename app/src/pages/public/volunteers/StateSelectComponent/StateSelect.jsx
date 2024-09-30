@@ -1,13 +1,14 @@
 import React from 'react';
 import Dropdown from '../../../../components/dropdown'
 
-const StateSelect = ({ onChange, error }) => {
+const StateSelect = ({ onChange, error, className }) => {
   return (
     <Dropdown
       defaultValue=""
       placeholder="Estado"
       onChange={onChange}
       error={error}
+      className={className}
     >
       <option value="AC">Acre</option>
       <option value="AL">Alagoas</option>

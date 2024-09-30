@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+
 import Accept from "../../assets/icons/accept-icon.svg";
 import Deny from "../../assets/icons/deny-icon.svg";
 import Tooltip from "../tooltip";
@@ -11,17 +13,25 @@ const ActionsForm = ({ selectedItem, accept, deny, refresh }) => {
       localStorage.getItem("login")
     )
       .then(() => {
+        toast.success("Aprovado com sucesso!");
         refresh();
       })
-      .catch((error) => console.log(error));
+      .catch((error) =>{ 
+        console.log(error)
+        toast.error("Erro ao aceitar. Tente novamente.");
+      });
   };
 
   const denyForm = async () => {
     await deny(selectedItem.id, localStorage.getItem("login"))
       .then(() => {
+        toast.success("Rejeitado com sucesso!");
         refresh();
       })
-      .catch((error) => console.log(error));
+      .catch((error) =>{ 
+        console.log(error)
+        toast.error("Erro ao rejeitar. Tente novamente.");
+      });
   };
 
   return (

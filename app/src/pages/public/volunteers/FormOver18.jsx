@@ -1,13 +1,16 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
+import { IMaskInput } from "react-imask";
 
-import Input from "../../../components/input";
 import Dropdown from "../../../components/dropdown";
-
 import StateSelect from "./StateSelectComponent/StateSelect";
 import isEmailValid from '../../../utils/isEmailValid'
 import { createVolunteerForm } from '../../../services/api/volunteers';
+import Button from "../../../components/button";
 
 const FormOver18 = () => {
+  const [loading, setLoading] = useState(false)
+  
   const formOver18Initial = {
     name: "",
     phone: "",
@@ -21,6 +24,16 @@ const FormOver18 = () => {
 
   const [formOver18, setFormOver18] = useState(formOver18Initial);
   const [formOver18Errors, setFormOver18Errors] = useState(formOver18Initial);
+  const [ emptyInput, setEmptyInput ] = useState({
+    name: false,
+    phone: false,
+    email: false,
+    profession: false,
+    address: false,
+    availability: false,
+    sector: false,
+    state: false,
+  });
 
   const validateFormOver18 = () => {
     let isValid = true;
@@ -45,17 +58,74 @@ const FormOver18 = () => {
   };
 
   const onClickSubmitOver18 = async() => {
+    setEmptyInput({
+      name: false,
+      phone: false,
+      email: false,
+      profession: false,
+      address: false,
+      availability: false,
+      sector: false,
+      state: false,
+    });
+
+    let hasError = false;
+
+    if (!formOver18.name) {
+      setEmptyInput(prev => ({ ...prev, name: true }));
+      hasError = true;
+    }
+    if (!formOver18.email) {
+      setEmptyInput(prev => ({ ...prev, email: true }));
+      hasError = true;
+    }
+    if (!formOver18.phone) {
+      setEmptyInput(prev => ({ ...prev, phone: true }));
+      hasError = true;
+    }
+    if (!formOver18.address) {
+      setEmptyInput(prev => ({ ...prev, address: true }));
+      hasError = true;
+    }
+    if (!formOver18.availability) {
+      setEmptyInput(prev => ({ ...prev, availability: true }));
+      hasError = true;
+    }
+    if (!formOver18.profession) {
+      setEmptyInput(prev => ({ ...prev, profession: true }));
+      hasError = true;
+    }
+    if (!formOver18.sector) {
+      setEmptyInput(prev => ({ ...prev, sector: true }));
+      hasError = true;
+    }
+    if (!formOver18.state) {
+      setEmptyInput(prev => ({ ...prev, state: true }));
+      hasError = true;
+    }
+
+    if (hasError) 
+      return;
+
     const isValid = validateFormOver18();
 
     if (isValid) {
+      setLoading(true);
+      
       await createVolunteerForm({
         ...formOver18,
         phone: Number(formOver18.phone.replace(/[()\-\s]/g, '')),
       })
         .then(() => {
-          alert("Formulário enviado com sucesso!");
+          setLoading(false);
+          toast.success("Formulário enviado com sucesso!");
+          setFormOver18(formOver18Initial)
         })
-        .catch(error => console.log(error));
+        .catch(error => {
+          setLoading(false);
+          toast.error("Erro ao enviar formulário. Tente novamente.");
+          console.log(error)
+        });
     }
   };
 
@@ -81,47 +151,57 @@ const FormOver18 = () => {
 
       <form className="volunteers-form" action="">
         <div className="align-form">
-          <Input
-            type="text"
-            name="Nome"
-            placeholder="Nome completo"
-            value={formOver18.name}
-            onChange={(e) => updateFormOver18("name", e.target.value)}
-            error={formOver18Errors.name}
-          />
+        <input
+          type="text"
+          name="Nome"
+          placeholder="Nome completo"
+          value={formOver18.name}
+          onChange={(e) => updateFormOver18("name", e.target.value)}
+          className={emptyInput.name ? 'input-required' : ''}
+        />
 
-          <Input
-            type="text"
-            name="E-mail"
-            placeholder="E-mail"
-            value={formOver18.email}
-            onChange={(e) => updateFormOver18("email", e.target.value)}
-            error={formOver18Errors.email}
-          />
+        <input
+          type="text"
+          name="E-mail"
+          placeholder="E-mail"
+          value={formOver18.email}
+          onChange={(e) => updateFormOver18("email", e.target.value)}
+          className={emptyInput.email ? 'input-required' : ''}
+        />
 
-          <Input
-            type="text"
-            name="Endereço"
-            id=""
-            placeholder="Endereço completo"
-            value={formOver18.address}
-            onChange={(e) => updateFormOver18("address", e.target.value)}
-            error={formOver18Errors.address}
-          />
+        <input
+          type="text"
+          name="Endereço"
+          id=""
+          placeholder="Endereço completo"
+          value={formOver18.address}
+          onChange={(e) => updateFormOver18("address", e.target.value)}
+          className={emptyInput.address ? 'input-required' : ''}
+        />
 
-          <Dropdown
-            defaultValue=""
-            placeholder="Setor"
-            onChange={(e) => updateFormOver18('sector', e.target.value)}
-            error={formOver18Errors.sector}
-          >
-            <option value="Canil">Canil</option>
-            <option value="Gatil">Gatil</option>
-            <option value="Limpeza">Limpeza</option>
-          </Dropdown>
+        <Dropdown
+          defaultValue=""
+          placeholder="Setor"
+          onChange={(e) => updateFormOver18('sector', e.target.value)}
+          className={emptyInput.sector ? 'input-required' : ''}
+        >
+          <option value="Canil">Canil</option>
+          <option value="Gatil">Gatil</option>
+          <option value="Limpeza">Limpeza</option>
+          <option value="Divulgação">Divulgação</option>
+          <option value="Social Mídia">Social Mídia</option>
+          <option value="Administrador">Administrador(a)</option>
+          <option value="Advogado">Advogado(a)</option>
+          <option value="Veterinário">Veterinário(a)</option>
+          <option value="Marketing">Marketing</option>
+          <option value="Design Gráfico">Design Gráfico</option>
+          <option value="Produtor">Produtor(a)</option>
+          <option value="Artesãos">Artesãos</option>
+          <option value="Economista">Economista</option>
+        </Dropdown>
         </div>
         <div className="align-form">
-          <Input
+          <IMaskInput
             type="text"
             name="Celular"
             id=""
@@ -129,35 +209,41 @@ const FormOver18 = () => {
             value={formOver18.phone}
             mask={"(00) 00000-0000"}
             onChange={(e) => updateFormOver18('phone', e.target.value)}
-            error={formOver18Errors.phone}
+            className={emptyInput.phone ? 'input-required' : ''}
           />
-          <Input
+
+          <input
             type="text"
             name="Profissão"
             id=""
             placeholder="Profissão"
             value={formOver18.profession}
             onChange={(e) => updateFormOver18('profession', e.target.value)}
-            error={formOver18Errors.profession}
+            className={emptyInput.profession ? 'input-required' : ''}
           />
-          <Input
+
+          <input
             type="number"
             name="Disponibilidade"
             id=""
             placeholder="Disponibilidade de horas na semana"
             value={formOver18.availability}
             onChange={(e) => updateFormOver18('availability', e.target.value)}
-            error={formOver18Errors.availability}
+            className={emptyInput.availability ? 'input-required' : ''}
           />
+
           <StateSelect
             defaultValue=""
             placeholder="Estado"
             onChange={(e) => updateFormOver18('state', e.target.value)}
-            error={formOver18Errors.state}
+            className={emptyInput.state ? 'input-required' : ''}
           />
         </div>
       </form>
-      <button onClick={onClickSubmitOver18}>Enviar</button>
+
+      <div className="flex-row">
+        <Button loading={loading} onClick={onClickSubmitOver18}>Enviar</Button>
+      </div>
     </div>
   );
 };

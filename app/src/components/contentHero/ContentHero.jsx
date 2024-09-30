@@ -1,14 +1,14 @@
 import React from 'react';
 
-import styles from './styles.module.css';
 import ContentTitle from '../contentTitles/ContentTitles';
+import './ContentHero.scss'
 
 const ContentHero = ({ title, subtitle, text, text2 }) => {
   return (
-    <div className={styles.container}>
+    <div className="container-hero">
       <ContentTitle title={title} subtitle={subtitle} />
-      <p className={styles.text}>{text}</p>
-      <p className={styles.text}>{text2}</p>
+      <p className="text-hero">{text}</p>
+      <p className="text-hero">{text2}</p>
     </div>
   );
 };

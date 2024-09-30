@@ -5,6 +5,8 @@ import DeleteIcon from "../../assets/icons/delete_icon.svg";
 import PopupMenu from "../popupMenu";
 import ActionsForm from "../actionsForm/ActionsForm";
 import { jwtDecode } from "jwt-decode";
+import { BeatLoader } from "react-spinners";
+import { useState } from "react";
 
 const permissions = {
   animals: "Animais",
@@ -29,65 +31,77 @@ function AdminList({
   userHasPermission,
   popupMenuActions,
   isFormActions,
-  formActionsFunction
+  formActionsFunction,
+  loading,
 }) {
   const getCell = (value) => {
     if (Array.isArray(value)) {
       const userPerms = value.map((perm) => {
-        return permissions[perm?.name] || permissions[perm]
+        return permissions[perm?.name] || permissions[perm];
       });
-      
+
       return userPerms.join(", ");
     }
 
     return value;
   };
 
+  const getEditDeleteActions = (row) => {
+    return loading ? (
+      <div className="flex-row" style={{ marginTop: "10px" }}>
+        <BeatLoader />
+      </div>
+    ) : (
+      <td className="flex-row">
+        <Tooltip text="Editar">
+          <img
+            className="edit-icon"
+            src={EditIcon}
+            alt=""
+            onClick={() => onClickEditRow(row)}
+          />
+        </Tooltip>
+        <Tooltip text="Deletar">
+          <img
+            className="delete-icon"
+            src={DeleteIcon}
+            alt=""
+            onClick={() => onClickDeleteRow(row)}
+          />
+        </Tooltip>
+      </td>
+    );
+  };
+
   const getActions = (row) => {
-    if (popupMenuActions) 
+    if (popupMenuActions)
       return (
         <td className="flex-row">
           <PopupMenu menuActions={popupMenuActions} row={row} />
         </td>
       );
 
-      if (isFormActions)
-        return (
-          <ActionsForm 
-            selectedItem={row} 
-            accept={formActionsFunction.accept} 
-            deny={formActionsFunction.deny} 
-            refresh={formActionsFunction.refresh}
-          />
-      )
-
+    if (isFormActions)
       return (
-        ( //-----If admin has full permission, but the admin on the line is another admin with full permission
-          row.permissions?.filter(perm => perm.id === 6)[0] &&
-          row.id === jwtDecode(localStorage.getItem('login')).userId
+        <ActionsForm
+          selectedItem={row}
+          accept={formActionsFunction.accept}
+          deny={formActionsFunction.deny}
+          refresh={formActionsFunction.refresh}
+        />
+      );
+
+    return (
+      (//-----If admin has full permission, but the admin on the line is another admin with full permission
+        (
+          row.permissions?.filter((perm) => perm.id === 6)[0] &&
+          row.id === jwtDecode(localStorage.getItem("login")).userId
         ) ||
         //-----If admin has full permission, but the admin on the line not
-        (!row.permissions?.filter(perm => perm.id === 6)[0])
-      ) && (
-        <td className="flex-row">
-          <Tooltip text="Editar">
-            <img
-              className="edit-icon"
-              src={EditIcon}
-              alt=""
-              onClick={() => onClickEditRow(row)}
-            />
-          </Tooltip>
-          <Tooltip text="Deletar">
-            <img
-              className="delete-icon"
-              src={DeleteIcon}
-              alt=""
-              onClick={() => onClickDeleteRow(row)}
-            />
-          </Tooltip>
-        </td>
-      );
+        !row.permissions?.filter((perm) => perm.id === 6)[0]
+      ) &&
+      getEditDeleteActions(row)
+    );
   };
 
   return (
@@ -98,19 +112,21 @@ function AdminList({
             {columns.map((column, index) => (
               <td key={`${column.title} - ${index}`}>{column.title}</td>
             ))}
-            {(userHasPermission || (onClickEditRow || onClickDeleteRow)) && <td>Ações</td>}
+            {(userHasPermission || onClickEditRow || onClickDeleteRow) && (
+              <td>Ações</td>
+            )}
           </tr>
         </thead>
         <tbody>
           {rows.map((row, index) => {
             return (
               <tr key={row.id} className="row">
-              {columns.map((column, i) => (
-                <td key={`${index} - ${i}`}>{getCell(row[column.rowKey])}</td>
-              ))}
-              {userHasPermission && getActions(row)}
-            </tr>
-            )
+                {columns.map((column, i) => (
+                  <td key={`${index} - ${i}`}>{getCell(row[column.rowKey])}</td>
+                ))}
+                {userHasPermission && getActions(row)}
+              </tr>
+            );
           })}
         </tbody>
       </table>

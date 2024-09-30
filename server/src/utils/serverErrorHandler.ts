@@ -4,14 +4,15 @@ export default function serverErrorHandler(error: Error): { code: number, data: 
         return {
             code: 500, 
             data: {
-                error: 'Database connection error'
+                message: 'Database connection error'
             },
         }
-}
+    }
+    
     return {
         code: 500, 
         data: {
-            error: 'Internal Server error'
+            message: error.message
         }
     }
 }

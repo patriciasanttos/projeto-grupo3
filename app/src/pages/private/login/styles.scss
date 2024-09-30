@@ -45,26 +45,4 @@
         border: 1px solid #64bdac;
         outline: none;
     }
-
-    .admin-btn{
-        background-color: #64bdac;
-        font-size: 1rem;
-        font-weight: 600;
-        color: #fff;
-        border: none;
-        border-radius: 10px;
-        width: 170px;
-        height: 60px;
-        margin-top: 20px;
-        margin-left: auto;
-        margin-right: auto;
-        cursor: pointer;
-    }
-
-    .admin-btn:hover{
-        background-color: #4dad9c;
-        box-shadow: 0 5px 10px 0 #4dad9b44;
-        transform: translateY(-5px);
-        transition: .3s all ease-in-out;
-    }
 }

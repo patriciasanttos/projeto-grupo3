@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { toast } from 'react-toastify';
+
 import createIcon from "../../../assets/icons/create_icon.svg";
 import AdminNavBar from "../../../components/admin_navbar/AdminNavBar";
 import ModalVolunteers from "../../../components/modal/modalVolunteersAdmin/ModalVolunteers";
@@ -82,7 +84,7 @@ function Volunteers() {
     });
   };
 
-  const refreshAllVolunteersList = () => {
+  const refreshAllVolunteersList = async () => {
     refreshVolunteersList()
     refreshVolunteersFormList()
   }
@@ -133,12 +135,12 @@ function Volunteers() {
   };
 
   const updateVolunteersList = async (volunteer) => {
-    if (volunteer.phone)
-      volunteer.phone = Number(volunteer.phone.replace(/[()\-\s]/g, ""));
-
-    await updateVolunteer(volunteer, localStorage.getItem("login")).catch(
+    await updateVolunteer({
+      ...volunteer,
+      phone: Number(volunteer?.phone.replace(/[()\-\s]/g, ""))
+    }, localStorage.getItem("login")).catch(
       (error) => {
-        console.log(error);
+        toast.error("Erro ao atualizar. Tente novamente.");
       }
     );
 
@@ -149,7 +151,7 @@ function Volunteers() {
   const deleteVolunteersList = async (volunteer) => {
     await deleteVolunteer(volunteer.id, localStorage.getItem("login")).catch(
       (error) => {
-        console.log(error);
+        toast.error("Erro ao apagar. Tente novamente.");
       }
     );
 
@@ -165,7 +167,10 @@ function Volunteers() {
         phone: Number(volunteer.phone.replace(/[()\-\s]/g, "")),
       },
       localStorage.getItem("login")
-    ).catch((error) => console.log(error));
+    ).catch((error) =>{ 
+      console.log(error)
+      toast.error("Erro ao salvar. Tente novamente.");
+    });
 
     setIsModalOpen(false);
     refreshVolunteersList();
@@ -291,7 +296,7 @@ function Volunteers() {
               formActionsFunction={{ 
                 accept: acceptVolunteerForm, 
                 deny: denyVolunteerForm, 
-                refresh: refreshAllVolunteersList 
+                refresh: refreshAllVolunteersList
               }}
             />
           )}

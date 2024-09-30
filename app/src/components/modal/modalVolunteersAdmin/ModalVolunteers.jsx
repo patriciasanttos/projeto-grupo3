@@ -30,6 +30,15 @@ const ModalVolunteers = ({
   }, []);
   const [formVolunteers, setFormVolunteers] = useState(initialFormVolunteers);
 
+  const [ emptyInput, setEmptyInput ] = useState({
+    name: false,
+    email: false,
+    phone: false,
+    address: false,
+    availability: false,
+    sector: false
+  });
+
   useEffect(() => {
     setFormVolunteers({
       ...selectedVolunteer,
@@ -40,6 +49,49 @@ const ModalVolunteers = ({
   }, [selectedVolunteer, isOpen]);
 
   const onClickSave = () => {
+    setEmptyInput({
+      name: false,
+      email: false,
+      phone: false,
+      address: false,
+      availability: false,
+      sector: false,
+    });
+
+    let hasError = false;
+
+    if (!formVolunteers.name) {
+      setEmptyInput(prev => ({ ...prev, name: true }));
+      hasError = true;
+    }
+    if (!formVolunteers.email) {
+      setEmptyInput(prev => ({ ...prev, email: true }));
+      hasError = true;
+    }
+    if (!formVolunteers.phone) {
+      setEmptyInput(prev => ({ ...prev, phone: true }));
+      hasError = true;
+    }
+    if (!formVolunteers.address) {
+      setEmptyInput(prev => ({ ...prev, address: true }));
+      hasError = true;
+    }
+    if (!formVolunteers.availability) {
+      setEmptyInput(prev => ({ ...prev, availability: true }));
+      hasError = true;
+    }
+    if (!formVolunteers.sector) {
+      setEmptyInput(prev => ({ ...prev, sector: true }));
+      hasError = true;
+    }
+    if (!formVolunteers.startDate) {
+      setEmptyInput(prev => ({ ...prev, startDate: true }));
+      hasError = true;
+    }
+
+    if (hasError) 
+      return;
+
     if (selectedVolunteer) {
       updateVolunteersList(formVolunteers);
     } else {
@@ -48,6 +100,13 @@ const ModalVolunteers = ({
   };
 
   const onClickModalClose = () => {
+    setEmptyInput({
+      name: false,
+      email: false,
+      phone: false,
+      animal_id: false,
+    });
+    
     onModalClose();
     setFormVolunteers(initialFormVolunteers);
   };
@@ -89,6 +148,7 @@ const ModalVolunteers = ({
             onChange={(e) =>
               setFormVolunteers({ ...formVolunteers, name: e.target.value })
             }
+            className={emptyInput.name ? 'input-required' : ''}
           />
           <input
             type="text"
@@ -98,6 +158,7 @@ const ModalVolunteers = ({
             onChange={(e) =>
               setFormVolunteers({ ...formVolunteers, email: e.target.value })
             }
+            className={emptyInput.email ? 'input-required' : ''}
           />
         </div>
         <div className="al-modal-form">
@@ -110,6 +171,7 @@ const ModalVolunteers = ({
               setFormVolunteers({ ...formVolunteers, phone: value })
             }
             mask={"(00) 00000-0000"}
+            className={emptyInput.phone ? 'input-required' : ''}
           />
 
           <input
@@ -121,6 +183,7 @@ const ModalVolunteers = ({
             onChange={(e) =>
               setFormVolunteers({ ...formVolunteers, address: e.target.value })
             }
+            className={emptyInput.address ? 'input-required' : ''}
           />
         </div>
 
@@ -181,6 +244,7 @@ const ModalVolunteers = ({
                 availability: e.target.value,
               })
             }
+            className={emptyInput.availability ? 'input-required' : ''}
           />
         </div>
         <div className="al-modal-form">
@@ -196,6 +260,7 @@ const ModalVolunteers = ({
                 sector: e.target.value,
               })
             }
+            className={emptyInput.sector ? 'input-required' : ''}
           />
 
           <input

@@ -1,7 +1,7 @@
 import { axiosGet, axiosPost, axiosPut, axiosDelete } from './index';
 
 export const getAllAnimals = async (token) => {
-    return await axiosGet('/animals', {
+    return await axiosGet('/animals/get', {
         headers: {
             'Authorization': `Bearer ${token}`
         }
@@ -9,7 +9,7 @@ export const getAllAnimals = async (token) => {
 }
 
 export const getAnimalById = async (id, token) => {
-    return await axiosGet(`/animals/${id}`, {
+    return await axiosGet(`/animals/get/${id}`, {
         headers: {
             'Authorization': `Bearer ${token}`
         }

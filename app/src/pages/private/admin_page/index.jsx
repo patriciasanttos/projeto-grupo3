@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from 'react-toastify';
 
 import AdminNavBar from "../../../components/admin_navbar/AdminNavBar";
 import ModalAdmin from "../../../components/modal/modalAdmin/ModalAdmin";
@@ -50,6 +51,7 @@ function AdminPage() {
   }, []);
 
   const loadAdmins = async () => {
+    setLoading(true);
     await getAllAdmins(localStorage.getItem("login"))
       .then((data) => {
         setAdminsList(data.map(admin => ({
@@ -63,11 +65,11 @@ function AdminPage() {
       .catch((error) => {
         console.log(error);
         setLoading(false);
+        toast.error("Erro ao carregar. Tente novamente.");
       });
   }
 
   useEffect(() => {
-    setLoading(true);
     loadAdmins();
   }, []);
 
@@ -106,13 +108,17 @@ function AdminPage() {
           await loadAdmins();
           return setIsModalOpen(false);
         })
-        .catch(error => console.log(error));
+        .catch((error) =>{ 
+          console.log(error)
+          toast.error("Erro ao salvar. Tente novamente.");
+        });
   };
 
   const deleteAdminsList = async (admin) => {
     await deleteAdmin(admin.id, localStorage.getItem("login")).catch(
       (error) => {
         console.log(error);
+        toast.error("Erro ao apagar. Tente novamente.");
       }
     );
 
@@ -129,6 +135,7 @@ function AdminPage() {
       },
       localStorage.getItem("login")
     );
+    console.log(admin)
 
     await createAdmin(
       {
@@ -143,7 +150,7 @@ function AdminPage() {
       })
       .catch(error => {
         if (error.status === 409)
-          return window.alert('Este administrador já está adicionado')
+          return toast.error('Este administrador já está adicionado')
 
         console.log(error)
       });

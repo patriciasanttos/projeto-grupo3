@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 import AdminNavBar from "../../../components/admin_navbar/AdminNavBar";
 import AdminList from "../../../components/admin_list/AdminList";
@@ -43,9 +44,8 @@ function Animals() {
     checkUserPermission();
   }, []);
 
-  useEffect(() => {
-    setLoading(true);
-    getAllAnimals().then((animals) => {
+  const loadAnimals = async () => {
+    await getAllAnimals().then((animals) => {
       setAnimalsList(animals.map((animal) => ({
         ...animal,
         stageLife: animal.age,
@@ -54,8 +54,14 @@ function Animals() {
         gender: animal.gender.toUpperCase(),
         sector: animal.sector.toUpperCase()
       })))
+
       setLoading(false);
     });
+  }
+
+  useEffect(() => {
+    setLoading(true);
+    loadAnimals()
   }, []);
 
   const getFilteredItems = () => {
@@ -76,11 +82,6 @@ function Animals() {
   };
 
   const updateAnimalsList = async (animal) => {
-    let animals = [...animalsList];
-    animals[animal.id - 1] = {
-      ...animal,
-    };
-
     const formData = new FormData();
 
     formData.append("id", animal.id);
@@ -104,26 +105,23 @@ function Animals() {
     }
 
     await updateAnimal(formData, localStorage.getItem('login'))
-      .catch(error => console.log(error));
+      .catch((error) =>{ 
+        console.log(error)
+        toast.error("Erro ao atualizar. Tente novamente.");
+      });
 
-    setAnimalsList(animals);
-    setIsModalOpen(false);
+      setIsModalOpen(false);
+      await loadAnimals()
   };
 
   const deleteAnimalsList = async (animal) => {
     await deleteAnimal(animal.id, localStorage.getItem('login'));
 
-    setAnimalsList(animalsList.filter((animals) => animals.id !== animal.id));
     setIsModalOpen(false);
+    await loadAnimals();
   }
 
   const createAnimalsList = async (animal) => {
-    let animals = [...animalsList];
-    animals.push({
-      ...animal,
-      id: animalsList.length + 1,
-    });
-
     const formData = new FormData();
 
     formData.append("species", animal.species);
@@ -142,15 +140,18 @@ function Animals() {
     formData.append("observation", animal.observation);
 
     if (!animal.image)
-      return window.alert('Por favor, selecione uma imagem')
+      return toast.info('Por favor, selecione uma imagem')
     
     formData.append("image", animal.image);
 
     await createAnimal(formData, localStorage.getItem('login'))
-      .catch(error => console.log(error));
+      .catch((error) =>{ 
+        console.log(error)
+        toast.error("Erro ao adicionar. Tente novamente.");
+      });
 
-    setAnimalsList(animals);
     setIsModalOpen(false);
+    await loadAnimals();
   };
 
   const onClickEditAnimal = (animal) => {

@@ -15,63 +15,63 @@ module.exports = {
       },
       image: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
       },
       name: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       species: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       race: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
       },
       size: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       color: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
       },
       vacine: {
         type: DataTypes.INTEGER,
-        allowNull: true
+        allowNull: true,
       },
       castrated: {
         type: DataTypes.BOOLEAN,
-        allowNull: true
+        allowNull: true,
       },
       age: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
       },
       gender: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       temperament: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
       },
       bay: {
         type: DataTypes.INTEGER,
-        allowNull: true
+        allowNull: true,
       },
       sector: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       status: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       observation: {
         type: DataTypes.TEXT,
-        allowNull: true
+        allowNull: true,
       },
       created_at: {
         type: DataTypes.DATE,
@@ -80,7 +80,7 @@ module.exports = {
       updated_at: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW
-      }
+      },
     });
   },
 

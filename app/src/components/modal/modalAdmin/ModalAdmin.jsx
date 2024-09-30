@@ -4,21 +4,6 @@ import { IMaskInput } from "react-imask";
 import ModalActionsEnum from "../../../utils/ModalActionsEnum";
 import ModalDeleteConfirm from "../modalDeleteConfirm/ModalDeleteConfirm";
 
-const permissions = {
-  animals: "Animais",
-  sponsorships: "Apadrinhamentos",
-  adoptions: "Adoções",
-  volunteers: "Voluntários",
-  admins: "Administradores",
-  all: "Tudo",
-  1: "Animais",
-  2: "Apadrinhamentos",
-  3: "Adoções",
-  4: "Voluntários",
-  5: "Administradores",
-  6: "Tudo",
-}
-
 const ModalAdmin = ({
   isOpen,
   modalAction,
@@ -31,12 +16,19 @@ const ModalAdmin = ({
   const initialFormAdmins = {
     name: "",
     email: "",
-    phoneNumber: "",
+    phone: "",
     password: "",
     permissions: [],
     observation: "",
   };
   const [formAdmins, setFormAdmins] = useState(initialFormAdmins);
+  const [ emptyInput, setEmptyInput ] = useState({
+    name: false,
+    email: false,
+    phone: false,
+    password: false,
+    permissions: [],
+  });
 
   const listLevelOption = {
     animals: "Animais",
@@ -61,6 +53,40 @@ const ModalAdmin = ({
   }, [selectedAdmin, isOpen]);
 
   const onClickSave = () => {
+    setEmptyInput({
+      name: false,
+      email: false,
+      phone: false,
+      password: false,
+      permissions: [],
+    });
+
+    let hasError = false;
+
+    if (!formAdmins.name) {
+      setEmptyInput(prev => ({ ...prev, name: true }));
+      hasError = true;
+    }
+    if (!formAdmins.email) {
+      setEmptyInput(prev => ({ ...prev, email: true }));
+      hasError = true;
+    }
+    if (!formAdmins.phone) {
+      setEmptyInput(prev => ({ ...prev, phone: true }));
+      hasError = true;
+    }
+    if (formAdmins.permissions.length === 0) {
+      setEmptyInput(prev => ({ ...prev, permissions: true }));
+      hasError = true;
+    }
+    if (!selectedAdmin && !formAdmins.password) {
+      setEmptyInput(prev => ({ ...prev, password: true }));
+      hasError = true;
+    }
+    
+    if (hasError) 
+      return;
+
     if (selectedAdmin) {
       updateAdminsList(formAdmins);
     } else {
@@ -69,11 +95,27 @@ const ModalAdmin = ({
   };
 
   const onClickModalClose = () => {
+    setEmptyInput({
+      name: false,
+      email: false,
+      phone: false,
+      password: false,
+      permissions: [],
+      observation: false,
+    });
+
     onModalClose();
     setFormAdmins(initialFormAdmins);
   };
 
   const onClickDelete = () => {
+    setEmptyInput({
+      name: false,
+      email: false,
+      phone: false,
+      animal_id: false,
+    });
+
     if (selectedAdmin) {
       deleteAdminsList(formAdmins);
     }
@@ -124,7 +166,9 @@ const ModalAdmin = ({
             onChange={(e) =>
               setFormAdmins({ ...formAdmins, name: e.target.value })
             }
+            className={emptyInput.name ? 'input-required' : ''}
           />
+
           <input
             type="text"
             name="email"
@@ -133,8 +177,10 @@ const ModalAdmin = ({
             onChange={(e) =>
               setFormAdmins({ ...formAdmins, email: e.target.value })
             }
+            className={emptyInput.name ? 'input-required' : ''}
           />
         </div>
+
         <div className="al-modal-form">
           <IMaskInput
             type="text"
@@ -145,6 +191,7 @@ const ModalAdmin = ({
               setFormAdmins({ ...formAdmins, phone: value })
             }
             mask={"(00) 00000-0000"}
+            className={emptyInput.name ? 'input-required' : ''}
           />
 
           <input
@@ -155,11 +202,12 @@ const ModalAdmin = ({
             onChange={(e) =>
               setFormAdmins({ ...formAdmins, password: e.target.value })
             }
+            className={emptyInput.name ? 'input-required' : ''}
           />
         </div>
 
         <div>
-          <p>Selecionar níveis:</p>
+          <p className={emptyInput.name ? 'input-permissions-required' : ''}>Selecionar níveis:</p>
           <div className="list-checkbox-container">
             {Object.entries(listLevelOption).map(([ key, permissionName ], index) => {
               const permId = Number(Object.keys(listLevelOption).indexOf(key) + 1);

@@ -36,8 +36,9 @@
             max-height: 100%;
             border-radius: 0.625rem;
             color: black;
-            padding: 1.5% 2% 2% 2%;
+            padding: 30px;
             background-image: url("../../assets/images/backgrounds/bg-green.svg");
+            background-color: white;
             background-size: cover;
 
             .modalHeader {
@@ -155,6 +156,14 @@
 
         input:focus {
             outline-color: #32732f;
+        }
+
+        .input-required {
+            border: 1px solid red !important;
+        }
+
+        .input-permissions-required {
+            color: red;
         }
 
         .btnSubmit {
