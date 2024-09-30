@@ -10,6 +10,7 @@ import ContentHero from '../../../components/contentHero/ContentHero';
 
 import qrcode from "../../../assets/images/donation/qrcodecaixa.svg";
 import picpay from "../../../assets/images/donation/picpay.svg";
+import ContentTitle from '../../../components/contentTitles/ContentTitles';
 
 
 // import { Container } from './styles';
@@ -28,9 +29,7 @@ function Donation() {
 
       <section className="section-information">
         <div className="cards-donation">
-          <h3 className="call-title">FAÇA A DIFERENÇA NA VIDA DE UM ANIMAL</h3>
-          <h1 className="call-subtitle"> Faça uma doação </h1>
-
+          <ContentTitle title="Faça uma doação" subtitle="Faça a diferença na vida de um animal"></ContentTitle>
           <DonationCard />
 
           <div className="ways-to-donate">

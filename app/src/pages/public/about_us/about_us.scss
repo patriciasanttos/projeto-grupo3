@@ -52,13 +52,14 @@
         .aboutus-team-cards-scroll {
             color: #2D2D33;
 
-            padding: 5% 2% 0 10%;
+            padding: 5% 10%;
             padding-right: 6rem;
 
             display: grid;
             grid-auto-flow: column;
             grid-template-rows: 1fr 1fr;
             gap: 5%;
+            place-items: center;
         }
     }
 }

@@ -24,6 +24,7 @@ import attention from "../../../assets/icons/volunteers_lp/attention.svg";
 import volunteers from "../../../assets/icons/volunteers_lp/volunteers.svg";
 import clock from "../../../assets/icons/volunteers_lp/clock.svg";
 import whatsApp from "../../../assets/icons/volunteers_lp/whatsapp.svg";
+import ContentTitle from "../../../components/contentTitles/ContentTitles";
 
 // import { Container } from './styles';
 
@@ -44,8 +45,7 @@ function Volunteers() {
 
       {/* CONTEÚDO PRINCIPAL DA PÁGINA - TAREFAS DO VOLUNTÁRIO */}
       <main className="main-volunteers">
-        <h3 className="main-title">FAÇA A DIFERENÇA NA VIDA DE UM ANIMAL</h3>
-        <h1 className="main-subtitle">Seja um voluntário</h1>
+        <ContentTitle title="Seja um voluntário" subtitle="Faça a diferença na vida de um animal"></ContentTitle>
 
         {/* O QUE O VOLUNTÁRIO FAZ */}
         <section className="volunteer-info">
