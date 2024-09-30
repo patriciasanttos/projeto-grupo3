@@ -1,70 +1,52 @@
-# Getting Started with Create React App
+# Projeto Site Ong SJPA
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+### Descrição
+Este é um site desenvolvido para uma ONG de animais, com o objetivo de fornecer informações sobre a ONG e facilitar a interação com pessoas interessadas em adoção, apadrinhamento, voluntariado e doações. 
 
-In the project directory, you can run:
+### Páginas do Site
 
-### `npm start`
+-  *Página Inicial*: Contém seções importantes sobre a ONG, incluindo missões e eventos.
+- *Sobre Nós*: Detalha a história da ONG e apresenta a equipe responsável.
+- *Adoção*: Exibe cards com os animais disponíveis para adoção, incluindo um filtro para facilitar a busca.
+- *Apadrinhamento*: Contém cards com os animais que necessitam de ajuda financeira.
+- *Voluntários*: Fornece informações sobre as principais tarefas e inclui um formulário para quem deseja se voluntariar.
+- *Contato*: Lista os principais contatos da ONG e uma seção de dúvidas frequentes.
+- *Doação*: Fornece opções para doações, com cards para valores fixos e a opção de doar outros valores.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Página de Admin
+Uma seção exclusiva para a ONG, com acesso restrito para gerenciamento eficiente das informações:
 
-### `npm test`
+- *Página de Login*: Garantia de segurança de acesso.
+- *Painel de Controle*: Página inicial com explicações sobre as funcionalidades das demais páginas.
+- *Animais*: Visualizar, adicionar, editar e excluir informações dos animais da ONG.
+- *Apadrinhamento*: Gerenciar dados das pessoas que apadrinharam os animais.
+- *Adoções*: Gerenciar informações das pessoas que adotaram os animais.
+- *Voluntários*: Gerenciar dados de todos os voluntários.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Pré-requisitos
+- Node.js instalado na máquina
+- Git instalado para clonar o repositório
 
-### `npm run build`
+### Como Clonar o Repositório
+- Para clonar o repositório, execute o seguinte comando no terminal:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+bash
+https://github.com/patriciasanttos/projeto-grupo3.git
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Instalação da Aplicação
+- Após clonar o repositório, acesse a pasta do projeto e instale as dependências necessárias:
+bash
+cd nome-do-projeto
+npm install
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Como Iniciar o Projeto 
+- Para iniciar a aplicação em modo de desenvolvimento, execute:
+bash
+npm start
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+O comando acima inicia a aplicação e ela estará disponível em http://localhost:3000.
