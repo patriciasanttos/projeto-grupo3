@@ -11,7 +11,7 @@ import {
   deleteSponsorship,
   denySponsorshipForm,
   getAllSponsorshipsForms,
-  getAllSponsorshipships,
+  getAllSponsorships,
   updateSponsorship,
 } from "../../../services/api/sponsorships";
 import { getAllAnimals } from "../../../services/api/animals";
@@ -58,23 +58,29 @@ function Sponsorships() {
   }, []);
 
   const loadAnimals = async () => {
+    const gettedAnimalsList = [];
     await getAllAnimals().then(async (animals) => {
-      const gettedAnimalsList = animals.map((animal) => ({
-        id: animal.id,
-        name: animal.name,
-      }));
+      await animals.forEach(animal => {
+        gettedAnimalsList.push({
+          id: animal.id,
+          name: animal.name,
+        })
+      });
 
       setAnimalsList(gettedAnimalsList);
-      loadForms(gettedAnimalsList);
+      await loadForms(gettedAnimalsList);
+
     });
+
+    return gettedAnimalsList;
   };
 
   const loadForms = async (animals) => {
     await getAllSponsorshipsForms(localStorage.getItem("login"))
       .then(async (data) => {
         const sponsorshipsFormList = [];
-        await data.forEach((form) => {
-          const animal = animals.filter(
+        await data.forEach(async (form) => {
+          const animal = await animals.filter(
             (animal) => animal.id === form.animal_id
           )[0];
 
@@ -84,69 +90,60 @@ function Sponsorships() {
             email: form.email,
             phone:
               form.phone.length === 11
-                ? `(${form.phone.slice(0, 2)}) ${form.phone.slice(
-                    2,
-                    7
-                  )}-${form.phone.slice(7)}`
-                : `(${form.phone.slice(0, 2)}) ${form.phone.slice(
-                    2,
-                    6
-                  )}-${form.phone.slice(6)}`,
+                ? `(${form.phone.slice(0, 2)}) ${form.phone.slice(2, 7)}-${form.phone.slice(7)}`
+                : `(${form.phone.slice(0, 2)}) ${form.phone.slice(2, 6)}-${form.phone.slice(6)}`,
             animal_name: animal?.name,
-            animal_id: animal?.id,
+            animal_id: form.animal_id,
           });
         });
 
         return setSponsorsFormsList(sponsorshipsFormList);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
         toast.error("Erro ao carregar. Tente novamente.");
       });
   };
 
-  const refreshSponsorshipships = async () => {
+  const loadSponsorships = async () => {
+    await getAllSponsorships(localStorage.getItem("login"))
+      .then(async data => {
+        let sponsorshipsList = [];
+        await data.forEach(sponsorhip => {
+          sponsorshipsList.push({
+            id: sponsorhip.id,
+            name: sponsorhip.name,
+            email: sponsorhip.email,
+            phone: 
+              sponsorhip.phone.length === 11
+                ? `(${sponsorhip.phone.slice(0, 2)}) ${sponsorhip.phone.slice(2, 7)}-${sponsorhip.phone.slice(7)}`
+                : `(${sponsorhip.phone.slice(0, 2)}) ${sponsorhip.phone.slice(2, 6)}-${sponsorhip.phone.slice(6)}`,
+            animal_name: sponsorhip?.Animals[0].name,
+            animal_id: sponsorhip?.Animals[0].id,
+            observation: sponsorhip.observation,
+          });
+        });
+
+        setSponsorsList(sponsorshipsList);
+      })
+      .catch(() => {
+        toast.error("Erro ao carregar. Tente novamente.");
+      });
+  }
+
+  const refreshSponsorships = async () => {
     setLoading(true);
 
-    await loadAnimals().then(async () => {
-      await getAllSponsorshipships(localStorage.getItem("login"))
-        .then(async (data) => {
-          let sponsorshipsList = [];
-          await data.forEach((sponsorhip) => {
-            sponsorshipsList.push({
-              id: sponsorhip.id,
-              name: sponsorhip.name,
-              email: sponsorhip.email,
-              phone:
-                sponsorhip.phone.length === 11
-                  ? `(${sponsorhip.phone.slice(0, 2)}) ${sponsorhip.phone.slice(
-                      2,
-                      7
-                    )}-${sponsorhip.phone.slice(7)}`
-                  : `(${sponsorhip.phone.slice(0, 2)}) ${sponsorhip.phone.slice(
-                      2,
-                      6
-                    )}-${sponsorhip.phone.slice(6)}`,
-              animal_name: sponsorhip.Animals[0]?.name,
-              animal_id: sponsorhip.Animals[0]?.id,
-              observation: sponsorhip.observation,
-            });
-          });
+    await loadAnimals()
+      .then(async animals => {
+        await loadForms(animals);
+        await loadSponsorships();
 
-          setSponsorsList(sponsorshipsList);
-
-          await loadForms(data);
-        })
-        .catch((error) => {
-          toast.error("Erro ao carregar. Tente novamente.");
-        });
-    });
-
-    return setLoading(false);
+        return setLoading(false);
+      });
   };
 
   useEffect(() => {
-    refreshSponsorshipships();
+    refreshSponsorships();
   }, []);
 
   const getFilteredItems = (type) => {
@@ -195,7 +192,7 @@ function Sponsorships() {
     )
       .then(() => {
         setIsModalOpen(false);
-        refreshSponsorshipships();
+        refreshSponsorships();
 
         toast.success("Atualizado com sucesso!");
       })
@@ -231,7 +228,7 @@ function Sponsorships() {
     )
       .then(() => {
         setIsModalOpen(false);
-        refreshSponsorshipships();
+        refreshSponsorships();
 
         toast.success("Criado com sucesso!");
       })
@@ -380,7 +377,7 @@ function Sponsorships() {
               formActionsFunction={{
                 accept: acceptSponsorshipForm,
                 deny: denySponsorshipForm,
-                refresh: refreshSponsorshipships
+                refresh: refreshSponsorships
               }}
             />
           )}
