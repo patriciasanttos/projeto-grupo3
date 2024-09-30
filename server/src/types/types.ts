@@ -16,10 +16,10 @@ export type AnimalType = {
     vacine?: number,
     castrated?: boolean,
     age?: string,
-    gender?: string,
+    gender: string,
     temperament?: string,
-    bay?: number,
-    sector?: string,
+    bay: number,
+    sector: string,
     status: string,
     observation?: string,
 }

@@ -6,7 +6,7 @@ import { Sponsorship } from "../database/models";
 export default {
     async getAnimalById(id: number): Promise<{ code: number, data: {} }> {
         try {
-            //-----Buscar animal na tabela
+            //-----Search animal in the table
             const animal = await Animal.findByPk(id, {
                 include: [ Sponsorship ]
             });
@@ -15,7 +15,7 @@ export default {
                 return {
                     code: 404,
                     data: {
-                        error: 'Animal not found'
+                        message: 'Animal not found'
                     }
                 };
 
@@ -30,7 +30,7 @@ export default {
 
     async getAllAnimals(): Promise<{ code: number, data: {} }> {
         try {
-            //-----Buscar animais na tabela
+            //-----Search animals in the table
             const animals = await Animal.findAll();
 
             return {
@@ -44,7 +44,7 @@ export default {
 
     async createAnimal(data: AnimalType): Promise<{ code: number, data?: {} }> {
         try {
-            // -----Salvar animal na tabela
+            // -----Save animal in the table
             await Animal.create({ ...data });
 
             return {
@@ -57,14 +57,14 @@ export default {
 
     async updateAnimal(data: AnimalType): Promise<{ code: number, data?: {} }> {
         try {
-            //-----Buscar animal na tabela
+            //-----Search animal in the table
             const animal = await Animal.findByPk(data.id)
 
             if (animal === null)
                 return {
                     code: 404,
                     data: {
-                        error: 'Animal not found'
+                        message: 'Animal not found'
                     }
                 };
 
@@ -81,14 +81,14 @@ export default {
     
     async deleteAnimal(id: number): Promise<{ code: number, data?: {} }> {
         try {
-            //-----Buscar animal na tabela
+            //-----Search animal in the table
             const animal = await Animal.findByPk(id);
             
             if (animal === null)
                 return {
                     code: 404,
                     data: {
-                        error: 'Animal not found'
+                        message: 'Animal not found'
                     }
                 };
                 
