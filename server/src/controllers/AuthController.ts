@@ -60,12 +60,13 @@ class AutoController {
                 return res.status(400).json({ error: `Missing ${prop} property in the body request` });
         });
 
-        const { name, email, password, phone, permissions }: {
+        const { name, email, password, phone, permissions, observation }: {
             name: string,
             email: string,
             password: string,
             phone: number,
-            permissions: []
+            permissions: [],
+            observation?: string
         } = { ...data };
 
         const response: RepositoryResponse = await adminsRepository.createAdmin({ 
@@ -73,7 +74,8 @@ class AutoController {
             email, 
             password, 
             phone, 
-            permissions
+            permissions,
+            observation
         });
 
         return res.status(response.code).json(response.data);
@@ -83,13 +85,14 @@ class AutoController {
         if (!Object.keys(req.body))
             return res.status(400).json({ error: 'Invalid body request' });
 
-        const { id, name, email, password, phone, permissions }: {
+        const { id, name, email, password, phone, permissions, observation }: {
             id: number
             name?: string,
             email?: string,
             password?: string,
             phone?: number,
             permissions?: []
+            observation?: string
         } = req.body;
 
         const response = await adminsRepository.updateAdmin({ 
@@ -98,7 +101,8 @@ class AutoController {
             email, 
             password, 
             phone, 
-            permissions 
+            permissions,
+            observation
         });
 
         return res.status(response.code).json(response.data);

@@ -38,13 +38,14 @@ class AdoptionsController {
                 return res.status(400).json({ message: `Missing ${prop} property in the body request` });
         });
 
-        const { tutors_name, email, phone, address, cpf, animal_id }: {
+        const { tutors_name, email, phone, address, cpf, animal_id, observation }: {
             tutors_name: string,
             email: string,
             phone: number,
             address: string,
             cpf: number
             animal_id: number,
+            observation?: string,
         } = { ...data };
 
         const response = await adoptionRepository.createAdoption({
@@ -53,7 +54,8 @@ class AdoptionsController {
             phone,
             address,
             cpf,
-            animal_id
+            animal_id,
+            observation
         });
 
         return res.status(response.code).json(response.data);
@@ -68,7 +70,25 @@ class AdoptionsController {
         if (!data.animal_id)
             return res.status(400).json({ message: 'Missing animal_id property in the body request' });
 
-        const response = await adoptionRepository.updateAdoption(data);
+        const { tutors_name, email, phone, address, cpf, animal_id, observation }: {
+            tutors_name: string,
+            email: string,
+            phone: number,
+            address: string,
+            cpf: number
+            animal_id: number,
+            observation?: string,
+        } = { ...data };
+
+        const response = await adoptionRepository.updateAdoption({ 
+            tutors_name, 
+            email, 
+            phone, 
+            address, 
+            cpf, 
+            animal_id, 
+            observation 
+        });
 
         return res.status(response.code).json(response.data);
     }
@@ -99,13 +119,13 @@ class AdoptionsController {
                 return res.status(400).json({ message: `Missing ${prop} property in the body request` });
         });
 
-        const { tutors_name, email, phone, address, cpf, animal_id }: {
+        const { tutors_name, email, phone, address, cpf, animal_id,  }: {
             tutors_name: string,
             email: string,
             phone: number,
             address: string,
             cpf: number
-            animal_id: number,
+            animal_id: number
         } = { ...data };
 
         const response = await adoptionRepository.createAdoptionForm({

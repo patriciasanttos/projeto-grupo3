@@ -13,6 +13,7 @@ type UpdateDataType = {
     phone?: number,
     password?: string,
     permissions?: Permission[],
+    observation?: string
 }
 
 export default {

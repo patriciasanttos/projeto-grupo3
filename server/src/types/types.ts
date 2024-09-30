@@ -30,6 +30,7 @@ export type SponsorshipType = {
     email: string,
     phone: number,
     animal_id?: number,
+    observation?: string
 }
 
 export type SponsorshipFormType = {
@@ -48,6 +49,7 @@ export type AdoptionType = {
     address: string,
     cpf: number,
     animal_id?: number,
+    observation?: string,
     created_at?: string,
     updated_at?: string,
 }
@@ -89,4 +91,5 @@ export type AdminType = {
     phone: number,
     password: string,
     permissions?: Permission[],
+    observation?: string
 }

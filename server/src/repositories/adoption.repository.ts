@@ -194,7 +194,7 @@ export default {
 
             const formData = { ...form.dataValues }
             delete formData.id;
-
+            
             // -----Save adoption in the table
             await Adoption.create({
                 ...formData,
