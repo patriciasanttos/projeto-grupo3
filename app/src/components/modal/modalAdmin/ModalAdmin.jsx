@@ -16,7 +16,7 @@ const ModalAdmin = ({
   const initialFormAdmins = {
     name: "",
     email: "",
-    phoneNumber: "",
+    phone: "",
     password: "",
     permissions: [],
     observation: "",
@@ -25,7 +25,7 @@ const ModalAdmin = ({
   const [ emptyInput, setEmptyInput ] = useState({
     name: false,
     email: false,
-    phoneNumber: false,
+    phone: false,
     password: false,
     permissions: [],
   });
@@ -56,7 +56,7 @@ const ModalAdmin = ({
     setEmptyInput({
       name: false,
       email: false,
-      phoneNumber: false,
+      phone: false,
       password: false,
       permissions: [],
     });
@@ -71,19 +71,19 @@ const ModalAdmin = ({
       setEmptyInput(prev => ({ ...prev, email: true }));
       hasError = true;
     }
-    if (!formAdmins.phoneNumber) {
-      setEmptyInput(prev => ({ ...prev, phoneNumber: true }));
-      hasError = true;
-    }
-    if (!formAdmins.password) {
-      setEmptyInput(prev => ({ ...prev, password: true }));
+    if (!formAdmins.phone) {
+      setEmptyInput(prev => ({ ...prev, phone: true }));
       hasError = true;
     }
     if (formAdmins.permissions.length === 0) {
       setEmptyInput(prev => ({ ...prev, permissions: true }));
       hasError = true;
     }
-
+    if (!selectedAdmin && !formAdmins.password) {
+      setEmptyInput(prev => ({ ...prev, password: true }));
+      hasError = true;
+    }
+    
     if (hasError) 
       return;
 
@@ -98,7 +98,7 @@ const ModalAdmin = ({
     setEmptyInput({
       name: false,
       email: false,
-      phoneNumber: false,
+      phone: false,
       password: false,
       permissions: [],
       observation: false,

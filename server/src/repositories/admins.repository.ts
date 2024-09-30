@@ -7,20 +7,21 @@ import serverErrorHandler from "../utils/serverErrorHandler";
 require('dotenv').config();
 
 type UpdateDataType = {
-    id: number,
+    id?: number,
     name?: string,
     email?: string,
     phone?: number,
     password?: string,
     permissions?: Permission[],
+    observation?: string
 }
 
 export default {
     async getAdminById(id: number): Promise<{ code: number, data: {} }> {
         try {
-            //-----Buscar administrador na tabela
+            //-----Search admin in the table
             const gettedAdmin = await Admin.findByPk(id, {
-                attributes: [ 'id', 'name', 'email', 'phone', 'image', "observation" ],
+                attributes: [ 'id', 'name', 'email', 'phone', "observation" ],
                 include: {
                     model: Permission,
                     as: 'permissions',
@@ -33,7 +34,7 @@ export default {
                 return {
                     code: 404,
                     data: {
-                        error: 'Administrator not found'
+                        message: 'Administrator not found'
                     }
                 };
 
@@ -48,9 +49,9 @@ export default {
 
     async getAllAdmins(): Promise<{ code: number, data: {} }> {
         try {
-            //-----Buscar administradores na tabela
+            //-----Search admins in the table
             const admins = await Admin.findAll({
-                attributes: [ 'id', 'name', 'email', 'phone', 'image', "observation" ],
+                attributes: [ 'id', 'name', 'email', 'phone', "observation" ],
                 include: {
                     model: Permission,
                     as: 'permissions',
@@ -58,14 +59,6 @@ export default {
                     through: { attributes: [] }
                 }
             });
-
-            if (admins === null)
-                return {
-                    code: 404,
-                    data: {
-                        error: 'No administrator found'
-                    }
-                };
 
             return {
                 code: 200,
@@ -78,14 +71,14 @@ export default {
 
     async verifyUser(id: number): Promise<{ code: number, data?: {} }> {
         try {
-            //-----Buscar administrador na tabela
+            //-----Search admin in the table
             const gettedAdmin = await Admin.findByPk(id);
 
             if (gettedAdmin === null)
                 return {
                     code: 404,
                     data: {
-                        error: 'Administrator not found'
+                        message: 'Administrator not found'
                     }
                 };
 
@@ -99,7 +92,7 @@ export default {
 
     async login({ user, password }: { user: string, password: string }): Promise<{ code: number, data: {} }> {
         try {
-            //-----Buscar administrador na tabela
+            //-----Search admin in the table
             const gettedAdmin = await Admin.findOne({
                 where: {
                   [Op.or]: [
@@ -119,18 +112,18 @@ export default {
                 return {
                     code: 404,
                     data: {
-                        error: 'Administrator not found'
+                        message: 'Administrator not found'
                     }
                 };
             
-            // -----Comparar senha
+            // -----Compare password
             const comparePassword = await bcrypt.compare(password, gettedAdmin.dataValues.password);
 
             if (!comparePassword)
                 return {
                     code: 401,
                     data: {
-                        error: 'Invalid password'
+                        message: 'Invalid password'
                     }
                 };
 
@@ -146,7 +139,9 @@ export default {
 
             return {
                 code: 200,
-                data: token
+                data: {
+                    token: token
+                }
             };
         } catch (error: any) {
             return serverErrorHandler(error);
@@ -155,7 +150,7 @@ export default {
 
     async createAdmin(data: AdminType): Promise<{ code: number, data?: {} }> {
         try {
-            //-----Buscar administrador na tabela
+            //-----Check duplicate email or phone
             const adminExistis = await Admin.findOne({
                 where: {
                   [Op.or]: [
@@ -169,9 +164,11 @@ export default {
                 return {
                     code: 409,
                     data: {
-                        error: 'Email or phone already registered'
+                        message: 'Email or phone already in use'
                     }
                 };
+            //-----
+
 
             const userData = data;
             const salt = await bcrypt.genSalt(12);
@@ -194,7 +191,7 @@ export default {
 
     async updateAdmin(data: UpdateDataType): Promise<{ code: number, data?: {} }> {
         try {
-            //-----Buscar administrador na tabela
+            //-----Search admin in the table
             const gettedAdmin = await Admin.findByPk(data.id, {
                 include: {
                     model: Permission,
@@ -207,12 +204,28 @@ export default {
                 return {
                     code: 404,
                     data: {
-                        error: 'Administrator not found'
+                        message: 'Administrator not found'
                     }
                 };
+                
+
+            const genNewToken = (user: {
+                id: number,
+                name: string,
+                permissions: Permission[]
+            }) => {
+                const secret: string = process.env.JWT_SECRET || '';
+                const token = jwt.sign({
+                    userId: user.id,
+                    name: user.name,
+                    permissions: user.permissions
+                }, secret);
+
+                return token;
+            }
             
+            const userData = { ...data };
             if (data.password) {
-                const userData = { ...data };
                 const salt = await bcrypt.genSalt(12);
                 userData.password = await bcrypt.hash(data.password, salt);
 
@@ -222,23 +235,15 @@ export default {
                     return {
                         code: 400,
                         data: {
-                            error: 'Use a different password'
+                            message: 'Try a different password'
                         }
                     };
-    
-                await gettedAdmin.update({ ...userData });
-                const updatedAdmin = await this.getAdminById(data.id)
-
-                return {
-                    code: 200,
-                    data: updatedAdmin
-                };
             };
 
-            const adminUpdated = { ...data };
-            delete adminUpdated.permissions;
+            delete userData.permissions;
+            delete userData.id;
 
-            const admin = await gettedAdmin.update({ ...adminUpdated });
+            const admin = await gettedAdmin.update({ ...userData });
             if (data.permissions && data.permissions.length > 0)
                 await admin.setPermissions([ ...data.permissions ]);
 
@@ -251,16 +256,17 @@ export default {
                 }
             });
 
-            const secret: string = process.env.JWT_SECRET || '';
-            const token = jwt.sign({
-                userId: updatedAdmin?.dataValues.id,
-                name: updatedAdmin?.dataValues.name,
-                permissions: updatedAdmin?.permissions 
-            }, secret);
+            const newToken = genNewToken({ 
+                id: updatedAdmin!.dataValues.id,
+                name: updatedAdmin!.dataValues.name,
+                permissions: updatedAdmin!.permissions
+            });
 
             return {
                 code: 200,
-                data: token
+                data: {
+                    token: newToken
+                }
             };
         } catch (error: any) {
             return serverErrorHandler(error);

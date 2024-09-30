@@ -20,7 +20,7 @@ const AuthAdminRoutes = () => {
           return navigate('/admin/control_panel');
       })
       .catch(({ response }) => {
-        if (response.status === 404)
+        if (response.status === 404 || response.status === 401)
           return navigate('/admin/login');
       });
   }, []);

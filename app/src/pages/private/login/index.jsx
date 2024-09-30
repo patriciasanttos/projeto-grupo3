@@ -21,7 +21,7 @@ function Admin() {
     loginAdmin(userState)
       .then((res) => {
         setLoading(false);
-        window.localStorage.setItem("login", JSON.stringify(res));
+        window.localStorage.setItem("login", res.token);
 
         return navigate("/admin/control_panel");
       })

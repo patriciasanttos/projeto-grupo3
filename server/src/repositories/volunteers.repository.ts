@@ -8,14 +8,14 @@ export default {
     //-----Volunteers
     async getVolunteerById(id: number): Promise<{ code: number, data: {} }> {
         try {
-            //-----Buscar voluntário na tabela
+            //-----Search volunteer in the table
             const volunteer = await Volunteer.findOne({ where: { id } });
 
             if (volunteer === null)
                 return {
                     code: 404,
                     data: {
-                        error: 'Volunteer not found'
+                        message: 'Volunteer not found'
                     }
                 };
 
@@ -30,16 +30,8 @@ export default {
 
     async getAllVolunteers(): Promise<{ code: number, data: {} }> {
         try {
-            //-----Buscar voluntários na tabela
+            //-----Search volunteers in the table
             const volunteers = await Volunteer.findAll();
-
-            if (volunteers === null)
-                return {
-                    code: 404,
-                    data: {
-                        error: 'No volunteers found'
-                    }
-                };
 
             return {
                 code: 200,
@@ -52,7 +44,7 @@ export default {
 
     async createVolunteer(data: VolunteerType): Promise<{ code: number, data?: {} }> {
         try {
-            // -----Salvar voluntário na tabela
+            // -----Save volunteer in the table
             await Volunteer.create({ ...data });
 
             return {
@@ -65,14 +57,14 @@ export default {
 
     async updateVolunteer(data: VolunteerType): Promise<{ code: number, data?: {} }> {
         try {
-            //-----Buscar voluntário na tabela
+            //-----Search volunteer in the table
             const volunteer = await Volunteer.findByPk(data.id)
             
             if (volunteer === null)
                 return {
                     code: 404,
                     data: {
-                        error: 'Volunteer not found'
+                        message: 'Volunteer not found'
                     }
                 };
 
@@ -88,14 +80,14 @@ export default {
     
     async deleteVolunteer(id: number): Promise<{ code: number, data?: {} }> {
         try {
-            //-----Buscar voluntário na tabela
+            //-----Search volunteer in the table
             const volunteer = await Volunteer.findOne({ where: { id } });
             
             if (volunteer === null)
                 return {
                     code: 404,
                     data: {
-                        error: 'Volunteer not found'
+                        message: 'Volunteer not found'
                     }
                 };
                 
@@ -120,7 +112,7 @@ export default {
                 return {
                     code: 404,
                     data: {
-                        error: 'No volunteers forms found'
+                        message: 'No volunteers forms found'
                     }
                 };
 
@@ -135,7 +127,7 @@ export default {
 
     async createVolunteerForm(data: VolunteerType): Promise<{ code: number, data?: {} }> {
         try {
-            // -----Salvar formulário na tabela
+            // -----Save volunteer in the table
             await VolunteerForm.create({ ...data });
 
             return {
@@ -148,18 +140,21 @@ export default {
 
     async acceptVolunteerForm(id: number): Promise<{ code: number, data?: {} }> {
         try {
-            // -----Buscar formulário na tabela
+            // -----Search form in the table
             const form = await VolunteerForm.findByPk(id);
             
             if (!form)
                 return {
                     code: 404,
                     data: {
-                        error: 'Volunteer form not found'
+                        message: 'Volunteer form not found'
                     }
                 }
 
-            await Volunteer.create(form.dataValues);
+            const data = { ...form.dataValues };
+            delete data.id;
+            
+            await Volunteer.create(data);
             await form.destroy();
 
             return {
@@ -172,7 +167,7 @@ export default {
 
     async denyVolunteerForm(id: number): Promise<{ code: number, data?: {} }> {
         try {
-            // -----Buscar formulário na tabela
+            // -----Search form in the table
             const form = await VolunteerForm.findByPk(id);
 
             await form?.destroy();

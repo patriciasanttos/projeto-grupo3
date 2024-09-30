@@ -2,20 +2,20 @@ import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "..";
 
 interface VolunteerFormInfo {
-    id: number,
-    name: string,
-    responsible_name?: string,
-    email: string,
-    phone: number,
-    address: string,
-    availability: string,
-    study_schedule?: string,
-    profession?: string,
-    sector: string,
-    state: string,
-    observation?: string,
-    created_at?: string,
-    updated_at?: string,
+  id?: number,
+  name: string,
+  responsible_name?: string,
+  email: string,
+  phone: number,
+  address: string,
+  availability: string,
+  study_schedule?: string,
+  profession?: string,
+  sector: string,
+  state: string,
+  observation?: string,
+  created_at?: string,
+  updated_at?: string,
 }
 
 type VolunteerFormInfoCreation = Optional<VolunteerFormInfo, 'id'>;

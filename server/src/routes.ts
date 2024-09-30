@@ -14,7 +14,7 @@ const router = Router();
 
 //-----Animals routes
 router
-    .get('/animals', AnimalsController.getAll)
+    .get('/animals/get', AnimalsController.getAll)
     .get('/animals/:id', AnimalsController.getById)
     .post('/animals', image.single('image'), AnimalsController.create)
     .put('/animals', image.single('image'), AnimalsController.update)
@@ -50,8 +50,8 @@ router
 router
     .get('/volunteers/get', VolunteersController.getAll)
     .get('/volunteers/get/:id', VolunteersController.getById)
-    .post('/volunteers', image.single('image'), VolunteersController.create)
-    .put('/volunteers', image.single('image'), VolunteersController.update)
+    .post('/volunteers', VolunteersController.create)
+    .put('/volunteers', VolunteersController.update)
     .delete('/volunteers/:id', VolunteersController.delete)
 
     .get('/volunteers/forms', VolunteersController.getAllForms)
@@ -61,12 +61,12 @@ router
 
 //-----Admins routes
 router
-    .get('/admins', AuthController.getAll)
+    .get('/admins/get', AuthController.getAll)
     .get('/admins/get/:id', AuthController.getById)
     .get('/admins/verify/:id', AuthController.verifyUser)
     .get('/admins/login', AuthController.login)
-    .post('/admins', image.single('image'), AuthController.register)
-    .put('/admins', image.single('image'), AuthController.update)
+    .post('/admins', AuthController.create)
+    .put('/admins', AuthController.update)
     .delete('/admins/:id', AuthController.delete);
 
 export default router;

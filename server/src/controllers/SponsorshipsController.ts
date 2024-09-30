@@ -2,6 +2,13 @@ import { Request, Response } from 'express';
 
 import sponsorshipsRepository from '../repositories/sponsorships.repository';
 
+const requestedProps = [
+    "name",
+    "email",
+    "phone",
+    "animal_id"
+]
+
 class SponsorshipsController {
     //-----Sponsorships
     async getAll(req: Request, res: Response) {
@@ -21,10 +28,29 @@ class SponsorshipsController {
     async create(req: Request, res: Response) {
         const data = req.body;
 
-        if (Object.keys(data).length === 0 || data.name === undefined || data.email === undefined || data.phone === undefined || data.animal_id === undefined)
-            return res.status(400).json({ error: 'Invalid body request' });
+        if (!data)
+            return res.status(400).json({ message: 'Invalid body request' });
 
-        const response = await sponsorshipsRepository.createSponsorship(data);
+        requestedProps.forEach(prop => {
+            if (!data[prop])
+                return res.status(400).json({ message: `Missing ${prop} property in the body request` });
+        });
+
+        const { name, email, phone, animal_id, observation }: {
+            name: string,
+            email: string,
+            phone: number,
+            animal_id: number,
+            observation: string,
+        } = { ...data };
+
+        const response = await sponsorshipsRepository.createSponsorship({
+            name,
+            email,
+            phone,
+            animal_id,
+            observation
+        });
 
         return res.status(response.code).json(response.data);
     }
@@ -32,10 +58,27 @@ class SponsorshipsController {
     async update(req: Request, res: Response) {
         const data = req.body;
 
-        if (Object.keys(data).length === 0)
-            return res.status(400).json({ error: 'Invalid body request' });
+        if (!data)
+            return res.status(400).json({ message: 'Invalid body request' });
 
-        const response = await sponsorshipsRepository.updateSponsorship(data);
+        if (!data.id)
+            return res.status(400).json({ message: 'Invalid body request' });
+
+        const { name, email, phone, id, observation }: {
+            id: number,
+            name: string,
+            email: string,
+            phone: number,
+            observation: string,
+        } = { ...data };
+
+        const response = await sponsorshipsRepository.updateSponsorship({
+            id,
+            name,
+            email,
+            phone,
+            observation
+        })
 
         return res.status(response.code).json(response.data);
     }
@@ -58,19 +101,33 @@ class SponsorshipsController {
     async createForm(req: Request, res: Response) {
         const data = req.body;
 
-        if (data.name === undefined || data.email === undefined || data.phone === undefined)
-            return res.status(400).json({ error: 'Invalid body request' });
+        if (!data)
+            return res.status(400).json({ message: 'Invalid body request' });
 
-        const response = await sponsorshipsRepository.createSponsorshipForm(data);
+        requestedProps.forEach(prop => {
+            if (!data[prop])
+                return res.status(400).json({ message: `Missing ${prop} property in the body request` });
+        });
+
+        const { name, email, phone, animal_id }: {
+            name: string,
+            email: string,
+            phone: number,
+            animal_id: number,
+        } = { ...data };
+
+        const response = await sponsorshipsRepository.createSponsorshipForm({
+            name,
+            email,
+            phone,
+            animal_id,
+        });
 
         return res.status(response.code).json(response.data);
     }
 
     async acceptForm(req: Request, res: Response) {
         const { id } = req.params;
-
-        if (!id)
-            return res.status(400).json({ error: 'Invalid id' });
 
         const response = await sponsorshipsRepository.acceptSponsorshipForm(Number(id));
 
@@ -79,9 +136,6 @@ class SponsorshipsController {
 
     async denyForm(req: Request, res: Response) {
         const { id } = req.params;
-
-        if (!id)
-            return res.status(400).json({ error: 'Invalid id' });
 
         const response = await sponsorshipsRepository.denySponsorshipForm(Number(id));
 

@@ -80,7 +80,7 @@ function Sponsorships() {
 
           return sponsorshipsFormList.push({
             id: form.id,
-            name: form.name,
+            name: form?.name,
             email: form.email,
             phone:
               form.phone.length === 11
@@ -92,8 +92,8 @@ function Sponsorships() {
                     2,
                     6
                   )}-${form.phone.slice(6)}`,
-            animal_name: animal.name,
-            animal_id: animal.id,
+            animal_name: animal?.name,
+            animal_id: animal?.id,
           });
         });
 
@@ -134,9 +134,10 @@ function Sponsorships() {
           });
 
           setSponsorsList(sponsorshipsList);
+
+          await loadForms(data);
         })
         .catch((error) => {
-          console.log(error);
           toast.error("Erro ao carregar. Tente novamente.");
         });
     });
@@ -379,6 +380,7 @@ function Sponsorships() {
               formActionsFunction={{
                 accept: acceptSponsorshipForm,
                 deny: denySponsorshipForm,
+                refresh: refreshSponsorshipships
               }}
             />
           )}

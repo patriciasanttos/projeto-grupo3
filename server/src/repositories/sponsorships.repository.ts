@@ -8,7 +8,7 @@ export default {
     //-----Sponsorships
     async getSponsorshipById(id: number): Promise<{ code: number, data: {} }> {
         try {
-            //-----Buscar apadrinhamento na tabela
+            //-----Search sponsorship in the table
             const sponsorship = await Sponsorship.findByPk(id, {
                 include: [ Animal ]
             });
@@ -17,7 +17,7 @@ export default {
                 return {
                     code: 404,
                     data: {
-                        error: 'Sponsorship not found'
+                        message: 'Sponsorship not found'
                     }
                 };
             
@@ -32,18 +32,10 @@ export default {
 
     async getAllSponsorships(): Promise<{ code: number, data: {} }> {
         try {
-            //-----Buscar apadrinhamentos na tabela
+            //-----Search sponsorships in the table
             const sponsorship = await Sponsorship.findAll({
                 include: [ Animal ]
             });
-
-            if (sponsorship === null)
-                return {
-                    code: 404,
-                    data: {
-                        error: 'No sponsorships found'
-                    }
-                };
 
             return {
                 code: 200,
@@ -56,19 +48,19 @@ export default {
 
     async createSponsorship(data: SponsorshipType): Promise<{ code: number, data?: {} }> {
         try {
-            //-----Buscar animal na tabela
+            //-----Search animal in the table
             const gettedAnimal = await Animal.findByPk(data.animal_id);
 
             if (!gettedAnimal)
                 return {
                     code: 404,
                     data: {
-                        error: 'Animal not found'
+                        message: 'Animal not found'
                     }
                 };
 
             delete data?.animal_id;
-            // -----Salvar apadrinhamento na tabela
+            // -----Save sponsorship in the table
             const sponsorship = await Sponsorship.create({ ...data });
             await gettedAnimal.addSponsorship(sponsorship);
 
@@ -82,14 +74,14 @@ export default {
 
     async updateSponsorship(data: SponsorshipType): Promise<{ code: number, data?: {} }> {
         try {
-            //-----Buscar apadrinhamento na tabela
+            //-----Search sponsorship in the table
             const sponsorship = await Sponsorship.findByPk(data.id)
             
             if (sponsorship === null)
                 return {
                     code: 404,
                     data: {
-                        error: 'Sponsorship not found'
+                        message: 'Sponsorship not found'
                     }
                 };
 
@@ -108,14 +100,14 @@ export default {
     
     async deleteSponsorship(id: number): Promise<{ code: number, data?: {} }> {
         try {
-            //-----Buscar apadrinhamento na tabela
+            //-----Search sponsorship in the table
             const sponsorship = await Sponsorship.findByPk(id);
             
             if (sponsorship === null)
                 return {
                     code: 404,
                     data: {
-                        error: 'Sponsorship not found'
+                        message: 'Sponsorship not found'
                     }
                 };
                 
@@ -133,14 +125,14 @@ export default {
     //-----Sponsorships forms
     async getAllSponsorshipsForms(): Promise<{ code: number, data: {} }> {
         try {
-            //-----Buscar formulários na tabela
+            //-----Search form in the table
             const sponsorships = await SponsorshipForm.findAll();
 
             if (sponsorships === null)
                 return {
                     code: 404,
                     data: {
-                        error: 'No sponsorship forms found'
+                        message: 'No sponsorship forms found'
                     }
                 };
 
@@ -155,7 +147,7 @@ export default {
 
     async createSponsorshipForm(data: SponsorshipFormType): Promise<{ code: number, data?: {} }> {
         try {
-            // -----Salvar formulário na tabela
+            // -----Save form in the table
             await SponsorshipForm.create({ ...data });
 
             return {
@@ -168,14 +160,14 @@ export default {
 
     async acceptSponsorshipForm(id: number): Promise<{ code: number, data?: {} }> {
         try {
-            // -----Buscar formulário na tabela
+            // -----Search form in the table
             const form = await SponsorshipForm.findByPk(id);
             
             if (!form)
                 return {
                     code: 404,
                     data: {
-                        error: 'Sponsorship form not found'
+                        message: 'Sponsorship form not found'
                     }
                 }
 
@@ -195,7 +187,7 @@ export default {
 
     async denySponsorshipForm(id: number): Promise<{ code: number, data?: {} }> {
         try {
-            // -----Buscar formulário na tabela
+            // -----Search form in the table
             const form = await SponsorshipForm.findByPk(id);
 
             await form?.destroy();

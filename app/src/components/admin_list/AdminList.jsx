@@ -6,6 +6,7 @@ import PopupMenu from "../popupMenu";
 import ActionsForm from "../actionsForm/ActionsForm";
 import { jwtDecode } from "jwt-decode";
 import { BeatLoader } from "react-spinners";
+import { useState } from "react";
 
 const permissions = {
   animals: "Animais",
@@ -92,10 +93,13 @@ function AdminList({
 
     return (
       (//-----If admin has full permission, but the admin on the line is another admin with full permission
-      (row.permissions?.filter((perm) => perm.id === 6)[0] &&
-        row.id === jwtDecode(localStorage.getItem("login")).userId) ||
+        (
+          row.permissions?.filter((perm) => perm.id === 6)[0] &&
+          row.id === jwtDecode(localStorage.getItem("login")).userId
+        ) ||
         //-----If admin has full permission, but the admin on the line not
-        !row.permissions?.filter((perm) => perm.id === 6)[0]) &&
+        !row.permissions?.filter((perm) => perm.id === 6)[0]
+      ) &&
       getEditDeleteActions(row)
     );
   };
