@@ -1,0 +1,42 @@
+.admin-header {
+    background-color: var(--background-primary-color);
+    height: 10%;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+        color: #fff;
+        font-weight: 400;
+    }
+}
+
+.admin-control-panel {
+    max-height: 100vh;
+
+    .control-panel-username {
+        text-align: center;
+        margin: 0 0 3% 0;
+
+        font-weight: 600;
+        font-size: 25pt;
+    }
+
+    .control-panel-title {
+        font-size: 20pt;
+    }
+
+    .control-panel-about-page-title {
+        color: var(--title-secondary-color);
+        font-size: 18pt;
+        
+        text-align: left;
+    }
+
+    .control-panel-about-page-info {
+        font-size: 15pt;
+
+        margin-bottom: 5%;
+    }
+}

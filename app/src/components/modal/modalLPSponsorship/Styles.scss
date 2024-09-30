@@ -1,0 +1,180 @@
+    /* GENERAL DATA */
+    .generalData {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .animalName {
+        text-align: start;
+        text-transform: uppercase;
+        font-size: 2.5rem;
+        margin: 0;
+    }
+
+    .status {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 180%;
+
+        p {
+            font-size: 1rem;
+        }
+    }
+
+    .info {
+        margin-top: 15px;
+
+        p {
+            font-size: 1.4rem;
+            margin: 0;
+        }
+    }
+
+    .animal {
+        align-self: flex-start;
+        width: 250px;
+        margin-bottom: 10px;
+    }
+
+
+    /* HISTORY */
+    .history {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        margin: 10px 0px 10px 0px;
+
+        h3 {
+            font-size: 1.2rem;
+        }
+
+        p {
+            margin: 5px 0px 15px 0px;
+        }
+    }
+
+    .containerForm {
+        display: flex;
+        justify-content: space-evenly;
+        color: var(--background-primary-color);
+
+        h2 {
+            margin: 0px 0px 15px 0px;
+            font-size: 1.5rem;
+        }
+
+        .info-sponsor-adoption {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            color: black;
+            font-size: 1.2rem;
+
+            width: 50%;
+        }
+
+        .modal-input-container {
+            display: flex;
+            align-items: center;
+
+            input {
+                margin-right: 10px;
+                height: 10px;
+            }
+    
+            .error-message {
+                color: red;
+                font-size: 10pt;
+            }
+        }
+    }
+
+
+    @media (max-width: 600px) {
+        .modal {
+            width: 80%;
+            overflow-y: auto;
+
+            .btnSubmit {
+                margin-bottom: 20px;
+
+                .button {
+                    padding: 15px;
+                    font-size: 1.2rem;
+                }
+            }
+        }
+
+        .generalData {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+
+            .animalName {
+                text-align: center;
+                font-size: 1.5rem;
+            }
+
+            .animal {
+                text-align: center;
+                width: 200px;
+            }
+
+            .info {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-evenly;
+                text-align: left;
+                gap: 20px;
+            }
+
+            .history {
+
+                p {
+                    font-size: 0.8rem;
+                }
+            }
+        }
+
+        .containerForm {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+
+            input {
+                width: 200px !important;
+            }
+
+            h2 {
+                margin: 0px 0px 15px 0px;
+            }
+
+            .forms {
+                width: 100%;
+                max-width: 80% !important;
+            }
+
+        }
+    }
+
+    @media (min-width: 768px) {
+        .containerForm {
+            justify-content: space-between;
+        }
+    }
+
+    @media (max-width: 1100px) {
+        .modal {
+            width: 80%;
+        }
+
+    }

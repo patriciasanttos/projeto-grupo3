@@ -1,0 +1,31 @@
+.sponsorship-list-container {
+    max-height: 70vh;
+    overflow-y: scroll;
+}
+
+.sponsorship-filter-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-bottom: 50px;
+
+    .filters {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        input:not(:first-child) {
+            margin-left: 10px;
+        }
+    }
+
+    .add-icon {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+
+        font-weight: 500;
+    }
+}

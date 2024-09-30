@@ -1,0 +1,138 @@
+.call-text {
+    color: black;
+    font-size: 1.5rem;
+}
+
+.call-text-1 {
+    padding: 50px 40px 0 40px;
+}
+
+.call-text-2 {
+    padding: 20px 40px 10px 40px;
+
+}
+
+.section-information {
+    background-image: url('../../../assets/images/backgrounds/bg-white-paw.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #F4F4F4;
+    padding-top: 5%;
+}
+
+.ways-to-donate {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 3rem;
+}
+
+.right h4 {
+    color: var(--background-primary-color);
+    padding: 0rem;
+    margin: 0rem;
+    font-size: 18px;
+    text-align: left;
+
+}
+
+.ways-to-donate h3 {
+    color: var(--background-primary-color);
+    text-align: left;
+}
+
+.right p {
+    margin-top: 0rem;
+}
+
+.left a {
+    text-decoration: none;
+}
+
+.letf a:hover {
+    color: rgb(116, 114, 114);
+}
+
+.text-call-platform h3 {
+    color: var(--background-primary-color);
+}
+
+.digital-platform {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 5rem;
+    margin-top: 2rem;
+}
+
+.digital-platform img {
+    width: 15rem;
+}
+
+.section-information p {
+    color: black;
+}
+
+.left ul {
+    color: black;
+    display: block;
+}
+
+li {
+    display: block;
+    color: black;
+}
+
+.left a {
+    color: black;
+}
+
+@media (max-width: 975px) {
+
+    .page_container p {
+        font-size: 1rem;
+    }
+
+    .page_container h3 {
+        font-size: 1rem;
+    }
+
+    .page_container h1 {
+        font-size: 2rem;
+    }
+
+    .ways-to-donate {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .ways-to-donate p,
+    a {
+        font-size: 0.9rem;
+        align-items: center;
+    }
+
+    .left {
+        text-align: center;
+    }
+
+    .right {
+        text-align: center;
+    }
+
+    .ways-to-donate h3 {
+        text-align: center;
+    }
+
+    .right h4 {
+        text-align: center;
+        font-size: 1rem;
+    }
+
+    .digital-platform {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .digital-platform img {
+        margin: 1rem;
+    }
+}

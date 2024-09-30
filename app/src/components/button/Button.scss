@@ -1,0 +1,26 @@
+.button {
+    background-color: #2bbbad;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.button-loading {
+    opacity: 0.6;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    cursor: initial;
+
+    .loading-spinner {
+        height: 25px; 
+        width: 25px;
+        margin-right: 10px;
+    }
+}

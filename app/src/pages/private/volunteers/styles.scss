@@ -1,0 +1,86 @@
+.volunteers-list-container {
+    max-height: 70vh;
+}
+
+.btn-show-form-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    gap: 10px;
+
+    text-align: center;
+    align-items: center;
+    margin-bottom: 10px;
+
+    .btn-show-form {
+        background-color: white;
+        color: var(--backroung-secondary-color);
+        border: 1px solid var(--background-primary-color);
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        font-size: 1rem;
+    }
+
+    .btn-show-form-active {
+        @extend .btn-show-form;
+        background-color: var(--background-primary-color);
+        color: white;
+    }
+
+    .btn-show-form:hover {
+        background-color: var(--background-primary-color);
+        color: white;
+    }
+}
+
+.admin-volunteers-input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 40px 0px;
+
+    .filters {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        input:not(:first-child) {
+            margin-left: 10px;
+        }
+    }
+}
+
+.admin-volunteers-text {
+    display: flex;
+    gap: 20px;
+
+    input {
+        height: 35px;
+        border-radius: 8px;
+        border: 2px solid #5BB656;
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    input:focus {
+        outline: none;
+    }
+}
+
+.admin-volunteers-btn {
+    display: flex;
+    flex-direction: column;
+
+    label {
+        font-size: 1.25rem;
+        margin-bottom: 10px;
+    }
+
+    button {
+        border: none;
+        background: none;
+    }
+}

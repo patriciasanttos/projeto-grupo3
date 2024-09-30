@@ -1,0 +1,19 @@
+
+.popup-menu {
+    display: flex;
+    flex-direction: column;
+    color: black;
+}
+
+.popup-menu .menu-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.popup-menu .menu-item:hover {
+    background-color: #eeeeee;
+}
+
+.popup-menu-icon {
+    height: 30px;
+}

@@ -1,0 +1,77 @@
+.filterWrapper{
+  position: relative;
+}
+
+.filterSidebar {
+  color: black;
+  max-width: 500px;
+  margin-top: 80px;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.filterGroup label {
+  display: flex;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.title {
+  color: #26A59E;
+  font-weight: bold;
+}
+
+.filterGroup select,
+.filterGroup input {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.filterToggle {
+  min-width: 300px;
+  display: none; 
+  background-color: #26A59E;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.filterToggle:hover {
+  background-color: #1a776f;
+}
+
+@media (max-width: 768px) {
+  .filterWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .filterToggle {
+    display: block; 
+  }
+
+  .filterSidebar {
+    display: none; 
+    margin-top: 0px;
+  }
+
+  .filterSidebar.visible {
+    top: 38px;
+    display: block; 
+    position: absolute;
+    background-color: #ffffffde;
+    min-width: 300px;
+  }
+
+}

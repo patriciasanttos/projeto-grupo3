@@ -1,0 +1,309 @@
+    h1,
+    h3 {
+        text-align: center;
+        margin: 0;
+    }
+
+    h4 {
+        margin: 0;
+        padding: 5% 0 3% 0;
+
+        color: var(--background-primary-color);
+        font-size: 1.8rem;
+        text-align: center;
+
+    }
+
+    .volunteer-phrase {
+        background-image: url('../../../assets/images/backgrounds/bg-gray-paw.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+
+        text-align: center;
+        padding: 5% 0 5% 0;
+
+        .section-title {
+            color: var(--button-primary-color);
+            font-weight: 900;
+            font-size: 1.2rem;
+        }
+
+        .section-subtitle {
+            color: var(--background-primary-color);
+            font-weight: 900;
+            font-size: 3rem;
+        }
+
+        .section-text {
+            color: black;
+            font-size: 1.5rem;
+        }
+
+        .section-text-1 {
+            padding-top: 5%;
+            text-align: center;
+        }
+    }
+
+    .main-volunteers {
+        background-image: url('../../../assets/images/backgrounds/bg-white-paw.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+
+        text-align: center;
+        padding-top: 5%;
+
+        .main-title {
+            color: var(--button-primary-color);
+            font-weight: 900;
+            font-size: 1rem;
+        }
+
+        .main-subtitle {
+            color: var(--background-primary-color);
+            font-weight: 700;
+            font-size: 2.5rem;
+        }
+
+        .volunteer-info {
+            width: 80vw;
+            margin: auto;
+
+            .align-volunteers-info {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+
+                width: 80vw;
+                margin: 0;
+            }
+
+            .icon-text {
+                display: flex;
+                flex-direction: column;
+                flex-wrap: wrap;
+
+                padding-left: 20%;
+                font-size: 1.3rem;
+            }
+
+            li {
+                list-style-type: none;
+                color: black;
+
+                display: flex;
+                flex-direction: row;
+
+                align-items: center;
+                text-align: left;
+                padding-bottom: 4%;
+
+                img {
+                    margin-right: 3%;
+                }
+            }
+
+        }
+
+        .align-checkbox {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 1%;
+
+            text-align: center;
+            align-items: center;
+            color: black;
+            font-size: 1.2rem;
+        }
+
+        .checkbox-form {
+            border: 1px solid var(--background-primary-color);
+            border-radius: 5px;
+            width: 15px;
+            height: 15px;
+
+            margin-left: 8%;
+        }
+
+        .text-form {
+            color: black;
+            padding-bottom: 8%;
+        }
+
+        .text-form p {
+            width: 58vw;
+            margin: auto;
+            text-align: left;
+        }
+
+        .volunteers-form {
+            display: flex;
+            justify-content: center;
+            gap: 5%;
+        }
+
+        .align-form {
+            display: flex;
+            flex-direction: column;
+            padding-top: 3%;
+            margin-bottom: 2%;
+
+            input {
+                margin-bottom: 5%;
+                padding: 3%;
+                width: 25vw;
+    
+                border: 1px solid var(--background-primary-color);
+                border-radius: 5px;
+            }
+    
+            input:focus {
+                outline: none;
+            }
+    
+            .input-required {
+                border: 1px solid red;
+            }
+        }
+
+        .volunteers-form select {
+            margin-bottom: 5%;
+            padding: 3%;
+            width: 26.8vw;
+
+            border: 1px solid var(--background-primary-color);
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .main-volunteers {
+
+            .main-subtitle {
+                margin-bottom: 20px;
+            }
+
+            .volunteer-info {
+                width: 75% !important;
+
+                .align-volunteers-info {
+                    display: flex !important;
+                    flex-direction: column;
+                }
+
+                .volunteer-title {
+                    padding: 20px 0px;
+                }
+
+                .icon-text {
+                    padding: 0px !important;
+
+                    li {
+
+                        padding: 10px 5px;
+                        margin: 0px;
+
+                        br {
+                            display: none;
+                        }
+                    }
+                }
+            }
+
+            .align-checkbox {
+                width: 90%;
+
+                .checkbox-form {
+                    width: 20px;
+                }
+            }
+
+            .text-form {
+
+                p {
+                    width: 100%;
+                    margin-bottom: 20px;
+                }
+            }
+
+            .volunteers-form {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                input {
+                    width: 280px;
+                    height: 30px;
+                }
+
+                .dropdown {
+                    width: 300px;
+                    height: 50px;
+                    margin: 0px;
+                }
+            }
+
+            button {
+                width: 120px;
+                margin-top: 20px;
+            }
+        }
+    }
+
+    @media (min-width: 800px) and (max-width: 900px) {
+        .main-volunteers {
+
+            .volunteer-info {
+                width: 85%;
+
+                .align-volunteers-info {
+                    width: 100%;
+                    gap: 50px;
+                }
+
+                .volunteer-title {
+                    padding: 20px 0px;
+                }
+
+                .icon-text {
+                    padding: 0px !important;
+
+                    li {
+
+                        padding: 10px 5px;
+                        margin: 0px;
+
+                        br {
+                            display: none;
+                        }
+                    }
+                }
+            }
+
+            .text-form {
+                p {
+                    width: 80%;
+                }
+            }
+
+            .volunteers-form {
+
+                input {
+                    width: 280px;
+                    height: 30px;
+
+                }
+
+                .dropdown {
+                    width: 300px;
+                    height: 48px;
+                    margin: 0px;
+                }
+            }
+
+            button {
+                margin-top: 20px;
+            }
+        }
+    }

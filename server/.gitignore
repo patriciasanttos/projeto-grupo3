@@ -1,2 +1,7 @@
 node_modules
 yarn.lock
+
+/src/assets/images/administrators/*
+/src/assets/images/animals/*
+
+.env

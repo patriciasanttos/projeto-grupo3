@@ -1,0 +1,58 @@
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    height: 100vh;
+}
+
+.text {
+    text-align: center;
+    padding-bottom: 20px;
+    color: #26A59E;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+.content-container {
+    background-image: url('../../../assets/images/backgrounds/bg-white-paw.svg');
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #F4F4F4;
+    padding: 20px 0px;
+}
+
+.photo-gallery{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 50px;
+}
+  
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px; 
+    justify-items: center;
+    min-width: 55%;
+}
+
+@media (max-width: 1024px) {
+    .card-container {
+        grid-template-columns: repeat(2, 1fr); /* Duas colunas em telas médias */
+        min-width: 80%;
+    }
+}
+
+@media (max-width: 768px) {
+    .card-container {
+        grid-template-columns: repeat(1, 1fr); /* Uma coluna em telas pequenas */
+    }
+
+    .photo-gallery{
+        flex-direction: column;
+        align-items: center;
+    }
+}
