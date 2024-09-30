@@ -15,7 +15,7 @@ module.exports = {
       },
       image: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       name: {
         type: DataTypes.STRING,
@@ -59,7 +59,7 @@ module.exports = {
       },
       bay: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
       },
       sector: {
         type: DataTypes.STRING,

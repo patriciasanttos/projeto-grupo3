@@ -44,9 +44,8 @@ function Animals() {
     checkUserPermission();
   }, []);
 
-  useEffect(() => {
-    setLoading(true);
-    getAllAnimals().then((animals) => {
+  const loadAnimals = async () => {
+    await getAllAnimals().then((animals) => {
       setAnimalsList(animals.map((animal) => ({
         ...animal,
         stageLife: animal.age,
@@ -55,8 +54,14 @@ function Animals() {
         gender: animal.gender.toUpperCase(),
         sector: animal.sector.toUpperCase()
       })))
+
       setLoading(false);
     });
+  }
+
+  useEffect(() => {
+    setLoading(true);
+    loadAnimals()
   }, []);
 
   const getFilteredItems = () => {
@@ -77,11 +82,6 @@ function Animals() {
   };
 
   const updateAnimalsList = async (animal) => {
-    let animals = [...animalsList];
-    animals[animal.id - 1] = {
-      ...animal,
-    };
-
     const formData = new FormData();
 
     formData.append("id", animal.id);
@@ -110,24 +110,18 @@ function Animals() {
         toast.error("Erro ao atualizar. Tente novamente.");
       });
 
-    setAnimalsList(animals);
-    setIsModalOpen(false);
+      setIsModalOpen(false);
+      await loadAnimals()
   };
 
   const deleteAnimalsList = async (animal) => {
     await deleteAnimal(animal.id, localStorage.getItem('login'));
 
-    setAnimalsList(animalsList.filter((animals) => animals.id !== animal.id));
     setIsModalOpen(false);
+    await loadAnimals();
   }
 
   const createAnimalsList = async (animal) => {
-    let animals = [...animalsList];
-    animals.push({
-      ...animal,
-      id: animalsList.length + 1,
-    });
-
     const formData = new FormData();
 
     formData.append("species", animal.species);
@@ -156,8 +150,8 @@ function Animals() {
         toast.error("Erro ao adicionar. Tente novamente.");
       });
 
-    setAnimalsList(animals);
     setIsModalOpen(false);
+    await loadAnimals();
   };
 
   const onClickEditAnimal = (animal) => {

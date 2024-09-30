@@ -8,7 +8,6 @@ const requestedProps = [
     "phone",
     "address",
     "availability",
-    "profession",
     "sector",
     "state",
 ]
@@ -76,7 +75,8 @@ class VolunteersController {
                 return res.status(400).json({ message: `Missing ${prop} property in the body request` });
         });
 
-        const { name, email, phone, address, availability, profession, sector, state, observation }: {
+        const { id, name, email, phone, address, availability, profession, sector, state, observation }: {
+            id: number,
             name: string,
             email: string,
             phone: number,
@@ -89,6 +89,7 @@ class VolunteersController {
         } = { ...data };
 
         const response = await volunteersRepository.updateVolunteer({
+            id,
             name,
             email,
             phone,

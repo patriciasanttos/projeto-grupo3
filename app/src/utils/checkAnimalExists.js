@@ -1,4 +1,8 @@
 export const checkAnimalExists = async (animal, animalsList, setAnimalToConfirm) => {
+  const animalSpecies = String(animal?.species).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  const animalName = String(animal?.name).toLowerCase();
+  const animalRace = String(animal?.race).toLowerCase();
+
   let existentAnimalId;
   await animalsList.forEach(animalInList => {
     if (existentAnimalId)
@@ -6,17 +10,13 @@ export const checkAnimalExists = async (animal, animalsList, setAnimalToConfirm)
 
     const dogSpeciesType = [ 'cao', 'canina' ];
 
-    const animalSpecies = animal.species.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-    const animalName = animal.name.toLowerCase();
-    const animalRace = animal.race.toLowerCase();
-
     if (
-      animalInList.name.toLowerCase() === animalName
-      && animalInList.race.toLowerCase() === animalRace
+      String(animalInList?.name).toLowerCase() === animalName
+      && String(animalInList?.race).toLowerCase() === animalRace
       && (
-        (animalInList.species.toLowerCase() === 'gato' && animalSpecies === 'gato') ||
+        (String(animalInList?.species).toLowerCase() === 'gato' && animalSpecies === 'gato') ||
         (
-          dogSpeciesType.includes(animalInList?.species.toLowerCase()) && 
+          dogSpeciesType.includes(String(animalInList?.species).toLowerCase()) && 
           dogSpeciesType.includes(animalSpecies)
         )
       )

@@ -60,7 +60,7 @@ Volunteer.init({
   },
   profession: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   sector: {
     type: DataTypes.STRING,

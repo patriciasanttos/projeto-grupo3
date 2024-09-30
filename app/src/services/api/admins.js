@@ -1,7 +1,7 @@
 import { axiosGet, axiosPost, axiosPut, axiosDelete } from './index';
 
 export const getAllAdmins = async (token) => {
-    return await axiosGet('/admins', {
+    return await axiosGet('/admins/get', {
         headers: {
             'Authorization': `Bearer ${token}`
         }

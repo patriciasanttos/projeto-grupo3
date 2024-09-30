@@ -6,7 +6,6 @@ import animalsRepository from '../repositories/animals.repository';
 import genFileName from '../utils/genFileName';
 
 const requestedProps = [
-    "image",
     "name",
     "species",
     "gender",
@@ -68,6 +67,9 @@ class AnimalController {
             if (!body[prop])
                 return res.status(400).json({ message: `Missing ${prop} property in the body request` });
         });
+
+        if (!req.file)
+            return res.status(400).json({ message: `Missing image property in the body request` });
 
         let { 
             image,

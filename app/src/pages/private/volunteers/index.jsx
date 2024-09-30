@@ -84,7 +84,7 @@ function Volunteers() {
     });
   };
 
-  const refreshAllVolunteersList = () => {
+  const refreshAllVolunteersList = async () => {
     refreshVolunteersList()
     refreshVolunteersFormList()
   }
@@ -135,12 +135,11 @@ function Volunteers() {
   };
 
   const updateVolunteersList = async (volunteer) => {
-    if (volunteer.phone)
-      volunteer.phone = Number(volunteer.phone.replace(/[()\-\s]/g, ""));
-
-    await updateVolunteer(volunteer, localStorage.getItem("login")).catch(
+    await updateVolunteer({
+      ...volunteer,
+      phone: Number(volunteer?.phone.replace(/[()\-\s]/g, ""))
+    }, localStorage.getItem("login")).catch(
       (error) => {
-        console.log(error);
         toast.error("Erro ao atualizar. Tente novamente.");
       }
     );
@@ -152,7 +151,6 @@ function Volunteers() {
   const deleteVolunteersList = async (volunteer) => {
     await deleteVolunteer(volunteer.id, localStorage.getItem("login")).catch(
       (error) => {
-        console.log(error);
         toast.error("Erro ao apagar. Tente novamente.");
       }
     );
@@ -298,7 +296,7 @@ function Volunteers() {
               formActionsFunction={{ 
                 accept: acceptVolunteerForm, 
                 deny: denyVolunteerForm, 
-                refresh: refreshAllVolunteersList 
+                refresh: refreshAllVolunteersList
               }}
             />
           )}

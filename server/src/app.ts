@@ -15,7 +15,7 @@ app
     .use(express.json())
     .use((req, res, next) => {
         if (
-            req.method === 'GET' && req.url === '/animals' 
+            req.method === 'GET' && req.url === '/animals/get' 
             || req.method === 'POST' && req.url === '/volunteers/forms'
             || req.method === 'POST' && req.url === '/sponsorships/forms'
             || req.method === 'POST' && req.url === '/adoptions/forms'

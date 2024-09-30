@@ -1,4 +1,5 @@
 export default function serverErrorHandler(error: Error): { code: number, data: {} } {
+    console.log(error)
     if (error.name.includes('Sequelize')){
         return {
             code: 500, 
