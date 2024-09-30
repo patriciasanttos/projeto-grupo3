@@ -58,7 +58,7 @@ class SponsorshipsController {
     async update(req: Request, res: Response) {
         const data = req.body;
 
-        if (data)
+        if (!data)
             return res.status(400).json({ message: 'Invalid body request' });
 
         if (!data.id)
@@ -101,7 +101,7 @@ class SponsorshipsController {
     async createForm(req: Request, res: Response) {
         const data = req.body;
 
-        if (!data.name)
+        if (!data)
             return res.status(400).json({ message: 'Invalid body request' });
 
         requestedProps.forEach(prop => {

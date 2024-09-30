@@ -2,7 +2,7 @@ import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "..";
 
 interface VolunteerInfo {
-  id: number,
+  id?: number,
   name: string,
   responsible_name?: string,
   email: string,

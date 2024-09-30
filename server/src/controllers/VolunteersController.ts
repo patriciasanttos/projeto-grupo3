@@ -1,33 +1,24 @@
 import { Request, Response } from 'express';
-import fs from 'fs';
-import path from 'path';
 
 import volunteersRepository from '../repositories/volunteers.repository';
-import genFileName from '../utils/genFileName';
+
+const requestedProps = [
+    "name",
+    "email",
+    "phone",
+    "address",
+    "availability",
+    "profession",
+    "sector",
+    "state",
+]
 
 class VolunteersController {
     //-----Volunteers
     async getAll(req: Request, res: Response) {
         const response = await volunteersRepository.getAllVolunteers();
 
-        const volunteers = Object.entries(response.data).map((volunteer: any[]) => {
-
-            let image: Buffer;
-            let base64Image;
-            if (volunteer[1].dataValues.image) {
-                image = fs.readFileSync(path.join(__dirname, '..', 'assets', 'images', 'animals', volunteer[1].dataValues.image));
-            
-                if (image)
-                    base64Image = Buffer.from(image).toString('base64');
-            }
-
-            return {
-                ...volunteer[1].dataValues,
-                image: base64Image
-            };
-        })
-
-        res.status(response.code).json(volunteers);
+        res.status(response.code).json(response.data);
     }
 
     async getById(req: Request, res: Response) {
@@ -35,62 +26,79 @@ class VolunteersController {
 
         const response: any = await volunteersRepository.getVolunteerById(Number(id));
 
-        let image: Buffer;
-        let base64Image;
-        if (response.data.image) {
-            image = fs.readFileSync(path.join(__dirname, '..', 'assets', 'images', 'volunteers', response.data.image));
-            
-            if (image)
-                base64Image = Buffer.from(image).toString('base64');
-        }
-
-        const volunteer = {
-            ...response.data,
-            image: base64Image
-        };
-
-        res.status(response.code).json(volunteer);
+        res.status(response.code).json(response.data);
     }
 
     async create(req: Request, res: Response) {
-        const data = {
-            ...req.body,
-            image: req.file?.originalname
-        };
-        if (data.image) {
-            data.image = genFileName(req.file!.originalname);
-        }
+        const data = req.body;
+        if (!data)
+            return res.status(400).json({ message: 'Invalid body request' });
 
-        if (Object.keys(data).length === 0 || data.name === undefined || data.email === undefined || data.phone === undefined || data.availability === undefined)
-            return res.status(400).json({ error: 'Invalid body request' });
+        requestedProps.forEach(prop => {
+            if (!data[prop])
+                return res.status(400).json({ message: `Missing ${prop} property in the body request` });
+        });
 
-        const response = await volunteersRepository.createVolunteer(data);
+        const { name, email, phone, address, availability, profession, sector, state, observation }: {
+            name: string,
+            email: string,
+            phone: number,
+            address: string,
+            availability: string,
+            profession: string,
+            sector: string,
+            state: string,
+            observation?: string
+        } = { ...data };
 
-        if (response.code === 201) {
-            //-----Salvar imagem na API
-            if (data.image) {
-                const imageBuffer = req.file!.buffer
-                fs.writeFile(path.join(__dirname, '..', 'assets', 'images', 'volunteers', data.image), imageBuffer, (err) => {
-                    if (err) {
-                        console.log(err)
-                        return res.status(response.code).json({ message: 'Registred, but image was not saved' });
-                    }
-                });
-            }
-
-            return res.status(response.code).json(response.data);
-        };
+        const response = await volunteersRepository.createVolunteer({
+            name,
+            email,
+            phone,
+            address,
+            availability,
+            profession,
+            sector,
+            state,
+            observation
+        });
 
         return res.status(response.code).json(response.data);
     }
 
     async update(req: Request, res: Response) {
         const data = req.body;
+        if (!data)
+            return res.status(400).json({ message: 'Invalid body request' });
 
-        if (Object.keys(data).length === 0)
-            return res.status(400).json({ error: 'Invalid body request' });
+        requestedProps.forEach(prop => {
+            if (!data[prop])
+                return res.status(400).json({ message: `Missing ${prop} property in the body request` });
+        });
 
-        const response = await volunteersRepository.updateVolunteer(data);
+        const { name, email, phone, address, availability, profession, sector, state, observation }: {
+            name: string,
+            email: string,
+            phone: number,
+            address: string,
+            availability: string,
+            profession: string,
+            sector: string,
+            state: string,
+            observation?: string
+        } = { ...data };
+
+        const response = await volunteersRepository.updateVolunteer({
+            name,
+            email,
+            phone,
+            address,
+            availability,
+            profession,
+            sector,
+            state,
+            observation
+        });
 
         return res.status(response.code).json(response.data);
     }
@@ -112,20 +120,41 @@ class VolunteersController {
     
     async createForm(req: Request, res: Response) {
         const data = req.body;
+        if (!data)
+            return res.status(400).json({ message: 'Invalid body request' });
 
-        if (data.name === undefined || data.email === undefined || data.phone === undefined || data.availability === undefined)
-            return res.status(400).json({ error: 'Invalid body request' });
+        requestedProps.forEach(prop => {
+            if (!data[prop])
+                return res.status(400).json({ message: `Missing ${prop} property in the body request` });
+        });
 
-        const response = await volunteersRepository.createVolunteerForm(data);
+        const { name, email, phone, address, availability, profession, sector, state }: {
+            name: string,
+            email: string,
+            phone: number,
+            address: string,
+            availability: string,
+            profession: string,
+            sector: string,
+            state: string,
+        } = { ...data };
+
+        const response = await volunteersRepository.createVolunteerForm({
+            name,
+            email,
+            phone,
+            address,
+            availability,
+            profession,
+            sector,
+            state
+        });
 
         return res.status(response.code).json(response.data);
     }
 
     async acceptForm(req: Request, res: Response) {
         const { id } = req.params;
-
-        if (!id)
-            return res.status(400).json({ error: 'Invalid id' });
 
         const response = await volunteersRepository.acceptVolunteerForm(Number(id));
 
@@ -134,9 +163,6 @@ class VolunteersController {
 
     async denyForm(req: Request, res: Response) {
         const { id } = req.params;
-
-        if (!id)
-            return res.status(400).json({ error: 'Invalid id' });
 
         const response = await volunteersRepository.denyVolunteerForm(Number(id));
 

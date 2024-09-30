@@ -62,11 +62,11 @@ class AnimalController {
     async create(req: Request, res: Response) {
         const body = req.body;
         if (!body)
-            return res.status(400).json({ error: 'Invalid body request' });
+            return res.status(400).json({ message: 'Invalid body request' });
 
         requestedProps.forEach(prop => {
             if (!body[prop])
-                return res.status(400).json({ error: `Missing ${prop} property in the body request` });
+                return res.status(400).json({ message: `Missing ${prop} property in the body request` });
         });
 
         let { 

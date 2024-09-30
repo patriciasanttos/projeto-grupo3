@@ -1,10 +1,5 @@
 import { Permission } from "../database/models"
 
-export type RepositoryResponse = {
-    code: number;
-    data?: {};
-}
-
 export type AnimalType = {
     id?: number,
     image: string,
@@ -67,8 +62,7 @@ export type AdoptionFormType = {
 }
 
 export type VolunteerType = {
-    id: number,
-    image?: string,
+    id?: number,
     name: string,
     responsible_name?: string,
     email: string,

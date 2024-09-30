@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 
 import adminsRepository from '../repositories/admins.repository';
-import { RepositoryResponse } from '../types/types';
 
 const requestedProps = [
     "name",
@@ -13,7 +12,7 @@ const requestedProps = [
 
 class AutoController {
     async getAll(req: Request, res: Response) {
-        const response: RepositoryResponse = await adminsRepository.getAllAdmins();
+        const response = await adminsRepository.getAllAdmins();
 
         res.status(response.code).json(response.data);
     }
@@ -21,7 +20,7 @@ class AutoController {
     async getById(req: Request, res: Response) {
         const { id } = req.params;
 
-        const response: RepositoryResponse = await adminsRepository.getAdminById(Number(id));
+        const response = await adminsRepository.getAdminById(Number(id));
 
         res.status(response.code).json(response.data);
     }
@@ -29,7 +28,7 @@ class AutoController {
     async verifyUser(req: Request, res: Response) {
         const { id } = req.params;
 
-        const response: RepositoryResponse = await adminsRepository.verifyUser(Number(id));
+        const response = await adminsRepository.verifyUser(Number(id));
 
         res.status(response.code).send();
     }
@@ -44,7 +43,7 @@ class AutoController {
         if (!password)
             return res.status(401).json({ message: 'Invalid authorization header' });
 
-        const gettedUser: RepositoryResponse = await adminsRepository.login({ user, password });
+        const gettedUser = await adminsRepository.login({ user, password });
 
         return res.status(gettedUser.code).json(gettedUser.data);
     }
@@ -53,11 +52,11 @@ class AutoController {
         const data = req.body
 
         if (!data)
-            return res.status(400).json({ error: 'Invalid body request' });
+            return res.status(400).json({ message: 'Invalid body request' });
 
         requestedProps.forEach(prop => {
             if (!data[prop])
-                return res.status(400).json({ error: `Missing ${prop} property in the body request` });
+                return res.status(400).json({ message: `Missing ${prop} property in the body request` });
         });
 
         const { name, email, password, phone, permissions, observation }: {
@@ -69,7 +68,7 @@ class AutoController {
             observation?: string
         } = { ...data };
 
-        const response: RepositoryResponse = await adminsRepository.createAdmin({ 
+        const response = await adminsRepository.createAdmin({ 
             name, 
             email, 
             password, 
@@ -82,8 +81,8 @@ class AutoController {
     }
 
     async update(req: Request, res: Response) {
-        if (!Object.keys(req.body))
-            return res.status(400).json({ error: 'Invalid body request' });
+        if (!req.body)
+            return res.status(400).json({ message: 'Invalid body request' });
 
         const { id, name, email, password, phone, permissions, observation }: {
             id: number

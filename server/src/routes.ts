@@ -50,8 +50,8 @@ router
 router
     .get('/volunteers/get', VolunteersController.getAll)
     .get('/volunteers/get/:id', VolunteersController.getById)
-    .post('/volunteers', image.single('image'), VolunteersController.create)
-    .put('/volunteers', image.single('image'), VolunteersController.update)
+    .post('/volunteers', VolunteersController.create)
+    .put('/volunteers', VolunteersController.update)
     .delete('/volunteers/:id', VolunteersController.delete)
 
     .get('/volunteers/forms', VolunteersController.getAllForms)
