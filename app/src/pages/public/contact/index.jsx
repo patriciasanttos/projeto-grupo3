@@ -12,6 +12,7 @@ import instagram_icon from "../../../assets/icons/contact/green_instagram.svg";
 import link_icon from "../../../assets/icons/contact/link.svg";
 
 import './styles.css';
+import ContentTitles from '../../../components/contentTitles/ContentTitles';
 
 function Contact() {
   return (
@@ -27,9 +28,8 @@ function Contact() {
         />
 
         <main className="contact-page-main">
-          <h2 className="title-page">Como nos encontrar</h2>
-          <h1 className="subtitle-page">Fale conosco</h1>
-
+          <ContentTitles subtitle="Como nos encontrar" title="Fale Conosco"/>
+          
           <section className="address">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3705.664113657807!2d-43.446819524338544!3d-21.75454368008266!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x989928e47f698d%3A0xe2f61fb1e1d6662c!2sONG%20SJPA!5e0!3m2!1spt-BR!2sbr!4v1724877140399!5m2!1spt-BR!2sbr"
@@ -42,7 +42,7 @@ function Contact() {
 
             <div className="address-text">
               <div>
-                <h3>Endereço</h3>
+                <h4>Endereço</h4>
 
                 <img src={maps_icon} alt="Maps" />
               </div>
@@ -57,7 +57,7 @@ function Contact() {
           <section className="contacts">
             <div className="whatsapp">
               <div className="contacts-title">
-                <h3>Whatsapp</h3>
+                <h4>Whatsapp</h4>
 
                 <img
                   src={whatsapp_icon}
@@ -82,7 +82,7 @@ function Contact() {
 
             <div className="email">
               <div className="contacts-title">
-                <h3>Email</h3>
+                <h4>Email</h4>
 
                 <img src={email_icon} alt="Email" />
               </div>
@@ -93,7 +93,7 @@ function Contact() {
 
             <div className="instagram">
               <div className="contacts-title">
-                <h3>Instagram</h3>
+                <h4>Instagram</h4>
 
                 <img
                   src={instagram_icon}
@@ -110,7 +110,7 @@ function Contact() {
           </section>
 
           <section className="questions">
-            <h3>Dúvidas Frequentes</h3>
+            <h4>Dúvidas Frequentes</h4>
 
             <details>
               <summary>

@@ -6,10 +6,14 @@ import Menu from '../../../components/menu/Menu';
 import Footer from '../../../components/footer/Footer';
 
 import about_video from "../../../assets/videos/about_us_ong.mp4";
-import joao_image from '../../../assets/images/joao.svg'
+import Beatriz from '../../../assets/images/joao.svg'
+import Elenir from '../../../assets/images/volunteers/Elenir.jpg';
+import Elisa from '../../../assets/images/volunteers/Elisa.jpg';
+import LucasPatricio from '../../../assets/images/volunteers/lucas&patricio.jpg';
 
 import './about_us.scss';
 import Card from '../../../components/card/Card';
+import ContentTitle from '../../../components/contentTitles/ContentTitles';
 
 function AboutUs() {
   return (
@@ -45,17 +49,14 @@ function AboutUs() {
         </main>
 
         <section className="aboutus-section-team">
-          <p className="team-title">CONHEÇA QUEM FAZ ACONTECER</p>
-          <h1 className="team-subtitle">Nossa equipe</h1>
-
+          <ContentTitle subtitle="Conheça quem faz acontecer" title="Nossa equipe"></ContentTitle>
+ 
           <section className="aboutus-team-cards">
             <div className="aboutus-team-cards-scroll">
-              <Card img={joao_image} name="João" role="Adestrador" />
-              <Card img={joao_image} name="João" role="Adestrador" />
-              <Card img={joao_image} name="João" role="Adestrador" />
-              <Card img={joao_image} name="João" role="Adestrador" />
-              <Card img={joao_image} name="João" role="Adestrador" />
-              <Card img={joao_image} name="João" role="Adestrador" />
+              <Card img={Beatriz} name="Beatriz" role="Cuidadora" />
+              <Card img={Elenir} name="Elenir" role="Cuidadora" />
+              <Card img={Elisa} name="Elisa" role="Cuidadora" />
+              <Card img={LucasPatricio} name="Lucas" role="Cuidador" />
             </div>
           </section>
         </section>
