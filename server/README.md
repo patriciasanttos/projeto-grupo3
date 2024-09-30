@@ -515,13 +515,11 @@ A API utiliza o middleware `multer` para o upload de imagens, armazenando-as em 
   ```
 3. Execute as migration:
   ```
-  npm sequelize db:migrate
-  yarn sequelize db:migrate
+  npx sequelize db:migrate
   ```
 4. Execute as seeds:
   ```
-  npm sequelize db:seed:all
-  yarn sequelize db:seed:all
+  npx sequelize db:seed:all
   ```
 5. Inicie a API:
   ```

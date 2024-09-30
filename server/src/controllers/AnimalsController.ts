@@ -85,7 +85,8 @@ class AnimalController {
             castrated,
             age,
             temperament,
-            observation
+            observation,
+            race
         }: {
             image: string
             name: string,
@@ -101,6 +102,7 @@ class AnimalController {
             age?: string,
             temperament?: string,
             observation?: string,
+            race?: string
         } = {
             ...req.body,
             image: req.file?.originalname
@@ -124,7 +126,8 @@ class AnimalController {
             castrated,
             age,
             temperament,
-            observation
+            observation,
+            race
         });
 
         if (response.code === 201) {
@@ -166,7 +169,8 @@ class AnimalController {
             castrated,
             age,
             temperament,
-            observation
+            observation,
+            race
         }: {
             id: number,
             image: string,
@@ -183,6 +187,7 @@ class AnimalController {
             age?: string,
             temperament?: string,
             observation?: string,
+            race?: string
         } = {
             ...req.body,
             image: req.file?.originalname
@@ -206,7 +211,8 @@ class AnimalController {
             castrated,
             age,
             temperament,
-            observation
+            observation,
+            race
         });
 
         if (response.code === 200) {

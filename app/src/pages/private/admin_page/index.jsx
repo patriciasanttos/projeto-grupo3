@@ -25,8 +25,6 @@ function AdminPage() {
 
   const initialFilter = {
     name: null,
-    email: null,
-    phoneNumber: null,
   };
   const [filter, setFilter] = useState(initialFilter);
 
@@ -52,6 +50,7 @@ function AdminPage() {
 
   const loadAdmins = async () => {
     setLoading(true);
+
     await getAllAdmins(localStorage.getItem("login"))
       .then((data) => {
         setAdminsList(data.map(admin => ({
@@ -62,8 +61,7 @@ function AdminPage() {
         })));
         setLoading(false);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
         setLoading(false);
         toast.error("Erro ao carregar. Tente novamente.");
       });
@@ -127,15 +125,6 @@ function AdminPage() {
   };
 
   const createAdminsList = async (admin) => {
-    let admins = [...adminsList];
-    admins.push(
-      {
-        ...admin,
-        id: adminsList.length + 1,
-      },
-      localStorage.getItem("login")
-    );
-
     await createAdmin(
       {
         ...admin,
@@ -144,14 +133,13 @@ function AdminPage() {
       localStorage.getItem("login")
     )
       .then(async () => { 
-        await loadAdmins()
+        await loadAdmins();
         setIsModalOpen(false);
+        toast.success("Criado com sucesso!");
       })
       .catch(error => {
         if (error.status === 409)
           return toast.error('Este administrador já está adicionado')
-
-        console.log(error)
       });
   };
 
@@ -206,15 +194,6 @@ function AdminPage() {
               placeholder="Nome"
               value={getFilterState("name")}
               onChange={(e) => setFilter({ ...filter, name: e.target.value })}
-            />
-
-            <Input
-              type="text"
-              placeholder="Permissão"
-              value={getFilterState("permissions")}
-              onChange={(e) =>
-                setFilter({ ...filter, permission: e.target.value })
-              }
             />
           </div>
 

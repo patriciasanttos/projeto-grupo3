@@ -51,7 +51,7 @@ function Animals() {
         stageLife: animal.age,
         castrated: animal.castrated === true ? 'Sim' : 'Não',
         sponsor: animal.sponsorships?.lenth > 0 ? 'Sim' : 'Não',
-        gender: animal.gender.toUpperCase(),
+        gender: ['m', 'Macho'].includes(String(animal.gender).toLowerCase()) ? 'Macho' : 'Fêmea',
         sector: animal.sector.toUpperCase()
       })))
 
@@ -87,7 +87,7 @@ function Animals() {
     formData.append("id", animal.id);
     formData.append("species", animal.species);
     formData.append("name", animal.name);
-    formData.append("gender", animal.gender === 'Macho' ? 'm' : 'f');
+    formData.append("gender", ['m', 'Macho'].includes(String(animal.gender).toLowerCase()) ? 'Macho' : 'Fêmea');
     formData.append("size", animal.size);
     formData.append("race", animal.race);
     formData.append("bay", animal.bay);
@@ -126,7 +126,7 @@ function Animals() {
 
     formData.append("species", animal.species);
     formData.append("name", animal.name);
-    formData.append("gender", animal.gender === 'Macho' ? 'm' : 'f');
+    formData.append("gender", ['m', 'Macho'].includes(String(animal.gender).toLowerCase()) ? 'Macho' : 'Fêmea');
     formData.append("size", animal.size);
     formData.append("race", animal.race);
     formData.append("bay", animal.bay);
@@ -145,6 +145,9 @@ function Animals() {
     formData.append("image", animal.image);
 
     await createAnimal(formData, localStorage.getItem('login'))
+      .then(() => {
+        toast.success("Criado com sucesso!");
+      })
       .catch((error) =>{ 
         console.log(error)
         toast.error("Erro ao adicionar. Tente novamente.");
