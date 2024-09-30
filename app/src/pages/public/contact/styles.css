@@ -2,22 +2,15 @@
     text-align: center;
 
     .contact-page-header {
-        background-image: url('../../../assets/images/backgrounds/bg-gray-paw.svg');
-        background-position: center center;
-        background-size: 75%;
-        background-repeat: repeat;
-        background-attachment: fixed;
-
         padding-top: 5%;
         padding-bottom: 10%;
     }
 
     .contact-page-main {
         background-image: url('../../../assets/images/backgrounds/bg-white-paw.svg');
-        background-position: center center;
-        background-size: 75%;
-        background-repeat: repeat;
-        background-attachment: fixed;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-color: #F4F4F4;
 
         display: flex;
         flex-direction: column;
