@@ -230,7 +230,7 @@ class AnimalController {
         if (response.code === 200) {
             if (image) {
                 //-----Remove old image if exists
-                const oldAnimal = await animalsRepository.getAnimalById(id);
+                const oldAnimal: any = await animalsRepository.getAnimalById(id);
                 const oldImage = oldAnimal.data!.image;
                 fs.readFile(path.join(__dirname, '..', 'assets', 'images', 'animals', oldImage), (err, file) => {
                     if (err || !file)

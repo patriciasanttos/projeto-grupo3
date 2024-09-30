@@ -1,5 +1,5 @@
-import app from './src/app';
-import dbConnection from './src/database/dbConnection';
+import app from './app';
+import dbConnection from './database/dbConnection';
 
 dbConnection()
     .then(() => {
