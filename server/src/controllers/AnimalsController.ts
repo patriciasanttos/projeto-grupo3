@@ -22,10 +22,12 @@ class AnimalController {
         const animals = Object.entries(response.data).map(([ _, animal ]: any) => {
             let base64Image;
             if (animal.dataValues?.image) {
-                const image: Buffer = fs.readFileSync(path.join(__dirname, '..', 'assets', 'images', 'animals', animal.dataValues.image));
+                fs.readFile(path.join(__dirname, '..', 'assets', 'images', 'animals', animal.dataValues.image), (err, file) => {
+                    if (err)
+                        return;
 
-                if (image)
-                    base64Image = Buffer.from(image).toString('base64');
+                    return base64Image = Buffer.from(file).toString('base64');
+                });
             }
 
             return {
@@ -44,10 +46,12 @@ class AnimalController {
 
         let base64Image;
         if (response.data?.image) {
-            let image: Buffer = fs.readFileSync(path.join(__dirname, '..', 'assets', 'images', 'animals', response.data.image));
-            
-            if (image)
-                base64Image = Buffer.from(image).toString('base64');
+            fs.readFile(path.join(__dirname, '..', 'assets', 'images', 'animals', response.data.image), (err, file) => {
+                if (err)
+                    return;
+
+                return base64Image = Buffer.from(file).toString('base64');
+            });
         }
 
         const animal = {
