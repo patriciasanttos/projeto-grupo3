@@ -4,6 +4,7 @@ import { IMaskInput } from "react-imask";
 import ModalActionsEnum from '../../../utils/ModalActionsEnum'
 import ModalDeleteConfirm from "../modalDeleteConfirm/ModalDeleteConfirm";
 import Dropdown from "../../dropdown";
+import { BeatLoader } from "react-spinners";
 
 const ModalAdoptionsAdmin = ({
   isOpen,
@@ -13,7 +14,8 @@ const ModalAdoptionsAdmin = ({
   updateTutorsList,
   createTutorsList,
   deleteTutorsList,
-  animalsList
+  animalsList,
+  loading
 }) => {
   const initialFormTutors = {
     tutors_name: "",
@@ -119,6 +121,7 @@ const ModalAdoptionsAdmin = ({
       onModalClose={onClickModalClose}
       onDeleteConfirm={onClickDelete}
       message={`Deseja apagar o tutor: ${selectedTutor.tutors_name}`}
+      loading={loading}
     />
   ) : (
     <Modal
@@ -224,12 +227,21 @@ const ModalAdoptionsAdmin = ({
         />
       </form>
       <div className="align-btn-modal">
-        <button onClick={onClickSave} className="btn-modal">
-          {selectedTutor ? "Editar" : "Adicionar"}
-        </button>
-        <button onClick={onModalClose} className="btn-modal grey-btn">
-          Cancelar
-        </button>
+        {
+          loading ? (
+            <BeatLoader />
+          ) : (
+            <>
+            <button onClick={onClickSave} className="btn-modal">
+              {selectedTutor ? "Editar" : "Adicionar"}
+            </button>
+            <button onClick={onModalClose} className="btn-modal grey-btn">
+              Cancelar
+            </button>
+            </>
+          )
+        }
+        
       </div>
     </Modal>
   );

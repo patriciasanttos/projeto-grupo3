@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 import AdminNavBar from "../../../components/admin_navbar/AdminNavBar";
 import ModalAdoptionsAdmin from "../../../components/modal/modalAdoptionsAdmin/ModalAdoptionsAdmin";
@@ -9,7 +10,15 @@ import LoadingPaw from "../../../components/loadingPaw";
 
 import "./styles.scss";
 import Input from "../../../components/input/Input";
-import { createAdoption, deleteAdoption, getAllAdoptions, getAllAdoptionForms, updateAdoption, acceptAdoptionForm, denyAdoptionForm } from "../../../services/api/adoptions";
+import {
+  createAdoption,
+  deleteAdoption,
+  getAllAdoptions,
+  getAllAdoptionForms,
+  updateAdoption,
+  acceptAdoptionForm,
+  denyAdoptionForm,
+} from "../../../services/api/adoptions";
 import checkPermissions from "../../../utils/checkPermissions";
 import { useNavigate } from "react-router-dom";
 import { getAllAnimals } from "../../../services/api/animals";
@@ -25,55 +34,62 @@ function Adoptions() {
   const [filter, setFilter] = useState(initialFilter);
 
   const [loading, setLoading] = useState(true);
+  const [modalLoading, setModalLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalAction, setModalAction] = useState(null);
   const [isFormViewSelected, setIsFormViewSelected] = useState(false);
 
-
   const [selectedTutor, setSelectedTutor] = useState(null);
-  
-  const [ userHasPermission, setUserHasPermission ] = useState(false);
+
+  const [userHasPermission, setUserHasPermission] = useState(false);
   const [tutorsList, setTutorsList] = useState([]);
   const [tutorFormsList, setTutorFormsList] = useState([]);
   const [animalsList, setAnimalsList] = useState([]);
 
   useEffect(() => {
     async function checkUserPermission() {
-      await checkPermissions('adoptions', navigate)
-        .then(response => {
-          setUserHasPermission(response);
-        })
+      await checkPermissions("adoptions", navigate).then((response) => {
+        setUserHasPermission(response);
+      });
     }
-    
+
     checkUserPermission();
   }, []);
 
   const loadAnimals = async () => {
-    await getAllAnimals()
-      .then(async (animals) => {
-        const gettedAnimalsList = animals.map((animal) => ({
-          id: animal.id,
-          name: animal.name
-        }));
+    await getAllAnimals().then(async (animals) => {
+      const gettedAnimalsList = animals.map((animal) => ({
+        id: animal.id,
+        name: animal.name,
+      }));
 
-        setAnimalsList(gettedAnimalsList);
-        loadForms(gettedAnimalsList)
-      });
-  }
+      setAnimalsList(gettedAnimalsList);
+      loadForms(gettedAnimalsList);
+    });
+  };
 
   const loadForms = async (animals) => {
-    await getAllAdoptionForms(localStorage.getItem('login'))
-      .then(async data => {
+    await getAllAdoptionForms(localStorage.getItem("login")).then(
+      async (data) => {
         let adoptionFormsList = [];
-        await data.forEach(form => {
-          const animal = animals.filter(animal => animal.id === form.animal_id)[0];
+        await data.forEach((form) => {
+          const animal = animals.filter(
+            (animal) => animal.id === form.animal_id
+          )[0];
           adoptionFormsList.push({
             id: form.id,
             tutors_name: form.tutors_name,
             email: form.email,
-            phone: form.phone.length === 11
-              ? `(${form.phone.slice(0, 2)}) ${form.phone.slice(2, 7)}-${form.phone.slice(7)}`
-              : `(${form.phone.slice(0, 2)}) ${form.phone.slice(2, 6)}-${form.phone.slice(6)}`,
+            phone:
+              form.phone.length === 11
+                ? `(${form.phone.slice(0, 2)}) ${form.phone.slice(
+                    2,
+                    7
+                  )}-${form.phone.slice(7)}`
+                : `(${form.phone.slice(0, 2)}) ${form.phone.slice(
+                    2,
+                    6
+                  )}-${form.phone.slice(6)}`,
             address: form.address,
             cpf: form.cpf,
             animal_name: animal?.name,
@@ -82,45 +98,54 @@ function Adoptions() {
         });
 
         setTutorFormsList(adoptionFormsList);
-      });
-  }
+      }
+    );
+  };
 
   const loadContent = async () => {
-    await loadAnimals()
-      .then(async () => {
-        await getAllAdoptions(localStorage.getItem('login'))
-          .then(async data => {
-            let adoptionsList = [];
-            await data.forEach(adoption => {
-              adoptionsList.push({
-                id: adoption.id,
-                tutors_name: adoption.tutors_name,
-                email: adoption.email,
-                phone: adoption.phone.length === 11
-                ? `(${adoption.phone.slice(0, 2)}) ${adoption.phone.slice(2, 7)}-${adoption.phone.slice(7)}`
-                : `(${adoption.phone.slice(0, 2)}) ${adoption.phone.slice(2, 6)}-${adoption.phone.slice(6)}`,
-                address: adoption.address,
-                cpf: adoption.cpf,
-                animal_name: adoption.animal_name,
-                animal_id: adoption.animal_id,
-                observation: adoption.observation
-              });
+    setLoading(true);
+
+    await loadAnimals().then(async () => {
+      await getAllAdoptions(localStorage.getItem("login")).then(
+        async (data) => {
+          let adoptionsList = [];
+          await data.forEach((adoption) => {
+            adoptionsList.push({
+              id: adoption.id,
+              tutors_name: adoption.tutors_name,
+              email: adoption.email,
+              phone:
+                adoption.phone.length === 11
+                  ? `(${adoption.phone.slice(0, 2)}) ${adoption.phone.slice(
+                      2,
+                      7
+                    )}-${adoption.phone.slice(7)}`
+                  : `(${adoption.phone.slice(0, 2)}) ${adoption.phone.slice(
+                      2,
+                      6
+                    )}-${adoption.phone.slice(6)}`,
+              address: adoption.address,
+              cpf: adoption.cpf,
+              animal_name: adoption.animal_name,
+              animal_id: adoption.animal_id,
+              observation: adoption.observation,
             });
-  
-            setTutorsList(adoptionsList);
           });
-      })
+
+          setTutorsList(adoptionsList);
+        }
+      );
+    });
 
     return setLoading(false);
-  }
+  };
 
   useEffect(() => {
-    setLoading(true);
     loadContent();
   }, []);
 
   const getFilteredItems = (type) => {
-    if (type === 'adoptions') {
+    if (type === "adoptions") {
       let results = [...tutorsList];
 
       Object.keys(filter).forEach((filterName) => {
@@ -133,11 +158,11 @@ function Adoptions() {
           );
         }
       });
-  
+
       return results;
     }
 
-    if (type === 'forms') {
+    if (type === "forms") {
       let results = [...tutorFormsList];
 
       Object.keys(filter).forEach((filterName) => {
@@ -150,7 +175,7 @@ function Adoptions() {
           );
         }
       });
-  
+
       return results;
     }
   };
@@ -161,47 +186,64 @@ function Adoptions() {
       ...tutor,
     };
 
-    await updateAdoption({
-      ...tutor,
-      phone: Number(tutor.phone.replace(/[()\-\s]/g, '')),
-      cpf: Number(tutor.cpf.replace(/[-.]/g, '')),
-    }, localStorage.getItem('login'))
-      .catch(error => console.log(error));
+    await updateAdoption(
+      {
+        ...tutor,
+        phone: Number(tutor.phone.replace(/[()\-\s]/g, "")),
+        cpf: Number(tutor.cpf.replace(/[-.]/g, "")),
+      },
+      localStorage.getItem("login")
+    ).catch((error) => {
+      console.log(error);
+      toast.error("Erro ao atualizar. Tente novamente.");
+    });
 
     setTutorsList(tutors);
     setIsModalOpen(false);
   };
 
   const deleteTutorsList = async (tutor) => {
-    await deleteAdoption(tutor.animal_id, localStorage.getItem('login'))
+    setModalLoading(true);
+    deleteAdoption(tutor.id, localStorage.getItem("login"))
+      .then(() => {
+        setModalLoading(false);
 
-    setTutorsList(
-      tutorsList.filter((tutors) => tutors.id !== tutor.id)
-    );
-    setIsModalOpen(false);
+        loadContent();
+        setIsModalOpen(false);
+        toast.success("Apagado com sucesso");
+      })
+      .catch((error) => {
+        setModalLoading(false);
+
+        console.log(error);
+        toast.error("Erro ao apagar. Tente novamente.");
+      });
   };
 
   const createTutorsList = async (tutor) => {
     let tutors = [...tutorsList];
-    const ids = tutors.map(i => i.id)
+    const ids = tutors.map((i) => i.id);
 
     tutors.push({
       ...tutor,
-      id: tutors.length ? Math.max(...ids) + 1 : 1
+      id: tutors.length ? Math.max(...ids) + 1 : 1,
     });
 
-    await createAdoption({
-      ...tutor,
-      phone: Number(tutor.phone.replace(/[()\-\s]/g, '')),
-      cpf: Number(tutor.cpf.replace(/[-.]/g, '')),
-    }, localStorage.getItem('login'))
+    await createAdoption(
+      {
+        ...tutor,
+        phone: Number(tutor.phone.replace(/[()\-\s]/g, "")),
+        cpf: Number(tutor.cpf.replace(/[-.]/g, "")),
+      },
+      localStorage.getItem("login")
+    )
       .then(() => {
         setTutorsList(tutors);
         setIsModalOpen(false);
       })
       .catch(({ response }) => {
-        if (response.data.error === 'Animal not found')
-          return alert("Animal não encontrado.");
+        if (response.data.error === "Animal not found")
+          return toast.error("Animal não encontrado.");
       });
   };
 
@@ -329,20 +371,20 @@ function Adoptions() {
             </div>
           </section>
 
-          {loading && <LoadingPaw /> } 
+          {loading && <LoadingPaw />}
 
           {!loading && isFormViewSelected && (
             <AdminList
               columns={columns}
-              rows={getFilteredItems('forms')}
+              rows={getFilteredItems("forms")}
               onClickEditRow={onClickEditTutor}
               onClickDeleteRow={onClickDeleteTutor}
               userHasPermission={userHasPermission}
               isFormActions={true}
-              formActionsFunction={{ 
-                accept: acceptAdoptionForm, 
+              formActionsFunction={{
+                accept: acceptAdoptionForm,
                 deny: denyAdoptionForm,
-                refresh: loadContent
+                refresh: loadContent,
               }}
             />
           )}
@@ -350,7 +392,7 @@ function Adoptions() {
           {!loading && !isFormViewSelected && (
             <AdminList
               columns={columns}
-              rows={getFilteredItems('adoptions')}
+              rows={getFilteredItems("adoptions")}
               onClickEditRow={onClickEditTutor}
               onClickDeleteRow={onClickDeleteTutor}
               userHasPermission={userHasPermission}
@@ -368,6 +410,7 @@ function Adoptions() {
         createTutorsList={createTutorsList}
         deleteTutorsList={deleteTutorsList}
         animalsList={animalsList}
+        loading={modalLoading}
       />
     </>
   );
