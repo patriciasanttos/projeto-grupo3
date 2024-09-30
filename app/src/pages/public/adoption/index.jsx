@@ -56,10 +56,10 @@ const Adoption = () => {
       return Object.entries(filters).every(([key, value]) => {
         if (value === "") return true;
 
-        if (key === "gender" && animal.gender === animal.gender.toLowerCase())
+        if (key === "gender" && String(animal.gender) === String(animal.gender).toLowerCase())
           value = value.toLowerCase();
 
-        if (key === "age" && animal.age === animal.age.toLowerCase())
+        if (key === "age" && String(animal.age) === String(animal.age).toLowerCase())
           value = value.toLowerCase();
 
         if (value.includes("/")) return value.includes(String(animal[key]));
