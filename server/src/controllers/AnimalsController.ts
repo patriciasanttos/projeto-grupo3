@@ -19,20 +19,27 @@ class AnimalController {
     async getAll(req: Request, res: Response) {
         const response = await animalsRepository.getAllAnimals();
 
-        const animals = Object.entries(response.data).map(([ _, animal ]: any) => {
-            let base64Image;
-            if (animal.dataValues?.image) {
-                const image: Buffer = fs.readFileSync(path.join(__dirname, '..', 'assets', 'images', 'animals', animal.dataValues.image));
-
-                if (image)
-                    base64Image = Buffer.from(image).toString('base64');
-            }
-
-            return {
-                ...animal.dataValues,
-                image: base64Image
-            };
-        })
+        const animals = await Promise.all(
+            Object.entries(response.data).map(async ([ _, animal ]: any) => {
+                let animalData = { ...animal.dataValues };
+    
+                try {
+                    if (animal.dataValues?.image) {
+                        const file = await fs.promises.readFile(path.join(__dirname, '..', 'assets', 'images', 'animals', animal.dataValues?.image));
+        
+                        if (file)
+                            animalData = {
+                            ...animal.dataValues,
+                            image: Buffer.from(file).toString('base64')
+                        };
+                    }
+        
+                    return animalData;
+                } catch (error) {
+                    return animalData;
+                }
+            })
+        )
       
         res.status(response.code).json(animals);
     }
@@ -44,10 +51,12 @@ class AnimalController {
 
         let base64Image;
         if (response.data?.image) {
-            let image: Buffer = fs.readFileSync(path.join(__dirname, '..', 'assets', 'images', 'animals', response.data.image));
-            
-            if (image)
-                base64Image = Buffer.from(image).toString('base64');
+            fs.readFile(path.join(__dirname, '..', 'assets', 'images', 'animals', response.data.image), (err, file) => {
+                if (err)
+                    return;
+
+                return base64Image = Buffer.from(file).toString('base64');
+            });
         }
 
         const animal = {
@@ -85,7 +94,8 @@ class AnimalController {
             castrated,
             age,
             temperament,
-            observation
+            observation,
+            race
         }: {
             image: string
             name: string,
@@ -101,6 +111,7 @@ class AnimalController {
             age?: string,
             temperament?: string,
             observation?: string,
+            race?: string
         } = {
             ...req.body,
             image: req.file?.originalname
@@ -124,7 +135,8 @@ class AnimalController {
             castrated,
             age,
             temperament,
-            observation
+            observation,
+            race
         });
 
         if (response.code === 201) {
@@ -134,7 +146,6 @@ class AnimalController {
                 fs.writeFile(path.join(__dirname, '..', 'assets', 'images', 'animals', image), imageBuffer, 
                     (err) => {
                         if (err) {
-                            console.log(err)
                             return res.status(response.code).json({ message: 'Animal created, but image was not saved' });
                         }
                     }
@@ -151,7 +162,7 @@ class AnimalController {
         if (!req.body)
             return res.status(400).json({ message: 'Invalid body request' });
 
-        const {
+        let {
             id, 
             image,
             name, 
@@ -166,7 +177,8 @@ class AnimalController {
             castrated,
             age,
             temperament,
-            observation
+            observation,
+            race
         }: {
             id: number,
             image: string,
@@ -183,6 +195,7 @@ class AnimalController {
             age?: string,
             temperament?: string,
             observation?: string,
+            race?: string
         } = {
             ...req.body,
             image: req.file?.originalname
@@ -190,6 +203,10 @@ class AnimalController {
 
         if (!id)
             return res.status(400).json({ message: 'Missing id property in the body request' });
+
+        if (image) {
+            image = genFileName(req.file!.originalname);
+        }
 
         const response = await animalsRepository.updateAnimal({ 
             id,
@@ -206,7 +223,8 @@ class AnimalController {
             castrated,
             age,
             temperament,
-            observation
+            observation,
+            race
         });
 
         if (response.code === 200) {

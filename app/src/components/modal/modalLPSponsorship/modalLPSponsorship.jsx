@@ -89,7 +89,6 @@ function ModalLPSponsorship({
             phone: "",
           });
         }).catch(error => {
-          console.log(error)
           setLoading(false);
           toast.error("Erro ao enviar formulário. Tente novamente.");
         });
@@ -139,7 +138,6 @@ function ModalLPSponsorship({
           cpf: "",
         });
       }).catch(error => {
-        console.log(error)
         setLoading(false);
         toast.error("Erro ao enviar formulário. Tente novamente.");
       });
@@ -156,12 +154,10 @@ function ModalLPSponsorship({
               <div>
                 <p>
                   <strong>Sexo</strong>:{" "}
-                  {selectedAnimal?.gender.toUpperCase() === "F"
-                    ? "Fêmea"
-                    : "Macho"}
+                  {['m', 'Macho'].includes(String(selectedAnimal?.gender).toLowerCase()) ? 'Macho' : 'Fêmea'}
                 </p>
                 <p>
-                  <strong>Idade</strong>: {selectedAnimal?.age ?? "N/A"}
+                  <strong>Idade</strong>: {selectedAnimal?.age ?? "Não definida"}
                 </p>
                 <p>
                   <strong>Raça</strong>: {selectedAnimal?.race}
@@ -184,13 +180,7 @@ function ModalLPSponsorship({
         <div className="history">
           <h3>História</h3>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium
-            minima natus commodi error, ad delectus harum possimus laboriosam
-            culpa cumque quo quis, iusto, consectetur voluptate numquam quos
-            nemo dolores. Tenetur! Lorem ipsum dolor Accusantium minima natus
-            commodi error, ad delectus harum possimus laboriosam culpa cumque
-            quo quis, iusto, consectetur voluptate numquam quos nemo dolores.
-            Tenetur!
+            {selectedAnimal?.observation}
           </p>
         </div>
         {showForm ? (

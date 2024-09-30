@@ -197,7 +197,6 @@ function Sponsorships() {
         toast.success("Atualizado com sucesso!");
       })
       .catch((error) => {
-        console.log(error);
         toast.error("Erro ao atualizar. Tente novamente.");
       });
   };
@@ -213,7 +212,6 @@ function Sponsorships() {
         setIsModalOpen(false);
       })
       .catch((error) => {
-        console.log(error);
         toast.error("Erro ao apagar. Tente novamente.");
       });
   };
@@ -233,7 +231,7 @@ function Sponsorships() {
         toast.success("Criado com sucesso!");
       })
       .catch(({ response }) => {
-        if (response.data.error === "Animal not found")
+        if (response.data.message === "Animal not found")
           return toast.error("Animal não encontrado.");
       });
   };

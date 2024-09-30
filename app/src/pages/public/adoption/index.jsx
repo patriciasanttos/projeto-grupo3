@@ -37,8 +37,10 @@ const Adoption = () => {
       await data.forEach((animal) => {
         animals.push({
           ...animal,
-          image: animal.image
-            ? `data:image/png;base64,${animal.image}`
+          name: animal?.name.charAt(0).toUpperCase() + animal?.name.slice(1).toLowerCase(),
+          race: animal?.race,
+          image: animal?.image
+            ? `data:image/jpg;base64,${animal.image}`
             : imageDog1,
         });
       });
@@ -118,20 +120,11 @@ const Adoption = () => {
                     animal={animal}
                     key={index}
                     image={animal.image}
-                    name={
-                      animal.name.charAt(0).toUpperCase() +
-                      animal.name.slice(1).toLowerCase()
-                    }
+                    name={animal.name}
                     gender={
-                      ["m", "M"].includes(animal.gender) ? "Macho" : "Fêmea"
+                      ["m", "macho"].includes(animal.gender.toLowerCase()) ? "Macho" : "Fêmea"
                     }
-                    race={
-                      animal.race === "srd"
-                        ? "Sem raça definida"
-                        : `${animal.race.charAt(0).toUpperCase()}${animal.race
-                            .slice(1)
-                            .toLowerCase()}`
-                    }
+                    race={animal.race}
                     age={animal.age}
                   />
                 ))}

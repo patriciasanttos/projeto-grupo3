@@ -149,11 +149,15 @@ function Volunteers() {
   };
 
   const deleteVolunteersList = async (volunteer) => {
-    await deleteVolunteer(volunteer.id, localStorage.getItem("login")).catch(
-      (error) => {
-        toast.error("Erro ao apagar. Tente novamente.");
-      }
-    );
+    await deleteVolunteer(volunteer.id, localStorage.getItem("login"))
+      .then(() => {
+        toast.success("Atualizado com sucesso!");
+      })
+      .catch(
+        (error) => {
+          toast.error("Erro ao apagar. Tente novamente.");
+        }
+      );
 
     setIsModalOpen(false);
     refreshVolunteersList();
@@ -167,8 +171,11 @@ function Volunteers() {
         phone: Number(volunteer.phone.replace(/[()\-\s]/g, "")),
       },
       localStorage.getItem("login")
-    ).catch((error) =>{ 
-      console.log(error)
+    )
+    .then(() => {
+      toast.success("Atualizado com sucesso!");
+    })
+    .catch((error) =>{ 
       toast.error("Erro ao salvar. Tente novamente.");
     });
 

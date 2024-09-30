@@ -78,7 +78,7 @@
         width: 50%;
         height: 3rem;
         border-radius: 5px;
-        
+
         cursor: pointer;
         transition: background-color 0.3s ease;
     }
@@ -90,9 +90,10 @@
 
 @media (max-width: 768px) {
     .donation_card {
-        justify-content:initial;
+        justify-content: initial;
         margin: 0px 15px;
-        overflow-x: auto;
+        overflow-x: scroll;
+        scrollbar-width: none;
 
         .card {
             flex: 0 0 auto;
@@ -100,18 +101,27 @@
             margin: 10px 0;
         }
     }
+
+    .donation::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 @media (min-width: 769px) and (max-width: 999px) {
     .donation_card {
         justify-content: initial;
         margin: 0px 15px;
-        overflow-x: auto;
+        overflow-x: scroll;
+        scrollbar-width: none;
 
         .card {
             flex: 0 0 auto;
             width: 60%;
             margin: 10px 0;
         }
+    }
+
+    .donation::-webkit-scrollbar {
+        display: none;
     }
 }
