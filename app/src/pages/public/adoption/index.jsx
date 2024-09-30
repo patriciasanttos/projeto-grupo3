@@ -37,10 +37,10 @@ const Adoption = () => {
       await data.forEach((animal) => {
         animals.push({
           ...animal,
-          name: animal.name.charAt(0).toUpperCase() + animal.name.slice(1).toLowerCase(),
-          race: animal.race,
-          image: animal.image
-            ? `data:image/png;base64,${animal.image}`
+          name: animal?.name.charAt(0).toUpperCase() + animal?.name.slice(1).toLowerCase(),
+          race: animal?.race,
+          image: animal?.image
+            ? `data:image/jpg;base64,${animal.image}`
             : imageDog1,
         });
       });
@@ -122,7 +122,7 @@ const Adoption = () => {
                     image={animal.image}
                     name={animal.name}
                     gender={
-                      ["m", "M"].includes(animal.gender) ? "Macho" : "Fêmea"
+                      ["m", "macho"].includes(animal.gender.toLowerCase()) ? "Macho" : "Fêmea"
                     }
                     race={animal.race}
                     age={animal.age}
