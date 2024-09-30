@@ -54,6 +54,7 @@
         font-weight: 800;
         text-align: center;
         padding-top: 0rem;
+        margin-top: 0;
     }
 
     p {
@@ -65,7 +66,7 @@
 
     button {
         position: absolute;
-        bottom: 40px;
+        bottom: 7%;
         left: 50%;
         transform: translateX(-50%);
         border-style: none;
@@ -73,13 +74,11 @@
         color: #fff;
         font-size: 1.3rem;
         font-weight: 600;
-        margin-top: 10rem ;
 
         width: 50%;
         height: 3rem;
         border-radius: 5px;
         
-
         cursor: pointer;
         transition: background-color 0.3s ease;
     }

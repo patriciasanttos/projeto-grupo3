@@ -144,7 +144,7 @@ function Donation() {
           <h3>Doe pelas Plataformas Digitais:</h3>
         </div>
         <div className="digital-platform">
-          <a href="https://picpay.com/" target="blank">
+          <a href="https://cobranca.picpay.com/p/172764124566f9b69d87a3f5204000053039865802BR5908Ong" target="blank">
             <img src={picpay} alt="picpay" />
           </a>
         </div>
