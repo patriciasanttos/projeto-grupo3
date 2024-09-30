@@ -1,7 +1,7 @@
 import { axiosGet, axiosPost, axiosPut, axiosDelete } from './index';
 
 //-----Sponsorships
-export const getAllSponsorshipships = async (token) => {
+export const getAllSponsorships = async (token) => {
     return await axiosGet('/sponsorships/get', {
         headers: {
             'Authorization': `Bearer ${token}`

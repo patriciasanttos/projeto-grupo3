@@ -151,10 +151,20 @@ export default {
                     }
                 }
 
-            const data = { ...form.dataValues };
-            delete data.id;
+            const data = {
+                name: form.dataValues.name,
+                responsible_name: form.dataValues.responsible_name,
+                email: form.dataValues.email,
+                phone: form.dataValues.phone,
+                address: form.dataValues.address,
+                availability: form.dataValues.availability,
+                study_schedule: form.dataValues.study_schedule,
+                profession: form.dataValues.profession,
+                sector: form.dataValues.sector,
+                state: form.dataValues.state
+            };
             
-            await Volunteer.create(data);
+            await Volunteer.create({ ...data });
             await form.destroy();
 
             return {

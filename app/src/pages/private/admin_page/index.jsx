@@ -135,7 +135,6 @@ function AdminPage() {
       },
       localStorage.getItem("login")
     );
-    console.log(admin)
 
     await createAdmin(
       {

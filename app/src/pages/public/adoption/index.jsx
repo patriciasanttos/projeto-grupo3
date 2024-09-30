@@ -112,11 +112,11 @@ const Adoption = () => {
               )}
 
               <div className="card-container">
-                {paginatedAnimals.map((animal) => (
+                {paginatedAnimals.map((animal, index) => (
                   <CardAnimal
                     onClickButton={onClickCardAnimal}
                     animal={animal}
-                    key={animals.indexOf(animal)}
+                    key={index}
                     image={animal.image}
                     name={
                       animal.name.charAt(0).toUpperCase() +

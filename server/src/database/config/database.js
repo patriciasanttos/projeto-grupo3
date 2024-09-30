@@ -18,7 +18,12 @@ const dbConfig = {
   define: {
     underscored: true,
     timestamps: false
-  }
+  },
+  dialectOptions: {
+    ssl: {
+      require: true,
+    },
+  },
 }
 
 module.exports = dbConfig;
