@@ -23,12 +23,12 @@ app
         )
             return next();
 
-        const token = req.headers['authorization'] && req.headers['authorization'].split(' ')[1];
-        if (!token)
-            return res.status(401).json({ message: 'Missing authorization header' });
+        // const token = req.headers['authorization'] && req.headers['authorization'].split(' ')[1];
+        // if (!token)
+        //     return res.status(401).json({ message: 'Missing authorization header' });
 
         try {
-            jwt.verify(token.replace(/['"]/g, ''), String(process.env.JWT_SECRET));
+            // jwt.verify(token.replace(/['"]/g, ''), String(process.env.JWT_SECRET));
 
             return next();
         } catch (error) {

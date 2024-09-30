@@ -65,8 +65,8 @@ router
     .get('/admins/get/:id', AuthController.getById)
     .get('/admins/verify/:id', AuthController.verifyUser)
     .get('/admins/login', AuthController.login)
-    .post('/admins', image.single('image'), AuthController.register)
-    .put('/admins', image.single('image'), AuthController.update)
+    .post('/admins', AuthController.create)
+    .put('/admins', AuthController.update)
     .delete('/admins/:id', AuthController.delete);
 
 export default router;
