@@ -3,7 +3,7 @@ Projeto consiste na criação de um site contendo front-end e back-end.
 
 Para mais informações de cada módulo do projeto, segue a documentação de cada um:
 
-- [Front-end (readme)](https://github.com/patriciasanttos/projeto-grupo3/blob/main/app/README.md?plain=1)
+- [Front-end (readme)](https://github.com/patriciasanttos/projeto-grupo3/blob/main/app/README.md)
 - [Back-end (readme)](https://github.com/patriciasanttos/projeto-grupo3/blob/main/server/README.md)
 
 ### Pré-requisitos
